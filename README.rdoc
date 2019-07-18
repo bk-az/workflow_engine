@@ -8,3 +8,10 @@
 * Create Database <tt>rake db:create</tt>
 * Run Migrations <tt>rake db:migrate</tt>
 * Load Testing data <tt>rake db:seed</tt>
+
+== Changes
+
+* teams_users ---> team_membership
+* projects_teams_users ---> project_membership
+* team_user ---> project_member
+* issue_project ---> commentable
