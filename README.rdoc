@@ -2,7 +2,6 @@
 == Setup
 
 * Clone this repo
-* Inside workflow_engine folder run this command <tt>git remote add origin git@github.com:abubakarazeem/workflow_engine.git</tt>
 * Create your feature branch <tt>git flow feature start your-feature-name</tt>
 * Update config/database.yml file and set your db password
 * Create Database <tt>rake db:create</tt>
