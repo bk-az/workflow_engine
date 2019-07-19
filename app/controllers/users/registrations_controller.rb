@@ -80,7 +80,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # Override Sign Up Parameters
   def sign_up_params
-    params.require(:user).permit(:first_name, :last_name, :role_id, :designation, :email, :password, :password_confirmation)
+    params.require(:user).permit(:first_name, :last_name, :company_id, :role_id, :designation, :email, :password, :password_confirmation)
   end
 
   # Override Update Parameters

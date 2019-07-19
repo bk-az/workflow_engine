@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     unlocks: 'users/unlocks'
   }
 
+  get 'users/invite' => 'users_custom#invite', as: :new_user_invite
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
