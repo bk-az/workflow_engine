@@ -1,0 +1,23 @@
+
+<div class="row">
+  <div class="offset-sm-2 col-sm-8">
+    <h2>Sign up</h2>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= devise_error_messages! %>
+
+      <%= render 'devise/shared/users_additional_signup_form_attributes', { id_of_administrator_role: @id_of_administrator_role, obj: resource, f: f } %>
+
+      <div class="field form-group">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true, class: "form-control form-control-sm", placeholder: "john.doe@gmail.com" %>
+      </div>
+
+     
+
+      <div class="actions text-right">
+        <%= f.submit "Sign up", class: "btn btn-info btn-sm" %>
+      </div>
+    <% end %>
+    <%= render "devise/shared/links" %>
+  </div>
+</div>
