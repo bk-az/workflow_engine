@@ -1,7 +1,9 @@
-<h3>Welcome <%= @recipient.email %>!</h3>
+<div style="text-align: center; vertical-align: middle;">
+  <h3>Welcome <%= @recipient.email %>!</h3>
 
-<p>You have been invited to join <strong><%= @company.name %></strong> for the role of <strong><%= @role.name %></strong>. Your account has been created, all you have to do is to confirm your account and use the following default password to log into the system. </p>
+  <p>You have been invited to join <strong><%= @company.name %></strong> for the role of <strong><%= @role.name %></strong>. Your account has been created, all you have to do is to confirm your account and use the following default password to log into the system. </p>
 
-<p>Your Password is: <strong><%= @recipient.password %></strong></p>
+  <p>Your Password is: <strong><%= @recipient.password %></strong></p>
 
-<p><%= link_to 'Confirm and Log into my Account', confirmation_url(@recipient, confirmation_token: @recipient.confirmation_token), subdomain: 'blabla' %></p>
+  <p><%= link_to 'Confirm and Log into my Account', confirmation_url(@recipient, confirmation_token: @recipient.confirmation_token)%></p>
+</div>
