@@ -25,6 +25,7 @@ class UsersCustomController < ApplicationController
 
     # Create a new user.
     @new_user = User.new(new_user_params)
+    @new_user.is_invited_user = true # Mark this user as invited.
     @new_user.password = generate_password
 
     # Check if company id is present.

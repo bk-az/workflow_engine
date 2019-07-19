@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  # This variable is kept in order keep track of whether the user is invited for not.
+
   # Validate name to compulsory and length ranging from 5 to 50.
   validates :first_name, presence: true, length: { minimum: 2, maximum: 50 }
   validates :last_name, presence: true, length: { minimum: 2, maximum: 50 }
@@ -42,5 +44,10 @@ class User < ActiveRecord::Base
     else
       false
     end
+  end
+
+  def send_on_create_confirmation_instructions
+    # CONFIRM USER ONLY WHEN HE IS NOT INVITED.
+    send_confirmation_instructions unless is_invited_user?
   end
 end

@@ -4,4 +4,4 @@
 
 <p>Your Password is: <strong><%= @recipient.password %></strong></p>
 
-<p><%= link_to 'Confirm and Log into my Account', confirmation_url(@recipient, confirmation_token: @recipient.confirmation_token) %></p>
+<p><%= link_to 'Confirm and Log into my Account', confirmation_url(@recipient, confirmation_token: @recipient.confirmation_token), subdomain: 'blabla' %></p>

@@ -4,6 +4,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :first_name, null: false
       t.string :last_name, null: false
       t.string :designation
+      t.string :is_invited_user, null: false, default: false
 
       ## Database authenticatable
       t.string :email,              null: false, default: ""
