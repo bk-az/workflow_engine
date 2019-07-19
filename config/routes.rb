@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   }
 
   get 'users/invite' => 'users_custom#invite', as: :new_user_invite
+  post 'users/invite' => 'users_custom#invite_create', as: :new_user_invite_create
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

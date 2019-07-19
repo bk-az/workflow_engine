@@ -1,4 +1,8 @@
 class User < ActiveRecord::Base
+  # Validate name to compulsory and length ranging from 5 to 50.
+  validates :first_name, presence: true, length: { minimum: 2, maximum: 50 }
+  validates :last_name, presence: true, length: { minimum: 2, maximum: 50 }
+
   belongs_to :company
   belongs_to :role
   has_many   :comments
@@ -26,7 +30,17 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  def send_invitation_email
-    UserMailer.invite('Company', self).deliver
+  def send_invitation_email(company, role)
+    UserMailer.invite(company, self, role).deliver
+  end
+
+  def company_id_valid?(company_id_provided)
+    # Check if index of company_id_provided is nil or not.
+    owned_companies_set = Company.select(:id).where(owner_id: id).collect
+    if owned_companies_set.include? company_id_provided
+      true
+    else
+      false
+    end
   end
 end

@@ -1,7 +1,13 @@
 <div class="row">
   <div class="offset-sm-2 col-sm-8">
+    <%= render 'shared/failure_notification' %>
+    <%= render 'shared/success_notification' %>
+
+
     <h2>Invite a User</h2>
-    <%= form_for(@user, url: user_registration_path, method: :post) do |f| %>
+    <%= form_for(@new_user, url: new_user_invite_create_path, method: :post) do |f| %>
+
+      <%= render 'shared/errors', obj: @new_user %>
 
       <div class="field form-group">
         <%= f.label :first_name %><br />
@@ -20,11 +26,16 @@
 
       <div class="form-group">
         <label for="role_select">Role:</label>
-        <%= select("post", "role_id", @roles.collect {|role| [role.name, role.id] }, { include_blank: true }, class: 'form-control', id: 'role_select') %>
+        <%= f.select(:role_id, @roles.collect {|role| [role.name, role.id] }, { include_blank: 'None' }, class: 'form-control form-control-sm', id: 'role_select') %>
+      </div>
+
+      <div class="form-group">
+        <label for="company_id_select">Company:</label>
+        <%= f.select(:company_id, @companies.collect {|company| [company.name, company.id] }, { include_blank: 'None' }, class: 'form-control form-control-sm', id: 'company_id_select', required: true) %>
       </div> 
 
       <div class="actions text-right">
-        <%= f.submit "Invite", class: "btn btn-info btn-sm" %>
+        <%= f.submit "Send Invitation", class: "btn btn-info btn-sm" %>
       </div>
     <% end %>
   </div>
