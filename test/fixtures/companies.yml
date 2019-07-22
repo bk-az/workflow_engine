@@ -1,7 +1,13 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
+  name: 7vals
+  description: 'Description'
+  subdomain: '7vals'
+  owner_id: 1
 
 two:
-  name: MyString
+  name: Company
+  description: 'Description'
+  subdomain: 'company'
+  owner_id: 2

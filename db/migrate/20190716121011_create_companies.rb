@@ -3,7 +3,7 @@ class CreateCompanies < ActiveRecord::Migration
     create_table :companies do |t|
       t.string :name, null: false
       t.string :description
-      t.string :domain_name, null: false
+      t.string :subdomain, null: false, unique: true, index: true
       t.timestamps null: false
       
       # Foreign Keys

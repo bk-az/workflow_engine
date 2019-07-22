@@ -30,11 +30,13 @@ ActiveRecord::Schema.define(version: 20190717210433) do
   create_table "companies", force: :cascade do |t|
     t.string   "name",        limit: 255, null: false
     t.string   "description", limit: 255
-    t.string   "domain_name", limit: 255, null: false
+    t.string   "subdomain",   limit: 255, null: false
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.integer  "owner_id",    limit: 4,   null: false
   end
+
+  add_index "companies", ["subdomain"], name: "index_companies_on_subdomain", using: :btree
 
   create_table "documents", force: :cascade do |t|
     t.string   "path",       limit: 255, null: false
@@ -111,8 +113,7 @@ ActiveRecord::Schema.define(version: 20190717210433) do
   end
 
   add_index "project_memberships", ["project_id"], name: "index_project_memberships_on_project_id", using: :btree
-  add_index "project_memberships", ["project_member_id"], name: "index_project_memberships_on_project_member_id", using: :btree
-  add_index "project_memberships", ["project_member_type"], name: "index_project_memberships_on_project_member_type", using: :btree
+  add_index "project_memberships", ["project_member_type", "project_member_id"], name: "index_project_memberships_on_project_member_type_and_id", using: :btree
 
   create_table "projects", force: :cascade do |t|
     t.string   "title",       limit: 255,   null: false
