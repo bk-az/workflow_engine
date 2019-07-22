@@ -12,7 +12,7 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
     @project.company_id = 1
-    if (@project.save)
+    if @project.save
       redirect_to @project, notice: 'Successfully created a project.'
     else
       render :new
@@ -24,7 +24,7 @@ class ProjectsController < ApplicationController
     @projects = Project.all
   end
 
-  def edit 
+  def edit
   end
 
   def update

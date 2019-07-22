@@ -10,6 +10,6 @@ RSpec.describe Project, type: :model do
   end
 
   it 'is invalid without a description' do
-    expect(FactoryGirl.build(:project, title: nil)).to_not be_valid
+    expect(FactoryGirl.build(:project, description: nil)).to_not be_valid
   end
 end

@@ -23,12 +23,12 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Custom Gems
-gem 'devise', '4.1.1'
-gem 'cancancan'
-gem 'bootstrap-sass'
-gem 'pry', '~> 0.12.2'
 gem 'bootstrap', '~> 4.0.0'
+gem 'bootstrap-sass'
+gem 'cancancan'
+gem 'devise', '4.1.1'
 gem 'faker'
+gem 'pry', '~> 0.12.2'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -42,17 +42,13 @@ gem 'faker'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-
-  #rspec
-  gem 'rspec-rails'
-
-  gem 'factory_girl_rails'
   gem 'capybara'
   gem 'database_cleaner'
-
+  gem 'factory_girl_rails'
+  # rspec
+  gem 'rspec-rails'
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'end
-

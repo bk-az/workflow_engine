@@ -57,8 +57,9 @@ RSpec.describe ProjectsController, type: :controller do
 
     context 'with invalid attributes' do
       it 'does not save the new project in the database' do
-        expect { post :create, project: FactoryGirl.attributes_for(:invalid_project) }
-          .to_not change(Project, :count)
+        expect do
+          post :create, project: FactoryGirl.attributes_for(:invalid_project)
+        end.to_not change(Project, :count)
       end
       it 're-renders the :new template' do
         post :create, project: FactoryGirl.attributes_for(:invalid_project)
