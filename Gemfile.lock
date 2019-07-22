@@ -247,15 +247,7 @@ DEPENDENCIES
   mysql2 (= 0.3.21)
   paperclip (~> 5.0.0)
   rails (= 4.2.0)
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-  rspec-rails (~> 3.4)
-=======
-  rails-assets-datatables!
->>>>>>> 7e752b240f5b15259701b354af55de1c882742b0
   rspec-rails
->>>>>>> cb8258ca51224c886672c2e37183bb0336325a32
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   spring
