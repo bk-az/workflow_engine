@@ -29,6 +29,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'devise', '4.1.1'
 gem 'cancancan'
 gem 'bootstrap-sass'
+gem 'rails-assets-datatables', source: 'https://rails-assets.org'
+gem 'kaminari'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -45,10 +47,12 @@ gem 'web-console', group: :development
 group :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-  gem 'rspec-rails', '~> 3.4'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
   gem 'capybara'
+
+  # Rspec
+  gem 'rspec-rails'
 
   # Access an IRB console on exception pages or by using <%= console %> in views
   

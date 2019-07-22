@@ -4,12 +4,19 @@ RSpec.describe IssuesController, type: :controller do
 
 
 
- context "Get #index" do
-  it 'returns a success response' do
-    get :index
-    expect(response).to be_success
+ context 'GET #index' do
+    it 'returns a success response' do
+      get :index
+      expect(response).to be_success
+    end
   end
- end
+
+  context 'GET #filter' do
+    it 'returns a success response' do
+      xhr :get, :filter, format: :js
+      expect(response).to be_success
+    end
+  end
 
  context "Get #new" do
   it 'it render new template' do
@@ -189,3 +196,5 @@ end
     end
  end
 
+ 
+end
