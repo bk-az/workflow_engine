@@ -1,3 +1,2 @@
 module IssuesHelper
-
 end
