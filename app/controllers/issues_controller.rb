@@ -1,7 +1,4 @@
 class IssuesController < ApplicationController
-
-
-
   def index
     # @issues = Project.find(params[:project_id]).issues.all
     @issues = Issue.all
@@ -60,5 +57,9 @@ class IssuesController < ApplicationController
     params.require(:issue).permit(:title,:description, :start_date, :due_date, :progress, :priority,
       :company_id, :creator_id, :assignee_id, :parent_issue_id,:project_id,:issue_state_id,:issue_type_id)
 
+<<<<<<< Updated upstream
+=======
+    
+>>>>>>> Stashed changes
   end
 end
