@@ -1,4 +1,7 @@
 class Project < ActiveRecord::Base
+  validates :title, presence: true
+  validates :description, presence: true
+
   belongs_to :company
   has_many   :issues
 
