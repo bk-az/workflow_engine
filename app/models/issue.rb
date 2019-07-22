@@ -1,7 +1,9 @@
 # Model Class
 class Issue < ActiveRecord::Base
+  # Kaminari build-in attribute for pagination size per page
   paginates_per 7
 
+  # Validations
   validates :title, presence: true
   validates :description, presence: true
   validates :start_date, presence: true
