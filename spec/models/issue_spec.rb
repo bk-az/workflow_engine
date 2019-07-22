@@ -9,50 +9,50 @@ require 'rails_helper'
 # t.timestamps null: false
 
 RSpec.describe Issue, type: :model do
+  let(:title)           { 'title' }
+  let(:description)     { 'description' }
+  let(:start_date)      { '2017-07-23' }
+  let(:due_date)        { '2017-07-23' }
+  let(:progress)        { '0' }
+  let(:priority)        { '2' }
+  let(:company_id)      { '1' }
+  let(:creator_id)      { '1' }
+  let(:assignee_id)     { '1' }
+  let(:project_id)      { '1' }
+  let(:issue_type_id)   { '1' }
+  let(:issue_state_id)  { '1' }
+
+  let(:issue) do
+    Issue.new(title: title, description: description,
+              start_date: start_date, due_date: due_date,
+              progress: progress, priority: priority, company_id: company_id,
+              creator_id: creator_id, assignee_id: assignee_id,
+              project_id: project_id, issue_type_id: issue_type_id,
+              issue_state_id: issue_state_id)
+  end
   context 'validation tests' do
     it 'ensures title presence' do
-      issue = Issue.new(description: 'description', start_date: '2017-07-23',
-                        due_date: '2017-07-23', progress: '0',
-                        priority: '2', company_id: '1', creator_id: '1',
-                        assignee_id: '1', project_id: '1',
-                        issue_type_id: '1', issue_state_id: '1').save
-      expect(issue).to eq(false)
+      issue.title = ''
+      expect(issue.valid?).to eq false
     end
 
     it 'ensures description presence' do
-      issue = Issue.new(title: 'title', start_date: '2017-07-23',
-                        due_date: '2017-07-23', progress: '0', priority: '2',
-                        company_id: '1', creator_id: '1', assignee_id: '1',
-                        project_id: '1', issue_type_id: '1',
-                        issue_state_id: '1').save
-      expect(issue).to eq(false)
+      issue.description = ''
+      expect(issue.valid?).to eq false
     end
 
     it 'ensures start date presence' do
-      issue = Issue.new(title: 'title', description: 'description',
-                        due_date: '2017-07-23', progress: '0',
-                        priority: '2', company_id: '1', creator_id: '1',
-                        assignee_id: '1', project_id: '1', issue_type_id: '1',
-                        issue_state_id: '1').save
-      expect(issue).to eq(false)
+      issue.start_date = ''
+      expect(issue.valid?).to eq false
     end
 
     it 'ensures due date presence' do
-      issue = Issue.new(title: 'title', description: 'description',
-                        start_date: '2017-07-23', progress: '0',
-                        priority: '2', company_id: '1', creator_id: '1',
-                        assignee_id: '1', project_id: '1', issue_type_id: '1',
-                        issue_state_id: '1').save
-      expect(issue).to eq(false)
+      issue.due_date = ''
+      expect(issue.valid?).to eq false
     end
 
     it 'should save successfully' do
-      issue = Issue.new(title: 'title', description: 'description',
-                        start_date: '2017-07-23', due_date: '2017-07-23',
-                        progress: '0', priority: '2', company_id: '1',
-                        creator_id: '1', assignee_id: '1', project_id: '1',
-                        issue_type_id: '1', issue_state_id: '1').save
-      expect(issue).to eq(true)
+      expect(issue.valid?).to eq true
     end
   end
 end

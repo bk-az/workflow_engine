@@ -18,7 +18,7 @@ gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 
-gem "paperclip", "~> 5.0.0"
+gem 'paperclip', '~> 5.0.0'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
@@ -29,7 +29,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'devise', '4.1.1'
 gem 'cancancan'
 gem 'bootstrap-sass'
-gem 'rails-assets-datatables', source: 'https://rails-assets.org'
 gem 'kaminari'
 
 # Use ActiveModel has_secure_password
@@ -53,4 +52,3 @@ group :development, :test do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'end
-
