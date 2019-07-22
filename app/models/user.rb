@@ -1,7 +1,5 @@
 class User < ActiveRecord::Base
-  # This variable is kept in order keep track of whether the user is invited for not.
-
-  # Validate name to compulsory and length ranging from 5 to 50.
+  # Set Validators.
   validates :first_name, presence: true, length: { minimum: 2, maximum: 50 }
   validates :last_name, presence: true, length: { minimum: 2, maximum: 50 }
 
@@ -28,7 +26,7 @@ class User < ActiveRecord::Base
   has_many   :watching_issues, through: :issue_watchers
 
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+  # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 

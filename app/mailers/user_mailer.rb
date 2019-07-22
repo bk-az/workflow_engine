@@ -9,10 +9,4 @@ class UserMailer < Devise::Mailer
 
     mail(to: recipient.email, subject: "Invitation | #{@company.name} | #{@role.name}" )
   end
-
-  def confirmation(recipient)
-    @recipient = recipient
-
-    mail(to: recipient.email, subject: 'Account Confirmation')
-  end
 end

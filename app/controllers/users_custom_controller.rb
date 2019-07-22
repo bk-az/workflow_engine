@@ -1,17 +1,7 @@
 class UsersCustomController < ApplicationController
   before_action :authenticate_user!
 
-  def set_invitation_view_variables
-    # Get logged in User
-    @user      = current_user
-
-    # Get companies that are owned by the logged in user.
-    @companies = Company.where(owner_id: @user.id)
-
-    # Get Roles
-    @roles     = Role.all
-  end
-
+  # GET users/invite
   def invite
     set_invitation_view_variables
 
@@ -19,6 +9,7 @@ class UsersCustomController < ApplicationController
     @new_user = User.new
   end
 
+  # POST users/invite
   def invite_create
     # Generate Custom Password and treat user an invited member.
     new_user_params = invite_create_params
@@ -26,7 +17,7 @@ class UsersCustomController < ApplicationController
     # Create a new user.
     @new_user = User.new(new_user_params)
     @new_user.is_invited_user = true # Mark this user as invited.
-    @new_user.password = generate_password
+    @new_user.password = generate_random_password
 
     # Check if company id is present.
     if new_user_params[:company_id].present?
@@ -52,11 +43,22 @@ class UsersCustomController < ApplicationController
 
   private
 
+  def set_invitation_view_variables
+    # Get logged in User
+    @user      = current_user
+
+    # Get companies that are owned by the logged in user.
+    @companies = Company.where(owner_id: @user.id)
+
+    # Get Roles
+    @roles     = Role.all
+  end
+
   def invite_create_params
     params.require(:user).permit(:first_name, :last_name, :company_id, :role_id, :designation, :email)
   end
 
-  def generate_password
+  def generate_random_password
     o = [('a'..'z'), ('A'..'Z')].map(&:to_a).flatten
     (0...10).map { o[rand(o.length)] }.join
   end

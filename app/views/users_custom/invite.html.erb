@@ -1,12 +1,12 @@
 <div class="row">
   <div class="offset-sm-2 col-sm-8">
-    <%= render 'shared/failure_notification' %>
     <%= render 'shared/success_notification' %>
-
+    <%= render 'shared/failure_notification' %>
 
     <h2>Invite a User</h2>
     <%= form_for(@new_user, url: new_user_invite_create_path, method: :post) do |f| %>
 
+      <!-- DISPLAY ERRORS MESSAGES ON FORM SUBMISSION -->
       <%= render 'shared/errors', obj: @new_user %>
 
       <div class="field form-group">
