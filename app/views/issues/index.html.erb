@@ -1,0 +1,52 @@
+<h1>Issues</h1>
+<div id="drop">
+  <div class="row">
+    <div class="col-md-3">
+      <label>Projects</label>
+      <%= select_tag "project_filter", options_from_collection_for_select(Project.all, :id, :title), class: 'form-control', include_blank: "All" %> 
+    </div>
+
+    <div class="col-md-3">
+      <label>Assignee</label>
+      <%= select_tag "assignee_filter", options_from_collection_for_select(User.all, :id, :first_name), class: 'form-control', include_blank: "All" %> 
+    </div>
+
+    <div class="col-md-3">
+      <label>Issue State</label>
+      <%= select_tag "state_filter", options_from_collection_for_select(IssueState.all, :id, :name), class: 'form-control', include_blank: "All"%> 
+    </div>
+
+    <div class="col-md-3">
+      <label>Issue Type</label>
+      <%= select_tag "type_filter", options_from_collection_for_select(IssueType.all, :id, :name), class: 'form-control', include_blank: "All"%> 
+    </div>
+  </div>
+  </br>
+  <div class="row">
+    <div class="col-md-3">
+      <input class="form-control" id="search_filter" type="text" placeholder="Search for title">    
+    </div>
+  </div>
+</div>
+</br>
+<br> 
+<%= paginate @issues %>
+
+<table class="table table-hover" id="myData">
+  <thead>
+    <tr>
+      <th scope="col">Project Title</th>
+      <th scope="col">Issue Type</th>
+      <th scope="col">Title</th>
+      <th scope="col">Assignee</th>
+      <th scope="col">Status</th>
+      <th scope="col">Priority</th>
+      <th scope="col">Created</th>
+      <th scope="col">Due Date</th>
+    </tr>
+  </thead>
+  <tbody id="myList">
+    <%= render partial: "issues", locals: {issues: @issues} %>
+  </tbody>
+</table>
+<%= paginate @issues %>

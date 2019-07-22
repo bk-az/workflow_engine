@@ -1,4 +1,14 @@
+# Model Class
 class Issue < ActiveRecord::Base
+  paginates_per 7
+
+  validates :title, presence: true
+  validates :description, presence: true
+  validates :start_date, presence: true
+  validates :due_date, presence: true
+  validates :progress, presence: true
+  validates :priority, presence: true
+
   belongs_to :company
   belongs_to :project
   belongs_to :issue_state
