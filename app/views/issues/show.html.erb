@@ -1,0 +1,49 @@
+<div class="container">
+
+  <h2>Issue has been added! </h2>
+  <table class="table">
+    <thead class="thead-dark">
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Title :</th>
+        <td><%= @issue.title %></td>
+      </tr>
+      <tr>
+        <th scope="row">Description :</th>
+        <td><%= @issue.description %></td>
+      </tr>
+      <tr>
+        <th scope="row">Start Date :</th>
+        <td><%= @issue.start_date %></td>
+      </tr>
+      <tr>
+        <th scope="row">Due Date :</th>
+        <td><%= @issue.due_date %></td>
+      </tr>
+      <tr>
+        <th scope="row">Progress :</th>
+        <td><%= @issue.progress %></td>
+      </tr>
+      <tr>
+        <th scope="row">Priority :</th>
+        <td><%= @issue.priority %></td>
+      </tr>
+      <tr>
+        <th scope="row">State :</th>
+        <td><%= @issue.issue_state.name %></td>
+      </tr>
+      <tr>
+        <th scope="row">Assignee :</th>
+        <td><span class="glyphicon glyphicon-user"></span><%= @issue.assignee.first_name %></td>
+      </tr>
+      <tr>
+        <th scope="row">Issue Type :</th>
+        <td><%= @issue.issue_type.name %></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <%= link_to 'Edit', edit_issue_path(@issue),class: 'btn btn-primary' %>
+</div>
+

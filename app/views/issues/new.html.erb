@@ -1,0 +1,112 @@
+
+
+<div class="container" >
+  <h1>Add Issue</h1>
+  
+
+
+
+   <%= form_for @issue do |f| %>
+      <div class="form-group">
+        <%= f.label :title %>
+        <%= f.text_field :title, class: 'form-control' ,maxlength: 100%>
+      </div>
+      <hr>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+             <%= f.label :description %>
+            <%= f.text_area :description, class: 'form-control', :rows => 2, :cols => 60 
+           
+            %>
+            <%= f.file_field :description, class: 'form-control' %> 
+          </div>
+
+
+         <!--  <div class="form-group">
+            <label>Attach Document</label>
+            <% f.file_field :description, class: 'form-control' %> 
+  
+          </div> -->
+          
+        </div>
+      </div>
+      <hr>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= f.label :start_date %>
+            <%= f.text_field :start_date, class: 'form-control', type: 'date', value: "2018-07-22" %> 
+
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= f.label :due_date %>
+           <%= f.text_field :due_date, class: 'form-control', type: 'date', value:"2018-07-22" %> 
+          </div>
+        </div>
+      </div>
+      <hr>
+
+
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <%= f.label :assignee_id %>
+            <span class="glyphicon glyphicon-user"></span>
+            <%= f.select("assignee_id", Issue.all.collect {|issue| [issue.assignee.first_name, issue.assignee_id ] }, {:include_blank => 'Select an assignee'}) %>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="form-group">
+            <%= f.label :priority %>
+           
+            <%= f.select :priority, options_for_select([["Low", ""], "Medium", "High"]) %>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="form-group">
+            <%= f.label :issue_state_id %>
+           
+            <%= f.select("issue_state_id", IssueState.all.collect {|issue_state| [issue_state.name, issue_state.id ] }, {:include_blank => 'Select an issue state'}) %>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="form-group">
+            <%= f.label :issue_type_id %>
+               <%= f.select("issue_type_id", IssueType.all.collect {|issue_type| [issue_type.name, issue_type.id ] }, {:include_blank => 'Select an issue type'}) %>
+          </div>
+        </div>
+
+      
+      </div>
+      <hr>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= f.label :progress %>
+            <%= f.text_field :progress, class: 'form-control' %>
+          
+
+          </div>
+        </div>
+      </div>
+      <hr>
+        <%= f.submit 'Add', class: 'btn btn-primary' %>   <% end %>
+
+   </div>
+
+   <select class="mdb-select md-form">
+  <option value="" disabled selected>Choose your option</option>
+  <option value="1">Option 1</option>
+  <option value="2">Option 2</option>
+  <option value="3">Option 3</option>
+</select>
+  
