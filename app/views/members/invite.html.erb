@@ -4,7 +4,7 @@
     <%= render 'shared/failure_notification' %>
 
     <h2>Invite a User</h2>
-    <%= form_for(@new_user, url: new_user_invite_create_path, method: :post) do |f| %>
+    <%= form_for(@new_user, url: member_invite_create_path, method: :post) do |f| %>
 
       <!-- DISPLAY ERRORS MESSAGES ON FORM SUBMISSION -->
       <%= render 'shared/errors', obj: @new_user %>

@@ -7,9 +7,9 @@ Rails.application.routes.draw do
     confirmations: 'users/confirmations'
   }
 
-  get 'users/invite' => 'users_custom#invite', as: :new_user_invite
-  post 'users/invite' => 'users_custom#invite_create', as: :new_user_invite_create
-  get 'users/privileges' => 'users_custom#privileges', as: :users_privileges
-  post 'users/privileges/edit' => 'users_custom#privileges_edit', as: :users_privileges_edit
-  post 'users/privileges/edit/submit' => 'users_custom#privileges_edit_submit', as: :users_privileges_edit_submit
+  get 'members/invite' => 'members#invite', as: :member_invite
+  post 'members/invite' => 'members#invite_create', as: :member_invite_create
+  get 'members/privileges' => 'members#privileges', as: :members_privileges
+  get 'members/privileges/:id' => 'members#privileges_show', as: :members_privileges_show
+  put 'members/privileges/edit' => 'members#privileges_update', as: :members_privileges_update
 end
