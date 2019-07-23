@@ -1,6 +1,6 @@
 <!-- render navbar and drawer -->
 
-<h1><%= Project.find(params[:id]).title %></h1>
+<h1><%= @project.title %></h1>
 
 <h2>Issues</h2>
 
@@ -23,7 +23,7 @@
   <div class="col-md-3">
     <label>Issue State</label>
     <select>
-      <%= IssueState.all.each do |issue_state| %>
+      <%= @issue_states.each do |issue_state| %>
         <option ><%= issue_state.name %></option>
       <% end %>
     </select>    
@@ -31,7 +31,7 @@
   <div class="col-md-3">
     <label>Issue Types</label>
     <select>
-      <%= IssueType.all.each do |issue_type| %>
+      <%= @issue_types.each do |issue_type| %>
         <option ><%= issue_type.name %></option>
       <% end %>
     </select>    
@@ -86,83 +86,3 @@
     <% end %>
   </tbody>
 </table>
-<script>
-$(document).ready(function(){
-  $("#myInput").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#myList tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
-  });
-});
-</script>
-
-
-
-
-
-
-
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">Priority</th>
-      <th scope="col">Title</th>
-      <th scope="col">Assignee</th>
-      <th scope="col">State</th>
-      <th scope="col">Issue Type</th>
-      <th scope="col">Parent</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row"><%= render "highprioritybtn" %></th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td><%= render "issuestatebtn" %></i></button></td>
-      <td>
-        <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Drop Me!</a>
-        <!-- Dropdown Structure -->
-        <ul id='dropdown1' class='dropdown-content'>
-          <li><a href="#!">one</a></li>
-          <li><a href="#!">two</a></li>
-          <li class="divider" tabindex="-1"></li>
-          <li><a href="#!">three</a></li>
-          <li><a href="#!"><i class="material-icons">view_module</i>four</a></li>
-          <li><a href="#!"><i class="material-icons">cloud</i>five</a></li>
-        </ul>
-      </td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row"><%= render "mediumprioritybtn" %></th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-      <td>
-        <div class="dropdown">
-          <button class="btn dropdown-trigger dropdown-toggle" id="issuetype" type="button" data-toggle="dropdown"><span class="selection">Issue Type</span>
-          </button>
-          <ul class="dropdown-menu">
-            <li><a href="#!"><i class="material-icons">view_module</i>HTML</a></li>
-            <li><a href="#!"><i class="material-icons">alarm_on</i>CSS</a></li>
-            <li><a href="#!"><i class="material-icons">cloud</i>JavaScript</a></li>
-          </ul>
-        </div>
-      </td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row"><%= render "lowprioritybtn" %></th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-      <td>
-        
-      </td>
-      <td>@mdo</td>
-    </tr>
-  </tbody>
-</table>
-
-<br>

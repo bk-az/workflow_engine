@@ -1,15 +1,26 @@
 require 'rails_helper'
 
 RSpec.describe Project, type: :model do
-  it 'has a valid factory' do
-    expect(FactoryGirl.create(:project)).to be_valid
+  before(:all) { @project = FactoryGirl.create(:project) }
+  it 'should have a valid factory' do
+    expect(@project).to be_valid
   end
 
-  it 'is invalid without a title' do
+  it 'should be invalid without a title' do
     expect(FactoryGirl.build(:project, title: nil)).to_not be_valid
   end
 
-  it 'is invalid without a description' do
+  it 'should be invalid without a description' do
     expect(FactoryGirl.build(:project, description: nil)).to_not be_valid
+  end
+
+  it 'should have title with valid number of characters' do
+    expect(@project.title).to have_at_most(100).characters
+    expect(@project.title).to have_at_least(5).characters
+  end
+
+  it 'should have description with valid number of characters' do
+    expect(@project.description).to have_at_most(100).characters
+    expect(@project.description).to have_at_least(5).characters
   end
 end

@@ -23,12 +23,12 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Custom Gems
-gem 'bootstrap', '~> 4.0.0'
 gem 'bootstrap-sass'
 gem 'cancancan'
 gem 'devise', '4.1.1'
 gem 'faker'
 gem 'pry', '~> 0.12.2'
+gem 'rspec-collection_matchers'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

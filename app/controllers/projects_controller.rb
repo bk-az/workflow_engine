@@ -20,8 +20,9 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @issues = Project.find(params[:id]).issues.all
-    @projects = Project.all
+    @issues = @project.issues
+    @issue_types = IssueType.all
+    @issue_states = IssueState.all
   end
 
   def edit
@@ -29,7 +30,7 @@ class ProjectsController < ApplicationController
 
   def update
     if @project.update(project_params)
-      flash[:update_project] = 'Project updated successfully!'
+      flash[:notice] = 'Project updated successfully!'
       redirect_to @project
     else
       render 'edit'
