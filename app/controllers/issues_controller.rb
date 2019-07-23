@@ -3,6 +3,10 @@ class IssuesController < ApplicationController
   # Shows all issues page by page
   def index
     @issues = Issue.order(:project_id).page(params[:page])
+    respond_to do |format|
+      format.html
+      format.js { render 'filter.js.erb' }
+    end
   end
 
   # Filters rows of issues
@@ -43,12 +47,9 @@ class IssuesController < ApplicationController
   # Creates new issue
   def create
     @issue = Issue.new(issue_params)
-    @issue.company_id = 1
-    # @issue.project_id = 1
+    @issue.company_id, @issue.project_id = 1
     @issue.creator_id = 2
     @issue.parent_issue_id = 1
-    # @issue.priority = 2
-    # @issue.progress = 0
     if @issue.save
       flash[:save_issue] = 'Issue Created successfully!'
       redirect_to @issue # redirect to show page

@@ -1,5 +1,5 @@
 <h1>Issues</h1>
-<div id="drop">
+<div id="issues_filter_dropdown">
   <div class="row">
     <div class="col-md-3">
       <label>Projects</label>
@@ -30,9 +30,12 @@
 </div>
 </br>
 <br> 
-<%= paginate @issues %>
 
-<table class="table table-hover" id="myData">
+<div id="paginator_1">
+    <%= paginate @issues, remote: true %>
+</div>
+
+<table class="table table-hover" id="issuesTable">
   <thead>
     <tr>
       <th scope="col">Project Title</th>
@@ -45,8 +48,11 @@
       <th scope="col">Due Date</th>
     </tr>
   </thead>
-  <tbody id="myList">
-    <%= render partial: "issues", locals: {issues: @issues} %>
+  <tbody id="issuesList">
+    <%= render partial: "issues", locals: { issues: @issues } %>
   </tbody>
 </table>
-<%= paginate @issues %>
+
+<div id="paginator_2">
+    <%= paginate @issues, remote: true %>
+</div>
