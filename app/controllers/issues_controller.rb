@@ -3,6 +3,10 @@ class IssuesController < ApplicationController
   # Shows all issues page by page
   def index
     @issues = Issue.order(:project_id).page(params[:page])
+    respond_to do |format|
+      format.html
+      format.js { render 'filter.js.erb' }
+    end
   end
 
   # Filters rows of issues
@@ -10,7 +14,6 @@ class IssuesController < ApplicationController
     @issues = Issue.where(search_params).page(params[:page])
     @issues = @issues.where('title like ?', "%#{params[:search_filter]}%")
     respond_to do |format|
-      # format.html { redirect_to issues_path(@issues) }
       format.js
     end
   end

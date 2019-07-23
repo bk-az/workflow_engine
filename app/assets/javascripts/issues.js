@@ -1,5 +1,5 @@
 $( document ).ready(function() {
-  $('#drop').change(function() {
+  $('#issues_filter_dropdown').on("keyup change", function() {
     var project_filter = $('#project_filter option:selected').val();
     var assignee_filter = $('#assignee_filter option:selected').val();
     var state_filter = $('#state_filter option:selected').val();

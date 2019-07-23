@@ -1,3 +1,4 @@
 <h1>Edit Issue</h1>
 <%= render 'form' %>
+<br>
 <%= link_to "Delete", issue_path(@issue), method: :delete,data:{confirm: 'Are you sure?'}, :class => 'btn btn-primary' %>
