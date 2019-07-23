@@ -69,6 +69,18 @@ class MembersController < ApplicationController
     render json: { data: { status: true, role_name: Role.find(new_role_id).name } }
   end
 
+  # GET /members
+  def index
+    # Get members other the logged in user.
+    @members = current_tenant.users.includes(:role).where.not(id: current_user.id)
+  end
+
+  # GET /members/:id
+  def show
+    @company = current_tenant
+    @member = @company.users.where(id: params[:id]).first
+  end
+
   private
 
   def set_invitation_view_variables

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   default_url_options host: 'localhost:3000'
+  resource :bla
 
   devise_for :users, controllers: {
     sessions: 'users/sessions',
@@ -12,4 +13,6 @@ Rails.application.routes.draw do
   get 'members/privileges' => 'members#privileges', as: :members_privileges
   get 'members/privileges/:id' => 'members#privileges_show', as: :members_privileges_show
   put 'members/privileges/edit' => 'members#privileges_update', as: :members_privileges_update
+  get 'members' => 'members#index', as: :members
+  get 'members/:id' => 'members#show', as: :member_show
 end

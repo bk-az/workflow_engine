@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="offset-sm-2 col-sm-8">
+    <div class="row">
+      <div class="col-9">
+        <h1>All Members</h1>
+      </div>
+      <div class="col-3 text-right">
+        <h1><em class="text-muted">@<%= current_tenant.name %></em></h1>
+      </div>
+    </div>
+    <hr>
+
+    <div class="list-group">
+      <% @members.each do |member| %>
+      <a href="<%= member_show_path(member) %>" class="list-group-item list-group-item-action cleafix"><%= "#{member.first_name} #{member.last_name}" %>
+        <em class="float-right text-info"><%= member.role.name %></em>
+      </a>
+      <% end %>
+    </div> 
+
+  </div>
+</div>
