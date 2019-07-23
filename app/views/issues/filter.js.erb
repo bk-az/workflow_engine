@@ -1,0 +1,4 @@
+$("#myList tr").remove();
+$("#myData tbody").append('<%= j render partial: "issues", locals: {issues: @issues} %>');
+$('#paginator_1').html('<%= j paginate(@issues, remote: true).to_s %>');
+$('#paginator_2').html('<%= j paginate(@issues, remote: true).to_s %>');

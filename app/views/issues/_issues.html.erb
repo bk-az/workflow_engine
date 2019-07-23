@@ -1,0 +1,19 @@
+<!-- Partial: Displays rows in a table -->
+<% @issues.all.each do |issue| %>
+  <tr onclick="window.location='<%= issue_path(issue) %>';" >
+    <td><%= issue.project.title %></td>
+    <td><%= issue.issue_type.name %></td>
+    <td><%= issue.title %></td>
+    <td><%= issue.assignee.first_name %></td>
+    <td><%= issue.issue_state.name %></td>
+    <% if issue.priority == 2 %>
+      <td><span class="glyphicon glyphicon-arrow-up"> High</span></td>
+    <% elsif issue.priority == 1 %>
+      <td ><span class="glyphicon glyphicon-arrow-right"> Medium</span></td>
+    <% elsif issue.priority == 0 %>
+      <td ><span class="glyphicon glyphicon-arrow-down blue"> Low</span></td>
+    <% end %>
+    <td><%= issue.start_date %></td>
+    <td><%= issue.due_date %></td>
+  </tr>
+<% end %>
