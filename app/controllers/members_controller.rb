@@ -17,13 +17,9 @@ class MembersController < ApplicationController
     # Create a new user.
     @new_user = User.new(new_user_params)
     @new_user.is_invited_user = true # Mark this user as invited.
+    # Set company_id to the id of company which is acting as current tenant.
+    @new_user.company_id = current_tenant.id
     @new_user.password = generate_random_password
-
-    # Make sure that provided company id belongs to the set of companies that are owned by logged in user.
-    unless current_user.company_id_valid?(new_user_params[:company_id])
-      redirect_to member_invite_path, flash: { failure_notification: "Error 403 Forbidden. You tried to access Company you don't own." }
-      return
-    end
 
     if @new_user.save
       # Find Company from database based upon the company id of new user.
@@ -103,10 +99,11 @@ class MembersController < ApplicationController
 
   # DELETE /members/delete/:id
   def delete
-    if current_tenant.users.find(params[:id]).destroy
+    member_to_be_deleted = current_tenant.users.find(params[:id])
+    if member_to_be_deleted.destroy
       redirect_to members_path, flash: { success_notification: 'Member Deleted Successfully!' }
     else
-      redirect_to members_path, flash: { failure_notification: 'Member Deletion Failed!' }
+      redirect_to members_path, flash: { failure_notification: member_to_be_deleted.errors[:callback_error].join }
     end
   end
 
@@ -127,7 +124,7 @@ class MembersController < ApplicationController
   end
 
   def invite_create_params
-    params.require(:user).permit(:first_name, :last_name, :company_id, :role_id, :designation, :email)
+    params.require(:user).permit(:first_name, :last_name, :email, :role_id, :designation)
   end
 
   def privileges_show_params

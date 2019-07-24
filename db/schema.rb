@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190717210433) do
+ActiveRecord::Schema.define(version: 20190724131900) do
 
   create_table "comments", force: :cascade do |t|
     t.text     "content",          limit: 65535, null: false
@@ -30,10 +30,10 @@ ActiveRecord::Schema.define(version: 20190717210433) do
   create_table "companies", force: :cascade do |t|
     t.string   "name",        limit: 255, null: false
     t.string   "description", limit: 255
-    t.string   "domain_name", limit: 255, null: false
+    t.string   "subdomain",   limit: 255, null: false
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
-    t.integer  "owner_id",    limit: 4,   null: false
+    t.integer  "owner_id",    limit: 4
   end
 
   create_table "documents", force: :cascade do |t|

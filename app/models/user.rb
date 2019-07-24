@@ -1,13 +1,19 @@
 class User < ActiveRecord::Base
+
+  # Callbacks
+  before_destroy :check_for_issues, :check_for_being_admin
+
   # Set Validators.
   validates :first_name, presence: true, length: { minimum: 2, maximum: 50 }
   validates :last_name, presence: true, length: { minimum: 2, maximum: 50 }
   validates :role_id, presence: true
 
+  # belongs_to :owned_company, foreign_key: 'owner_id', class_name: 'Company'
   belongs_to :company
   belongs_to :role
   has_many   :comments
 
+  accepts_nested_attributes_for :company
   # Admin can create many issues
   has_many   :created_issues, foreign_key: 'creator_id', class_name: 'Issue'
 
@@ -52,5 +58,23 @@ class User < ActiveRecord::Base
   def send_on_create_confirmation_instructions
     # CONFIRM USER ONLY WHEN HE IS NOT INVITED.
     send_confirmation_instructions unless is_invited_user?
+  end
+
+  def check_for_issues
+    if assigned_issues.empty?
+      true
+    else
+      errors[:callback_error] = 'Cannot delete this Member as there are Issues assigned to him/her.'
+      false
+    end
+  end
+
+  def check_for_being_admin
+    if role.name == 'Administrator'
+      errors[:callback_error] = 'Cannot delete this Member he/she is admin.'
+      false
+    else
+      true
+    end
   end
 end
