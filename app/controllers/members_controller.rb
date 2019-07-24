@@ -71,14 +71,43 @@ class MembersController < ApplicationController
 
   # GET /members
   def index
+    @company = current_tenant
     # Get members other the logged in user.
-    @members = current_tenant.users.includes(:role).where.not(id: current_user.id)
+    @members = @company.users.includes(:role).where.not(id: current_user.id)
   end
 
   # GET /members/:id
   def show
     @company = current_tenant
     @member = @company.users.where(id: params[:id]).first
+  end
+
+  # GET /members/edit/:id
+  def edit
+    @company = current_tenant
+    @member = @company.users.find(params[:id])
+    @roles = Role.all
+  end
+
+  # PUT /members/edit
+  def update
+    @company = current_tenant
+    @member = @company.users.find(update_params[:id])
+    @roles = Role.all
+    if @member.update(update_params)
+      redirect_to member_edit_path(@member), flash: { success_notification: 'Details Updated Successfully!' }
+    else
+      render 'members/edit'
+    end
+  end
+
+  # DELETE /members/delete/:id
+  def delete
+    if current_tenant.users.find(params[:id]).destroy
+      redirect_to members_path, flash: { success_notification: 'Member Deleted Successfully!' }
+    else
+      redirect_to members_path, flash: { failure_notification: 'Member Deletion Failed!' }
+    end
   end
 
   private
@@ -92,6 +121,9 @@ class MembersController < ApplicationController
 
     # Get Roles
     @roles     = Role.all
+
+    # Get Current Company
+    @company = current_tenant
   end
 
   def invite_create_params
@@ -104,6 +136,10 @@ class MembersController < ApplicationController
 
   def privileges_update_params
     params.permit(:user_id, :role_id)
+  end
+
+  def update_params
+    params.require(:user).permit(:id, :first_name, :last_name, :role_id)
   end
 
   def generate_random_password

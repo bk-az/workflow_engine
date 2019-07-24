@@ -1,22 +1,26 @@
 <div class="row">
   <div class="offset-sm-2 col-sm-8">
-    <div class="row">
-      <div class="col-9">
-        <h1>All Members</h1>
-      </div>
-      <div class="col-3 text-right">
-        <h1><em class="text-muted">@<%= current_tenant.name %></em></h1>
+    <div class="card">
+      <h1 class="card-header clearfix">
+        All Members
+        <em class="text-muted float-right">@<%= @company.name %></em>
+      </h1>
+      <div class="card-body">
+       <%= render 'shared/success_notification' %>
+       <%= render 'shared/failure_notification' %>
+       <div class="list-group">
+        <% @members.each do |member| %>
+        <div class="list-group-item list-group-item-action">
+          <a href="<%= member_show_path(member) %>"><%= "#{member.first_name} #{member.last_name}" %>
+          </a>
+          <span class="float-right">
+            <em class="text-info"><%= member.role.name %></em>&nbsp;
+            <%= link_to "Delete", member_delete_path(member), data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-sm btn-outline-danger' %>
+          </span>
+        </div>
+        <% end %>
       </div>
     </div>
-    <hr>
-
-    <div class="list-group">
-      <% @members.each do |member| %>
-      <a href="<%= member_show_path(member) %>" class="list-group-item list-group-item-action cleafix"><%= "#{member.first_name} #{member.last_name}" %>
-        <em class="float-right text-info"><%= member.role.name %></em>
-      </a>
-      <% end %>
-    </div> 
-
   </div>
+</div>
 </div>

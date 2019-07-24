@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   # Set Validators.
   validates :first_name, presence: true, length: { minimum: 2, maximum: 50 }
   validates :last_name, presence: true, length: { minimum: 2, maximum: 50 }
+  validates :role_id, presence: true
 
   belongs_to :company
   belongs_to :role

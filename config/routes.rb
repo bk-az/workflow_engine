@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  default_url_options host: 'localhost:3000'
-  resource :bla
-
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations',
@@ -15,4 +12,7 @@ Rails.application.routes.draw do
   put 'members/privileges/edit' => 'members#privileges_update', as: :members_privileges_update
   get 'members' => 'members#index', as: :members
   get 'members/:id' => 'members#show', as: :member_show
+  get 'members/edit/:id' => 'members#edit', as: :member_edit
+  put 'members/edit/' => 'members#update', as: :member_update
+  delete 'members/delete/:id' => 'members#delete', as: :member_delete
 end
