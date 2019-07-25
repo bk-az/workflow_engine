@@ -6,10 +6,10 @@ class Issue < ActiveRecord::Base
   # Validations
   validates :title, presence: true
   validates :description, presence: true
-  validates :start_date, presence: true
-  validates :due_date, presence: true
-  validates :progress, presence: true
-  validates :priority, presence: true
+  # validates :start_date, presence: true
+  # validates :due_date, presence: true
+  # validates :progress, presence: true
+  # validates :priority, presence: true
 
   belongs_to :company
   belongs_to :project
@@ -34,7 +34,7 @@ class Issue < ActiveRecord::Base
   has_many   :issue_watchers
   # has_many   :watchers, through: :issue_watchers
   has_many   :watcher_users, through: :issue_watchers, source: :watcher,
-                             source_type: 'User'
+                             source_type: 'User', class_name: 'User'
   has_many   :watcher_teams, through: :issue_watchers, source: :watcher,
-                             source_type: 'Team'
+                             source_type: 'Team', class_name: 'Team'
 end

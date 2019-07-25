@@ -1,6 +1,6 @@
 class CreateIssueWatchers < ActiveRecord::Migration
   def change
-    create_table :issue_watchers, id: false do |t|
+    create_table :issue_watchers do |t|
       t.timestamps null: false
 
       # Foreign Keys

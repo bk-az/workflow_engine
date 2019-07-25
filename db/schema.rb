@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190717210433) do
+ActiveRecord::Schema.define(version: 20190724055531) do
 
   create_table "comments", force: :cascade do |t|
     t.text     "content",          limit: 65535, null: false
@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(version: 20190717210433) do
   add_index "issue_types", ["company_id"], name: "index_issue_types_on_company_id", using: :btree
   add_index "issue_types", ["project_id"], name: "index_issue_types_on_project_id", using: :btree
 
-  create_table "issue_watchers", id: false, force: :cascade do |t|
+  create_table "issue_watchers", force: :cascade do |t|
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.integer  "watcher_id",   limit: 4
@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(version: 20190717210433) do
   end
 
   add_index "issue_watchers", ["issue_id"], name: "index_issue_watchers_on_issue_id", using: :btree
+  add_index "issue_watchers", ["watcher_id", "watcher_type", "issue_id"], name: "index_issue_watchers_on_watcher_id_and_watcher_type_and_issue_id", unique: true, using: :btree
   add_index "issue_watchers", ["watcher_type", "watcher_id"], name: "index_issue_watchers_on_watcher_type_and_watcher_id", using: :btree
 
   create_table "issues", force: :cascade do |t|

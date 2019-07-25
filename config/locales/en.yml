@@ -21,3 +21,8 @@
 
 en:
   hello: "Hello world"
+
+  issues:
+      add_watcher:
+        notice: "You are added as a watcher."
+        error: "Already added!"
