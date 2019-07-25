@@ -16,14 +16,15 @@ class MembersController < ApplicationController
 
     # Create a new user.
     @new_user = User.new(new_user_params)
-    @new_user.is_invited_user = true # Mark this user as invited.
+    @new_user.is_invited_user = true
+
     # Set company_id to the id of company which is acting as current tenant.
     @new_user.company_id = current_tenant.id
     @new_user.password = generate_random_password
 
     if @new_user.save
       # Find Company from database based upon the company id of new user.
-      @new_user.send_invitation_email(Company.find(@new_user.company_id), Role.find(@new_user.role_id))
+      @new_user.send_invitation_email(@new_user.company, @new_user.role)
       redirect_to member_invite_path, flash: { success_notification: "We have invited '#{@new_user.first_name}' successfully through an email." }
       return
     end
@@ -38,13 +39,11 @@ class MembersController < ApplicationController
     @user = current_user
 
     # Get Company
-    @company = Company.where(owner_id: @user.id).first
+    @company = current_tenant
 
     # Get all users that belong to company which is owned by current user.
-    @members = User.includes(:role).where(company_id: @user.company_id).to_a
-
-    # Remove admin himself.
-    @members.delete(@members.detect { |member| member.id == @user.id })
+    # Exlude the logged in user himself.
+    @members = @company.users.includes(:role).where.not(id: @user.id)
 
     @roles = Role.all
   end
@@ -52,7 +51,7 @@ class MembersController < ApplicationController
   # GET /members/privileges/:id
   def privileges_show
     user_id = privileges_show_params[:id]
-    render json: { data: { user: User.find(user_id) } }
+    render json: { data: { user: current_tenant.users.find(user_id) } }
   end
 
   # POST /members/privileges/edit
@@ -60,9 +59,12 @@ class MembersController < ApplicationController
     user_id = privileges_update_params[:user_id]
     new_role_id = privileges_update_params[:role_id]
 
-    User.find(user_id).update(role_id: new_role_id)
-
-    render json: { data: { status: true, role_name: Role.find(new_role_id).name } }
+    user = current_tenant.users.find(user_id)
+    if user.update(role_id: new_role_id)
+      render json: { data: { status: true, role_name: user.role.name } }
+    else
+      render json: { data: { status: false, role_name: '' } }
+    end
   end
 
   # GET /members
@@ -112,9 +114,6 @@ class MembersController < ApplicationController
   def set_invitation_view_variables
     # Get logged in User
     @user      = current_user
-
-    # Get companies that are owned by the logged in user.
-    @companies = Company.where(owner_id: @user.id)
 
     # Get Roles
     @roles     = Role.all

@@ -11,7 +11,7 @@
        <div class="list-group">
         <% @members.each do |member| %>
         <div class="list-group-item list-group-item-action">
-          <a href="<%= member_show_path(member) %>"><%= "#{member.first_name} #{member.last_name}" %>
+          <a href="<%= member_show_path(member) %>"><%= member_full_name(member) %>
           </a>
           <span class="float-right">
             <em class="text-info"><%= member.role.name %></em>&nbsp;

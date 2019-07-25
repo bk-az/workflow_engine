@@ -71,7 +71,7 @@ class User < ActiveRecord::Base
 
   def check_for_being_admin
     if role.name == 'Administrator'
-      errors[:callback_error] = 'Cannot delete this Member he/she is admin.'
+      errors[:callback_error] = 'Cannot delete this Member as he/she is admin.'
       false
     else
       true

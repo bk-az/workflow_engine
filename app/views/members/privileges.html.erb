@@ -14,7 +14,7 @@
           <% @members.each_with_index do |member, member_index| %>
 
           <a data-user-id="<%= member.id %>" href="#" class="list-group-item js-list-group-item <%= class_of_list_item %>" data-toggle="tab" >
-            <h5 class="list-group-item-heading"><%= "#{member.first_name} #{member.last_name}" %></h5>
+            <h5 class="list-group-item-heading"><%= member_full_name(member) %></h5>
             <p class="list-group-item-text js-list-group-item-text"><%= member.role.name %></p>
           </a>
 
@@ -22,8 +22,6 @@
             class_of_list_item = ''
           end
           %>
-
-          <input type="hidden" id="js_csrf_token" value="">
           <% end %>
         </div>
       </div>
@@ -44,7 +42,7 @@
           <select id="js_role_select" class="form-control form-control-sm">
             <% @roles.each do |role| %>
             <option value="<%= role.id %>" 
-              <% if role.id == @members[0].id%> selected <% end %>>
+              <% if role.id == @members[0].role_id %> selected <% end %>>
               <%= role.name %>
             </option>
             <% end %>

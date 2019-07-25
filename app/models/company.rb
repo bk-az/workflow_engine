@@ -1,6 +1,10 @@
 class Company < ActiveRecord::Base
   after_save :create_issue_states, :create_issue_types
 
+  validates :name, presence: true
+  validates :subdomain, presence: true
+  validates :subdomain, format: { with: /\A[a-zA-Z0-9]+\Z/, message: 'Subdomain can only be alphanumeric without spaces.' }
+
   belongs_to :owner, class_name: 'User' # Owner
   has_many   :users
   has_many   :projects
