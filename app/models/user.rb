@@ -1,5 +1,4 @@
 class User < ActiveRecord::Base
-
   # Callbacks
   before_destroy :check_for_issues, :check_for_being_admin
 
@@ -39,20 +38,6 @@ class User < ActiveRecord::Base
 
   def send_invitation_email(company, role)
     UserMailer.invite(company, self, role).deliver
-  end
-
-  def company_id_valid?(company_id_provided)
-    # Check if index of company_id_provided is nil or not.
-    owned_companies_set = Company.select(:id).where(owner_id: id).to_a
-
-    company_id_search_result = owned_companies_set.select { |company| company.id == company_id_provided.to_i }
-
-    # If the result is empty then company id is not valid.
-    if !company_id_search_result.empty?
-      true
-    else
-      false
-    end
   end
 
   def send_on_create_confirmation_instructions

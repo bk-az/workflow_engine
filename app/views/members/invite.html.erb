@@ -9,7 +9,7 @@
         <%= form_for(@new_user, url: member_invite_create_path, method: :post) do |f| %>
 
         <!-- DISPLAY ERRORS MESSAGES ON FORM SUBMISSION -->
-        <%= render 'shared/errors', obj: @new_user %>
+        <%= render 'shared/errors', errors: @new_user.errors %>
 
         <div class="field form-group">
           <%= f.label :first_name %><br />
@@ -28,7 +28,7 @@
 
         <div class="form-group">
           <label for="role_select">Role:</label>
-          <%= f.select(:role_id, @roles.collect {|role| [role.name, role.id] }, { include_blank: 'None' }, class: 'form-control form-control-sm', id: 'role_select') %>
+          <%= f.select(:role_id, setup_roles_select_options(@roles), { include_blank: 'None' }, class: 'form-control form-control-sm', id: 'role_select') %>
         </div>
 
         <div class="actions text-right">

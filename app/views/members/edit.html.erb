@@ -11,7 +11,7 @@
         
         <%= form_for(@member, url: member_update_path, method: :put) do |f| %>
         <!-- DISPLAY ERRORS MESSAGES ON FORM SUBMISSION -->
-        <%= render 'shared/errors', obj: @member %>
+        <%= render 'shared/errors', errors: @member.errors %>
 
         <div class="field form-group">
           <%= f.label :first_name %><br />
@@ -25,7 +25,7 @@
 
         <div class="form-group">
           <label for="role_select">Role:</label>
-          <%= f.select(:role_id, @roles.collect {|role| [role.name, role.id] }, { include_blank: 'None' }, class: 'form-control form-control-sm', id: 'role_select') %>
+          <%= f.select(:role_id, setup_roles_select_options(@roles), { include_blank: 'None' }, class: 'form-control form-control-sm', id: 'role_select') %>
         </div>
 
         <!-- HIDDEN FIELDS -->

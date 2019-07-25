@@ -10,7 +10,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     begin
       ActiveRecord::Base.transaction do
         @new_user = User.new(sign_up_params)
-        @new_user.role_id = Role.where(name: 'Administrator').first.id
+        @new_user.role_id = Role.admin.id
 
         @new_user.save!
         @new_user.company.update!(owner_id: @new_user.id)

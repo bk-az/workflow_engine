@@ -13,7 +13,7 @@
 
           <% @members.each_with_index do |member, member_index| %>
 
-          <a data-user-id="<%= member.id %>" href="#" class="list-group-item js-list-group-item <%= class_of_list_item %>" data-toggle="tab" >
+          <a data-user-id="<%= member.id %>" href="#_" class="list-group-item js-list-group-item <%= class_of_list_item %>" data-toggle="tab" >
             <h5 class="list-group-item-heading"><%= member_full_name(member) %></h5>
             <p class="list-group-item-text js-list-group-item-text"><%= member.role.name %></p>
           </a>
@@ -32,9 +32,9 @@
   <div class="col-sm-6">
     <div class="card">
       <% if @members.size == 0 %>
-      <h3 class="card-header bg-secondary"><em>No Members are Present in this Company</em></h3>
+      <h3 class="card-header bg-secondary"><em>No Members are Present in this Company.</em></h3>
       <% else %>   
-      <h3 id="js_user_fullname_heading" class="card-header bg-secondary"><%= "#{@members[0].first_name} #{@members[0].last_name}" %></h3>
+      <h3 id="js_user_fullname_heading" class="card-header bg-secondary"><%= member_full_name(@members[0]) %></h3>
       <div class="card-body">
         <div id="js_ajax_request_notification"></div>
         <div class="form-group">
