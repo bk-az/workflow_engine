@@ -18,7 +18,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     rescue ActiveRecord::RecordInvalid
       render 'devise/registrations/new'
     rescue ActiveRecord::ActiveRecordError => e
-      @new_user.errors[:active_record_error] = e.message
+      @new_user.errors[:base] << e.message
       render 'devise/registrations/new'
     else
       redirect_to new_user_session_path, flash: { success_notification: 'Your account has been created successfully. A confirmation email is sent to you. Confirm your email and login here.' }

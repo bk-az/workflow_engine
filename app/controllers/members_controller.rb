@@ -105,7 +105,7 @@ class MembersController < ApplicationController
     if member_to_be_deleted.destroy
       redirect_to members_path, flash: { success_notification: 'Member Deleted Successfully!' }
     else
-      redirect_to members_path, flash: { failure_notification: member_to_be_deleted.errors[:callback_error].join }
+      redirect_to members_path, flash: { failure_notification: member_to_be_deleted.errors[:base].join }
     end
   end
 

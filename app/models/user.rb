@@ -49,14 +49,14 @@ class User < ActiveRecord::Base
     if assigned_issues.empty?
       true
     else
-      errors[:callback_error] = 'Cannot delete this Member as there are Issues assigned to him/her.'
+      errors[:base] << 'Cannot delete this Member as there are Issues assigned to him/her.'
       false
     end
   end
 
   def check_for_being_admin
     if role.name == 'Administrator'
-      errors[:callback_error] = 'Cannot delete this Member as he/she is admin.'
+      errors[:base] << 'Cannot delete this Member as he/she is admin.'
       false
     else
       true
