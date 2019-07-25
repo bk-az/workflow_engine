@@ -6,15 +6,15 @@ class ApplicationController < ActionController::Base
   around_filter :scope_current_tenant
 
   rescue_from ActiveRecord::RecordNotFound do |exception|
-    render plain: 'Company Not Found'
+    render file: "#{Rails.root}/public/404", status: :not_found
   end
-
-  private
 
   def current_tenant
     Company.find_by_subdomain! request.subdomain
   end
   helper_method :current_tenant
+
+  private
 
   def scope_current_tenant
     Company.current_id = current_tenant.id

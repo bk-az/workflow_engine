@@ -22,11 +22,6 @@ RSpec.describe Company, type: :model do
     expect(company.valid?).to eq false
   end
 
-  it 'owner_id should be present' do
-    company.owner_id = nil
-    expect(company.valid?).to eq false
-  end
-
   it 'subdomain should be present' do
     company.subdomain = ''
     expect(company.valid?).to eq false
@@ -82,16 +77,6 @@ RSpec.describe Company, type: :model do
 
   it 'subdomain should not be too long' do
     company.subdomain = 'a' * 64
-    expect(company.valid?).to eq false
-  end
-
-  it 'description should not be too long' do
-    company.description = 'a' * 201
-    expect(company.valid?).to eq false
-  end
-
-  it 'description should not be too short' do
-    company.description = 'a' * 9
     expect(company.valid?).to eq false
   end
 end
