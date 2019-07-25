@@ -1,0 +1,22 @@
+<h1 class="mb-4"><%= @project.title %>
+  <span class="badge badge-danger badge-pill float-right">
+    <%= link_to 'Back', @project, class: 'text-white'%>
+  </span>
+</h1>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add_member_modal">
+      <i class="fas fa-user-plus mr-2"></i>
+      <strong>Add Member</strong>
+</button>
+<h2 class="my-4">Teams</h2>
+<div class="mb-4">
+  
+</div>
+<h2 class="my-4">Members</h2>
+
+<%= render @users %>
+
+
+<!-- Add Member Modal -->
+<%= render 'memberships/modal_form' %>
+
+

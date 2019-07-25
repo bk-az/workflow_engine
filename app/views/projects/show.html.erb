@@ -1,15 +1,26 @@
 <!-- render navbar and drawer -->
 
-<h1><%= @project.title %></h1>
+<h1 class="mb-4"><%= @project.title %></h1>
 
-<h2>Issues</h2>
-
-<!-- <%= button_to 'Edit Project', edit_project_path(@project), method: 'get'%> -->
 <tr>
+<!--   <td><%= link_to 'Members', project_memberships_path(@project),class: 'btn btn-primary' %></td> -->
   <td><%= link_to 'Edit Project', edit_project_path(@project),class: 'btn btn-warning' %></td>
   <td><%= link_to 'Delete Project', project_path(@project),class: 'btn btn-danger', method: 'delete', data: { confirm: 'Are you sure?' } %></td>
+  <td>
+    <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#add_member_modal">
+      <i class="fas fa-user-plus mr-2"></i>
+      <strong>Add Member</strong>
+    </button>
+  </td>
+  <td>
+    <a class="btn btn-primary float-right mr-2" href= <%= project_memberships_path(@project) %>>
+      <i class="fas fa-users mr-2"></i>
+      <strong>Members</strong>
+    </a>
+  </td>
 </tr>
 
+<h2 class="my-4">Issues</h2>
 
 <div class="row">
   <div class="col-md-3">
@@ -86,3 +97,8 @@
     <% end %>
   </tbody>
 </table>
+
+
+<!-- Add Member Modal -->
+<%= render 'memberships/modal_form' %>
+

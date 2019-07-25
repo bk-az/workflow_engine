@@ -1,8 +1,16 @@
 Rails.application.routes.draw do
-  get 'projects/show'
+  get 'memberships/index'
 
   devise_for :users
-  resources :projects
+
+  concern :memberable do
+    resources :memberships, only: %i[index create destroy]
+  end
+
+  resources :projects, concerns: :memberable
+
+  post '/memberships/search'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

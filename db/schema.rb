@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190717210433) do
+ActiveRecord::Schema.define(version: 20190724102837) do
 
   create_table "comments", force: :cascade do |t|
     t.text     "content",          limit: 65535, null: false
@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(version: 20190717210433) do
   add_index "issue_types", ["company_id"], name: "index_issue_types_on_company_id", using: :btree
   add_index "issue_types", ["project_id"], name: "index_issue_types_on_project_id", using: :btree
 
-  create_table "issue_watchers", id: false, force: :cascade do |t|
+  create_table "issue_watchers", force: :cascade do |t|
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.integer  "watcher_id",   limit: 4
@@ -102,7 +102,7 @@ ActiveRecord::Schema.define(version: 20190717210433) do
   add_index "issues", ["parent_issue_id"], name: "index_issues_on_parent_issue_id", using: :btree
   add_index "issues", ["project_id"], name: "index_issues_on_project_id", using: :btree
 
-  create_table "project_memberships", id: false, force: :cascade do |t|
+  create_table "project_memberships", force: :cascade do |t|
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
     t.integer  "project_member_id",   limit: 4
@@ -111,8 +111,8 @@ ActiveRecord::Schema.define(version: 20190717210433) do
   end
 
   add_index "project_memberships", ["project_id"], name: "index_project_memberships_on_project_id", using: :btree
-  add_index "project_memberships", ["project_member_id"], name: "index_project_memberships_on_project_member_id", using: :btree
-  add_index "project_memberships", ["project_member_type"], name: "index_project_memberships_on_project_member_type", using: :btree
+  add_index "project_memberships", ["project_member_type", "project_member_id", "project_id"], name: "index_project_memberships_on_project_member_and_project_id", unique: true, using: :btree
+  add_index "project_memberships", ["project_member_type", "project_member_id"], name: "index_project_memberships_on_project_member_type_and_id", using: :btree
 
   create_table "projects", force: :cascade do |t|
     t.string   "title",       limit: 255,   null: false
@@ -130,7 +130,7 @@ ActiveRecord::Schema.define(version: 20190717210433) do
     t.datetime "updated_at",             null: false
   end
 
-  create_table "team_memberships", id: false, force: :cascade do |t|
+  create_table "team_memberships", force: :cascade do |t|
     t.boolean  "is_team_admin", limit: 1, default: false
     t.boolean  "is_approved",   limit: 1, default: false
     t.datetime "created_at",                              null: false
@@ -139,6 +139,7 @@ ActiveRecord::Schema.define(version: 20190717210433) do
     t.integer  "user_id",       limit: 4
   end
 
+  add_index "team_memberships", ["team_id", "user_id"], name: "index_team_memberships_on_team_id_and_user_id", unique: true, using: :btree
   add_index "team_memberships", ["team_id"], name: "index_team_memberships_on_team_id", using: :btree
   add_index "team_memberships", ["user_id"], name: "index_team_memberships_on_user_id", using: :btree
 

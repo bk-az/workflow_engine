@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :current_project, only: [:show, :edit, :update, :destroy]
+  before_action :current_project, only: [:show, :edit, :update, :destroy, :add_member]
 
   def index
     @projects = Project.all
@@ -49,6 +49,6 @@ class ProjectsController < ApplicationController
   end
 
   def current_project
-    @project = Project.find(params[:id])
+    @project = Project.includes(:issues).find(params[:id])
   end
 end
