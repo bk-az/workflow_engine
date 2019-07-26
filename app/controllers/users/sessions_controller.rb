@@ -1,6 +1,6 @@
 class Users::SessionsController < Devise::SessionsController
   def after_sign_in_path_for(resource)
-    flash[:success_notification] = 'Signed In Successfully!'
+    flash[:success_notification] = t('.success_notification')
     if current_user.is_invited_user
       member_setpassword_path
     else

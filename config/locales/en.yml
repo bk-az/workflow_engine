@@ -20,10 +20,22 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  issues:
-      create:
-        notice: 'Issue Created successfully!'
-      destroy:
-        notice: 'Issue Deleted successfully'
-      update:
-        notice: 'Issue Updated successfully!'
+  users:
+    registrations:
+      create: 
+        success_notification: 'Your account has been created successfully. A confirmation email is sent to you. Confirm your email and login here.'
+    sessions:
+      create: # after_sign_in_path_for
+        success_notification: 'Signed In Successfully! Have a Good Day! :)'
+
+  members:
+    invite_create:
+      success_notification: 'Invitation Sent Successfully!'
+    update:
+      success_notification: 'Details Updated Successfully!'
+    delete:
+      success_notification: 'Member Deleted Successfully!'
+    set_password_on_invitation_change:
+      success_notification: 'Your password has been changed successfully.'
+    set_password_on_invitation: # For invited_user?
+      failure_notification: 'You cannot access that page. Either you have already changed your password or you are not an inivited user.'

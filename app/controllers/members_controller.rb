@@ -26,7 +26,7 @@ class MembersController < ApplicationController
     if @new_user.save
       # Find Company from database based upon the company id of new user.
       @new_user.send_invitation_email(@new_user.company, @new_user.role)
-      redirect_to member_invite_path, flash: { success_notification: "We have invited '#{@new_user.first_name}' successfully through an email." }
+      redirect_to member_invite_path, flash: { success_notification: t('.success_notification') }
       return
     end
 
@@ -61,11 +61,10 @@ class MembersController < ApplicationController
     new_role_id = privileges_update_params[:role_id]
 
     user = current_tenant.users.find(user_id)
-    if user.update(role_id: new_role_id)
-      render json: { data: { status: true, role_name: user.role.name } }
-    else
-      render json: { data: { status: false, role_name: '' } }
-    end
+    user.update!(role_id: new_role_id)
+
+    # Successfully return json only when there is no error occurred.
+    render json: { data: { status: true, role_name: user.role.name } }
   end
 
   # GET /members
@@ -78,7 +77,7 @@ class MembersController < ApplicationController
   # GET /members/:id
   def show
     @company = current_tenant
-    @member = @company.users.where(id: params[:id]).first
+    @member = @company.users.find(params[:id])
   end
 
   # GET /members/edit/:id
@@ -94,7 +93,7 @@ class MembersController < ApplicationController
     @member = @company.users.find(update_params[:id])
     @roles = Role.all
     if @member.update(update_params)
-      redirect_to member_edit_path(@member), flash: { success_notification: 'Details Updated Successfully!' }
+      redirect_to member_edit_path(@member), flash: { success_notification: t('.success_notification') }
     else
       render 'members/edit'
     end
@@ -104,7 +103,7 @@ class MembersController < ApplicationController
   def delete
     member_to_be_deleted = current_tenant.users.find(params[:id])
     if member_to_be_deleted.destroy
-      redirect_to members_path, flash: { success_notification: 'Member Deleted Successfully!' }
+      redirect_to members_path, flash: { success_notification: t('.success_notification') }
     else
       redirect_to members_path, flash: { failure_notification: member_to_be_deleted.errors[:base].join }
     end
@@ -123,7 +122,7 @@ class MembersController < ApplicationController
     if @current_user.save
       # Re sign in the user after password change.
       sign_in(@current_user, bypass: true)
-      redirect_to members_path, flash: { success_notification: 'Your password has been changed successfully.' }
+      redirect_to members_path, flash: { success_notification: t('.success_notification') }
     else
       render 'members/set_password_on_invitation'
     end
@@ -132,10 +131,7 @@ class MembersController < ApplicationController
   private
 
   def invited_user?
-    unless current_user.is_invited_user
-      flash[:failure_notification] = 'You cannot access that page. Either you have already changed your password or you are not an inivited user.'
-      redirect_to members_path
-    end
+    redirect_to members_path, flash: { failure_notification: t('.failure_notification') } unless current_user.is_invited_user
   end
 
   def set_invitation_view_variables
