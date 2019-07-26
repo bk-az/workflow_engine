@@ -5,7 +5,7 @@ module ActiveRecord
     # Adding multi tenancy functionality
     def self.inherited(child)
       super
-      return if child.name.include? 'ActiveRecord' # ActiveRecord::SchemaMigration
+      return if (child.name.include? 'ActiveRecord') || child.abstract_class? # ActiveRecord::SchemaMigration
 
       # adding an attribute for multi-tenancy and related methods
       child.instance_eval do

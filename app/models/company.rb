@@ -2,7 +2,6 @@ class Company < ActiveRecord::Base
   not_multitenant
 
   before_save { subdomain.downcase! }
-  MIN_LENGTH = 3
   validates :name, presence: true, length: { minimum: MIN_LENGTH, maximum: 50 }
   VALID_SUBDOMAIN_REGEX = /\A([a-z\d]+(-[a-z\d]+)*(_[a-z\d]+)*)\z/i.freeze
   validates :subdomain, presence: true, length: { minimum: MIN_LENGTH, maximum: 63 },
