@@ -1,80 +1,84 @@
 # Issues Controller
 class IssuesController < ApplicationController
-  # Shows all issues page by page
+  # GET /issues
   def index
     @issues = Issue.order(:project_id).page(params[:page])
     respond_to do |format|
       format.html
-      format.js { render 'filter.js.erb' }
     end
   end
 
-  # Filters rows of issues
+  # GET /issues/filter
   def filter
     @issues = Issue.where(search_params).page(params[:page])
-    @issues = @issues.where('title like ?', "%#{params[:search_filter]}%")
     respond_to do |format|
       format.js
     end
   end
 
-  # Creates instance of new issue
+  # GET /issues/new
   def new
     @issue = Issue.new
+    respond_to do |format|
+      format.html
+    end
   end
 
-  # Shows details of particular issue
+  # GET /issues/:id
   def show
     @issue = Issue.find(params[:id])
+    respond_to do |format|
+      format.html
+    end
   end
 
-  # Shows edit page particular issue
+  # GET /issues/:id/edit
   def edit
     @issue = Issue.find(params[:id])
+    respond_to do |format|
+      format.html
+    end
   end
 
-  # Updates particular issue
+  # PUT /issues/:id
   def update
     @issue = Issue.find(params[:id])
     if @issue.update(issue_params)
-      flash[:update_issue] = 'Issue Updated successfully!'
-      redirect_to @issue
+      redirect_to @issue, notice: t('.notice')
     else
       render 'edit'
     end
   end
 
-  # Creates new issue
+  # POST /issues
   def create
     @issue = Issue.new(issue_params)
     @issue.company_id, @issue.project_id = 1
     @issue.creator_id = 2
     @issue.parent_issue_id = 1
     if @issue.save
-      flash[:save_issue] = 'Issue Created successfully!'
-      redirect_to @issue # redirect to show page
+      redirect_to @issue, notice: t('.notice')
     else
       render 'new'
     end
   end
 
-  # Destroys particular issue
+  # DELETE /issues/:id
   def destroy
     @issue = Issue.find(params[:id])
     @issue.destroy
-    flash[:destroy_issue] = 'Issue Deleted successfully'
-    redirect_to issues_path
+    redirect_to issues_path, notice: t('.notice')
   end
 
   private
 
   # Permits columns while adding to database
   def issue_params
-    params.require(:issue).permit(:title, :description, :start_date, :due_date,
-                                  :progress, :priority, :company_id,
-                                  :creator_id, :assignee_id,
-                                  :parent_issue_id, :project_id,
-                                  :issue_state_id, :issue_type_id)
+    params.require(:issue)
+          .permit(:title, :description, :start_date, :due_date, :progress,
+                  :priority, :company_id, :creator_id, :assignee_id,
+                  :parent_issue_id, :project_id, :issue_state_id,
+                  :issue_type_id)
   end
 
   # Permits columns that are not blank for search
