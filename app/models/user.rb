@@ -7,7 +7,6 @@ class User < ActiveRecord::Base
   validates :last_name, presence: true, length: { minimum: 2, maximum: 50 }
   validates :role_id, presence: true
 
-  # belongs_to :owned_company, foreign_key: 'owner_id', class_name: 'Company'
   belongs_to :company
   belongs_to :role
   has_many   :comments
@@ -55,7 +54,8 @@ class User < ActiveRecord::Base
   end
 
   def check_for_being_admin
-    if role.name == 'Administrator'
+    # Check if role_id corresponds to the id of Admin Role in the database.
+    if role_id == Role.admin.id
       errors[:base] << 'Cannot delete this Member as he/she is admin.'
       false
     else

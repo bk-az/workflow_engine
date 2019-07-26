@@ -110,11 +110,13 @@ class MembersController < ApplicationController
   end
 
   # GET /member/setpassword
+  # executes :invited_user? as before_action
   def set_password_on_invitation
     @current_user = current_user
   end
 
   # PUT /member/setpassword
+  # executes :invited_user? as before_action
   def set_password_on_invitation_change
     @current_user = current_user
     @current_user.password = password_change_params[:password]

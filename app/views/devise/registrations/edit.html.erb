@@ -6,7 +6,7 @@
         <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
         <%= devise_error_messages! %>
 
-        <%= render 'devise/shared/users_additional_signup_form_attributes', { id_of_administrator_role: @id_of_administrator_role, obj: resource, f: f } %>
+        <%= render 'devise/shared/users_additional_signup_form_attributes', { obj: resource, f: f } %>
 
         <div class="field form-group">
           <%= f.label :email %><br />
