@@ -1,0 +1,5 @@
+$("#modal_flash").html('<%= j render partial: "project_memberships/notice" %>');
+clear_add_member_modal();
+$("#js_user_memberships").html('');
+$("#js_user_memberships").html('<%= j render partial: "member", collection: @users, as: :member %>');
+$("#js_team_memberships").html('<%= j render partial: "member", collection: @teams, as: :member %>');

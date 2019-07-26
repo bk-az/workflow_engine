@@ -7,16 +7,19 @@
       <i class="fas fa-user-plus mr-2"></i>
       <strong>Add Member</strong>
 </button>
-<h2 class="my-4">Teams</h2>
-<div class="mb-4">
-  
-</div>
-<h2 class="my-4">Members</h2>
 
-<%= render @users %>
+<h2 class="my-4">Teams</h2>
+<div id="js_team_memberships">
+  <%= render partial: "member", collection: @teams, as: :member %>
+</div>
+
+<h2 class="my-4">Members</h2>
+<div id="js_user_memberships">
+  <%= render partial: "member", collection: @users, as: :member %>
+</div>
 
 
 <!-- Add Member Modal -->
-<%= render 'memberships/modal_form' %>
+<%= render 'project_memberships/modal_form' %>
 
 
