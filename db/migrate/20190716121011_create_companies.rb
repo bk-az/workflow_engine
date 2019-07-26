@@ -5,7 +5,7 @@ class CreateCompanies < ActiveRecord::Migration
       t.string :description
       t.string :subdomain, null: false, unique: true, index: true
       t.timestamps null: false
-      
+
       # Foreign Keys
       t.integer :owner_id, null: false # owner id
     end

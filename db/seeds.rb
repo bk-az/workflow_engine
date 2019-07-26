@@ -11,6 +11,7 @@ def debug(msg)
   puts '+++++++++++++++++++++++++++'
 end
 description = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type'
+
 debug('Roles')
 # Creating Roles
 Role.create([{ name: 'Administrator' }, { name: 'Member' }])
@@ -47,7 +48,7 @@ debug('Members')
                company_id: company.id)
 end
 
-debug('Projects')
+debug('Projects and Issues')
 # Creating 5 Projects each having 9 issues
 1.upto(15) do |i|
   project = Project.create( title: "Project#{i}", description: description,
