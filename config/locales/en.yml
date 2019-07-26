@@ -20,4 +20,10 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  issues:
+      create:
+        notice: 'Issue Created successfully!'
+      destroy:
+        notice: 'Issue Deleted successfully'
+      update:
+        notice: 'Issue Updated successfully!'

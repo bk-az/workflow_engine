@@ -1,5 +1,6 @@
 class MembersController < ApplicationController
   before_action :authenticate_user!
+  before_action :invited_user?, only: [:set_password_on_invitation, :set_password_on_invitation_change]
 
   # GET /members/invite
   def invite
@@ -109,7 +110,33 @@ class MembersController < ApplicationController
     end
   end
 
+  # GET /member/setpassword
+  def set_password_on_invitation
+    @current_user = current_user
+  end
+
+  # PUT /member/setpassword
+  def set_password_on_invitation_change
+    @current_user = current_user
+    @current_user.password = password_change_params[:password]
+    @current_user.is_invited_user = false
+    if @current_user.save
+      # Re sign in the user after password change.
+      sign_in(@current_user, bypass: true)
+      redirect_to members_path, flash: { success_notification: 'Your password has been changed successfully.' }
+    else
+      render 'members/set_password_on_invitation'
+    end
+  end
+
   private
+
+  def invited_user?
+    unless current_user.is_invited_user
+      flash[:failure_notification] = 'You cannot access that page. Either you have already changed your password or you are not an inivited user.'
+      redirect_to members_path
+    end
+  end
 
   def set_invitation_view_variables
     # Get logged in User
@@ -136,6 +163,10 @@ class MembersController < ApplicationController
 
   def update_params
     params.require(:user).permit(:id, :first_name, :last_name, :role_id)
+  end
+
+  def password_change_params
+    params.require(:user).permit(:password)
   end
 
   def generate_random_password

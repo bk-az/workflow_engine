@@ -15,4 +15,6 @@ Rails.application.routes.draw do
   get 'members/edit/:id' => 'members#edit', as: :member_edit
   put 'members/edit/' => 'members#update', as: :member_update
   delete 'members/delete/:id' => 'members#delete', as: :member_delete
+  get 'member/setpassword' => 'members#set_password_on_invitation', as: :member_setpassword
+  put 'member/setpassword' => 'members#set_password_on_invitation_change', as: :member_setpassword_change
 end
