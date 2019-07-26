@@ -20,4 +20,14 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  comments:
+    create:
+      btn: 'Comment'
+      created: 'Thanks for your comment'
+      not_created: 'Unable to add comment'
+    update:
+      updated: 'Comment updated successfully!'
+      not_updated: 'Comment is invalid!'
+    destroy:
+      deleted: 'Comment deleted'
+

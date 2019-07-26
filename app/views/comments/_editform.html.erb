@@ -1,0 +1,23 @@
+<%= form_for ([@project, @comment]) do |f| %>
+  <% if @comment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this project from being saved:</h2>
+
+      <ul>
+      <% @comment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <label for="message-text" class="col-form-label">Message:</label>
+
+    <%= f.text_area :content, class: 'form-control' %>
+
+  </div>
+  <div class="actions">
+    <%= f.submit "Comment", class: "btn comments_btn info" %>
+  </div>
+<% end %>

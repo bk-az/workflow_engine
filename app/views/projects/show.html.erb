@@ -18,7 +18,7 @@
       <%= @issues.each do |issue| %>
         <option ><%= issue.assignee.first_name %></option>
       <% end %>
-    </select>    
+    </select>
   </div>
   <div class="col-md-3">
     <label>Issue State</label>
@@ -44,45 +44,60 @@
 <br>
 
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">Priority</th>
-      <th scope="col">Issue Type</th>
-      <th scope="col">Title</th>
-      <th scope="col">Assignee</th>
-      <th scope="col">Issue State</th>
-      <th scope="col">Created</th>
-      <th scope="col">Due Date</th>
-    </tr>
-  </thead>
-  <tbody id="myList">
-    <% @issues.each do |issue| %>
-    <tr>
-      <% if issue.priority == 2 %>
-        <td ><span class="glyphicon glyphicon-arrow-up red"></span></td>
-      <% elsif issue.priority == 1 %>
-        <td ><span class="glyphicon glyphicon-arrow-right green"></span></td>
-      <% elsif issue.priority == 0 %>
-        <td ><span class="glyphicon glyphicon-arrow-down blue"></span></td>
+<div style="overflow-x:auto;">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Priority</th>
+        <th scope="col">Issue Type</th>
+        <th scope="col">Title</th>
+        <th scope="col">Assignee</th>
+        <th scope="col">Issue State</th>
+        <th scope="col">Created</th>
+        <th scope="col">Due Date</th>
+      </tr>
+    </thead>
+    <tbody id="myList">
+      <% @issues.each do |issue| %>
+      <tr>
+        <% if issue.priority == 2 %>
+          <td ><span class="glyphicon glyphicon-arrow-up red"></span></td>
+        <% elsif issue.priority == 1 %>
+          <td ><span class="glyphicon glyphicon-arrow-right green"></span></td>
+        <% elsif issue.priority == 0 %>
+          <td ><span class="glyphicon glyphicon-arrow-down blue"></span></td>
+        <% end %>
+
+        <td><%= issue.issue_type.name %></td>
+
+        <td><%= issue.title %></td>
+
+        <td><%= issue.assignee.first_name %></td>
+
+        <% if issue.issue_state.name == "Resolved" %>
+          <td ><%= render "resolved" %></td>
+        <% elsif issue.issue_state.name == "Unresolved" %>
+          <td ><%= render "unresolved" %></td>
+        <% end %>
+
+        <td><%= issue.start_date %></td>
+
+        <td><%= issue.due_date %></td>
+      </tr>
       <% end %>
+    </tbody>
+  </table>
+</div>
 
-      <td><%= issue.issue_type.name %></td>
 
-      <td><%= issue.title %></td>
 
-      <td><%= issue.assignee.first_name %></td>
 
-      <% if issue.issue_state.name == "Resolved" %>
-        <td ><%= render "resolved" %></td>
-      <% elsif issue.issue_state.name == "Unresolved" %>
-        <td ><%= render "unresolved" %></td>
-      <% end %>
 
-      <td><%= issue.start_date %></td>
 
-      <td><%= issue.due_date %></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= render 'comments/comment' %>
+
+<div id="flash_messages">
+  <% flash.each do |key, value| %>
+    <%= content_tag(:div, value, :class => "flash #{key}") %>
+  <% end %>
+</div>

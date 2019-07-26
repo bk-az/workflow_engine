@@ -124,12 +124,12 @@ RSpec.describe ProjectsController, type: :controller do
     before :each do
       @project = FactoryGirl.create(:project)
     end
-    it 'should delete the contact' do
+    it 'should delete the project' do
       expect { delete :destroy, id: @project }
         .to change(Project, :count).by(-1)
     end
 
-    it 'should redirect to contacts#index' do
+    it 'should redirect to projects#index' do
       delete :destroy, id: @project
       expect(response).to redirect_to projects_url
     end

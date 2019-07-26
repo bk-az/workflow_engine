@@ -23,6 +23,8 @@ class ProjectsController < ApplicationController
     @issues = @project.issues
     @issue_types = IssueType.all
     @issue_states = IssueState.all
+    @comments = @project.comments
+    @comment = Comment.new
   end
 
   def edit
