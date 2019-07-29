@@ -26,9 +26,10 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Custom Gems
-gem 'devise', '4.1.1'
-gem 'cancancan'
 gem 'bootstrap-sass'
+gem 'cancancan'
+gem 'devise', '4.1.1'
+gem 'faker'
 gem 'kaminari'
 
 # Use ActiveModel has_secure_password
@@ -40,21 +41,20 @@ gem 'kaminari'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-
 # Access an IRB console on exception pages or by using <%= console %> in views
 group :development do
-  gem 'web-console', '~> 2.0' 
   gem 'pry'
   gem 'pry-rails'
+  gem 'web-console', '~> 2.0'
 end
-
 
 group :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-  gem 'factory_girl_rails'
-  gem 'database_cleaner'
   gem 'capybara'
+  gem 'database_cleaner'
+  gem 'factory_girl_rails'
+  gem 'web-console', '~> 2.0'
 
   # Rspec
   gem 'rspec-rails'
