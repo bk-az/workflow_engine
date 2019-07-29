@@ -34,24 +34,60 @@ RSpec.describe ProjectMembershipsController, type: :controller do
       before(:each) do
         sign_in @member
       end
-      it 'should success and render to :index view' do
-        get :index, project_id: project.id
-        expect(response).to have_http_status(200)
-        expect(response).to render_template(:index)
+      context 'Not a member of current project' do
+        it 'should not success and render to :index view' do
+          expect do
+            get :index, project_id: project.id
+          end.to raise_exception(CanCan::AccessDenied)
+        end
       end
-
-      it 'should assign project to current project' do
-        get :index, project_id: project.id
-        expect(assigns(:project)).to eq project
+      context 'As a member of current project' do
+        before(:all) do
+          @project = create(:project)
+          @member.projects << @project
+        end
+        it 'should success and render to :index view' do
+          get :index, project_id: @project.id
+          expect(response).to have_http_status(200)
+          expect(response).to render_template(:index)
+        end
+        it 'project should have current user as a member' do
+          get :index, project_id: @project.id
+          expect(assigns(:users)).to eq [@member]
+        end
+        it 'project should have no teams' do
+          get :index, project_id: @project.id
+          expect(assigns(:teams)).to eq []
+        end
+        it 'should assign project to current project' do
+          get :index, project_id: @project.id
+          expect(assigns(:project)).to eq @project
+        end
       end
-
-      it 'project should have no members' do
-        get :index, project_id: project.id
-        expect(assigns(:users)).to eq []
-      end
-      it 'project should have no teams' do
-        get :index, project_id: project.id
-        expect(assigns(:teams)).to eq []
+      context 'As a member of team which is a member of current project' do
+        before(:all) do
+          @project = create(:project)
+          @team = create(:team)
+          @team.users << @member
+          @team.projects << @project
+        end
+        it 'should success and render to :index view' do
+          get :index, project_id: @project.id
+          expect(response).to have_http_status(200)
+          expect(response).to render_template(:index)
+        end
+        it 'project should not have any users as a member' do
+          get :index, project_id: @project.id
+          expect(assigns(:users)).to eq []
+        end
+        it 'project should have current team as member' do
+          get :index, project_id: @project.id
+          expect(assigns(:teams)).to eq [@team]
+        end
+        it 'should assign project to current project' do
+          get :index, project_id: @project.id
+          expect(assigns(:project)).to eq @project
+        end
       end
     end
   end
