@@ -1,25 +1,25 @@
-<h1 class="mb-4"><%= @project.title %>
-  <span class="badge badge-danger badge-pill float-right">
-    <%= link_to 'Back', @project, class: 'text-white'%>
-  </span>
-</h1>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add_member_modal">
-      <i class="fas fa-user-plus mr-2"></i>
-      <strong>Add Member</strong>
-</button>
+<%= link_to 'Back', @project, class: 'btn btn-danger float-right'%>
+<h1 class="mb-4"><%= @project.title %></h1>
+
+<% if can? :create, ProjectMembership %>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add_member_modal">
+        <i class="fas fa-user-plus mr-2"></i>
+        <strong>Add Member</strong>
+  </button>
+  <!-- Add Member Modal -->
+  <%= render 'project_memberships/new_membership_form' %>
+<% end %>
 
 <h2 class="my-4">Teams</h2>
-<div id="js_team_memberships">
+<div class="masonry" id="js_team_memberships">
   <%= render partial: "member", collection: @teams, as: :member %>
 </div>
 
 <h2 class="my-4">Members</h2>
-<div id="js_user_memberships">
+<div class="masonry" id="js_user_memberships">
   <%= render partial: "member", collection: @users, as: :member %>
 </div>
 
 
-<!-- Add Member Modal -->
-<%= render 'project_memberships/modal_form' %>
 
 

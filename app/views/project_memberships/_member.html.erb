@@ -1,19 +1,19 @@
-<%= '<div class="row">'.html_safe if member_counter%6 == 0%>
-  <div class="col-md-2">
-    <div class="card my-2 text-center">
-      <%= image_tag("#{member.class.name.downcase}.jpg", class: "card-img-top img-thumbnail") %>
-      <div class="card-body">
-        <h6>
-          <small><%= link_to member.name, '#'%></small> 
-        </h6>
+<div class="col-lg-2 col-md-3 col-sm-4 col-6 my-3" id= <%= "#{member.class.name}_#{member.id}" %> >
+  <div class="card p-1 text-center h-100" >
+    <%= image_tag("#{member.class.name.downcase}.jpg", class: "card-img-top img-thumbnail") %>
+    <div class="card-body">
+      <h6>
+        <small><%= link_to member.name, '#'%></small>
+      </h6>
+      <% if can? :destroy, ProjectMembership %>
         <p class="badge badge-danger badge-pill">
           <small><%= link_to 'Remove',
-                  project_project_membership_path(@project, project_membership(@project, member)),
+                  project_membership_path(project_membership(@project, member)),
                   method: 'delete', data: { confirm: 'Are you sure?' },
                   class: 'text-white', remote: true%>
           </small>
         </p>
-      </div>
+      <% end %>
     </div>
   </div>
-<%= "</div>".html_safe if ((member_counter+1)%6 == 0) || (member_counter+1) == member_iteration.size%>
+</div> 

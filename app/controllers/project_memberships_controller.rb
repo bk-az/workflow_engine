@@ -1,34 +1,38 @@
 class ProjectMembershipsController < ApplicationController
+  authorize_resource
+
   def index
     load_project_with_members
   end
 
   def create
-    @membership = ProjectMembership.new(membership_params)
-    if @membership.save
-      flash.now[:success] = 'Member Added Successfully'
-    else
-      flash.now[:danger] = 'Member Not Added'
-    end
-    load_project_with_members
+    @member, @project = ProjectMembership.create_membership(
+      params[:project_member_type],
+      params[:project_member_id],
+      params[:project_id]
+    )
+    flash.now[:success] = t('.notice') unless @member.nil?
     respond_to do |format|
       format.js
     end
   end
 
   def destroy
-    ProjectMembership.find(params[:id]).destroy
-    load_project_with_members
+    pm = ProjectMembership.destroy(params[:id])
+    @member_id = "\##{pm.project_member_type}_#{pm.project_member_id}"
     respond_to do |format|
+      format.html { redirect_to project_project_memberships_path(@project) }
       format.js
     end
   end
 
-  def search_for
-    load_project_with_members
-    @members = ProjectMembership.search_for_membership(params[:member_type],
-                                                       params[:search_name],
-                                                       @project)
+  def search
+    if params[:search_name].present?
+      @project = Project.find(params[:project_id])
+      @members = ProjectMembership.search_for_membership(params[:member_type],
+                                                         params[:search_name],
+                                                         @project)
+    end
     respond_to do |format|
       format.js
     end
@@ -40,9 +44,5 @@ class ProjectMembershipsController < ApplicationController
     @project = Project.includes(:users, :teams).find(params[:project_id])
     @users = @project.users
     @teams = @project.teams
-  end
-
-  def membership_params
-    params.permit(:project_id, :project_member_id, :project_member_type)
   end
 end

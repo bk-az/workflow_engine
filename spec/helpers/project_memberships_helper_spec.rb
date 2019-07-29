@@ -11,5 +11,20 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe ProjectMembershipsHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  before(:all) do
+    @project_membership = create(:project_membership)
+    @project = @project_membership.project
+    @project_member = @project_membership.project_member
+  end
+
+  let(:project) { create(:project) }
+  let(:user)    { create(:user) }
+  let(:team)    { create(:team) }
+
+  it 'should return nil if membership not exists' do
+    expect(project_membership(project, user)).to eq nil
+  end
+  it 'should return project-membership if membership exists' do
+    expect(project_membership(@project, @project_member)).to eq @project_membership
+  end
 end

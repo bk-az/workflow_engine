@@ -1,0 +1,49 @@
+<div class="modal fade" id="add_member_modal" tabindex="-1" role="dialog" aria-labelledby="add_member_label" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="add_member_label">Add New Member</h5>
+        <button type="button" class="close js-close-search" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+          <div class="modal-body">
+            <div id="modal_flash">
+              <% if notice.present? %>
+                <%= render partial: "project_memberships/notice" %>
+              <% end %>
+            </div>
+            <%= form_tag(search_project_memberships_path(project_id: @project.id), method: "get", remote: true) do %>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="member_type">Member Type</label>
+                </div>
+                <%= select_tag("member_type", raw("<option value='User' selected>User</option><option value='Team'>Team</option>"), class: "custom-select") %>
+              </div>
+              <div class="form-group">
+                  <%= text_field_tag :search_name, "", placeholder: "Search", class: 'form-control', html: { autcomplete: "off" }%>
+                  <%= submit_tag("Search", :class => "btn btn-outline-success btn-block", id: "search_form_button", hidden: true) %>                  
+              </div>
+            <% end %>
+            <div id="js_new_membership_form" hidden>
+              <%= form_tag(project_memberships_path, method: "post", remote: true) do %>
+                <div class="input-group mt-4 mb-2">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text bg-success text-white" for="member_name">Selected Member</label>
+                  </div>
+                  <%= text_field_tag :member_name, "", class: 'form-control', required: true, readonly: true %>
+                </div>
+                <%= text_field_tag :project_id, "", hidden: true%>
+                <%= text_field_tag :project_member_id, "", hidden: true%>
+                <%= text_field_tag :project_member_type, "", hidden: true%>
+                <%= submit_tag("Add Member", :class => "btn btn-primary float-right") %>
+              <% end %>
+            </div>
+            <div id="js_search_result_area"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary js-close-search" data-dismiss="modal">Close</button>
+          </div>
+      </div>
+  </div>
+</div>

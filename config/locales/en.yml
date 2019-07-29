@@ -20,4 +20,6 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  project_memberships:
+    create:
+      notice: "Member Added Successfully"

@@ -1,16 +1,21 @@
 $( document ).ready(function() {
   $('.js-close-search').on("click", function() {
-    clear_add_member_modal();
+    clearAddMemberModal();
+  });
+  $('#member_type').change(function() {
+    submitSearchForm();
+  });
+  $('#search_name').on('input', function() {
+    submitSearchForm();
   });
 });
 
   $(document).on("click", ".js-add-member", function() {
-    var projectId = $(this).data('project-id');
+    var projectId = $(this).parent().data('project-id');
     var memberName = $(this).data('member-name');
     var memberId = $(this).data('member-id');
-    var memberType = $(this).data('member-type');
-    $('#member_name').attr("hidden",false);
-    $('#member_name_tag').attr("hidden",false);
+    var memberType = $('#member_type').val();
+    $('#js_new_membership_form').attr("hidden",false);
     $('#member_name').val(memberName);
     $('#project_member_type').val(memberType);
     $('#project_member_id').val(memberId);
@@ -18,17 +23,20 @@ $( document ).ready(function() {
     $("#js_search_result_area").html('');
   });
 
-function clear_add_member_modal() {
+function clearAddMemberModal() {
   $("#js_search_result_area").html('');
   $('#search_name').val('');
   $('#projec_member_type').val('');
   $('#projec_member_id').val('');
   $('#project_id').val('');
-  $('#member_name').attr("hidden",true);
   $('#member_name').val('');
-  $('#member_name_tag').attr("hidden",true);
+  $('#js_new_membership_form').attr("hidden",true);
 }
 
+function submitSearchForm() {
+  $('#search_form_button').click();
+  $('#js_new_membership_form').attr("hidden",true);
+}
 //   $.ajaxSetup({
 //     headers: {
 //       'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
