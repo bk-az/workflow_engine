@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :current_project, only: [:show, :edit, :update, :destroy, :add_member]
+  before_action :current_project, only: [:show, :edit, :update, :destroy]
 
   def index
     @projects = Project.all
