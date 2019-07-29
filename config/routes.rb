@@ -5,18 +5,11 @@ Rails.application.routes.draw do
     resources :project_memberships, only: :index, as: 'members'
   end
 
-  concern :project_member do
-    resources :project_memberships, only: :index, as: 'projects'
-  end
-
   resources :project_memberships, only: %i[create destroy] do
     collection do
       get 'search'
     end
   end
-  resources :teams, concerns: :project_member
-  resources :users, only: %i[], concerns: :project_member
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
