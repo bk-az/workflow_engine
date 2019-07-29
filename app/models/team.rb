@@ -8,5 +8,5 @@ class Team < ActiveRecord::Base
   has_many :projects, through: :project_memberships
   
   has_many :issue_watchers, as: :watcher
-  has_many :watching_issues, through: :issue_watchers
+  has_many :watching_issues, through: :issue_watchers, source: :issue
 end

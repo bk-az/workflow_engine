@@ -1,0 +1,4 @@
+$('#destroy_watcher_<%= @watcher.id %>').fadeOut('slow');
+// If admin removes current_user as watcher
+$("#watch_button").remove();
+$("#watch_button_div").append('<%= j render partial: "watch_button", locals: {issue: @issue, watcher: @watcher} %>');

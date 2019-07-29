@@ -16,6 +16,16 @@ Rails.application.routes.draw do
   resources :issues do
     get 'filter', on: :collection
   end
+  resources :issue_watchers do
+    collection do
+      post 'create_watcher'
+      post 'destroy_watcher'
+      post 'create_watcher_by_admin'
+      post 'destroy_watcher_by_admin'
+      get  'search_watcher_to_add'
+      get  'search_watcher_to_destroy'
+    end
+  end
 
   # Example resource route with options:
   #   resources :products do

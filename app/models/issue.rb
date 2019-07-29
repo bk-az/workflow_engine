@@ -32,7 +32,7 @@ class Issue < ActiveRecord::Base
   has_many   :issue_watchers
   # has_many   :watchers, through: :issue_watchers
   has_many   :watcher_users, through: :issue_watchers, source: :watcher,
-                             source_type: 'User'
+                             source_type: 'User', class_name: 'User'
   has_many   :watcher_teams, through: :issue_watchers, source: :watcher,
-                             source_type: 'Team'
+                             source_type: 'Team', class_name: 'Team'
 end

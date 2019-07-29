@@ -1,0 +1,42 @@
+<!-- Modal class for adding watchers -->
+<div class="modal fade" id="add_watchers_modal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add watchers to Issue</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Search member form -->
+        <%= form_tag search_watcher_to_add_issue_watchers_path, method: 'get', remote: true do %>
+          <div class="form-group">
+            <%= radio_button_tag(:watcher_type, "User", true) %>
+            <%= label_tag(:add_watcher_user, "User") %>
+            <%= radio_button_tag(:watcher_type, "Team") %>
+            <%= label_tag(:add_watcher_team, "Team") %>
+          </div>
+          <div class="form-group">
+            <label class="col-form-label">Search</label>
+            <%= hidden_field_tag :issue_id, issue.id %>
+            <%= text_field_tag "watcher_search", nil, placeholder:"Search", class: 'form-control watcher_search' %>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary">Search</button>
+          </div>
+        <% end %>
+        <!-- Search member form -->
+
+        <!-- Add member as a watcher -->
+          <div id="add_modal_search_results">  
+          </div>
+        <!-- Add member as a watcher -->
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
