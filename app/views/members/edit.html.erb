@@ -8,8 +8,9 @@
       <div class="card-body">
         <%= render 'shared/success_notification' %>
         <%= render 'shared/failure_notification' %>
+        <%= render 'shared/flash_validation_errors' %>
         
-        <%= form_for(@member, url: member_update_path, method: :put) do |f| %>
+        <%= form_for(@member, url: member_path, method: :put) do |f| %>
         <!-- DISPLAY ERRORS MESSAGES ON FORM SUBMISSION -->
         <%= render 'shared/errors', errors: @member.errors %>
 
@@ -25,7 +26,7 @@
 
         <div class="form-group">
           <label for="role_select">Role:</label>
-          <%= f.select(:role_id, setup_roles_select_options(@roles), { include_blank: 'None' }, class: 'form-control form-control-sm', id: 'role_select') %>
+          <%= f.select(:role_id, get_roles(@roles), { include_blank: 'None' }, class: 'form-control form-control-sm', id: 'role_select') %>
         </div>
 
         <!-- HIDDEN FIELDS -->

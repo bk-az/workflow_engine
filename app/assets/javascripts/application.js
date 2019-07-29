@@ -14,4 +14,3 @@
 //= require jquery_ujs
 // = require turbolinks
 //= require_tree .
-<%= environment.context_class.instance_eval { include Rails.application.routes.url_helpers } %>

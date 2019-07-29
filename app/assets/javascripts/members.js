@@ -86,12 +86,15 @@ $(function(){
   function prepareAndSendRequestForRoleChange(userId, roleId) {
     // PREPARE DATA
     var data = {
-      user_id: userId,
-      role_id: roleId
+      // API demands data to be enclosed in user key.
+      user: {
+        id: userId,
+        role_id: roleId
+      }
     }
 
     // URL
-    var url = "<%= members_privileges_update_path %>";
+    var url = "/members/edit";
 
     var successCallback = function(result, status, xhr) {
       notificationArea.html(prepareNotificationHtml('Role changed successfully!', 'success'));

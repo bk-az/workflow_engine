@@ -2,6 +2,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # GET /resource/sign_up
   def new
     @new_user = User.new
+    @new_user.build_company
     super
   end
 
@@ -21,7 +22,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
       @new_user.errors[:base] << e.message
       render 'devise/registrations/new'
     else
-      redirect_to new_user_session_path, flash: { success_notification: t('.success_notification') }
+      flash[:success] = t('.success')
+      redirect_to new_user_session_path
     end
   end
 

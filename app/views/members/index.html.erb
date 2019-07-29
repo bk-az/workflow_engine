@@ -11,11 +11,11 @@
        <div class="list-group">
         <% @members.each do |member| %>
         <div class="list-group-item list-group-item-action">
-          <a href="<%= member_show_path(member) %>"><%= member_full_name(member) %>
+          <a href="<%= member_path(member) %>"><%= member_full_name(member) %>
           </a>
           <span class="float-right">
             <em class="text-info"><%= member.role.name %></em>&nbsp;
-            <%= link_to "Delete", member_delete_path(member), data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-sm btn-outline-danger' %>
+            <%= link_to "Deactivate", member_path(member), data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-sm btn-outline-danger' %>
           </span>
         </div>
         <% end %>

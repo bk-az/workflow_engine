@@ -1,6 +1,10 @@
 class User < ActiveRecord::Base
+  # Scopes
+  scope :active, -> { where(is_active: true) }
+
   # Callbacks
-  before_destroy :check_for_issues, :check_for_being_admin
+  # Runs only when is_active attribute is changed.
+  before_save :check_for_issues, :check_for_ownership_of_company, if: :is_active_changed?
 
   # Set Validators.
   validates :first_name, presence: true, length: { minimum: 2, maximum: 50 }
@@ -41,25 +45,23 @@ class User < ActiveRecord::Base
 
   def send_on_create_confirmation_instructions
     # CONFIRM USER ONLY WHEN HE IS NOT INVITED.
-    send_confirmation_instructions unless is_invited_user?
+    send_confirmation_instructions unless has_changed_sys_generated_password?
   end
 
   def check_for_issues
-    if assigned_issues.empty?
-      true
-    else
-      errors[:base] << 'Cannot delete this Member as there are Issues assigned to him/her.'
-      false
+    if assigned_issues.any?
+      errors[:base] << I18n.t('.models.user.check_for_issues.error_message')
+      return false
     end
+    true
   end
 
-  def check_for_being_admin
-    # Check if role_id corresponds to the id of Admin Role in the database.
-    if role_id == Role.admin.id
-      errors[:base] << 'Cannot delete this Member as he/she is admin.'
-      false
-    else
-      true
+  def check_for_ownership_of_company
+    # Check if the company to which current user belongs has owner = user himself.
+    if company.owner_id == id
+      errors[:base] << I18n.t('.models.user.check_for_ownership_of_company.error_message')
+      return false
     end
+    true
   end
 end

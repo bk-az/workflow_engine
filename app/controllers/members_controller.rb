@@ -1,37 +1,49 @@
 class MembersController < ApplicationController
   before_action :authenticate_user!
-  before_action :invited_user?, only: [:set_password_on_invitation, :set_password_on_invitation_change]
+  before_action :invited_user?, only: [:show_change_password_form, :change_password]
 
-  # GET /members/invite
-  def invite
+  # GET /members/new
+  def new
     set_invitation_view_variables
 
     # Make a dummy new user.
     @new_user = User.new
+
+    respond_to do |format|
+      format.html { render 'members/invite' }
+    end
   end
 
-  # POST /members/invite
-  def invite_create
+  # POST /members
+  def create
+    validation_error = false
     # Generate Custom Password and treat user an invited member.
-    new_user_params = invite_create_params
+    new_user_params = create_params
 
-    # Create a new user.
-    @new_user = User.new(new_user_params)
-    @new_user.is_invited_user = true
+    company = current_tenant
+    # Generate a new user belonging to the current company.
+    @new_user = company.users.new(new_user_params)
+    @new_user.has_changed_sys_generated_password = true
 
-    # Set company_id to the id of company which is acting as current tenant.
-    @new_user.company_id = current_tenant.id
     @new_user.password = generate_random_password
 
     if @new_user.save
-      # Find Company from database based upon the company id of new user.
-      @new_user.send_invitation_email(@new_user.company, @new_user.role)
-      redirect_to member_invite_path, flash: { success_notification: t('.success_notification') }
-      return
+      @new_user.send_invitation_email(company, @new_user.role)
+    else
+      validation_error = true
     end
 
-    set_invitation_view_variables
-    render 'members/invite'
+    respond_to do |format|
+      format.html do
+        if validation_error
+          set_invitation_view_variables
+          render 'members/invite'
+        else
+          flash[:success] = t('.success')
+          redirect_to new_member_path
+        end
+      end
+    end
   end
 
   # GET /members/privileges
@@ -44,96 +56,147 @@ class MembersController < ApplicationController
 
     # Get all users that belong to company which is owned by current user.
     # Exlude the logged in user himself.
-    @members = @company.users.includes(:role).where.not(id: @user.id)
+    @members = @company.users.active.includes(:role)
 
     @roles = Role.all
+
+    respond_to do |format|
+      format.html { render 'members/privileges' }
+    end
   end
 
   # GET /members/privileges/:id
   def privileges_show
-    user_id = privileges_show_params[:id]
-    render json: { data: { user: current_tenant.users.find(user_id) } }
-  end
-
-  # POST /members/privileges/edit
-  def privileges_update
-    user_id = privileges_update_params[:user_id]
-    new_role_id = privileges_update_params[:role_id]
-
-    user = current_tenant.users.find(user_id)
-    user.update!(role_id: new_role_id)
-
-    # Successfully return json only when there is no error occurred.
-    render json: { data: { status: true, role_name: user.role.name } }
+    user_id = params[:id]
+    respond_to do |format|
+      format.js { render json: { data: { user: current_tenant.users.active.find(user_id) } } }
+    end
   end
 
   # GET /members
   def index
+    # TODO
     @company = current_tenant
     # Get members other the logged in user.
-    @members = @company.users.includes(:role).where.not(id: current_user.id)
+    @members = @company.users.active.includes(:role)
+
+    respond_to do |format|
+      format.html { render 'members/index' }
+    end
   end
 
   # GET /members/:id
   def show
     @company = current_tenant
-    @member = @company.users.find(params[:id])
+    @member = @company.users.active.find(params[:id])
+
+    respond_to do |format|
+      format.html { render 'members/show' }
+    end
   end
 
-  # GET /members/edit/:id
+  # GET /members/:id/edit
   def edit
     @company = current_tenant
-    @member = @company.users.find(params[:id])
+    @member = @company.users.active.find(params[:id])
     @roles = Role.all
+
+    respond_to do |format|
+      format.html { render 'members/edit' }
+    end
   end
 
-  # PUT /members/edit
+  # PUT /members/:id
   def update
     @company = current_tenant
-    @member = @company.users.find(update_params[:id])
+    @member = @company.users.active.find(update_params[:id])
     @roles = Role.all
+    status = 200 # Hope for the best :P
+
+    # Update
     if @member.update(update_params)
-      redirect_to member_edit_path(@member), flash: { success_notification: t('.success_notification') }
+      flash[:success] = t('.success')
+      data = { role_name: @member.role.name, message: t('.success') }
     else
-      render 'members/edit'
+      # status code
+      status = 422
+      data = { message: @member.errors.full_messages.join }
+    end
+
+    respond_to do |format|
+      format.js { render json: { data: data }, status: status }
+      format.html do
+        if status == 200
+          redirect_to edit_member_path(@member)
+        else
+          render 'members/edit'
+        end
+      end
     end
   end
 
-  # DELETE /members/delete/:id
-  def delete
-    member_to_be_deleted = current_tenant.users.find(params[:id])
-    if member_to_be_deleted.destroy
-      redirect_to members_path, flash: { success_notification: t('.success_notification') }
+  # DELETE /members/:id
+  def destroy
+    member_to_be_deleted = current_tenant.users.active.find(params[:id])
+    if member_to_be_deleted.update(is_active: false)
+      flash[:success] = t('.success')
     else
-      redirect_to members_path, flash: { failure_notification: member_to_be_deleted.errors[:base].join }
+      flash[:failure] = member_to_be_deleted.errors[:base].join
+    end
+
+    respond_to do |format|
+      format.html { redirect_to members_path }
     end
   end
 
-  # GET /member/setpassword
+  # GET /member/:id/setpassword/
   # executes :invited_user? as before_action
-  def set_password_on_invitation
-    @current_user = current_user
+  def show_change_password_form
+    # TODO
+    # Make sure that params[:id] == current_user.id through CANCANCAN
+    @current_user = current_tenant.users.active.find(params[:id])
+
+    respond_to do |format|
+      format.html { render 'change_password_form' }
+    end
   end
 
-  # PUT /member/setpassword
+  # PUT /member/setpassword/
   # executes :invited_user? as before_action
-  def set_password_on_invitation_change
-    @current_user = current_user
-    @current_user.password = password_change_params[:password]
-    @current_user.is_invited_user = false
+  def change_password
+    validation_error = false
+    # TODO
+    # Make sure that params[:id] == current_user.id through CANCANCAN
+    @current_user = current_tenant.users.active.find(change_password_params[:id])
+    @current_user.password = change_password_params[:password]
+    @current_user.has_changed_sys_generated_password = false
+    
     if @current_user.save
       # Re sign in the user after password change.
       sign_in(@current_user, bypass: true)
-      redirect_to members_path, flash: { success_notification: t('.success_notification') }
     else
-      render 'members/set_password_on_invitation'
+      validation_error = true
+    end
+
+    respond_to do |format|
+      format.html do
+        if validation_error
+          render 'members/change_password_form'
+        else
+          flash[:success] = t('.success')
+          redirect_to members_path
+        end
+      end
     end
   end
 
   private
 
   def invited_user?
-    redirect_to members_path, flash: { failure_notification: t('.failure_notification') } unless current_user.is_invited_user
+    unless current_user.has_changed_sys_generated_password
+      flash[:failure] = t('.failure')
+      redirect_to members_path
+    end
   end
 
   def set_invitation_view_variables
@@ -147,24 +210,16 @@ class MembersController < ApplicationController
     @company = current_tenant
   end
 
-  def invite_create_params
+  def create_params
     params.require(:user).permit(:first_name, :last_name, :email, :role_id, :designation)
-  end
-
-  def privileges_show_params
-    params.permit(:id)
-  end
-
-  def privileges_update_params
-    params.permit(:user_id, :role_id)
   end
 
   def update_params
     params.require(:user).permit(:id, :first_name, :last_name, :role_id)
   end
 
-  def password_change_params
-    params.require(:user).permit(:password)
+  def change_password_params
+    params.require(:user).permit(:id, :password)
   end
 
   def generate_random_password

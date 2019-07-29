@@ -4,7 +4,7 @@
     <div class="card">
       <h1 class="card-header">Sign up</h1>
       <div class="card-body">
-        <%= form_for(setup_user(@new_user), url: user_registration_path, method: :post) do |f| %>
+        <%= form_for(@new_user, url: user_registration_path, method: :post) do |f| %>
 
         <!-- DISPLAY ERRORS MESSAGES ON FORM SUBMISSION -->
         <%= render 'shared/errors', errors: @new_user.errors %>
