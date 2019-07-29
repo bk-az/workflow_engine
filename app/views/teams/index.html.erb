@@ -1,0 +1,22 @@
+<h1>Team index page</h1>
+
+ 
+<div class="container">
+
+  
+  <% @all_teams.each_with_index do |team, index_no| %>
+
+      <h2>Card Image</h2>
+      <div class="card" style="width:400px">
+        <img class="card-img-top" src="/assets/team_card.jpeg" alt="Card image" style="width:100%">
+        <div class="card-body">
+          <h4 class="card-title"><%= team.name %></h4>
+          <p class="card-text">Some example text some example text.</p>
+          <a href="#" class="btn btn-primary">See Profile</a>
+        </div>
+      </div>
+      <br>
+  
+  <% end %>
+  
+</div>
