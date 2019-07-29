@@ -22,7 +22,7 @@
     <label>Assignee</label>
     <select >
       <%= @issues.each do |issue| %>
-      <option ><%= issue.assignee.first_name %></option>
+        <option ><%= issue.assignee.first_name %></option>
       <% end %>
     </select>    
   </div>
