@@ -97,4 +97,10 @@ RSpec.configure do |config|
   config.before(:all) do
     FactoryGirl.reload
   end
+
 end
+
+
+  # FactoryGirl::SyntaxRunner.class_eval do
+  # include ActionDispatch::TestProcess
+  # end

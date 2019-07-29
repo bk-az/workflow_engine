@@ -3,6 +3,7 @@ class Project < ActiveRecord::Base
   has_many   :issues
 
   has_many :comments, as: :commentable
+  has_many :documents, as: :documentable
 
   # Polymorphic Team/User
   has_many :project_memberships

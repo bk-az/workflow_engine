@@ -18,7 +18,6 @@ gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 
-gem 'paperclip', '~> 5.0.0'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
@@ -30,6 +29,9 @@ gem 'devise', '4.1.1'
 gem 'cancancan'
 gem 'bootstrap-sass'
 gem 'kaminari'
+gem "paperclip", "~> 5.0.0"
+gem 'popper_js', '~> 1.14.5'
+gem 'pry', '~> 0.12.2'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -42,7 +44,11 @@ gem 'kaminari'
 
 
 # Access an IRB console on exception pages or by using <%= console %> in views
-gem 'web-console', '~> 2.0', group: :development
+#gem 'web-console', '~> 2.0', group: :development
+
+group :test, :development do
+  gem 'web-console', '~> 2.0'
+end
 
 group :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

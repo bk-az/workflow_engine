@@ -130,7 +130,7 @@ describe 'PUT update' do
     #   end
     # end
   end
-end
+
 
  # context 'PUT #update' do
  # let!(:issue) { create :issue }

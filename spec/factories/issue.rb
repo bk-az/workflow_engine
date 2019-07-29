@@ -17,5 +17,4 @@ FactoryGirl.define do
   factory :invalid_issue, parent: :Issue do |f|
     f.title nil
   end
-
 end

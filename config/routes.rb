@@ -15,7 +15,14 @@ Rails.application.routes.draw do
   #   resources :products
   resources :issues do
     get 'filter', on: :collection
+    resources :documents
   end
+
+  resources :projects do
+    resources :documents
+  end
+
+
 
   # Example resource route with options:
   #   resources :products do

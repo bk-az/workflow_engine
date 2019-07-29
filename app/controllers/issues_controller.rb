@@ -25,7 +25,9 @@ class IssuesController < ApplicationController
 
   # Shows details of particular issue
   def show
+    @document = Document.new
     @issue = Issue.find(params[:id])
+
   end
 
   # Shows edit page particular issue
@@ -51,7 +53,7 @@ class IssuesController < ApplicationController
     @issue.creator_id = 2
     @issue.parent_issue_id = 1
     if @issue.save
-      flash[:save_issue] = 'Issue Created successfully!'
+      flash[:save_issue] = 'Issue Created and Saved  successfully!'
       redirect_to @issue # redirect to show page
     else
       render 'new'
@@ -75,6 +77,10 @@ class IssuesController < ApplicationController
                                   :creator_id, :assignee_id,
                                   :parent_issue_id, :project_id,
                                   :issue_state_id, :issue_type_id)
+  end
+
+  def document_params
+      params.require(:document).permit(:path, :company_id)
   end
 
   # Permits columns that are not blank for search
