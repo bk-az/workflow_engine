@@ -15,6 +15,13 @@ Rails.application.routes.draw do
   #   resources :products
   resources :issues do
     get 'filter', on: :collection
+    get 'add_watcher'
+    get 'remove_watcher'
+    get 'search_watcher', on: :collection
+  end
+
+  devise_scope :user do
+    get 'signout', to: 'devise/sessions#destroy'
   end
   resources :issue_watchers do
     collection do

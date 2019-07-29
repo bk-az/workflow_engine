@@ -18,3 +18,4 @@ $( document ).ready(function() {
     $('.watcher_search').val('');
   })
 });
+
