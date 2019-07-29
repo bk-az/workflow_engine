@@ -1,27 +1,27 @@
 class IssueWatchersController < ApplicationController
   def create_watcher
-    @issue, @watcher = IssueWatcher.add_watcher(create_watcher_params)
+    @issue, @watcher = IssueWatcher.add_watcher(watcher_params)
     respond_to do |format|
       format.js
     end
   end
 
   def create_watcher_by_admin
-    @issue, @watcher = IssueWatcher.add_watcher(create_watcher_params)
+    @issue, @watcher = IssueWatcher.add_watcher(watcher_params)
     respond_to do |format|
       format.js
     end
   end
 
   def destroy_watcher
-    @issue, @watcher = IssueWatcher.remove_watcher(create_watcher_params)
+    @issue, @watcher = IssueWatcher.remove_watcher(watcher_params)
     respond_to do |format|
       format.js
     end
   end
 
   def destroy_watcher_by_admin
-    @issue, @watcher = IssueWatcher.remove_watcher(create_watcher_params)
+    @issue, @watcher = IssueWatcher.remove_watcher(watcher_params)
     respond_to do |format|
       format.js
     end
@@ -45,7 +45,7 @@ class IssueWatchersController < ApplicationController
 
   private
 
-  def create_watcher_params
+  def watcher_params
     params.permit(:issue_id, :watcher_id, :watcher_type)
   end
 
