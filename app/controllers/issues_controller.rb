@@ -39,8 +39,7 @@ class IssuesController < ApplicationController
   def update
     @issue = Issue.find(params[:id])
     if @issue.update(issue_params)
-      flash[:update_issue] = 'Issue Updated successfully!'
-      redirect_to @issue
+      redirect_to @issue, update_issue: t('.Issue Updated successfully!')
     else
       render 'edit'
     end
@@ -53,8 +52,7 @@ class IssuesController < ApplicationController
     @issue.creator_id = 2
     @issue.parent_issue_id = 1
     if @issue.save
-      flash[:save_issue] = 'Issue Created and Saved  successfully!'
-      redirect_to @issue # redirect to show page
+      redirect_to @issue, save_issue: t('.Issue Created and Saved  successfully!') # redirect to show page
     else
       render 'new'
     end
@@ -64,8 +62,7 @@ class IssuesController < ApplicationController
   def destroy
     @issue = Issue.find(params[:id])
     @issue.destroy
-    flash[:destroy_issue] = 'Issue Deleted successfully'
-    redirect_to issues_path
+    redirect_to issues_path,  destroy_issue: t('.Issue Deleted successfully')
   end
 
   private

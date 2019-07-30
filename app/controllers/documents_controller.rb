@@ -10,10 +10,6 @@ class DocumentsController < ApplicationController
   end
 
   def new
-    # respond_to do |format|
-    #   format.html
-    #   format.js
-    # end
     @document = Document.new
   end
 
@@ -31,21 +27,18 @@ class DocumentsController < ApplicationController
 
     end
     if @document.save
-      flash[:save_document] = 'Document saved successfully!'
-      redirect_to new_issue_path # redirect to show page
+      redirect_to new_issue_path, save_document: t('.save_document') # redirect to show page
     else
-      flash[:document_not_saved] = 'Document not saved!'
-      render 'new'
+      render 'new', document_not_saved: t('.Document not saved!')
     end
   end
 
   def destroy
     @document = Document.find(params[:id])
     if @document.destroy
-      flash[:delete_document] = 'Successfully deleted document!'
-      redirect_to new_issue_path
+      redirect_to new_issue_path, delete_document: t('.Successfully deleted document!')
     else
-      flash[:alert] = 'Error deleting Document!'
+      render 'index', document_not_delete: t('.Error deleting Document!')
     end
   end
 
