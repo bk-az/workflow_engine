@@ -196,13 +196,15 @@ class MembersController < ApplicationController
   private
 
   def changed_sys_generated_password?
-    if current_user.has_changed_sys_generated_password
+    if current_user.has_changed_sys_generated_password?
       flash[:failure] = t('.failure')
       redirect_to members_path
     end
   end
 
   def set_invitation_view_variables
+    # TODO
+    # remove these lines as they will be handled through can can can
     # Get logged in User
     @user      = current_user
 

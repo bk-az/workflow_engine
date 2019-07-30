@@ -44,7 +44,7 @@ $(function(){
 
   function prepareAndSendRequestForUserData(userId) {
     // URL
-    var url = '/members/privileges/' + userId;
+    var url = '/members/' + userId + '/privileges';
 
     var successCallback = function(result, status, xhr) {
       // Set user id in hidden field.

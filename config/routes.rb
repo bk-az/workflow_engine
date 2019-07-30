@@ -4,11 +4,16 @@ Rails.application.routes.draw do
     registrations: 'users/registrations',
     confirmations: 'users/confirmations'
   }
-  
-  get 'members/privileges' => 'members#privileges', as: :members_privileges
-  get 'members/privileges/:id' => 'members#privileges_show', as: :members_privileges_show
-  get 'members/:id/setpassword' => 'members#show_change_password_form', as: :members_set_password
-  put 'members/setpassword' => 'members#change_password', as: :members_set_password_change
 
-  resources :members
+  resources :members do
+    member do
+      get 'privileges', action: 'privileges_show'
+      get 'change_password_form', action: 'show_change_password_form'
+      put 'change_password', action: 'change_password'
+    end
+
+    collection do
+      get 'privileges'
+    end
+  end
 end
