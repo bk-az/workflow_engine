@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="offset-sm-2 col-sm-8">
+    <div class="card">
+      <h1 class="card-header clearfix">
+        All Members
+        <em class="text-muted float-right">@<%= @company.name %></em>
+      </h1>
+      <div class="card-body">
+       <%= render 'shared/success_notification' %>
+       <%= render 'shared/failure_notification' %>
+       <div class="list-group">
+        <% @members.each do |member| %>
+        <div class="list-group-item list-group-item-action">
+          <a href="<%= member_path(member) %>"><%= member_full_name(member) %>
+          </a>
+          <span class="float-right">
+            <em class="text-info"><%= member.role.name %></em>&nbsp;
+            <%= link_to "Deactivate", member_path(member), data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-sm btn-outline-danger' %>
+          </span>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

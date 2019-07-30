@@ -1,0 +1,234 @@
+class MembersController < ApplicationController
+  before_action :authenticate_user!
+  before_action :changed_sys_generated_password?, only: [:show_change_password_form, :change_password]
+
+  # GET /members/new
+  def new
+    set_invitation_view_variables
+
+    # Make a dummy new user.
+    @new_user = User.new
+
+    respond_to do |format|
+      format.html { render 'members/invite' }
+    end
+  end
+
+  # POST /members
+  def create
+    validation_error = false
+    # Generate Custom Password and treat user an invited member.
+    new_user_params = create_params
+
+    company = current_tenant
+    # Generate a new user belonging to the current company.
+    @new_user = company.users.new(new_user_params)
+    @new_user.has_changed_sys_generated_password = true
+
+    @new_user.password = generate_random_password
+
+    if @new_user.save
+      # TODO
+      # Comment out before running test cases.
+      @new_user.send_invitation_email(company, @new_user.role)
+    else
+      validation_error = true
+    end
+
+    respond_to do |format|
+      format.html do
+        if validation_error
+          set_invitation_view_variables
+          render 'members/invite'
+        else
+          flash[:success] = t('.success')
+          redirect_to new_member_path
+        end
+      end
+    end
+  end
+
+  # GET /members/privileges
+  def privileges
+    # Get logged in User
+    @user = current_user
+
+    # Get Company
+    @company = current_tenant
+
+    # Get all users that belong to company which is owned by current user.
+    # Exlude the logged in user himself.
+    @members = @company.users.active.includes(:role)
+
+    @roles = Role.all
+
+    respond_to do |format|
+      format.html { render 'members/privileges' }
+    end
+  end
+
+  # GET /members/privileges/:id
+  def privileges_show
+    user_id = params[:id]
+    @user = current_tenant.users.active.find(user_id)
+    respond_to do |format|
+      format.js { render json: { data: { user: @user } } }
+    end
+  end
+
+  # GET /members
+  def index
+    # TODO
+    @company = current_tenant
+    # Get members other the logged in user.
+    @members = @company.users.active.includes(:role)
+
+    respond_to do |format|
+      format.html { render 'members/index' }
+    end
+  end
+
+  # GET /members/:id
+  def show
+    @company = current_tenant
+    @member = @company.users.active.find(params[:id])
+
+    respond_to do |format|
+      format.html { render 'members/show' }
+    end
+  end
+
+  # GET /members/:id/edit
+  def edit
+    @company = current_tenant
+    @member = @company.users.active.find(params[:id])
+    @roles = Role.all
+
+    respond_to do |format|
+      format.html { render 'members/edit' }
+    end
+  end
+
+  # PUT /members/:id
+  def update
+    @company = current_tenant
+    @member = @company.users.active.find(update_params[:id])
+    @roles = Role.all
+    status = 200 # Hope for the best :P
+
+    # Update
+    if @member.update(update_params)
+      flash[:success] = t('.success')
+      data = { role_name: @member.role.name, message: t('.success') }
+    else
+      # status code
+      status = 422
+      data = { message: @member.errors.full_messages.join }
+    end
+
+    respond_to do |format|
+      format.js { render json: { data: data }, status: status }
+      format.html do
+        if status == 200
+          redirect_to edit_member_path(@member)
+        else
+          render 'members/edit'
+        end
+      end
+    end
+  end
+
+  # DELETE /members/:id
+  def destroy
+    @member_to_be_deleted = current_tenant.users.active.find(params[:id])
+    if @member_to_be_deleted.update(is_active: false)
+      flash[:success] = t('.success')
+    else
+      flash[:failure] = @member_to_be_deleted.errors[:base].join
+    end
+
+    respond_to do |format|
+      format.html { redirect_to members_path }
+    end
+  end
+
+  # GET /member/:id/setpassword/
+  # executes :changed_sys_generated_password? as before_action
+  def show_change_password_form
+    # TODO
+    # Make sure that params[:id] == current_user.id through CANCANCAN
+    @current_user = current_tenant.users.active.find(params[:id])
+
+    respond_to do |format|
+      format.html { render 'change_password_form' }
+    end
+  end
+
+  # PUT /member/setpassword/
+  # executes :changed_sys_generated_password? as before_action
+  def change_password
+    validation_error = false
+    # TODO
+    # Make sure that params[:id] == current_user.id through CANCANCAN
+    @current_user = current_tenant.users.active.find(change_password_params[:id])
+    @current_user.password = change_password_params[:password]
+    @current_user.has_changed_sys_generated_password = true
+    
+    if @current_user.save
+      # Re sign in the user after password change.
+      sign_in(@current_user, bypass: true)
+    else
+      validation_error = true
+    end
+
+    respond_to do |format|
+      format.html do
+        if validation_error
+          render 'members/change_password_form'
+        else
+          flash[:success] = t('.success')
+          redirect_to members_path
+        end
+      end
+    end
+  end
+
+  private
+
+  def changed_sys_generated_password?
+    if current_user.has_changed_sys_generated_password?
+      flash[:failure] = t('.failure')
+      redirect_to members_path
+    end
+  end
+
+  def set_invitation_view_variables
+    # TODO
+    # remove these lines as they will be handled through can can can
+    # Get logged in User
+    @user      = current_user
+
+    # Get Roles
+    @roles     = Role.all
+
+    # Get Current Company
+    @company = current_tenant
+  end
+
+  def create_params
+    params.require(:user).permit(:first_name, :last_name, :email, :role_id, :designation)
+  end
+
+  def update_params
+    params.require(:user).permit(:id, :first_name, :last_name, :role_id)
+  end
+
+  def change_password_params
+    params.require(:user).permit(:id, :password)
+  end
+
+  def generate_random_password
+    o = [('a'..'z'), ('A'..'Z')].map(&:to_a).flatten
+    (0...10).map { o[rand(o.length)] }.join
+  end
+end

@@ -1,21 +1,37 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   # GET /resource/sign_up
   def new
-    @id_of_administrator_role = Role.where(name: 'Administrator').first.id
+    @new_user = User.new
+    @new_user.build_company
     super
   end
 
-  # GET /resource/edit
-  def edit
-    @id_of_administrator_role = Role.where(name: 'Administrator').first.id
-    super
+  # POST /resource/create
+  def create
+    begin
+      ActiveRecord::Base.transaction do
+        @new_user = User.new(sign_up_params)
+        @new_user.role_id = Role.admin.id
+
+        @new_user.save!
+        @new_user.company.update!(owner_id: @new_user.id)
+      end
+    rescue ActiveRecord::RecordInvalid
+      render 'devise/registrations/new'
+    rescue ActiveRecord::ActiveRecordError => e
+      @new_user.errors[:base] << e.message
+      render 'devise/registrations/new'
+    else
+      flash[:success] = t('.success')
+      redirect_to new_user_session_path
+    end
   end
 
   private
 
   # Override Sign Up Parameters
   def sign_up_params
-    params.require(:user).permit(:first_name, :last_name, :company_id, :role_id, :designation, :email, :password, :password_confirmation)
+    params.require(:user).permit(:first_name, :last_name, :company_id, :designation, :email, :password, :password_confirmation, company_attributes: [:name, :subdomain, :description])
   end
 
   # Override Update Parameters

@@ -5,6 +5,15 @@ Rails.application.routes.draw do
     confirmations: 'users/confirmations'
   }
 
-  get 'users/invite' => 'users_custom#invite', as: :new_user_invite
-  post 'users/invite' => 'users_custom#invite_create', as: :new_user_invite_create
+  resources :members do
+    member do
+      get 'privileges', action: 'privileges_show'
+      get 'change_password_form', action: 'show_change_password_form'
+      put 'change_password', action: 'change_password'
+    end
+
+    collection do
+      get 'privileges'
+    end
+  end
 end

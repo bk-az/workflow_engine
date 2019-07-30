@@ -7,6 +7,6 @@ class UserMailer < Devise::Mailer
     @recipient = recipient
     @role = role
 
-    mail(to: recipient.email, subject: "Invitation | #{@company.name} | #{@role.name}" )
+    mail(to: recipient.email, subject: "Invitation | #{@company.name} | #{@role.name}")
   end
 end

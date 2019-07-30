@@ -16,16 +16,15 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<div class="container">
-  <br>
-  
-  <% if user_signed_in? %>
+  <div class="container">
+    <br>
+
+    <% if user_signed_in? %>
     <%= button_to "Logout", destroy_user_session_path, data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-sm btn-outline-warning' %>
-  <% end %>
-  <%= yield %>
+    <% end %>
+    <%= yield %>
 
-  <br>
-</div>
-
+    <br>
+  </div>
 </body>
 </html>

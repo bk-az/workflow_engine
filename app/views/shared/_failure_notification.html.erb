@@ -1,6 +1,6 @@
-<% unless flash[:failure_notification].nil? %>
+<% unless flash[:failure].nil? %>
   <div class="alert alert-danger">
-    <a class="close" data-dismiss="alert">&times;</a>
-    <%= flash[:failure_notification] %>
+    <a class="close" data-dismiss="alert" href="#_">&times;</a>
+    <%= flash[:failure] %>
   </div>
 <% end %>

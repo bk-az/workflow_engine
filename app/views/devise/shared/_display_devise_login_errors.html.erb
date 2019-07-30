@@ -1,8 +1,15 @@
 <!-- DEVISE ONLY PUTS DATA INTO FLASH DICT. USING KEYS 'notice' OR 'alert' -->
 <% flash.each do |key, value| %>
-  <% if key == 'notice' || key == 'alert' %>
+  <% if key == 'alert' %>
     <div class="alert alert-danger">
-      <a href="#" class="close" data-dismiss="alert">&times;</a>
+      <a href="#_" class="close" data-dismiss="alert">&times;</a>
+      <%= value %>
+    </div>
+  <% end %>
+
+  <% if key == 'notice' %>
+    <div class="alert alert-success">
+      <a href="#_" class="close" data-dismiss="alert">&times;</a>
       <%= value %>
     </div>
   <% end %>

@@ -1,6 +1,6 @@
-<% unless flash[:success_notification].nil? %>
+<% unless flash[:success].nil? %>
   <div class="alert alert-success">
-    <a class="close" data-dismiss="alert">&times;</a>
-    <%= flash[:success_notification] %>
+    <a class="close" data-dismiss="alert" href="#_">&times;</a>
+    <%= flash[:success] %>
   </div>
 <% end %>
