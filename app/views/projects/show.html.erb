@@ -6,8 +6,10 @@
 
 <!-- <%= button_to 'Edit Project', edit_project_path(@project), method: 'get'%> -->
 <tr>
-  <td><%= link_to 'Edit Project', edit_project_path(@project),class: 'btn btn-warning' %></td>
-  <td><%= link_to 'Delete Project', project_path(@project),class: 'btn btn-danger', method: 'delete', data: { confirm: 'Are you sure?' } %></td>
+  <% if can? [:edit, :delete], Project %>
+    <td><%= link_to 'Edit Project', edit_project_path(@project),class: 'btn btn-warning' %></td>
+    <td><%= link_to 'Delete Project', project_path(@project),class: 'btn btn-danger', method: 'delete', data: { confirm: 'Are you sure?' } %></td>
+  <% end %>
 </tr>
 
 

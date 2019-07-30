@@ -18,7 +18,7 @@
         <div  class="header">
           <div  class="v-avatar avatar" style="height: 50px; width: 50px;"><img  src="https://images.unsplash.com/photo-1490894641324-cfac2f5cd077?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=100&q=70">
           </div>
-          <span  class="displayName title">John Doe<%= comment.user_id %></span>
+          <span  class="displayName title">John Doe <%= comment.user_id %></span>
           
           <span  class="displayName caption"><%= time_ago_in_words(comment.created_at) %> ago</span>
 

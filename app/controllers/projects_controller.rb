@@ -1,12 +1,19 @@
 class ProjectsController < ApplicationController
+  load_and_authorize_resource
   before_action :current_project, only: [:show, :edit, :update, :destroy]
 
   def index
     @projects = Project.all
+    respond_to do |format|
+      format.html
+    end
   end
 
   def new
     @project = Project.new
+    respond_to do |format|
+      format.html
+    end
   end
 
   def create
@@ -25,9 +32,15 @@ class ProjectsController < ApplicationController
     @issue_states = IssueState.all
     @comments = @project.comments
     @comment = Comment.new
+    respond_to do |format|
+      format.html
+    end
   end
 
   def edit
+    respond_to do |format|
+      format.html
+    end
   end
 
   def update
