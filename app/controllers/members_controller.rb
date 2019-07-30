@@ -1,6 +1,6 @@
 class MembersController < ApplicationController
   before_action :authenticate_user!
-  before_action :invited_user?, only: [:show_change_password_form, :change_password]
+  before_action :changed_sys_generated_password?, only: [:show_change_password_form, :change_password]
 
   # GET /members/new
   def new
@@ -28,6 +28,8 @@ class MembersController < ApplicationController
     @new_user.password = generate_random_password
 
     if @new_user.save
+      # TODO
+      # Comment out before running test cases.
       @new_user.send_invitation_email(company, @new_user.role)
     else
       validation_error = true
@@ -68,8 +70,9 @@ class MembersController < ApplicationController
   # GET /members/privileges/:id
   def privileges_show
     user_id = params[:id]
+    @user = current_tenant.users.active.find(user_id)
     respond_to do |format|
-      format.js { render json: { data: { user: current_tenant.users.active.find(user_id) } } }
+      format.js { render json: { data: { user: @user } } }
     end
   end
 
@@ -137,11 +140,11 @@ class MembersController < ApplicationController
 
   # DELETE /members/:id
   def destroy
-    member_to_be_deleted = current_tenant.users.active.find(params[:id])
-    if member_to_be_deleted.update(is_active: false)
+    @member_to_be_deleted = current_tenant.users.active.find(params[:id])
+    if @member_to_be_deleted.update(is_active: false)
       flash[:success] = t('.success')
     else
-      flash[:failure] = member_to_be_deleted.errors[:base].join
+      flash[:failure] = @member_to_be_deleted.errors[:base].join
     end
 
     respond_to do |format|
@@ -150,7 +153,7 @@ class MembersController < ApplicationController
   end
 
   # GET /member/:id/setpassword/
-  # executes :invited_user? as before_action
+  # executes :changed_sys_generated_password? as before_action
   def show_change_password_form
     # TODO
     # Make sure that params[:id] == current_user.id through CANCANCAN
@@ -162,14 +165,14 @@ class MembersController < ApplicationController
   end
 
   # PUT /member/setpassword/
-  # executes :invited_user? as before_action
+  # executes :changed_sys_generated_password? as before_action
   def change_password
     validation_error = false
     # TODO
     # Make sure that params[:id] == current_user.id through CANCANCAN
     @current_user = current_tenant.users.active.find(change_password_params[:id])
     @current_user.password = change_password_params[:password]
-    @current_user.has_changed_sys_generated_password = false
+    @current_user.has_changed_sys_generated_password = true
     
     if @current_user.save
       # Re sign in the user after password change.
@@ -192,8 +195,8 @@ class MembersController < ApplicationController
 
   private
 
-  def invited_user?
-    unless current_user.has_changed_sys_generated_password
+  def changed_sys_generated_password?
+    if current_user.has_changed_sys_generated_password
       flash[:failure] = t('.failure')
       redirect_to members_path
     end
