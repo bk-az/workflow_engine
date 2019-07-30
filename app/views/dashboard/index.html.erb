@@ -1,0 +1,242 @@
+<style>
+* {
+  box-sizing: border-box;
+}
+
+/* Create three equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 33.33%;
+  padding: 10px;
+  height: 420px; /* Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+  }
+}
+</style>
+
+<h2>Responsive Three Column Layout</h2>
+<p>Resize the browser window to see the responsive effect (the columns will stack on top of each other instead of floating next to each other, when the screen is less than 600px wide).</p>
+
+<div class="row">
+  <div class="column" style="background-color:#aaa; overflow:auto;">
+    <h2>Column 1</h2>
+    <p>Some text..</p>
+
+    <div class="card">
+      <img class="card-img-top img-fluid" src="https://img.webnots.com/2017/04/Bootstrap-Card-Image.png" alt="Card Columns 1">
+      <div class="card-body">
+        <h4 class="card-title">Card Title</h4>
+      <p class="card-text">Here is a very long description of the card and you can enter longer text to check the cards are aligned perfectly like on the masonry layout.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img-top img-fluid" src="https://img.webnots.com/2017/04/Bootstrap-Card-Image.png" alt="Card Columns 2">
+      <div class="card-body">
+        <h4 class="card-title">Card Title</h4>
+        <p class="card-text">Here is a shorter description of the card.</p>
+        <p class="card-text"><small class="text-muted">Here is a footer</small></p>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="column" style="background-color:#bbb;">
+    <h2>Column 2</h2>
+    <p>Some text..</p>
+  </div>
+  <div class="column" style="background-color:#ccc;">
+    <h2>Column 3</h2>
+    <p>Some text..</p>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="container">
+  <code>vertical center content of full height cards (solved)</code>
+  <div class="row bg-faded card-columns">
+
+
+
+    <div class="column" style="overflow:auto;">
+      <div class="card card-body h-100 justify-content-center">
+          I have a lot of content that wraps on multiple lines..
+      </div>
+
+      <div class="card">
+        <img class="card-img-top img-fluid" src="https://img.webnots.com/2017/04/Bootstrap-Card-Image.png" alt="Card Columns 1">
+        <div class="card-body">
+          <h4 class="card-title">Card Title</h4>
+        <p class="card-text">Here is a very long description of the card and you can enter longer text to check the cards are aligned perfectly like on the masonry layout.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <img class="card-img-top img-fluid" src="https://img.webnots.com/2017/04/Bootstrap-Card-Image.png" alt="Card Columns 2">
+        <div class="card-body">
+          <h4 class="card-title">Card Title</h4>
+          <p class="card-text">Here is a shorter description of the card.</p>
+          <p class="card-text"><small class="text-muted">Here is a footer</small></p>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <div class="column" style="overflow:auto;">
+        <div class="card card-body h-100 justify-content-center">
+           I have a line of content.<br>
+           And another line here..
+        </div>
+
+        <div class="card">
+          <img class="card-img-top img-fluid" src="https://img.webnots.com/2017/04/Bootstrap-Card-Image.png" alt="Card Columns 1">
+          <div class="card-body">
+            <h4 class="card-title">Card Title</h4>
+          <p class="card-text">Here is a very long description of the card and you can enter longer text to check the cards are aligned perfectly like on the masonry layout.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <img class="card-img-top img-fluid" src="https://img.webnots.com/2017/04/Bootstrap-Card-Image.png" alt="Card Columns 2">
+          <div class="card-body">
+            <h4 class="card-title">Card Title</h4>
+            <p class="card-text">Here is a shorter description of the card.</p>
+            <p class="card-text"><small class="text-muted">Here is a footer</small></p>
+          </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="column" style="overflow:auto;">
+        <div class="card card-body h-100 justify-content-center">
+            I have a little bit.
+        </div>
+
+        <div class="card">
+          <img class="card-img-top img-fluid" src="https://img.webnots.com/2017/04/Bootstrap-Card-Image.png" alt="Card Columns 1">
+          <div class="card-body">
+            <h4 class="card-title">Card Title</h4>
+          <p class="card-text">Here is a very long description of the card and you can enter longer text to check the cards are aligned perfectly like on the masonry layout.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <img class="card-img-top img-fluid" src="https://img.webnots.com/2017/04/Bootstrap-Card-Image.png" alt="Card Columns 2">
+          <div class="card-body">
+            <h4 class="card-title">Card Title</h4>
+            <p class="card-text">Here is a shorter description of the card.</p>
+            <p class="card-text"><small class="text-muted">Here is a footer</small></p>
+          </div>
+        </div>
+    </div>
+  </div>
+</div> -->
+
+
+
+
+
+
+
+
+
+
+<!-- Start of Card Columns Layout -->
+<!-- <div class="card-columns">
+  <div class="card">
+    <img class="card-img-top img-fluid" src="https://img.webnots.com/2017/04/Bootstrap-Card-Image.png" alt="Card Columns 1">
+    <div class="card-body">
+      <h4 class="card-title">Card Title</h4>
+    <p class="card-text">Here is a very long description of the card and you can enter longer text to check the cards are aligned perfectly like on the masonry layout.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <img class="card-img-top img-fluid" src="https://img.webnots.com/2017/04/Bootstrap-Card-Image.png" alt="Card Columns 2">
+    <div class="card-body">
+      <h4 class="card-title">Card Title</h4>
+      <p class="card-text">Here is a shorter description of the card.</p>
+      <p class="card-text"><small class="text-muted">Here is a footer</small></p>
+    </div>
+  </div>
+
+  <div class="card p-3 bg-dark text-white">
+    <blockquote class="blockquote mb-0">
+    <p>This is a blockquote and you can enter any quote from anyone.</p>
+    <footer>
+    <small class="text-muted">
+    Said by <cite title="Source Title">Someone</cite>
+    </small>
+    </footer>
+    </blockquote>
+  </div>
+
+  <div class="card bg-primary p-3 text-center text-white">
+    <blockquote class="blockquote mb-0">
+    <p>Here is a description for primary card.</p>
+    <footer>
+    <small>
+    Said by <cite title="Source Title">Someone</cite>
+    </small>
+    </footer>
+    </blockquote>
+  </div>
+
+  <div class="card text-center">
+    <div class="card-body">
+      <h4 class="card-title">Card Title</h4>
+      <p>Here is a short description of the card without image.</p>
+      <p class="card-text"><small class="text-muted">Here is a footer</small></p>
+    </div>
+  </div>
+
+  <div class="card p-3 text-right">
+    <blockquote class="blockquote mb-0">
+    <p>Here is a short description without title and image.</p>
+    <footer>
+    <small>
+    Said by <cite title="Source Title">Someone</cite>
+    </small>
+    </footer>
+    </blockquote>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title">Card Title</h4>
+      <p class="card-text">Here is a long description for your card, enter anything you would like to enter here.</p>
+      <p class="card-text"><small class="text-muted">Here is a footer</small></p>
+    </div>
+  </div>
+
+  <div class="card">
+    <img class="card-img img-fluid" src="https://img.webnots.com/2017/04/Bootstrap-Card-Image.png" alt="Image Only Card">
+  </div>
+</div> -->
