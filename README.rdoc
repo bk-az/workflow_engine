@@ -2,8 +2,8 @@
 == Setup
 
 * Clone this repo
-* Create your feature branch <tt>git branch your-branch-name</tt>
-* Checkout to your branch <tt>git checkout your-branch-name</tt>
+* Create your feature branch <tt>git branch feature/feature_name</tt>
+* Checkout to your branch <tt>git checkout feature/feature_name</tt>
 * Update config/database.yml file and set your db password
 * Create Database <tt>rake db:create</tt>
 * Run Migrations <tt>rake db:migrate</tt>
