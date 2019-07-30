@@ -66,6 +66,7 @@ class IssueWatcher < ActiveRecord::Base
     watchers
   end
 
+  # Fetches all the emails from database
   def self.notify_creator_assignee_and_watchers(issue)
     emails = []
     issue.issue_watchers.find_each do |watcher|
@@ -81,12 +82,14 @@ class IssueWatcher < ActiveRecord::Base
     # Fetching creator's email
     emails << issue.creator.email
     # Fetching assignee's email
-    emails << issue.assignee.email
+    unless issue.assignee.nil?
+      emails << issue.assignee.email
     # Removing duplicates
     emails = emails.uniq
     send_email(emails, issue)
   end
 
+  # Sends email via active jobs
   def self.send_email(emails, issue)
     emails.each do |email|
       IssuesMailer.delay.notify(email, issue)

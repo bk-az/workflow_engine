@@ -37,6 +37,7 @@ class Issue < ActiveRecord::Base
   has_many   :watcher_teams, through: :issue_watchers, source: :watcher,
                              source_type: 'Team', class_name: 'Team'
 
+  # Helper method for sending email
   def send_email(issue)
     return if ENV['RAILS_ENV'] == 'test'
 
