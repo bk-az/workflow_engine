@@ -1,14 +1,24 @@
+
+
 <!DOCTYPE html>
 <html>
 <head>
   <title>WorkflowEngine</title>
+  <!-- BOOTSTRAP 4 COMPONENTS -->
+  <%= stylesheet_link_tag    'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' %>
+  <%= javascript_include_tag 'https://code.jquery.com/jquery-3.3.1.slim.min.js' %>
+  <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' %>
+  <%= javascript_include_tag 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' %>
+  <!-- END - BOOTSTRAP 4 COMPONENTS -->
+  
+
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-<%= yield %>
+  <%= yield %>
 
 </body>
-</html>
+</html> 
