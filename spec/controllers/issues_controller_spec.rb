@@ -39,11 +39,10 @@ RSpec.describe IssuesController, type: :controller do
   end
 
   context 'POST #create' do
-
     context 'with valid attributes' do
       it 'saves the new issue in the database' do
         expect { post :create, issue: FactoryGirl.attributes_for(:issue) }
-        .to change(Issue, :count).by(1)  
+          .to change(Issue, :count).by(1)
       end
 
       it "redirects to that new issue's page" do

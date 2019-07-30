@@ -42,6 +42,7 @@ class IssuesController < ApplicationController
 
   # PUT /issues/:id
   def update
+    binding.pry
     @issue = Issue.find(params[:id])
     if @issue.update(issue_params)
       redirect_to @issue, notice: t('.notice')

@@ -65,4 +65,31 @@ class IssueWatcher < ActiveRecord::Base
     end
     watchers
   end
+
+  def self.notify_creator_assignee_and_watchers(issue)
+    emails = []
+    issue.issue_watchers.find_each do |watcher|
+      if watcher.watcher_type == 'User'
+        user_email = User.find(watcher.watcher_id).email
+        emails << user_email
+      elsif watcher.watcher_type == 'Team'
+        team = Team.find(watcher.watcher_id)
+        team_emails = team.users.pluck(:email)
+        emails += team_emails
+      end
+    end
+    # Fetching creator's email
+    emails << issue.creator.email
+    # Fetching assignee's email
+    emails << issue.assignee.email
+    # Removing duplicates
+    emails = emails.uniq
+    send_email(emails, issue)
+  end
+
+  def self.send_email(emails, issue)
+    emails.each do |email|
+      IssuesMailer.delay.notify(email, issue)
+    end
+  end
 end
