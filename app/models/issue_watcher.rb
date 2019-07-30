@@ -2,6 +2,7 @@ class IssueWatcher < ActiveRecord::Base
   belongs_to :watcher, polymorphic: true
   belongs_to :issue
 
+  # Adds watcher to database
   def self.add_watcher(params)
     issue = Issue.find(params[:issue_id])
     watcher_type = params[:watcher_type]
@@ -20,6 +21,7 @@ class IssueWatcher < ActiveRecord::Base
     end
   end
 
+  # Removes watcher from database
   def self.remove_watcher(params)
     issue = Issue.find(params[:issue_id])
     issue_watcher = issue.issue_watchers
@@ -38,6 +40,7 @@ class IssueWatcher < ActiveRecord::Base
     end
   end
 
+  # Returns all searched watchers to add
   def self.get_watchers_to_add(params)
     issue = Issue.find(params[:issue_id])
     watcher_type = params[:watcher_type]
@@ -52,6 +55,7 @@ class IssueWatcher < ActiveRecord::Base
     watchers
   end
 
+  # Returns all searched watchers to remove
   def self.get_watchers_to_remove(params)
     issue = Issue.find(params[:issue_id])
     watcher_type = params[:watcher_type]
