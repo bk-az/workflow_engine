@@ -1,12 +1,21 @@
 class User < ActiveRecord::Base
+  # Scopes
+  scope :active, -> { where(is_active: true) }
+
+  # Callbacks
+  # Runs only when is_active attribute is changed.
+  before_save :check_for_issues, :check_for_ownership_of_company, if: :is_active_changed?
+
   # Set Validators.
   validates :first_name, presence: true, length: { minimum: 2, maximum: 50 }
   validates :last_name, presence: true, length: { minimum: 2, maximum: 50 }
-
+  validates :role_id, presence: true
+  validates :email, uniqueness: {scope: :company_id}
   belongs_to :company
   belongs_to :role
   has_many   :comments
 
+  accepts_nested_attributes_for :company
   # Admin can create many issues
   has_many   :created_issues, foreign_key: 'creator_id', class_name: 'Issue'
 
@@ -28,24 +37,50 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :trackable, :validatable
+  :recoverable, :rememberable, :trackable, :validatable
+
+  # To override devise email validation process.
+  def email_required?
+    false
+  end
+
+  def email_changed?
+    false
+  end
+
+  # For ActiveRecord 5.1+
+  def will_save_change_to_email?
+    false
+  end
+  # -------------
 
   def send_invitation_email(company, role)
     UserMailer.invite(company, self, role).deliver
   end
 
-  def company_id_valid?(company_id_provided)
-    # Check if index of company_id_provided is nil or not.
-    owned_companies_set = Company.select(:id).where(owner_id: id).collect
-    if owned_companies_set.include? company_id_provided
-      true
-    else
-      false
-    end
-  end
-
   def send_on_create_confirmation_instructions
     # CONFIRM USER ONLY WHEN HE IS NOT INVITED.
-    send_confirmation_instructions unless is_invited_user?
+    send_confirmation_instructions unless has_changed_sys_generated_password?
+  end
+
+  def check_for_issues
+    if assigned_issues.any?
+      errors[:base] << I18n.t('.models.user.check_for_issues.error_message')
+      return false
+    end
+    true
+  end
+
+  def check_for_ownership_of_company
+    # Check if the company to which current user belongs has owner = user himself.
+    if company.owner_id == id
+      errors[:base] << I18n.t('.models.user.check_for_ownership_of_company.error_message')
+      return false
+    end
+    true
+  end
+
+  def self.find_for_database_authentication(warden_conditions)
+    where(:email => warden_conditions[:email]).first
   end
 end

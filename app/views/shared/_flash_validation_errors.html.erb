@@ -1,0 +1,7 @@
+<% flash[:validation_errors] ||= [] %>
+<% flash[:validation_errors].each do |msg| %>
+  <div class="alert alert-danger">
+    <a href="#_" class="close" data-dismiss="alert">&times;</a>
+    <%= msg %>
+  </div>
+<% end %>

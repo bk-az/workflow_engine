@@ -9,7 +9,13 @@
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="field form-group">
         <%= f.label :email %><br />
-        <%= f.email_field :email, autofocus: true, class: "form-control form-control-sm", placeholder: "john.doe@gmail.com" %>
+        <% if @email.nil? 
+          readonly = false
+        else
+          readonly = true
+        end
+        %>
+        <%= f.email_field :email, autofocus: true, class: "form-control form-control-sm", placeholder: "john.doe@gmail.com", value: @email, readonly: readonly %>
       </div>
 
       <div class="field form-group">

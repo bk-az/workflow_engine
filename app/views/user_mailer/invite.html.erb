@@ -5,5 +5,5 @@
 
   <p>Your Password is: <strong><%= @recipient.password %></strong>. We recommend you to change your password as early as possible.</p>
 
-  <p><%= link_to 'Confirm and Log into My Account', confirmation_url(@recipient, confirmation_token: @recipient.confirmation_token), style: "padding: 5px; border-radius: 3px; border: 2px solid blue; color: blue;"%></p>
+  <p><%= link_to 'Confirm and Log into My Account', confirmation_url(@recipient, confirmation_token: @recipient.confirmation_token, subdomain: @recipient.company.subdomain), style: "padding: 5px; border-radius: 3px; border: 2px solid blue; color: blue;"%></p>
 </div>

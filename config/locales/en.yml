@@ -20,4 +20,29 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  users:
+    registrations:
+      create: 
+        success: 'Your account has been created successfully. A confirmation email is sent to you. Confirm your email and login here.'
+    sessions:
+      create: # after_sign_in_path_for
+        success: 'Signed In Successfully! Have a Good Day! :)'
+
+  members:
+    create:
+      success: 'Invitation Sent Successfully!'
+    update:
+      success: 'Details Updated Successfully!'
+    destroy:
+      success: 'Member Deactivated Successfully!'
+    change_password:
+      success: 'Your password has been changed successfully.'
+    show_change_password_form: # For invited_user?
+      failure: 'You cannot access that page. Either you have already changed your password or you are not an inivited user.'
+
+  models:
+    user:
+      check_for_issues:
+        error_message: 'Cannot deactivate this Member as there are Issues assigned to him/her.'
+      check_for_ownership_of_company:
+        error_message: 'Cannot deactivate this Member as he/she is owner of the current company.'
