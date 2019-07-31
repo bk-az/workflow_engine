@@ -1,6 +1,6 @@
-# issues_mailer.rb
-class IssuesMailer < Devise::Mailer
-  default from: 'muhammad.basil@7vals.com'
+# issue_mailer.rb
+class IssueMailer < ApplicationMailer
+  default from: 'muhammadbasil05@gmail.com'
 
   # Notifies through email
   def notify(email_address, issue)

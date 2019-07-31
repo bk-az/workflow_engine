@@ -53,7 +53,8 @@ class IssuesController < ApplicationController
   # POST /issues
   def create
     @issue = Issue.new(issue_params)
-    @issue.company_id, @issue.project_id = 1
+    @issue.company_id = 1
+    @issue.project_id = 1
     @issue.creator_id = 2
     @issue.parent_issue_id = 1
     if @issue.save

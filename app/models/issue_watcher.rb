@@ -16,7 +16,7 @@ class IssueWatcher < ActiveRecord::Base
         return issue, team
       end
     rescue ActiveRecord::RecordNotUnique
-      # Flash message
+      return issue
     end
   end
 
@@ -84,6 +84,7 @@ class IssueWatcher < ActiveRecord::Base
     # Fetching assignee's email
     unless issue.assignee.nil?
       emails << issue.assignee.email
+    end
     # Removing duplicates
     emails = emails.uniq
     send_email(emails, issue)
@@ -92,7 +93,7 @@ class IssueWatcher < ActiveRecord::Base
   # Sends email via active jobs
   def self.send_email(emails, issue)
     emails.each do |email|
-      IssuesMailer.delay.notify(email, issue)
+      IssueMailer.delay.notify(email, issue)
     end
   end
 end

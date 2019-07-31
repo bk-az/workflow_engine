@@ -1,7 +1,0 @@
-<div id="watch_button"> 
-  <% if @issue.issue_watchers.find_by(watcher_id: current_user).nil? %>
-    <%= link_to 'Watch', issue_add_watcher_path(@issue),class: 'btn btn-primary', remote: true %>
-  <% else %>
-    <%= link_to 'Unwatch', issue_remove_watcher_path(@issue),class: 'btn btn-primary', remote: true %>
-  <% end %>
-</div>

@@ -31,10 +31,12 @@
       <th scope="row">State :</th>
       <td><%= @issue.issue_state.name %></td>
     </tr>
-    <tr>
-      <th scope="row">Assignee :</th>
-      <td><span class="glyphicon glyphicon-user"></span> <%= @issue.assignee.first_name %></td>
-    </tr>
+    <% unless @issue.assignee.nil? %>
+      <tr>
+        <th scope="row">Assignee :</th>
+        <td><span class="glyphicon glyphicon-user"></span> <%= @issue.assignee.first_name %></td>
+      </tr>
+    <% end %>
     <tr>
       <th scope="row">Issue Type :</th>
       <td><%= @issue.issue_type.name %></td>
