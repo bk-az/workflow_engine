@@ -6,14 +6,9 @@
         <em class="text-muted float-right">@<%= @company.name %></em>
       </h1>
       <div class="card-body">
-        <%= render 'shared/success_notification' %>
-        <%= render 'shared/failure_notification' %>
-        <%= render 'shared/flash_validation_errors' %>
         
         <%= form_for(@member, url: member_path, method: :put) do |f| %>
-        <!-- DISPLAY ERRORS MESSAGES ON FORM SUBMISSION -->
-        <%= render 'shared/errors', errors: @member.errors %>
-
+        
         <div class="field form-group">
           <%= f.label :first_name %><br />
           <%= f.text_field :first_name, autofocus: true, class: "form-control form-control-sm", placeholder: "E.g. John" %>

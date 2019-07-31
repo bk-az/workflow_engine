@@ -21,13 +21,9 @@
 
 en:
   users:
-    registrations:
-      create: 
-        success: 'Your account has been created successfully. A confirmation email is sent to you. Confirm your email and login here.'
     sessions:
-      create: # after_sign_in_path_for
-        success: 'Signed In Successfully! Have a Good Day! :)'
-
+      new:
+        success: 'Your account has been created successfully. A confirmation email is sent to you. Confirm your email and login here.'
   members:
     create:
       success: 'Invitation Sent Successfully!'

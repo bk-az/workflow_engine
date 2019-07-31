@@ -17,13 +17,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
         @new_user.company.update!(owner_id: @new_user.id)
       end
     rescue ActiveRecord::RecordInvalid
+      flash[:error] = @new_user.errors.full_messages
       render 'devise/registrations/new'
     rescue ActiveRecord::ActiveRecordError => e
-      @new_user.errors[:base] << e.message
+      flash[:error] = @new_user.errors.full_messages
+      flash[:error] << e.message
       render 'devise/registrations/new'
     else
-      flash[:success] = t('.success')
-      redirect_to new_user_session_url(subdomain: @new_user.company.subdomain, user_email: @new_user.email)
+      redirect_to new_user_session_url(subdomain: @new_user.company.subdomain, user_email: @new_user.email, newly_signed_up: true)
     end
   end
 

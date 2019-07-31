@@ -18,7 +18,7 @@ class UserCompaniesController < ApplicationController
   # GET user_companies/show_companies
   def show_companies
     @email = params[:user_email]
-    @companies = Company.where(id: (User.unscoped.where(email: @email).pluck(:company_id)))
+    @companies = Company.where(id: User.unscoped.where(email: @email).pluck(:company_id))
     respond_to do |format|
       format.html { render 'user_companies/show_companies' }
     end

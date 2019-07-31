@@ -6,8 +6,6 @@
         <em class="text-muted float-right">@<%= @company.name %></em>
       </h1>
       <div class="card-body">
-       <%= render 'shared/success_notification' %>
-       <%= render 'shared/failure_notification' %>
        <div class="list-group">
         <% @members.each do |member| %>
         <div class="list-group-item list-group-item-action">

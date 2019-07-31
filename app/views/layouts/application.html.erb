@@ -22,6 +22,12 @@
     <% if user_signed_in? %>
     <%= button_to "Logout", destroy_user_session_path, data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-sm btn-outline-warning' %>
     <% end %>
+
+    <%= render 'shared/success' %>
+    <%= render 'shared/error' %>
+    <%= render 'shared/alert' %>
+    <%= render 'shared/notice' %>
+    
     <%= yield %>
 
     <br>

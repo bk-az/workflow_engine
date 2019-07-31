@@ -6,9 +6,6 @@
       <div class="card-body">
         <%= form_for(@new_user, url: user_registration_path, method: :post) do |f| %>
 
-        <!-- DISPLAY ERRORS MESSAGES ON FORM SUBMISSION -->
-        <%= render 'shared/errors', errors: @new_user.errors %>
-
         <%= render 'devise/shared/users_additional_signup_form_attributes', { obj: @new_user, f: f } %>
 
         <div class="field form-group">
