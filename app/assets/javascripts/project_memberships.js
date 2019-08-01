@@ -1,39 +1,48 @@
 $( document ).ready(function() {
-  $('.js-close-search').on("click", function() {
+    projecMemberType = $('#project_member_type');
+    searchName = $('#search_name');
+    projectMemberId = $('#project_member_id');
+    projectId = $('#project_id');
+    memberName = $('#member_name');
+    jsNewMembershipForm = $('#js_new_membership_form');
+    memberType = $('#member_type');
+  
+  $('#add_member_modal').on('hidden.bs.modal', function (e) {
     clearAddMemberModal();
   });
-  $('#member_type').change(function() {
+
+  memberType.change(function() {
     submitSearchForm();
   });
-  $('#search_name').on('input', function() {
+  searchName.on('input', function() {
     submitSearchForm();
   });
 });
 
-  $(document).on("click", ".js-add-member", function() {
-    var projectId = $(this).parent().data('project-id');
-    var memberName = $(this).data('member-name');
-    var memberId = $(this).data('member-id');
-    var memberType = $('#member_type').val();
-    $('#js_new_membership_form').attr("hidden",false);
-    $('#member_name').val(memberName);
-    $('#project_member_type').val(memberType);
-    $('#project_member_id').val(memberId);
-    $('#project_id').val(projectId);
-    $("#js_search_result_area").html('');
-  });
+$(document).on("click", ".js-add-member", function() {
+  var projectIdVal = $(this).parent().data('project-id');
+  var memberNameVal = $(this).data('member-name');
+  var memberIdVal = $(this).data('member-id');
+  var memberTypeVal = memberType.val();
+  jsNewMembershipForm.attr("hidden",false);
+  memberName.val(memberNameVal);
+  projecMemberType.val(memberTypeVal);
+  projectMemberId.val(memberIdVal);
+  projectId.val(projectIdVal);
+  $("#js_search_result_area").html('');
+});
 
 function clearAddMemberModal() {
   $("#js_search_result_area").html('');
-  $('#search_name').val('');
-  $('#projec_member_type').val('');
-  $('#projec_member_id').val('');
-  $('#project_id').val('');
-  $('#member_name').val('');
-  $('#js_new_membership_form').attr("hidden",true);
+  searchName.val('');
+  projecMemberType.val('');
+  projectMemberId.val('');
+  projectId.val('');
+  memberName.val('');
+  jsNewMembershipForm.attr("hidden",true);
 }
 
 function submitSearchForm() {
   $('#search_form_button').click();
-  $('#js_new_membership_form').attr("hidden",true);
+  jsNewMembershipForm.attr("hidden",true);
 }

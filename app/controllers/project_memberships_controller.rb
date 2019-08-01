@@ -3,6 +3,9 @@ class ProjectMembershipsController < ApplicationController
 
   def index
     load_project_with_members
+    respond_to do |format|
+      format.html
+    end
   end
 
   def create
@@ -29,9 +32,11 @@ class ProjectMembershipsController < ApplicationController
   def search
     if params[:search_name].present?
       @project = Project.find(params[:project_id])
-      @members = ProjectMembership.search_for_membership(params[:member_type],
-                                                         params[:search_name],
-                                                         @project)
+      @members = ProjectMembership.search_for_membership(
+        params[:member_type],
+        params[:search_name],
+        @project
+      )
     end
     respond_to do |format|
       format.js

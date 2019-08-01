@@ -1,4 +1,4 @@
-$("#modal_flash").html('<%= j render partial: "project_memberships/notice" %>');
+$("#add_member_modal_flash").html('<%= j render partial: "project_memberships/notice" %>');
 clearAddMemberModal();
 <% unless @member.nil? %>
   <% if @member.class.name == 'User' %>
