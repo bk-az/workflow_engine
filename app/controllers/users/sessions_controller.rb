@@ -1,7 +1,7 @@
 class Users::SessionsController < Devise::SessionsController
   def new
     @email = params[:user_email]
-    flash[:success] = I18n.t('.users.sessions.new.success') if params[:newly_signed_up]
+    flash[:success] = t('users.sessions.new.success') if params[:newly_signed_up]
     super
   end
 

@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  attr_accessor :skip_invitation_email
+
   # Scopes
   scope :active, -> { where(is_active: true) }
 
@@ -55,8 +57,7 @@ class User < ActiveRecord::Base
   # -------------
 
   def send_invitation_email(company, role)
-    return if ENV['RAILS_ENV'] == 'test'
-    UserMailer.invite(company, self, role).deliver
+    UserMailer.invite(company, self, role).deliver unless skip_invitation_email
   end
 
   def send_on_create_confirmation_instructions

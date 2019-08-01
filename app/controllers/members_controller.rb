@@ -28,10 +28,8 @@ class MembersController < ApplicationController
     @new_user.password = generate_random_password
     
     if @new_user.save
-      # TODO
-      # Comment out before running test cases.
-      @new_user.send_invitation_email(company, @new_user.role)
-      flash[:success] = I18n.t('.members.create.success')
+      @new_user.send_invitation_email(company, @new_user.role) unless @new_user.skip_invitation_email
+      flash[:success] = t('members.create.success')
     else
       flash[:error] = @new_user.errors.full_messages
       validation_error = true
@@ -119,8 +117,8 @@ class MembersController < ApplicationController
 
     # Update
     if @member.update(update_params)
-      flash[:success] = I18n.t('.members.update.success')
-      data = { role_name: @member.role.name, message: I18n.t('.members.update.success') }
+      flash[:success] = t('members.update.success')
+      data = { role_name: @member.role.name, message: t('members.update.success') }
     else
       # status code
       status = 422
@@ -144,7 +142,7 @@ class MembersController < ApplicationController
   def destroy
     @member_to_be_deleted = current_tenant.users.active.find(params[:id])
     if @member_to_be_deleted.update(is_active: false)
-      flash[:success] = I18n.t('.members.destroy.success')
+      flash[:success] = t('members.destroy.success')
     else
       flash[:error] = @member_to_be_deleted.errors[:base]
     end
@@ -179,7 +177,7 @@ class MembersController < ApplicationController
     if @current_user.save
       # Re sign in the user after password change.
       sign_in(@current_user, bypass: true)
-      flash[:success] = I18n.t('.members.change_password.success')
+      flash[:success] = t('members.change_password.success')
     else
       flash[:error] = @current_user.errors.full_messages
       validation_error = true
@@ -200,7 +198,7 @@ class MembersController < ApplicationController
 
   def changed_sys_generated_password?
     if current_user.has_changed_sys_generated_password?
-      flash[:error] = I18n.t('.members.show_change_password_form.failure')
+      flash[:error] = t('members.show_change_password_form.failure')
       redirect_to members_path
     end
   end
@@ -219,7 +217,7 @@ class MembersController < ApplicationController
   end
 
   def create_params
-    params.require(:user).permit(:first_name, :last_name, :email, :role_id, :designation)
+    params.require(:user).permit(:first_name, :last_name, :email, :role_id, :designation, :skip_invitation_email)
   end
 
   def update_params

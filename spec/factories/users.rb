@@ -11,5 +11,6 @@ FactoryGirl.define do
     confirmed_at { Date.today }
     company
     role
+    skip_invitation_email true
   end
 end

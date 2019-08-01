@@ -14,7 +14,7 @@ RSpec.describe MembersController, type: :controller do
   end
 
   let(:user) { create(:user) }
-  let(:user_params) { { first_name: 'asdfasdf', last_name: 'asdfasdf', role_id: 1, email: Faker::Internet.email } }
+  let(:user_params) { { first_name: 'asdfasdf', last_name: 'asdfasdf', role_id: 1, email: Faker::Internet.email, skip_invitation_email: true } }
   let(:update_params) { { id: @member.id, first_name: 'blabla', last_name: 'blabla', role_id: 1 } }
   let(:change_password_params) { { id: @member.id, password: 'blabla' } }
 
