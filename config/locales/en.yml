@@ -20,4 +20,13 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  issue_types:
+    create:
+      created: "Issue Type Successfully"
+      not_created: "Issue Type not Created"
+    destroy:
+      notice: "Issue Type Deleted"
+      danger: "Unable to delete this Issue Type"
+    update:
+      updated: "Issue Type Updated Successfully"
+      not_updated: "Issue Type not Updated"

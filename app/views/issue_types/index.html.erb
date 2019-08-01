@@ -1,0 +1,49 @@
+<div class="text-center my-4">
+  <h1>Issue Types</h1>
+</div>
+
+<button type="button" class="btn btn-primary mb-4" data-toggle="modal" data-target="#issue_type_modal">
+  <i class="fas fa-plus mr-2"></i>New Issue Type</button>
+  <!-- Add Member Modal -->
+  <%= render 'issue_types/new_issue_type_modal' %>
+  <%= render 'issue_types/show_issue_type_modal' %>
+
+  <div class="row">
+    <div class="col-lg-6 col-md-12 col-sm-12">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text bg-warning text-dark" for="member_type">Category</label>
+        </div>
+        <select id="issue_types_category_filter" class="custom-select">
+          <option value='all' selected>All Issue Types</option>
+          <option value='global'>Globally Available</option>
+          <option value='project'>Project Specific</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-12 col-sm-12">
+      <div class="input-group mb-4">
+        <div class="input-group-prepend">
+          <label class="input-group-text bg-warning text-dark" for="project_name">Search Project</label>
+        </div>
+        <%= autocomplete_field_tag 'issue_types_project_name', '', autocomplete_project_title_issue_types_path, :id_element => '#issue_types_project_id', class: 'form-control', placeholder: 'Search' %>
+        <%= link_to("Apply", "" , id: 'issue_types_project_name_done', class: 'btn btn-outline-success ml-2') %>
+        <input type="number" id="issue_types_project_id" hidden>
+      </div>
+    </div>
+  </div>
+  <div class="my-4">
+    <table id="issue_types_datatable" class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th>Name</th>
+          <th>Global</th>
+          <th>Project #</th>
+          <th>Manage</th>
+        </tr>
+      </thead>
+      <tbody id="table_body">
+        <%= render @issue_types %>
+      </tbody>
+    </table>
+  </div>

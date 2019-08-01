@@ -25,8 +25,11 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Custom Gems
 gem 'devise', '4.1.1'
 gem 'cancancan'
-gem 'bootstrap-sass'
-
+gem 'faker'
+gem 'pry', '~> 0.12.2'
+gem 'rspec-collection_matchers'
+gem 'jquery-ui-rails'
+gem 'rails4-autocomplete'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -41,7 +44,8 @@ gem 'web-console', '~> 2.0', group: :development
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-
+  gem 'database_cleaner'
+  gem 'factory_bot_rails'
   gem 'rspec-rails', '~> 3.8'
   # Access an IRB console on exception pages or by using <%= console %> in views
   # gem 'web-console', '~> 2.0'
