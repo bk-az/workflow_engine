@@ -1,8 +1,13 @@
 # Issues Controller
 class IssuesController < ApplicationController
+  load_and_authorize_resource
   # GET /issues
   def index
-    @issues = Issue.order(:project_id).page(params[:page])
+    @issues = @issues.order(:project_id).page(params[:page])
+    @issue_types = IssueType.all
+    @issue_states = IssueState.all
+    @projects = User.visible_projects(current_user)
+    @assignees = User.all
     respond_to do |format|
       format.html
     end
@@ -10,7 +15,7 @@ class IssuesController < ApplicationController
 
   # GET /issues/filter
   def filter
-    @issues = Issue.where(search_params).page(params[:page])
+    @issues = @issues.where(search_params).page(params[:page])
     respond_to do |format|
       format.js
     end
@@ -18,7 +23,6 @@ class IssuesController < ApplicationController
 
   # GET /issues/new
   def new
-    @issue = Issue.new
     respond_to do |format|
       format.html
     end
@@ -26,7 +30,6 @@ class IssuesController < ApplicationController
 
   # GET /issues/:id
   def show
-    @issue = Issue.find(params[:id])
     respond_to do |format|
       format.html
     end
@@ -34,7 +37,6 @@ class IssuesController < ApplicationController
 
   # GET /issues/:id/edit
   def edit
-    @issue = Issue.find(params[:id])
     respond_to do |format|
       format.html
     end
@@ -42,7 +44,6 @@ class IssuesController < ApplicationController
 
   # PUT /issues/:id
   def update
-    @issue = Issue.find(params[:id])
     if @issue.update(issue_params)
       redirect_to @issue, notice: t('.notice')
     else
@@ -52,9 +53,9 @@ class IssuesController < ApplicationController
 
   # POST /issues
   def create
-    @issue = Issue.new(issue_params)
-    @issue.company_id, @issue.project_id = 1
-    @issue.creator_id = 2
+    @issue.company_id = 1
+    @issue.project_id = 1
+    @issue.creator_id = current_user.id
     @issue.parent_issue_id = 1
     if @issue.save
       redirect_to @issue, notice: t('.notice')
@@ -65,7 +66,6 @@ class IssuesController < ApplicationController
 
   # DELETE /issues/:id
   def destroy
-    @issue = Issue.find(params[:id])
     @issue.destroy
     redirect_to issues_path, notice: t('.notice')
   end

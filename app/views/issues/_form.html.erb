@@ -36,28 +36,28 @@
     <div class="col-md-3">
       <div class="form-group">
         <%= f.label :assignee_id %>
-        <%= f.select("assignee_id", Issue.all.collect {|issue| [issue.assignee.first_name, issue.assignee_id ] }, {:include_blank => 'Select an assignee'}) %>
+        <%= f.select(:assignee_id, Issue.all.collect {|issue| [issue.assignee.first_name, issue.assignee_id ] }, {:include_blank => 'Select an assignee'}) %>
       </div>
     </div>
 
     <div class="col-md-3">
       <div class="form-group">
         <%= f.label :priority %>
-        <%= f.select :priority, options_for_select([["Low", ""], "Medium", "High"]) %>
+        <%= f.select :priority, options_for_select([["Low", 0], ["Medium", 1],["High", 2]]) %>
       </div>
     </div>
 
     <div class="col-md-3">
       <div class="form-group">
         <%= f.label :issue_state_id %>       
-        <%= f.select("issue_state_id", IssueState.all.collect {|issue_state| [issue_state.name, issue_state.id ] }, {:include_blank => 'Select an issue state'}) %>
+        <%= f.select(:issue_state_id, IssueState.all.collect {|issue_state| [issue_state.name, issue_state.id ] }, {:include_blank => 'Select an issue state'}) %>
       </div>
     </div>
 
     <div class="col-md-3">
       <div class="form-group">
         <%= f.label :issue_type_id %>
-           <%= f.select("issue_type_id", IssueType.all.collect {|issue_type| [issue_type.name, issue_type.id ] }, {:include_blank => 'Select an issue type'}) %>
+           <%= f.select(:issue_type_id, IssueType.all.collect {|issue_type| [issue_type.name, issue_type.id ] }, {:include_blank => 'Select an issue type'}) %>
       </div>
     </div> 
   </div>

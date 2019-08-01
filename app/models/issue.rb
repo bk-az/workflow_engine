@@ -35,4 +35,6 @@ class Issue < ActiveRecord::Base
                              source_type: 'User'
   has_many   :watcher_teams, through: :issue_watchers, source: :watcher,
                              source_type: 'Team'
+
+  scope :visible_issues, ->(user) { where(project_id: user.projects.collect(&:id)) }
 end
