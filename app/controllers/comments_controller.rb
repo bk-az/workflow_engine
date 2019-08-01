@@ -1,12 +1,13 @@
 # Controller for comments model. Comments are to be shown on projects and issues
 class CommentsController < ApplicationController
-  before_action :load_project
+  before_action :load_project, except: [:edit, :update, :destroy]
   before_action :current_comment, only: [:edit, :update, :destroy]
 
   def new
     @comment = Comment.new
     respond_to do |format|
       format.html
+      format.js
     end
   end
 
@@ -14,30 +15,43 @@ class CommentsController < ApplicationController
     @comment = @project.comments.build(comment_params)
     @comment.company_id = 1
     if @comment.save
-      redirect_to @project, notice: t('comments.create.created')
+      flash[:notice] = t('comments.create.created')
     else
-      redirect_to @project, alert: t('comments.create.not_created')
+      flash[:alert] = t('comments.create.not_created')
+    end
+    respond_to do |format|
+      format.js
     end
   end
 
   def edit
     respond_to do |format|
-      format.html
+      format.js
     end
   end
 
   def update
     if @comment.update(comment_params)
-      redirect_to @project, notice: t('comments.update.updated')
+      respond_to do |format|
+        format.js
+      end
+      flash[:notice] = t('comments.update.updated')
     else
+      # how to show the errors
       render 'edit'
       flash[:notice] = t('comments.update.not_updated')
     end
   end
 
   def destroy
-    @comment.destroy
-    redirect_to project_path(@project), notice: t('comments.destroy.deleted')
+    if @comment.destroy
+      flash[:notice] = t('comments.destroy.destroyed')
+      respond_to do |format|
+        format.js
+      end
+    else
+      flash[:notice] = t('comments.destroy.not_destroyed')
+    end
   end
 
   private

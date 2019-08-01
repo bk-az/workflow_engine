@@ -3,45 +3,18 @@
 
     <div class="card leavecommentcard v-card v-sheet theme--light elevation-2"><span class="headline">Leave a comment</span>
       <div class="sign-in-wrapper">
-        <p class="caption disclaimer">
+        <p id="createform" class="caption disclaimer">
           <%= render 'comments/form' %>
         </p>
         <p class="error-message"></p>
       </div>
-      <!---->
     </div>
 
-    <% @comments.delete(@comments.last) %>
-    <% @comments.each do |comment| %>
-    <div>
-      <div  class="card v-card v-sheet theme--light elevation-2">
-        <div  class="header">
-          <div  class="v-avatar avatar" style="height: 50px; width: 50px;"><img  src="https://images.unsplash.com/photo-1490894641324-cfac2f5cd077?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=100&q=70">
-          </div>
-          <span  class="displayName title">John Doe <%= comment.user_id %></span>
-          
-          <span  class="displayName caption"><%= time_ago_in_words(comment.created_at) %> ago</span>
-
-          <span  class="displayName caption"> <%= link_to "Edit", edit_project_comment_path(@project, comment) %> </span>
-          <span  class="displayName caption"> <%= link_to 'Delete', project_comment_path(@project, comment), method: :delete, data: { confirm: 'Are you sure?' } %> </span>
-        </div>
-        <!---->
-        <div  class="wrapper comment">
-          <p><%= comment.content %></p>
-        </div>
-        <div  class="actions">
-          <!---->
-          <!---->
-          <!---->
-        </div>
-        <div  class="v-dialog__container" style="display: block;"></div>
-      </div>
-      <!---->
-      <!-- <div  class="answers">
-        answers
-      </div> -->
+    <% comment_ids = @comments.reject { |c| c.id == nil }.map(&:id) %>
+    <% @comments = Comment.where(id: comment_ids) %>
+    
+    <div id="single-comment">
+      <%= render 'comments/all_comments'%>
     </div>
-    <% end %>
-
   </div>
 </div>

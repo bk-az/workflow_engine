@@ -14,4 +14,6 @@ class Project < ActiveRecord::Base
                    source_type: 'Team'
   has_many :users, through: :project_memberships, source: :project_member,
                    source_type: 'User'
+
+  scope :visible_projects, ->(user) { where(id: user.projects.collect(&:id)) }
 end

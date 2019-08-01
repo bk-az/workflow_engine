@@ -1,22 +1,18 @@
 # frozen_string_literal: true
-
 class Ability
   include CanCan::Ability
 
   def initialize(user)
+    # user ||= User.new
+
     if user.present?
-      if user.role.name == 'Administrator'
+      if user.admin?
         can :manage, :all
       else
-        can :read, Project do |p|
-          ProjectMembership.where(project_id: p.id, project_member_id: user.id,
-                                  project_member_type: 'User').present?
+        can :read, Project, Project.visible_projects(user) do |project|
+          project
         end
       end
     end
-  end
-
-  def admin
-    can :manage, :all
   end
 end

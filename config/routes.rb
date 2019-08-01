@@ -34,14 +34,15 @@ Rails.application.routes.draw do
   #     end
   #   end
 
- delete 'projects/:project_id/comments/:id', to: 'comments#destroy', as: 'delete_comment'
 
   resources :projects do
-    resources :comments, only: [:new, :create, :edit, :update, :destroy]
+    resources :comments, shallow: true
   end
 
+  resources :comments, only: [:edit, :update, :destroy]
+
   resources :issues do
-    resources :comments
+    resources :comments, shallow: true
   end
 
   # Example resource route with sub-resources:

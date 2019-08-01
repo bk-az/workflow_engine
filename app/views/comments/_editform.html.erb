@@ -1,4 +1,4 @@
-<%= form_for ([@project, @comment]) do |f| %>
+<%= form_for [@project, @comment], remote: true do |f| %>
   <% if @comment.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this project from being saved:</h2>
@@ -14,10 +14,10 @@
   <div class="form-group">
     <label for="message-text" class="col-form-label">Message:</label>
 
-    <%= f.text_area :content, class: 'form-control' %>
+    <%= f.text_area :content, id: "editcommenttext", class: 'form-control' %>
 
   </div>
   <div class="actions">
-    <%= f.submit "Comment", class: "btn comments_btn info" %>
+    <%= f.submit t('comments.update.btn'), id: "comment_update_btn", class: "btn comments_btn info" %>
   </div>
 <% end %>
