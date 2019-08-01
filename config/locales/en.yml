@@ -21,3 +21,15 @@
 
 en:
   hello: "Hello world"
+
+  teams:
+    create:
+      team_created: 'Team created Successfully'
+      team_not_created: 'Team not created'
+
+    destroy:
+      team_deleted: 'Successfully deleted team!'
+      team_not_deleted: 'Error deleting team!'
+
+    update:
+      team_updated: 'Team Successfully updated!'

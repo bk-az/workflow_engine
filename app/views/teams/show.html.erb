@@ -9,15 +9,15 @@
   <div class="row">
 
     <div class="col-8">
-      <%= select_tag "member_id", options_from_collection_for_select(@all_members, :id, :first_name), id: 'js_members_select', class: 'form-control' %>
+      <%= select_tag "user_id", options_from_collection_for_select(@all_members, :id, :first_name), id: 'js_members_select', class: 'form-control' %>
       <%= hidden_field_tag(:team_id, @team.id) %>
     </div>
 
     <div class="col-2">
       <div class="form-group form-check">
         <div class="form-check-label">
-          <%= check_box 'param_name1', 'result', {}, 1, 0 %>
-          <%= label_tag(:param_name1, "Admin", class: 'form-check-label') %>
+          <%= check_box 'join_admin', 'result', {}, 1, 0 %>
+          <%= label_tag(:join_admin, "Admin", class: 'form-check-label') %>
         </div>
       </div>
     </div>   
@@ -33,43 +33,47 @@
 
   <!-- end of authorization -->
 
+  <div style="height:450px" class="overflow-auto">
+      <% if @team_memberships.count == 0 %>
+      <h3>No members to show!</h3>
+      <% else %>
 
-  <% if @team_memberships.count == 0 %>
-  <h3>No members to show!</h3>
-  <% else %>
+      <h2>Members list of team </h2>
 
-  <h2>Members list of team </h2>
+      <table class="table">
+        <thead class="thead-dark">
+        </thead>
+        <tbody>
 
-  <table class="table">
-    <thead class="thead-dark">
-    </thead>
-    <tbody>
-
-      <th scope="row">Member First Name</th>
-      <th scope="row">Member Last Name</th>
-      <th scope="row">Admin</th>
-      <th scope="row">Approved Status</th>
-      <% @team_memberships.each_with_index do |membership, index_no| %>
-      <% if membership.team_id == @team.id and membership.is_approved == false  %>
+          <th scope="row">Member First Name</th>
+          <th scope="row">Member Last Name</th>
+          <th scope="row">Admin</th>
+          <th scope="row">Approved Status</th>
+          <% @team_memberships.each_with_index do |membership, index_no| %>
+          <% if membership.team_id == @team.id and membership.is_approved == false  %>
 
 
-      <tr> <span class="glyphicon glyphicon-user"></span> 
+          <tr> <span class="glyphicon glyphicon-user"></span> 
 
-        <td><%= membership.user.first_name%></td>
-        <td><%= membership.user.last_name%></td>
-        <td><%= membership.is_team_admin%></td>
-        <td><%= membership.is_approved%></td>
-      </tr>
+            <td><%= membership.user.first_name%></td>
+            <td><%= membership.user.last_name%></td>
+            <td><%= membership.is_team_admin%></td>
+            <td><%= membership.is_approved%></td>
+          </tr>
+
+          <% end %>
+          <% end %>
+
+
+        </tbody>
+      </table>
 
       <% end %>
-      <% end %>
+  </div>
+  <%= link_to "Delete Team", team_path(@team.id), method: :delete,data:{confirm: 'Are you sure?'}, :class => 'btn btn-primary btn-sm' %>
 
-
-    </tbody>
-  </table>
-
-  <% end %>
-  <!--  -->
+  <%= link_to 'Edit Team', edit_team_path(@team.id),class: 'btn btn-primary btn-sm' %>
+ 
 </div>
 <script type="text/javascript">
   $(function() {

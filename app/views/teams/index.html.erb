@@ -1,9 +1,10 @@
 
 
  
-<div class="container ">
+<div class="container " style="padding-top: 30px">
 
   <div class="row" style="float: right;">
+
     <%= link_to 'Add Team', new_team_path,class: 'btn btn-primary btn-sm' %>
   </div>
 
@@ -22,14 +23,32 @@
                 <h4 class="card-title"><%= team.name %></h4>
                 <p class="card-text">Welcome to <%= team.name%></p>
               <!--   Manage button visibilities using  CanCanCan -->
-                <%= link_to 'Manage Team', team_path(team),class: 'btn btn-primary btn-sm' %><!--  shown to admins only -->
+               
+                <%= link_to 'Manage Team', team_path(team),class: 'btn btn-sm btn-block btn-outline-info' %><!--  shown to admins only -->
                 
-                <%= link_to 'Join Team', team_path(team),class: 'btn btn-primary btn-sm' %> <!-- shown to members , change is_approve to true for this member-->
 
+                <hr>
+                <% if TeamMembership.where('team_id = ? and user_id= ? and is_approved= ?', team.id, User.last.id, true).present? %>  <!-- change User.last.id to current user id ## CANCANCAN-->
 
-                <%= link_to "Delete", team_path(team), method: :delete,data:{confirm: 'Are you sure?'}, :class => 'btn btn-primary btn-sm' %>
+                  <button class="btn btn-success btn-sm btn-block ">Requested to join</button>
 
-                <%= link_to 'Edit', edit_team_path(team),class: 'btn btn-primary btn-sm' %>
+                <% else %>
+                  <%= form_tag join_team_teams_path, method: 'get', remote: true do %>
+                          <%= hidden_field_tag(:user_id, User.last.id) %>  <!-- change User.last.id to current user id ## CANCANCAN-->
+                          <%= hidden_field_tag(:team_id, team.id) %> 
+                          <div class="row">
+                                <div class="col-9">
+                                  <button type="submit" class="btn-sm btn-block btn btn-outline-success">Join Team</button>
+                                </div>
+                                <div class="col-3">
+                                      <%= check_box 'join_admin', 'result', {}, 1, 0 %>
+                                      <%= label_tag(:join_admin, "Admin", class: 'form-check-label') %>
+                                   
+                                </div>  
+                          </div>
+
+                  <% end %>
+                <% end %>               
               </div>
             </div>
             <br>

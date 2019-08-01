@@ -1,9 +1,6 @@
+ 
+<div class="container">
  <%= form_for @team do |f| %>
- <!--  <div class="form-group">
-    <%= f.label :name %>
-    <%= f.text_field :name, class: 'form-control' ,maxlength: 100%>
-  </div>
-  <hr> -->
 
   <div class="row">
     <div class="col-md-6">
@@ -15,17 +12,6 @@
     </div>
   </div>
   <hr>
-
-  <div class="row">
-    <div class="col-md-6">
-      <div class="form-group">
-        <%= f.label :company_id%>
-        <%= f.text_field :company_id, class: 'form-control'  %>
-        
-      </div>
-    </div>
-  </div>
-  <hr>
-
   <%= f.submit({:class => 'btn btn-primary'}) %>
 <% end %>
+</div>

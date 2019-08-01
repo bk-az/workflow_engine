@@ -14,9 +14,16 @@ Rails.application.routes.draw do
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   resources :teams do
-     collection do
+    collection do
       get 'add_member'
     end
+
+    collection do
+      get 'join_team'
+    end
+
+   
+
   end
 
 
