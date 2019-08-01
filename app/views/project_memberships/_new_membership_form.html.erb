@@ -25,7 +25,7 @@
                   <%= submit_tag("Search", :class => "btn btn-outline-success btn-block", id: "search_form_button", hidden: true) %>                  
               </div>
             <% end %>
-            <div id="js_new_membership_form" hidden>
+            <div id="new_membership_form" hidden>
               <%= form_tag(project_memberships_path, method: "post", remote: true) do %>
                 <div class="input-group mt-4 mb-2">
                   <div class="input-group-prepend">
@@ -39,7 +39,7 @@
                 <%= submit_tag("Add Member", :class => "btn btn-primary float-right") %>
               <% end %>
             </div>
-            <div id="js_search_result_area"></div>
+            <div id="add_member_search_result_area"></div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

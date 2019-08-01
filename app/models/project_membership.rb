@@ -38,11 +38,11 @@ class ProjectMembership < ActiveRecord::Base
 
     def get_member(type, id)
       member = if type == 'User'
-       User.find(id)
-     elsif type == 'Team'
-       Team.find(id)
-     end
-     member
-   end
- end
+                 User.find(id)
+               elsif type == 'Team'
+                 Team.find(id)
+               end
+      member
+    end
+  end
 end
