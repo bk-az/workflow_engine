@@ -5,6 +5,13 @@ class ApplicationController < ActionController::Base
 
   around_filter :scope_current_tenant
 
+  WIHTOUT_SUBDOMAIN_URLS = [
+    '/users/sign_up',
+    '/user_companies/show_companies',
+    '/user_companies/find',
+    '/users'
+  ]
+
   rescue_from ActiveRecord::RecordNotFound do |exception|
     render file: "#{Rails.root}/public/404", status: :not_found
   end
@@ -17,7 +24,12 @@ class ApplicationController < ActionController::Base
   private
 
   def scope_current_tenant
-    Company.current_id = current_tenant.id
+    if WIHTOUT_SUBDOMAIN_URLS.include?(request.path) && request.subdomain.present?
+      render file: "#{Rails.root}/public/404", status: :not_found
+      return
+    else
+      Company.current_id = current_tenant.id unless WIHTOUT_SUBDOMAIN_URLS.include? request.path
+    end
     yield
   ensure
     Company.current_id = nil

@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="offset-sm-2 col-sm-8">
+    <div class="card">
+      <h1 class="card-header clearfix">
+        <%= member_full_name(@member) %> - Edit
+        <em class="text-muted float-right">@<%= @company.name %></em>
+      </h1>
+      <div class="card-body">
+        
+        <%= form_for(@member, url: member_path, method: :put) do |f| %>
+        
+        <div class="field form-group">
+          <%= f.label :first_name %><br />
+          <%= f.text_field :first_name, autofocus: true, class: "form-control form-control-sm", placeholder: "E.g. John" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :last_name %><br />
+          <%= f.text_field :last_name, autofocus: true, class: "form-control form-control-sm", placeholder: "E.g. Doe" %>
+        </div>
+
+        <div class="form-group">
+          <label for="role_select">Role:</label>
+          <%= f.select(:role_id, get_roles(@roles), { include_blank: 'None' }, class: 'form-control form-control-sm', id: 'role_select') %>
+        </div>
+
+        <!-- HIDDEN FIELDS -->
+        <%= f.hidden_field :id, value: @member.id %>
+
+        <hr>
+
+        <div class="actions text-right">
+          <%= f.submit "Edit!", class: "btn btn-info btn-sm" %>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
