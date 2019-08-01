@@ -16,7 +16,7 @@ class Issue < ActiveRecord::Base
 
   has_many   :documents
 
-  has_many   :comments, as: :commentable
+  has_many   :comments, as: :commentable, dependent: :destroy
 
   # Polymorphic Watchers
   has_many   :issue_watchers

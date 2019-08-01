@@ -29,6 +29,12 @@
             <li>
                 <a href="#"><i class="material-icons">view_module</i>&nbsp;Contact</a>
             </li>
+            <li>
+              <% if can? :create, Project %>
+                <!-- <a href="#" class="download">Add a Project</a> -->
+                <%= link_to "New Project", new_project_path, class: 'download' %>
+              <% end %>
+            </li>
         </ul>
     </div>
     <!-- /#sidebar-wrapper -->

@@ -3,6 +3,10 @@ Rails.application.routes.draw do
 
   devise_for :users
   resources :projects
+
+  devise_scope :user do
+    get 'signout', to: 'devise/sessions#destroy'
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -29,6 +33,17 @@ Rails.application.routes.draw do
   #       get 'sold'
   #     end
   #   end
+
+
+  resources :projects do
+    resources :comments, shallow: true
+  end
+
+  resources :comments, only: [:edit, :update, :destroy]
+
+  resources :issues do
+    resources :comments, shallow: true
+  end
 
   # Example resource route with sub-resources:
   #   resources :products do

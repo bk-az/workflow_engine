@@ -1,19 +1,22 @@
 class ProjectsController < ApplicationController
-  before_action :current_project, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   def index
-    @projects = Project.all
+    respond_to do |format|
+      format.html
+    end
   end
 
   def new
-    @project = Project.new
+    respond_to do |format|
+      format.html
+    end
   end
 
   def create
-    @project = Project.new(project_params)
     @project.company_id = 1
     if @project.save
-      redirect_to @project, notice: 'Successfully created a project.'
+      redirect_to @project, notice: t('projects.create.created')
     else
       render :new
     end
@@ -21,16 +24,24 @@ class ProjectsController < ApplicationController
 
   def show
     @issues = @project.issues
-    @issue_types = IssueType.all
-    @issue_states = IssueState.all
+    @issue_types = IssueType.issue_types_for_projects(@project)
+    @issue_states = IssueState.issue_states_for_projects(@project)
+    @comments = @project.comments
+    @comment = Comment.new
+    respond_to do |format|
+      format.html
+    end
   end
 
   def edit
+    respond_to do |format|
+      format.html
+    end
   end
 
   def update
     if @project.update(project_params)
-      flash[:notice] = 'Project updated successfully!'
+      flash[:notice] = t('projects.update.updated')
       redirect_to @project
     else
       render 'edit'
@@ -38,17 +49,17 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    @project.destroy
-    redirect_to projects_path
+    if @project.destroy
+      flash[:notice] = t('projects.destroy.destroyed')
+      redirect_to projects_path
+    else
+      flash[:notice] = t('projects.destroy.not_destroyed')
+    end
   end
 
   private
 
   def project_params
     params.require(:project).permit(:title, :description)
-  end
-
-  def current_project
-    @project = Project.find(params[:id])
   end
 end

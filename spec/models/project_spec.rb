@@ -16,11 +16,11 @@ RSpec.describe Project, type: :model do
 
   it 'should have title with valid number of characters' do
     expect(@project.title).to have_at_most(100).characters
-    expect(@project.title).to have_at_least(5).characters
+    expect(@project.title).to have_at_least(3).characters
   end
 
   it 'should have description with valid number of characters' do
-    expect(@project.description).to have_at_most(100).characters
-    expect(@project.description).to have_at_least(5).characters
+    expect(@project.description).to have_at_most(1024).characters
+    expect(@project.description).to have_at_least(3).characters
   end
 end
