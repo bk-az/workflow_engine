@@ -9,11 +9,12 @@ RSpec.describe MembersController, type: :controller do
     @member = build(:user)
     @member.company_id = @company.id
     @member.save
+    @request.host = "#{@company.subdomain}.lvh.me:3000"
     sign_in(@member)
   end
 
   let(:user) { create(:user) }
-  let(:user_params) { { first_name: 'asdfasdf', last_name: 'asdfasdf', role_id: 1, email: 'abv@7vals.com'   } }
+  let(:user_params) { { first_name: 'asdfasdf', last_name: 'asdfasdf', role_id: 1, email: Faker::Internet.email } }
   let(:update_params) { { id: @member.id, first_name: 'blabla', last_name: 'blabla', role_id: 1 } }
   let(:change_password_params) { { id: @member.id, password: 'blabla' } }
 
@@ -24,6 +25,7 @@ RSpec.describe MembersController, type: :controller do
       expect(response).to render_template(:index)
     end
   end
+  
   describe 'GET #show' do
     it 'should assign the requested member to @member' do
       get :show, id: @member
@@ -116,7 +118,7 @@ RSpec.describe MembersController, type: :controller do
   describe 'POST #create' do
     context 'with valid attributes' do
       it 'should save the new member in the database' do
-        expect { post :create, user: user_params }.to change(User, :count).by(1)
+        expect { post :create, user: user_params }.to change(User.unscoped, :count).by(1)
       end
     end
   end

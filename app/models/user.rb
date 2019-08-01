@@ -55,6 +55,7 @@ class User < ActiveRecord::Base
   # -------------
 
   def send_invitation_email(company, role)
+    return if ENV['RAILS_ENV'] == 'test'
     UserMailer.invite(company, self, role).deliver
   end
 

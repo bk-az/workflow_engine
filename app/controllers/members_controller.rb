@@ -26,7 +26,7 @@ class MembersController < ApplicationController
     @new_user.has_changed_sys_generated_password = true
 
     @new_user.password = generate_random_password
-
+    
     if @new_user.save
       # TODO
       # Comment out before running test cases.
