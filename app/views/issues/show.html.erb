@@ -31,24 +31,34 @@
       <th scope="row">State :</th>
       <td><%= @issue.issue_state.name %></td>
     </tr>
-    <tr>
-      <th scope="row">Assignee :</th>
-      <td><span class="glyphicon glyphicon-user"></span> <%= @issue.assignee.first_name %></td>
-    </tr>
+     <% unless @issue.assignee.nil? %>
+      <tr>
+        <th scope="row">Assignee :</th>
+        <td><span class="glyphicon glyphicon-user"></span> <%= @issue.assignee.first_name %></td>
+      </tr>
+    <% end %>
     <tr>
       <th scope="row">Issue Type :</th>
       <td><%= @issue.issue_type.name %></td>
     </tr>
   </tbody>
 </table>
-<%= link_to 'Edit', edit_issue_path(@issue),class: 'btn btn-primary' %>
+<% if can?(:update, @issue) %>
+  <%= link_to 'Edit', edit_issue_path(@issue),class: 'btn btn-primary' %>
+<% end %>
 </br></br>
 <div id="watch_button_div">
   <%= render partial: 'issue_watchers/watch_button', locals: { issue: @issue, watcher: current_user } %>
 </div>
 </br>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add_watchers_modal">Add Watcher</button>
+
+<% if can?(:create_watcher_by_admin, IssueWatcher) %>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add_watchers_modal">Add Watcher</button>
+  <%= render partial: 'issue_watchers/add_watchers_form', locals: { issue: @issue } %>
+<% end %>
 <br><br>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#remove_watchers_modal">Remove Watcher</button>
-<%= render partial: 'issue_watchers/remove_watchers_form', locals: { issue: @issue } %>
-<%= render partial: 'issue_watchers/add_watchers_form', locals: { issue: @issue } %>
+
+<% if can?(:create_watcher_by_admin, IssueWatcher) %>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#remove_watchers_modal">Remove Watcher</button>
+  <%= render partial: 'issue_watchers/remove_watchers_form', locals: { issue: @issue } %>
+<% end %>

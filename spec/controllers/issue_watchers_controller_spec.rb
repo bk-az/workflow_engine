@@ -1,6 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe IssueWatchersController, type: :controller do
+  before(:each) do
+    @admin = create(:admin)
+    @member = create(:member)
+    sign_in @member
+  end
+
   before :all do
     @issue = create(:issue)
     @watcher = create(:user)
@@ -56,6 +62,9 @@ RSpec.describe IssueWatchersController, type: :controller do
   end
 
   describe 'POST #create_watcher_by_admin' do
+    before(:each) do
+      sign_in @admin
+    end
     context 'with valid attributes' do
       it 'should create a new issue-watcher for user in the database' do
         expect do
@@ -115,7 +124,8 @@ RSpec.describe IssueWatchersController, type: :controller do
   end
 
   describe 'DELETE destroy_watcher_by_admin' do
-    before :each do
+    before(:each) do
+      sign_in @admin
       @issue_watcher = build(:issue_watcher)
       @issue_watcher.issue_id = @issue.id
       @issue_watcher.watcher_id = @watcher.id

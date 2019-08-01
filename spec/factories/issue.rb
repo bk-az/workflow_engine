@@ -17,4 +17,15 @@ FactoryGirl.define do
   factory :invalid_issue, parent: :issue do |f|
     f.title nil
   end
+
+  factory :issue_member_creator, parent: :issue do |f|
+    creator_id '2' # Member is assignee but not creator
+  end
+
+  factory :issue_member_assignee, parent: :issue do |f|
+    assignee_id '2' # Member is creator but not assignee
+  end
+
+  factory :member_both, parent: :issue do |f|
+  end
 end
