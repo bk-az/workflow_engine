@@ -2,7 +2,11 @@ require 'rails_helper'
 
 RSpec.describe TeamsController, type: :controller do
 
-  
+  before(:each) do
+    @admin = create(:admin)
+    @member = create(:member)
+    sign_in @member
+  end
   context 'GET #index' do
     it 'returns a success response' do
       get :index

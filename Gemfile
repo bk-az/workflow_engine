@@ -27,6 +27,7 @@ gem 'devise', '4.1.1'
 gem 'cancancan'
 gem 'bootstrap-sass'
 gem 'pry', '~> 0.12.2'
+gem 'faker'
 
 
 gem "select2-rails"
