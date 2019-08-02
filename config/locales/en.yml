@@ -20,6 +20,26 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  comments:
+    create:
+      btn: 'Comment'
+      created: 'Thanks for your comment'
+      not_created: 'Unable to add comment'
+    update:
+      btn: 'Update'
+      updated: 'Comment updated successfully!'
+      not_updated: 'Comment is invalid!'
+    destroy:
+      destroyed: 'Comment deleted'
+      not_destroyed: 'Comment could not be destroyed.'
+  projects:
+    create:
+      created: 'Successfully created a project.'
+    update:
+      updated: 'Project updated successfully!'
+    destroy:
+      destroyed: 'Project destroyed successfully!'
+      not_destroyed: 'Project could not be destroyed.'
   users:
     sessions:
       new:

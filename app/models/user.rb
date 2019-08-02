@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
   has_many   :issue_watchers, as: :watcher
   has_many   :watching_issues, through: :issue_watchers
 
-  # Include default devise modules. Others available are:
+  # Include default devise modules. Others available are
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
   :recoverable, :rememberable, :trackable, :validatable
@@ -84,5 +84,17 @@ class User < ActiveRecord::Base
 
   def self.find_for_database_authentication(warden_conditions)
     where(:email => warden_conditions[:email]).first
+  end
+
+  def admin?
+    role.name == 'Administrator'
+  end
+
+  def visible_projects
+    if admin?
+      company.projects
+    else
+      projects
+    end
   end
 end

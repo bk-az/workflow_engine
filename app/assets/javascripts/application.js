@@ -11,6 +11,9 @@
 // about supported directives.
 //
 //= require jquery
+//= require popper
+//= require turbolinks
 //= require jquery_ujs
-// = require turbolinks
+//= require jquery3
 //= require_tree .
+  
