@@ -48,4 +48,6 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'capybara'
   gem 'factory_girl_rails'
+
+  gem 'pry-byebug'
 end

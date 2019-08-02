@@ -82,7 +82,7 @@ class User < ActiveRecord::Base
     true
   end
 
-  def self.find_for_database_authentication(warden_conditions)
+  def self.find_for_authentication(warden_conditions)
     where(:email => warden_conditions[:email]).first
   end
 end

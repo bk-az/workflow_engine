@@ -3,13 +3,13 @@ require 'rails_helper'
 RSpec.describe MembersController, type: :controller do
   before(:all) do
     @company = create(:company)
-    @role = create(:role)
+    @role = create(:role_admin)
   end
   before :each do
     @member = build(:user)
     @member.company_id = @company.id
     @member.save
-    @request.host = "#{@company.subdomain}.lvh.me:3000"
+    @request.host = "#{@company.subdomain}.localhost:3000"
     sign_in(@member)
   end
 

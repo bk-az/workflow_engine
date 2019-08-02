@@ -1,4 +1,5 @@
 class MembersController < ApplicationController
+  authorize_resource class: false
   before_action :authenticate_user!
   before_action :changed_sys_generated_password?, only: [:show_change_password_form, :change_password]
 
@@ -49,9 +50,6 @@ class MembersController < ApplicationController
 
   # GET /members/privileges
   def privileges
-    # Get logged in User
-    @user = current_user
-
     # Get Company
     @company = current_tenant
 
@@ -152,7 +150,7 @@ class MembersController < ApplicationController
     end
   end
 
-  # GET /member/:id/setpassword/
+  # GET /member/:id/change_password_form/
   # executes :changed_sys_generated_password? as before_action
   def show_change_password_form
     # TODO
@@ -164,7 +162,7 @@ class MembersController < ApplicationController
     end
   end
 
-  # PUT /member/setpassword/
+  # PUT /member/:id/change_password/
   # executes :changed_sys_generated_password? as before_action
   def change_password
     validation_error = false
