@@ -23,7 +23,6 @@ gem 'jbuilder', '2.9.1'
 gem 'sdoc', '0.4.2', group: :doc
 
 # Custom Gems
-gem 'bootstrap-sass', '3.4.1'
 gem 'cancancan', '3.0.1'
 gem 'devise', '4.1.1'
 gem 'faker', '1.9.1'
@@ -44,6 +43,5 @@ group :development, :test do
   # Spring speeds up development by keeping your application running in the
   # background. Read more: https://github.com/rails/spring
   gem 'spring', '2.0.2'
-  gem 'pry', '0.12.2'
-  gem 'pry-rails'
+  gem 'pry', '0.12.2' 
 end

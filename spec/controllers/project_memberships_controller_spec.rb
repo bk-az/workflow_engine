@@ -2,13 +2,19 @@ require 'rails_helper'
 
 RSpec.describe ProjectMembershipsController, type: :controller do
   before(:all) do
-    @admin = create(:admin)
-    @member = create(:member)
+    @company = create(:company)
+    @admin = create(:admin, company: @company)
+    @member = create(:member, company: @company)
   end
 
-  let(:project) { create(:project) }
-  let(:user)    { create(:user) }
-  let(:team)    { create(:team) }
+  before(:each) do
+    @request.host = "#{@company.subdomain}.lvh.me:3000"
+    Company.current_id = @company.id
+  end
+
+  let(:project) { create(:project, company: @company) }
+  let(:user)    { create(:user, company: @company) }
+  let(:team)    { create(:team, company: @company) }
 
   let(:user_membership_params) do
     { project_id: project.id,
@@ -66,8 +72,8 @@ RSpec.describe ProjectMembershipsController, type: :controller do
       end
       context 'As a member of team which is a member of current project' do
         before(:all) do
-          @project = create(:project)
-          @team = create(:team)
+          @project = create(:project, company: @company)
+          @team = create(:team, company: @company)
           @team.users << @member
           @team.projects << @project
         end
@@ -241,7 +247,7 @@ RSpec.describe ProjectMembershipsController, type: :controller do
       it 'should be able to search members' do
         expect do
           xhr :get, :search, search_params
-        end.to_not raise_exception(CanCan::AccessDenied)
+        end.to_not raise_error
       end
 
       it 'should return member names and ids' do
@@ -253,37 +259,6 @@ RSpec.describe ProjectMembershipsController, type: :controller do
         )
         expect(assigns(:members)).to eq member_names_ids
       end
-    end
-  end
-end
-
-RSpec.describe ProjectMembershipsController, type: :routing do
-  describe 'routing' do
-    it 'should route to #index' do
-      expect(get: '/projects/1/project_memberships').to route_to(
-        controller: 'project_memberships',
-        action: 'index',
-        project_id: '1'
-      )
-    end
-    it 'should route to #create' do
-      expect(post: '/project_memberships').to route_to(
-        controller: 'project_memberships',
-        action: 'create'
-      )
-    end
-    it 'should route to #destroy' do
-      expect(delete: '/project_memberships/1').to route_to(
-        controller: 'project_memberships',
-        action: 'destroy',
-        id: '1'
-      )
-    end
-    it 'should route to #search' do
-      expect(get: '/project_memberships/search').to route_to(
-        controller: 'project_memberships',
-        action: 'search'
-      )
     end
   end
 end

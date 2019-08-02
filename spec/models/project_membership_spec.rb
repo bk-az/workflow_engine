@@ -1,9 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe ProjectMembership, type: :model do
-  let(:project) { create(:project) }
-  let(:user)    { create(:user) }
-  let(:team)    { create(:team) }
+  before(:all) do
+    @company = create(:company)
+    Company.current_id = @company.id
+  end
+
+  let(:project) { create(:project, company: @company) }
+  let(:user)    { create(:user, company: @company) }
+  let(:team)    { create(:team, company: @company) }
   let(:user_search_keyword) { user.email.first }
   let(:team_search_keyword) { team.name.first }
 

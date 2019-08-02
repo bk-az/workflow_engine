@@ -36,8 +36,10 @@ class ApplicationController < ActionController::Base
   end
 
   def current_ability
-    if request.path =~ /projects\/\d+\/project_memberships/
+    if request.path =~ /\bprojects\/\d+\/project_memberships\b/
       @current_ability ||= Ability.new(current_user, project_id: params[:project_id].to_i)
+    else
+      super
     end
   end
 end

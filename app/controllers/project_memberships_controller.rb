@@ -1,6 +1,7 @@
 class ProjectMembershipsController < ApplicationController
   authorize_resource
 
+  # GET #index
   def index
     load_project_with_members
     respond_to do |format|
@@ -8,6 +9,7 @@ class ProjectMembershipsController < ApplicationController
     end
   end
 
+  # POST #create
   def create
     @member, @project = ProjectMembership.create_membership(
       params[:project_member_type],
@@ -20,6 +22,7 @@ class ProjectMembershipsController < ApplicationController
     end
   end
 
+  # DELETE #destroy, id: params[:id]
   def destroy
     pm = ProjectMembership.destroy(params[:id])
     @member_id = "\##{pm.project_member_type}_#{pm.project_member_id}"
@@ -29,6 +32,7 @@ class ProjectMembershipsController < ApplicationController
     end
   end
 
+  # GET #search
   def search
     if params[:search_name].present?
       @project = Project.find(params[:project_id])

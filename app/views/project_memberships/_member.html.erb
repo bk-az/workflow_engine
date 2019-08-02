@@ -3,7 +3,11 @@
     <%= image_tag("#{member.class.name.downcase}.jpg", class: "card-img-top img-thumbnail") %>
     <div class="card-body">
       <h6>
-        <small><%= link_to member.name, '#'%></small>
+        <% if member.class.name == 'User' %>
+        <p><%= link_to member.name, member_path(member)%></p>
+        <% else %>
+        <p><%= link_to member.name, '#'%></p>
+        <% end %>
       </h6>
       <% if can? :destroy, ProjectMembership %>
         <p class="badge badge-danger badge-pill">

@@ -2,6 +2,11 @@ require 'cancan/matchers'
 require 'rails_helper'
 # ...
 describe 'ProjectMembership' do
+  before(:all) do
+    @company = create(:company)
+    Company.current_id = @company.id
+  end
+
   describe 'abilities' do
     subject(:ability) { Ability.new(user) }
     let(:user) { nil }
