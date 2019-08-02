@@ -1,11 +1,15 @@
 require 'faker'
 
 FactoryGirl.define do
-  factory :role_admin, class: Role do |f|
-    f.name 'Administrator'
+  factory :role do
+    name 'Member'
   end
 
-  factory :role_member, class: Role do |f|
-    f.name 'Member'
+  factory :role_admin, class: Role, parent: :role do
+    name 'Administrator'
+  end
+
+  factory :role_member, class: Role, parent: :role do
+    name 'Member'
   end
 end

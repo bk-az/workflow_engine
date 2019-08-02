@@ -23,3 +23,45 @@ en:
   project_memberships:
     create:
       notice: "Member Added Successfully"
+  comments:
+    create:
+      btn: 'Comment'
+      created: 'Thanks for your comment'
+      not_created: 'Unable to add comment'
+    update:
+      btn: 'Update'
+      updated: 'Comment updated successfully!'
+      not_updated: 'Comment is invalid!'
+    destroy:
+      destroyed: 'Comment deleted'
+      not_destroyed: 'Comment could not be destroyed.'
+  projects:
+    create:
+      created: 'Successfully created a project.'
+    update:
+      updated: 'Project updated successfully!'
+    destroy:
+      destroyed: 'Project destroyed successfully!'
+      not_destroyed: 'Project could not be destroyed.'
+  users:
+    sessions:
+      new:
+        success: 'Your account has been created successfully. A confirmation email is sent to you. Confirm your email and login here.'
+  members:
+    create:
+      success: 'Invitation Sent Successfully!'
+    update:
+      success: 'Details Updated Successfully!'
+    destroy:
+      success: 'Member Deactivated Successfully!'
+    change_password:
+      success: 'Your password has been changed successfully.'
+    show_change_password_form: # For invited_user?
+      failure: 'You cannot access that page. Either you have already changed your password or you are not an inivited user.'
+
+  models:
+    user:
+      check_for_issues:
+        error_message: 'Cannot deactivate this Member as there are Issues assigned to him/her.'
+      check_for_ownership_of_company:
+        error_message: 'Cannot deactivate this Member as he/she is owner of the current company.'

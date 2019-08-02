@@ -4,7 +4,7 @@ class CreateProjectMemberships < ActiveRecord::Migration
       t.timestamps null: false
 
       # Foreign Keys
-      t.references :project_member, polymorphic: true, index: {name: 'index_project_memberships_on_project_member_type_and_id'}
+      t.references :project_member, polymorphic: true, index: { name: 'index_project_memberships_on_project_member_type_and_id' }
       t.references :project, index: true
     end
   end

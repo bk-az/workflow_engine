@@ -1,0 +1,9 @@
+<div style="border-radius: 5px; text-align: center; vertical-align: middle; background-color: lightgray; padding-top: 15px;">
+  <h3>Welcome <strong><%= @recipient.email %>!</strong></h3>
+
+  <p>You have been invited to join <strong><%= @company.name %></strong> for the role of <strong><%= @role.name %></strong>. Your account has been created, all you have to do is to confirm your account and use the following default password to log into the system. </p>
+
+  <p>Your Password is: <strong><%= @recipient.password %></strong>. We recommend you to change your password as early as possible.</p>
+
+  <p><%= link_to 'Confirm and Log into My Account', confirmation_url(@recipient, confirmation_token: @recipient.confirmation_token, subdomain: @recipient.company.subdomain), style: "padding: 5px; border-radius: 3px; border: 2px solid blue; color: blue;"%></p>
+</div>

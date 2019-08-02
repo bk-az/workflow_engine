@@ -1,3 +1,5 @@
+
+<% if can?(:index, project) %>
 <div class="card">
   <img class="card-img-top img-thumbnail" src="assets/default.jpg" alt="Card image cap">
   <div class="card-body">
@@ -11,3 +13,4 @@
     <small class="text-muted">Last updated <%= time_ago_in_words(project.updated_at) %> ago</small>
   </div>
 </div>
+<% end %>
