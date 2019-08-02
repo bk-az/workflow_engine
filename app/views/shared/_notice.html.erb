@@ -1,0 +1,16 @@
+<% unless flash[:notice].nil? %>
+  <% if flash[:notice].is_a? Enumerable %>
+    <% flash[:notice].each do |msg| %>
+    <div class="alert alert-info">
+      <a class="close" data-dismiss="alert" href="#_">&times;</a>
+      <%= msg %>
+    </div>
+    <% end %>
+    <% flash[:notice].clear %>
+  <% else %>
+    <div class="alert alert-info">
+      <a class="close" data-dismiss="alert" href="#_">&times;</a>
+      <%= flash[:notice] %>
+    </div>
+  <% end %>
+<% end %>

@@ -15,7 +15,6 @@
  *= require_self
  */
 
-
 .ui-autocomplete {
   position: absolute;
   z-index: 2150000000 !important;
@@ -23,4 +22,12 @@
   border: 2px solid #ccc;
   padding: 5px 0;
   border-radius: 2px;
+}
+
+select {
+  display: block;
+}
+.rounded-button {
+  border-radius: 50%;
+  font-size: 0.75em;
 }

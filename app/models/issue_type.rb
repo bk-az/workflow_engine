@@ -8,6 +8,8 @@ class IssueType < ActiveRecord::Base
   belongs_to :company
   belongs_to :project
 
+  scope :issue_types_for_projects, ->(project) { where(project_id: project.id) }
+
   def self.load_issue_types(project_id)
     if project_id.nil?
       result = IssueType.all

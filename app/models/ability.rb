@@ -5,6 +5,16 @@ class Ability
   def initialize(user)
     return unless user.present?
 
-    can :manage, IssueType if user.admin?
+    if user.present?
+      if user.admin?
+        can :manage, Project
+        can :manage, IssueType
+      else
+        can :show, Project do |project|
+          project.visible?(user)
+        end
+        can :index, Project, id: user.visible_projects.pluck(:id)
+      end
+    end
   end
 end
