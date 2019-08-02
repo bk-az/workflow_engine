@@ -8,8 +8,12 @@ RSpec.describe TeamMembership, type: :model do
     it 'ensures is_team_admin, team_id, user_id presence' do
       expect(@team_membership.valid?).to eq true
     end
-    it 'ensures is_team_admin absence' do
+    it 'checks is_team_admin absence' do
       @team_membership.is_team_admin = ''
+      expect(@team_membership.valid?).to eq false
+    end
+    it 'checks is_approved absence' do
+      @team_membership.is_approved = ''
       expect(@team_membership.valid?).to eq false
     end
     it 'checks team_id absence' do
