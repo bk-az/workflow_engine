@@ -1,8 +1,9 @@
 class IssueTypesController < ApplicationController
   autocomplete :project, :title
+  authorize_resource
 
   def index
-    @issue_types = IssueType.all
+    @issue_types = IssueType.load_issue_types(params[:project_id])
     @issue_type = IssueType.new
     respond_to do |format|
       format.html
@@ -64,6 +65,8 @@ class IssueTypesController < ApplicationController
   end
 
   def issue_type_params
-    params.require(:issue_type).permit(:name, :project_id)
+    result = params.require(:issue_type).permit(:name, :project_id)
+    result[:project_id] = params[:project_id] if params[:project_id].present?
+    result
   end
 end

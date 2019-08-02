@@ -1,9 +1,9 @@
-$("#issue_type_flash").html('<%= j render partial: "layouts/notice" %>');
+issueTypeFlash.html('<%= j render partial: "layouts/notice" %>');
 <% unless @issue_type.errors.any? %>
   clearIssueTypeForm();
-  $('#issue_types_datatable tbody').append('<%= j render @issue_type %>');
+  tableBody.append('<%= j render @issue_type %>');
   tr = $("#issue_type_<%= @issue_type.id %>");
   table.row.add(tr).draw();
 <% else %>
-  $("#issue_type_errors").html('<%= j render partial: "layouts/errors", locals: {model: @issue_type} %>');
+  issueTypesErrors.html('<%= j render partial: "layouts/errors", locals: {model: @issue_type} %>');
 <% end %>

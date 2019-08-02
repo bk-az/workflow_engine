@@ -2,30 +2,49 @@ $(document).on('turbolinks:load', function(){
   table = $('#issue_types_datatable').DataTable({
     "info": false
   });
-  $('#issue_type_modal').on('hidden.bs.modal', function () {
+  tableBody = $('#issue_types_datatable tbody');
+  issueTypeForm = $("#issue_type_form");
+  projectNameSearch = $('#project_name_search');
+  issueTypeFlash = $('#issue_type_flash');
+  issueTypesErrors = $('#issue_type_errors');
+  showIssueTypeModal = $('#show_issue_type_modal');
+  issueTypeCategory = $('#issue_type_category');
+  issueTypeProjectId = $('#issue_type_project_id');
+
+  var issueTypeModal = $('#issue_type_modal');
+  var issueTypesCategoryFilter = $('#issue_types_category_filter');
+  var issueTypesProjectId = $('#issue_types_project_id');
+
+  // save these initial attrs to reset form later
+  var issueTypeFormMethod = issueTypeForm.attr("method");
+  var issueTypeFormAction = issueTypeForm.attr("action");
+
+  issueTypeModal.on('hidden.bs.modal', function () {
     clearIssueTypeForm();
     hideProjectSearch();
     clearFlashMessages();
+    resetAttrIssueTypeForm();
   });
 
-  $("#issue_type_form").submit(function(e){
-    if ($('#issue_type_category').val() == 'project' && $('#issue_type_project_id').val() == ''){
+  issueTypeForm.submit(function(e){
+    if (issueTypeCategory.val() == 'project' && issueTypeProjectId.val() == ''){
       alert('Please Select a Project');
+      return false;
     }
   });
 
-  $('#issue_type_category').change(function() {
+  issueTypeCategory.change(function() {
     if ($(this).val() == 'global') {
       hideProjectSearch();
-      $('#issue_type_project_id').val('');
-      $('#project_name').val('');
+      issueTypeProjectId.val('');
+      $('#issue_type_project_name').val('');
     } else if ($(this).val() == 'project') {
       showProjectSearch();
     }
   }); 
 
-  $('#issue_types_category_filter').change(function() {
-    tr = $('#issue_types_datatable tbody').find('tr');
+  issueTypesCategoryFilter.change(function() {
+    tr = tableBody.find('tr');
     tr.show();
     if ($(this).val() == 'global') {
       tr.not(".global").hide();
@@ -34,37 +53,40 @@ $(document).on('turbolinks:load', function(){
     }
   });
 
-  $('#issue_types_project_name_done').click(function(){
-    var id = $('#issue_types_project_id').val();
+  $('#issue_types_project_name_apply').click(function(){
+    var id = issueTypesProjectId.val();
     if (id == ''){
       alert('Please select a project');
       return false
     }
-    $('#issue_types_category_filter').val('project');
-    tr = $('#issue_types_datatable tbody').find('tr');
+    issueTypesCategoryFilter.val('project');
+    tr = tableBody.find('tr');
     tr.hide();
     tr.filter('.project-' + id).show();
     return false
   });
-} );
 
-function clearIssueTypeForm() {
-  $('#issue_type_form').trigger("reset");
-  $('#issue_type_form').attr("method","post");
-  $('#issue_type_form').attr("action","/issue_types");
-}
 
-function clearFlashMessages() {
-  $('#issue_type_flash').html('');
-  $('#issue_type_errors').html('');
-}
+  function clearFlashMessages() {
+    issueTypeFlash.html('');
+    issueTypesErrors.html('');
+  }
 
-function hideProjectSearch() {
-  $('#js_project_name_search').attr("hidden",true);
-  $('#issue_type_project_id').attr("required",false);
-}
+  function hideProjectSearch() {
+    projectNameSearch.attr("hidden",true);
+  }
+
+  function resetAttrIssueTypeForm(){
+    issueTypeForm.attr("method", issueTypeFormMethod);
+    issueTypeForm.attr("action", issueTypeFormAction);
+  }
+
+});
 
 function showProjectSearch() {
-  $('#js_project_name_search').attr("hidden",false);  
-  $('#issue_type_project_id').attr("required",true);
+  projectNameSearch.attr("hidden",false);  
+}
+
+function clearIssueTypeForm() {
+  issueTypeForm.trigger("reset");
 }

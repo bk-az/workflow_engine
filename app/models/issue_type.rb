@@ -7,4 +7,13 @@ class IssueType < ActiveRecord::Base
   has_many :issues
   belongs_to :company
   belongs_to :project
+
+  def self.load_issue_types(project_id)
+    if project_id.nil?
+      result = IssueType.all
+    else
+      result = IssueType.where(project_id: [project_id, nil])
+    end
+    result
+  end
 end

@@ -1,9 +1,9 @@
-<% unless @issue_type.project_id.nil? %>
-  $('#issue_type_category').val('project');
-  showProjectSearch();
-  $('#issue_type_project_id').val("<%= @issue_type.project_id %>");
+<% if params[:project_id].nil? && @issue_type.project_id.present? %>
+issueTypeCategory.val('project');
+showProjectSearch();
+issueTypeProjectId.val("<%= @issue_type.project_id %>");
 <% end %>
 $('#issue_type_name').val("<%= @issue_type.name %>");
 $('#issue_type_modal').modal('show'); 
-$('#issue_type_form').attr("method","patch");
-$('#issue_type_form').attr("action","<%= issue_type_path(@issue_type) %>");
+issueTypeForm.attr("method","patch");
+issueTypeForm.attr("action","<%= issue_type_path(@issue_type) %>");

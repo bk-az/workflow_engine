@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users
 
+  resources :projects do
+    resources :issue_types, only: %i[index create]
+  end
+
   resources :issue_types do
     get :autocomplete_project_title, on: :collection
   end

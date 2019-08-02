@@ -1,31 +1,30 @@
-<%= form_for(@issue_type, html: {id: 'issue_type_form'}, remote: true) do |f| %>
-<div class="input-group mb-4">
-  <div class="input-group-prepend">
-    <label class="input-group-text" for="issue_type_category">Category</label>
+<%= form_for(@issue_type, url: params[:project_id].nil? ? issue_types_path : project_issue_types_path(params[:project_id]), html: {id: 'issue_type_form'}, remote: true) do |f| %>
+<% if params[:project_id].nil? %>
+  <div class="input-group mb-4">
+    <div class="input-group-prepend">
+      <label class="input-group-text" for="issue_type_category">Category</label>
+    </div>
+    <%= select_tag("issue_type_category", raw("<option value='global' selected>Global</option><option value='project'>Project Specific</option>"), class: "custom-select") %>
   </div>
-  <%= select_tag("issue_type_category", raw("<option value='global' selected>Global</option><option value='project'>Project Specific</option>"), class: "custom-select") %>
-</div>
+<% end %>
 <div class="form-group">
   <%= f.label :name, 'Issue Type Name:'%>
   <%= f.text_field :name, class: 'form-control', placeholder: 'Enter Name', required: true%>
 </div>
-<div id="js_project_name_search" hidden>
-  <label for="project_div" class="mt-2">Choose Project:</label>
-  <div id="project_div">
-    <div class="input-group mb-4">
-      <div class="input-group-prepend">
-        <label class="input-group-text bg-dark text-white" for="project_name">Project</label>
+<% if params[:project_id].nil? %>
+  <div id="project_name_search" hidden>
+    <label for="project_div" class="mt-2">Choose Project:</label>
+    <div id="project_div">
+      <div class="input-group mb-4">
+        <div class="input-group-prepend">
+          <label class="input-group-text bg-dark text-white" for="issue_type_project_name">Project</label>
+        </div>
+        <%= autocomplete_field_tag 'issue_type_project_name', '', autocomplete_project_title_issue_types_path, :id_element => '#issue_type_project_id', class: 'form-control', placeholder: 'Search' %>
       </div>
-      <%= autocomplete_field_tag 'project_name', '', autocomplete_project_title_issue_types_path, :id_element => '#issue_type_project_id', class: 'form-control', placeholder: 'Search' %>
+        <%= f.number_field :project_id, class: 'form-control', readonly: true, hidden: true%>
     </div>
-<!--     <div class="input-group mb-4">
-      <div class="input-group-prepend">
-        <label class="input-group-text bg-warning text-dark" for="issue_type_project_id">Project ID</label>
-      </div> -->
-      <%= f.number_field :project_id, class: 'form-control', readonly: true, hidden: true%>
-    <!-- </div> -->
   </div>
-</div>
+<% end %>
 <div class="form-group">
   <%= f.submit 'Submit', class: 'btn btn-primary' %>
 </div>

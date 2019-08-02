@@ -1,24 +1,23 @@
-$("#issue_type_flash").html('<%= j render partial: "layouts/notice" %>');
+issueTypeFlash.html('<%= j render partial: "layouts/notice" %>');
 <% unless @issue_type.errors.any? %>
   // $("#issue_type_<%= @issue_type.id %>").replaceWith('<%= j render @issue_type %>');
   tr = $("#issue_type_<%= @issue_type.id %>");
   issueTypeUpdateClassAndId(tr);
-  tr.find('td:eq(0)').html( issueTypeName() );
-  tr.find('td:eq(1)').html( issueTypeIcon() );
-  tr.find('td:eq(2)').html( issueTypeProjectId() );
-  tr.find('td:eq(3)').html( issueTypeButtons() );
+  tr.find('td:eq(0)').html( updatedIssueTypeName() );
+  tr.find('td:eq(1)').html( updatedIssueTypeIcon() );
+  tr.find('td:eq(2)').html( updatedIssueTypeProjectId() );
+  tr.find('td:eq(3)').html( updatedIssueTypeButtons() );
   table.row(tr).invalidate().draw();
 <% else %>
-  $("#issue_type_errors").html('<%= j render partial: "layouts/errors", locals: {model: @issue_type} %>');
+  issueTypesErrors.html('<%= j render partial: "layouts/errors", locals: {model: @issue_type} %>');
 <% end %>
 
-// $('#issue_types_datatable').DataTable();
 
-function issueTypeName() {
+function updatedIssueTypeName() {
   return "<%= @issue_type.name %>"
 }
 
-function issueTypeIcon() {
+function updatedIssueTypeIcon() {
   <% if @issue_type.project_id.nil? %>
   return "<i class='fas fa-check-circle'></i>"
   <% else %>
@@ -26,12 +25,14 @@ function issueTypeIcon() {
   <% end %>
 }
 
-function issueTypeProjectId() {
+function updatedIssueTypeProjectId() {
   return "<%= @issue_type.project_id.nil? ? 'NA' : @issue_type.project_id.to_s %>"
 }
 
-function issueTypeButtons() {
-  return "<%= j link_to("Delete", issue_type_path(@issue_type), method: "delete", remote: true, data: { confirm: "Are you sure to delete this issue type?"}, class: "btn btn-danger btn-sm text-white mr-2 mb-1 mb-md-0", style: "width:4em;") %> <%= j link_to("Edit", edit_issue_type_path(@issue_type), remote: true, class: "btn btn-primary btn-sm text-white", style: "width:4em;") %> <%= j link_to("Show", issue_type_path(@issue_type), remote: true, class: "btn btn-success btn-sm text-white", style: "width:4em;") %>"
+function updatedIssueTypeButtons() {
+  return "<%= j link_to("Delete", issue_type_path(@issue_type), method: "delete", remote: true, data: { confirm: "Are you sure to delete this issue type?"}, class: "btn btn-danger btn-sm text-white mr-2 mb-1 mb-md-0 fixed-width") %>  " +
+         "<%= j link_to("Edit", edit_issue_type_path(@issue_type), remote: true, class: "btn btn-primary btn-sm text-white mr-2 mb-1 mb-md-0 fixed-width") %>  " +
+         "<%= j link_to("Show", issue_type_path(@issue_type), remote: true, class: "btn btn-success btn-sm text-white fixed-width") %>"
 }
 
 function issueTypeUpdateClassAndId(row) {
