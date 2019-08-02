@@ -39,17 +39,6 @@ RSpec.describe TeamsController, type: :controller do
         expect(response).to be_success
       end
     end
-    # context 'as member' do
-    #   before(:each) do
-    #     sign_in @member
-    #   end
-    #   it 'is not allowed to create new team so dont render new template' do
-    #     # expect do
-    #       get :new
-    #     expect(response).to raise_exception(CanCan::AccessDenied)
-    #     # assert ability.cannot?(:create, new)
-    #   end
-    # end
   end
 
   describe 'Get #show' do
