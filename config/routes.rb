@@ -21,9 +21,10 @@ Rails.application.routes.draw do
     collection do
       get 'join_team'
     end
+  end
 
-   
-
+  devise_scope :user do
+    get 'signout', to: 'devise/sessions#destroy'
   end
 
 

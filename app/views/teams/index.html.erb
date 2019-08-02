@@ -5,7 +5,9 @@
 
   <div class="row" style="float: right;">
 
-    <%= link_to 'Add Team', new_team_path,class: 'btn btn-primary btn-sm' %>
+    <% if can? :create, Team %> 
+      <%= link_to 'Add Team', new_team_path,class: 'btn btn-primary btn-sm' %>
+    <% end %>
   </div>
 
   <div class="row">
@@ -24,31 +26,37 @@
                 <p class="card-text">Welcome to <%= team.name%></p>
               <!--   Manage button visibilities using  CanCanCan -->
                
-                <%= link_to 'Manage Team', team_path(team),class: 'btn btn-sm btn-block btn-outline-info' %><!--  shown to admins only -->
-                
+              <% if can? :manage, Team %> 
+                    <%= link_to 'Manage Team', team_path(team),class: 'btn btn-sm btn-block btn-outline-info' %><!--  shown to admins only -->
+              <% else %>
+                 
+                    <%= link_to 'View Team', team_path(team),class: 'btn btn-sm btn-block btn-outline-info' %>
+                  
 
-                <hr>
-                <% if TeamMembership.where('team_id = ? and user_id= ? and is_approved= ?', team.id, User.last.id, true).present? %>  <!-- change User.last.id to current user id ## CANCANCAN-->
 
-                  <button class="btn btn-success btn-sm btn-block ">Requested to join</button>
+                    <hr>
+                    <% if TeamMembership.where('team_id = ? and user_id= ? and is_approved= ?', team.id, current_user.id, true).present? %>  <!-- change User.last.id to current user id ## CANCANCAN-->
 
-                <% else %>
-                  <%= form_tag join_team_teams_path, method: 'get', remote: true do %>
-                          <%= hidden_field_tag(:user_id, User.last.id) %>  <!-- change User.last.id to current user id ## CANCANCAN-->
-                          <%= hidden_field_tag(:team_id, team.id) %> 
-                          <div class="row">
-                                <div class="col-9">
-                                  <button type="submit" class="btn-sm btn-block btn btn-outline-success">Join Team</button>
-                                </div>
-                                <div class="col-3">
-                                      <%= check_box 'join_admin', 'result', {}, 1, 0 %>
-                                      <%= label_tag(:join_admin, "Admin", class: 'form-check-label') %>
-                                   
-                                </div>  
-                          </div>
+                      <button class="btn btn-success btn-sm btn-block ">Requested to join</button>
 
-                  <% end %>
-                <% end %>               
+                    <% else %>
+                      <%= form_tag join_team_teams_path, method: 'get', remote: true do %>
+                              <%= hidden_field_tag(:user_id, current_user.id) %>  <!-- change User.last.id to current user id ## CANCANCAN-->
+                              <%= hidden_field_tag(:team_id, team.id) %> 
+                              <div class="row">
+                                    <div class="col-9">
+                                      <button type="submit" class="btn-sm btn-block btn btn-outline-success">Join Team</button>
+                                    </div>
+                                    <div class="col-3">
+                                          <%= check_box 'join_admin', 'result', {}, 1, 0 %>
+                                          <%= label_tag(:join_admin, "Admin", class: 'form-check-label') %>
+                                       
+                                    </div>  
+                              </div>
+
+                      <% end %>
+                    <% end %> 
+              <% end %>
               </div>
             </div>
             <br>

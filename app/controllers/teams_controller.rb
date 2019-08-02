@@ -1,4 +1,6 @@
 class TeamsController < ApplicationController
+  load_and_authorize_resource
+
   def index
     @all_teams = Team.all
   end
@@ -17,12 +19,12 @@ class TeamsController < ApplicationController
   def create
     @team = Team.new(team_params)
     @team.company_id = 1 ## need to be changed
-    @user_id = User.last.id ## get current user id by CANCANCAN
-    @team_id = Team.last.id
 
     if @team.save
+      @user_id = current_user.id
+      @team_id = Team.last.id
       TeamMembership.create!(is_team_admin: true, is_approved: false, team_id: @team_id, user_id: @user_id) ## person who   
-      # created team is by default added member as admin
+      ## member who created team is by default made as admin
 
       redirect_to teams_path, team_created: t('.Team created Successfully')
     else
@@ -46,7 +48,7 @@ class TeamsController < ApplicationController
   def destroy
     @team = Team.find(params[:id])
     if @team.destroy
-      redirect_to teams_path,  team_deleted: t('.Successfully deleted team!')
+      redirect_to teams_path, team_deleted: t('.Successfully deleted team!')
     else
       redirect_to teams_path team_not_deleted: t('.Error deleting team!')
     end
@@ -81,9 +83,10 @@ class TeamsController < ApplicationController
                   true
     end
     @team_membership = TeamMembership.new(is_team_admin: @is_admin, is_approved: is_approved, team_id: @team_id, user_id: @user_id)
-    @team_membership.save
-    respond_to do |format|
-      format.js
+    if @team_membership.save
+      respond_to do |format|
+        format.js
+      end
     end
   end
 end
