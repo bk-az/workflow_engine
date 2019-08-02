@@ -9,9 +9,10 @@ class Ability
       if user.admin?
         can :manage, :all
       else
-        can :read, Project, Project.visible_projects(user) do |project|
-          project
+        can :show, Project do |project|
+          project.visible?(user)
         end
+        can :index, Project, id: user.visible_projects.pluck(:id)
       end
     end
   end

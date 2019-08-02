@@ -89,4 +89,12 @@ class User < ActiveRecord::Base
   def admin?
     role.name == 'Administrator'
   end
+
+  def visible_projects
+    if admin?
+      company.projects
+    else
+      projects
+    end
+  end
 end
