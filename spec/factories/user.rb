@@ -25,7 +25,6 @@ FactoryGirl.define do
     email       { Faker::Internet.email }
     password    { Faker::Internet.password }
     company_id 1
-    id 2
     association :role, factory: :role_member
   end
 end

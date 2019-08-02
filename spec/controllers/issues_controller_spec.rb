@@ -1,12 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe IssuesController, type: :controller do
-  before(:each) do
+  before(:all) do
     @admin = create(:admin)
     @member = create(:member)
-    sign_in @member
   end
-
+  before(:each) { sign_in @member }
   context 'GET #index' do
     it 'returns a success response' do
       get :index
@@ -75,8 +74,12 @@ RSpec.describe IssuesController, type: :controller do
         sign_in @member
       end
       before :all do
-        @issue_member_assignee = FactoryGirl.create(:issue_member_assignee)
-        @issue_member_creator = FactoryGirl.create(:issue_member_creator)
+        @issue_member_assignee = FactoryGirl.build(:issue)
+        @issue_member_assignee.assignee_id = @member.id
+        @issue_member_assignee.save
+        @issue_member_creator = FactoryGirl.build(:issue)
+        @issue_member_creator.creator_id = @member.id
+        @issue_member_creator.save
       end
 
       context 'valid attributes' do
@@ -198,10 +201,19 @@ RSpec.describe IssuesController, type: :controller do
   end
 
   context 'DELETE #destroy' do
-    let!(:issue) { create :issue_member_creator }
+    before(:each) do
+      sign_in @member
+    end
+
+    before :all do
+      @issue_member_assignee = FactoryGirl.build(:issue)
+      @issue_member_assignee.assignee_id = @member.id
+      @issue_member_assignee.save
+    end
+    # let!(:issue) { create :issue_member_creator }
 
     it 'should delete issue' do
-      delete :destroy, id: issue.id
+      delete :destroy, id: @issue_member_assignee.id
       expect(response).to redirect_to issues_url
     end
   end

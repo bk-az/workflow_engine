@@ -26,11 +26,34 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  # returns full name
+  def name
+    self[:first_name] + ' ' + self[:last_name]
+  end
+
   def admin?
     role.name == 'Administrator'
   end
 
-  def self.visible_projects(user)
-    user.projects
+  def visible_projects
+    if admin?
+      Project.all
+    else
+      @projects = projects
+      @projects += teams.collect(&:projects).flatten
+      @projects.uniq
+      Project.where(id: @projects)
+    end
+  end
+
+  def self.visible_issues(user)
+    if user.admin?
+      Issue.all
+    else
+      @issues = user.projects.collect(&:issues).flatten
+      @issues += user.teams.collect(&:projects).flatten.collect(&:issues).flatten
+      @issues.uniq
+      Issue.where(id: @issues)
+    end
   end
 end

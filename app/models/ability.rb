@@ -8,8 +8,8 @@ class Ability
     if user.admin?
       can :manage, :all
     else
-      can [:read, :filter], Issue, Issue.visible_issues(user) do |issue|
-        issue
+      can [:read, :filter], Issue, User.visible_issues(user) do |issue|
+        issue.company_id == user.company_id
       end
       can [:update, :destroy], Issue do |issue|
         (issue.assignee_id == user.id || issue.creator_id == user.id) &&

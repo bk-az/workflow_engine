@@ -9,8 +9,7 @@
     <div class="col-md-6">
       <div class="form-group">
         <%= f.label :description %>
-        <%= f.text_area :description, class: 'form-control', :cols => 2, :rows => 6 %>
-        
+        <%= f.text_area :description, class: 'form-control', cols: 2, rows: 6 %>   
       </div>
     </div>
   </div>
@@ -36,41 +35,41 @@
     <div class="col-md-3">
       <div class="form-group">
         <%= f.label :assignee_id %>
-        <%= f.select(:assignee_id, Issue.all.collect {|issue| [issue.assignee.first_name, issue.assignee_id ] }, {:include_blank => 'Select an assignee'}) %>
+        <%= f.select(:assignee_id, assignees.collect { |assignee| [assignee.try(:name), assignee.id] }, { include_blank: 'Select an assignee' }) %>
       </div>
     </div>
 
     <div class="col-md-3">
       <div class="form-group">
         <%= f.label :priority %>
-        <%= f.select :priority, options_for_select([["Low", 0], ["Medium", 1],["High", 2]]) %>
+        <%= f.select :priority, show_priority.collect { |key, value| [key, value] } %>
       </div>
     </div>
 
     <div class="col-md-3">
       <div class="form-group">
         <%= f.label :issue_state_id %>       
-        <%= f.select(:issue_state_id, IssueState.all.collect {|issue_state| [issue_state.name, issue_state.id ] }, {:include_blank => 'Select an issue state'}) %>
+        <%= f.select(:issue_state_id, issue_states.collect { |issue_state| [issue_state.try(:name), issue_state.id] }, { include_blank: 'Select an issue state' }) %>
       </div>
     </div>
 
     <div class="col-md-3">
       <div class="form-group">
         <%= f.label :issue_type_id %>
-           <%= f.select(:issue_type_id, IssueType.all.collect {|issue_type| [issue_type.name, issue_type.id ] }, {:include_blank => 'Select an issue type'}) %>
+           <%= f.select(:issue_type_id, issue_types.collect { |issue_type| [issue_type.try(:name), issue_type.id] }, { include_blank: 'Select an issue type' }) %>
       </div>
     </div> 
   </div>
   <hr>
 
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
       <div class="form-group">
         <%= f.label :progress %>
-        <%= f.text_field :progress, class: 'form-control' %>
+        <%= f.number_field :progress, class: 'form-control' %>
       </div>
     </div>
   </div>
   <hr>
-  <%= f.submit({:class => 'btn btn-primary'}) %>
+  <%= f.submit({ class: 'btn btn-primary' }) %>
 <% end %>
