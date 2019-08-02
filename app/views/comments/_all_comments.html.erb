@@ -1,5 +1,5 @@
 <% @comments.each do |comment| %>
-
+  <% next if comment.new_record? %>
   <div id="this_comment_<%= comment.id %>" class="card v-card v-sheet theme--light elevation-2">
     <div id="header" class="header">
       <div  class="v-avatar avatar" style="height: 50px; width: 50px;"><img  src="https://images.unsplash.com/photo-1490894641324-cfac2f5cd077?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=100&q=70">

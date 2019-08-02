@@ -9,9 +9,6 @@
         <p class="error-message"></p>
       </div>
     </div>
-
-    <% comment_ids = @comments.reject { |c| c.id == nil }.map(&:id) %>
-    <% @comments = Comment.where(id: comment_ids) %>
     
     <div id="single-comment">
       <%= render 'comments/all_comments'%>
