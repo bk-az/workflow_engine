@@ -39,11 +39,11 @@ class IssueTypesController < ApplicationController
   end
 
   def update
-    @issue_type = IssueType.update(params[:id], issue_type_params)
-    if @issue_type.valid?
-      flash.now[:success] = t('.updated')
-    else
+    @issue_type = IssueType.safe_update(params[:id], issue_type_params)
+    if @issue_type.errors.any?
       flash.now[:danger] = t('.not_updated')
+    else
+      flash.now[:success] = t('.updated')
     end
     respond_to do |format|
       format.js
@@ -51,13 +51,11 @@ class IssueTypesController < ApplicationController
   end
 
   def destroy
-    @issue_type = IssueType.find(params[:id])
-    @total_issues = @issue_type.issues.count
-    if @total_issues > 0
-      flash.now[:danger] = "#{@total_issues} issue".pluralize(@total_issues) + " using this type"
+    @issue_type = IssueType.safe_destroy(params[:id])
+    if @issue_type.errors.any?
+      flash.now[:danger] = t('.not_deleted')
     else
-      @issue_type.destroy
-      flash.now[:success] = t('.notice')
+      flash.now[:success] = t('.deleted')
     end
     respond_to do |format|
       format.js
@@ -66,7 +64,7 @@ class IssueTypesController < ApplicationController
 
   def issue_type_params
     result = params.require(:issue_type).permit(:name, :project_id)
-    result[:project_id] = params[:project_id] if params[:project_id].present?
+    result[:project_id] = params[:project_id] if params[:project_id].present? && params[:category] == 'project'
     result
   end
 end

@@ -33,4 +33,12 @@ RSpec.describe IssueType, type: :model do
     issue_type.name = 'a' * 2
     expect(issue_type.valid?).to eq false
   end
+  it 'should load all issue types' do
+    Company.current_id = 1
+    expect(IssueType.load_issue_types(nil)).to eq IssueType.all
+  end
+  it 'should load all issue types of a project' do
+    Company.current_id = 1
+    expect(IssueType.load_issue_types(1)).to eq IssueType.where(project_id: 1)
+  end
 end

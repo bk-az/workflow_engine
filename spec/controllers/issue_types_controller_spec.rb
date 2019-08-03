@@ -174,11 +174,24 @@ RSpec.describe IssueTypesController, type: :controller do
     context 'PATCH #update' do
       before(:each) do
         @issue_type = create(:issue_type, project: create(:project))
+        Company.current_id = @company.id
       end
       it 'should update issue_type in database' do
         xhr :patch, :update, id: @issue_type, issue_type: issue_type_params
         expect(assigns(:issue_type).name).to eq issue_type_params[:name]
         expect(assigns(:issue_type).project_id).to eq issue_type_params[:project_id]
+      end
+      it 'should not update scope of issue_type if some issues outside this scope using this' do
+        @issue_type.issues << create(:issue, project: create(:project))
+        xhr :patch, :update, id: @issue_type, issue_type: issue_type_params
+        Company.current_id = @company.id
+        expect(assigns(:issue_type).project_id).to_not eq issue_type_params[:project_id]
+      end
+      it 'should generate errors when update is unsuccessful' do
+        @issue_type.issues << create(:issue, project: create(:project))
+        xhr :patch, :update, id: @issue_type, issue_type: issue_type_params
+        Company.current_id = @company.id
+        expect(assigns(:issue_type).errors).to_not be_empty
       end
     end
     context 'DELETE #destroy' do

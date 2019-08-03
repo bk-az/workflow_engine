@@ -22,11 +22,11 @@
 en:
   issue_types:
     create:
-      created: "Issue Type Successfully"
+      created: "Issue Type created Successfully"
       not_created: "Issue Type not Created"
     destroy:
-      notice: "Issue Type Deleted"
-      danger: "Unable to delete this Issue Type"
+      deleted: "Issue Type Deleted Successfully"
+      not_deleted: "Unable to delete this Issue Type"
     update:
       updated: "Issue Type Updated Successfully"
       not_updated: "Issue Type not Updated"

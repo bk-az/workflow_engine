@@ -1,4 +1,3 @@
-<%= link_to 'logout', destroy_user_session_path(current_user), method: 'delete' %>
 <div class="text-center my-4">
   <h1>Issue Types</h1>
 </div>
@@ -10,7 +9,7 @@
 <% end %>
 
 
-  <!-- Add Member Modal -->
+  <!-- Issue Type Modals -->
   <%= render 'issue_types/new_issue_type_modal' %>
   <%= render 'issue_types/show_issue_type_modal' %>
 

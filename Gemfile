@@ -26,11 +26,11 @@ gem 'sdoc', '0.4.2', group: :doc
 gem 'bootstrap-sass', '3.4.1'
 gem 'cancancan', '3.0.1'
 gem 'devise', '4.1.1'
-gem 'jquery-ui-rails'
-gem 'rails4-autocomplete'
 gem 'faker', '1.9.1'
 gem 'popper_js', '1.14.5'
 gem 'rspec-collection_matchers', '1.1.3'
+gem 'jquery-ui-rails'
+gem 'rails4-autocomplete'
 gem 'simplecov', require: false, group: :test
 
 group :development, :test do
@@ -47,5 +47,4 @@ group :development, :test do
   # background. Read more: https://github.com/rails/spring
   gem 'spring', '2.0.2'
   gem 'pry', '0.12.2'
-  gem 'pry-rails'
 end

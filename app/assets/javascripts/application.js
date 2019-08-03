@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require autocomplete-rails
-//= require jquery-ui/autocomplete
+//= require jquery-ui/widgets/autocomplete
 //= require popper
 //= require turbolinks
 //= require jquery_ujs

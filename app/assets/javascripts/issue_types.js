@@ -10,6 +10,7 @@ $(document).on('turbolinks:load', function(){
   showIssueTypeModal = $('#show_issue_type_modal');
   issueTypeCategory = $('#issue_type_category');
   issueTypeProjectId = $('#issue_type_project_id');
+  projectIssueTypeCategory = $('#project_issue_type_category');
 
   var issueTypeModal = $('#issue_type_modal');
   var issueTypesCategoryFilter = $('#issue_types_category_filter');
@@ -83,10 +84,16 @@ $(document).on('turbolinks:load', function(){
 
 });
 
+function resetProjectIssueTypeCategory(){
+  projectIssueTypeCategory.find('label:eq(1)').removeClass('active');
+  projectIssueTypeCategory.find('label:eq(0)').addClass('active');
+}
+
 function showProjectSearch() {
   projectNameSearch.attr("hidden",false);  
 }
 
 function clearIssueTypeForm() {
   issueTypeForm.trigger("reset");
+  resetProjectIssueTypeCategory();
 }
