@@ -39,11 +39,11 @@ class IssueStatesController < ApplicationController
   end
 
   def update
-    @issue_state = IssueState.update(params[:id], issue_state_params)
-    if @issue_state.valid?
-      flash.now[:success] = t('.updated')
-    else
+    @issue_state = IssueState.safe_update(params[:id], issue_state_params)
+    if @issue_state.errors.any?
       flash.now[:danger] = t('.not_updated')
+    else
+      flash.now[:success] = t('.updated')
     end
     respond_to do |format|
       format.js
@@ -51,13 +51,11 @@ class IssueStatesController < ApplicationController
   end
 
   def destroy
-    @issue_state = IssueState.find(params[:id])
-    @total_issues = @issue_state.issues.count
-    if @total_issues > 0
-      flash.now[:danger] = "#{@total_issues} issue".pluralize(@total_issues) + " using this state"
+    @issue_state = IssueState.safe_destroy(params[:id])
+    if @issue_state.errors.any?
+      flash.now[:danger] = t('.not_deleted')
     else
-      @issue_state.destroy
-      flash.now[:success] = t('.notice')
+      flash.now[:success] = t('.deleted')
     end
     respond_to do |format|
       format.js
@@ -66,7 +64,7 @@ class IssueStatesController < ApplicationController
 
   def issue_state_params
     result = params.require(:issue_state).permit(:name, :issue_id)
-    result[:issue_id] = params[:issue_id] if params[:issue_id].present?
+    result[:issue_id] = params[:issue_id] if params[:issue_id].present? && params[:category] == 'issue'
     result
   end
 end
