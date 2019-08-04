@@ -1,9 +1,8 @@
 Rails.application.routes.draw do
-
   devise_scope :user do
     get 'signout', to: 'devise/sessions#destroy'
   end
-  
+
   resources :projects do
     resources :comments, shallow: true
   end
@@ -12,6 +11,11 @@ Rails.application.routes.draw do
 
   resources :issues do
     resources :comments, shallow: true
+    resources :issue_states, only: %i[index create]
+  end
+
+  resources :issue_states, except: :new do
+    get :autocomplete_issue_title, on: :collection
   end
 
   get 'user_companies/find', to: 'user_companies#find'

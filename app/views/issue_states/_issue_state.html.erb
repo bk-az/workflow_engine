@@ -1,0 +1,16 @@
+<tr id="issue_state_<%= issue_state.id %>" class="<%= issue_state.issue_id.nil? ? 'global' : 'issue-'+issue_state.issue_id.to_s %>">
+  <td><%= issue_state.name %></td>
+  <td> <% if issue_state.issue_id.nil? %>
+    <i class="fas fa-check-circle"></i>
+    <% else %>
+    <i class="fas fa-times-circle"></i>
+    <% end %>
+  </td>
+  <td><%= issue_state.issue_id.nil? ? 'NA' : issue_state.issue_id.to_s %></td>
+  <td> 
+    <%= link_to('Delete', issue_state_path(issue_state), method: 'delete', remote: true, data: { confirm: 'Are you sure to delete this issue state?'}, class: 'btn btn-danger btn-sm text-white mr-2 mb-1 mb-md-0 fixed-width') %>
+    <%= link_to('Edit', edit_issue_state_path(issue_state), remote: true, class: 'btn btn-primary btn-sm text-white mr-2 mb-1 mb-md-0 fixed-width') %>
+    <%= link_to('Show', issue_state_path(issue_state), remote: true, class: 'btn btn-success btn-sm text-white fixed-width') %>
+  </td>
+</tr>
+

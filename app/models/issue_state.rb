@@ -1,6 +1,6 @@
 class IssueState < ActiveRecord::Base
   validates(:name, presence: true,
-                   uniqueness: { scope: :company_id, case_sensitive: false },
+                   uniqueness: { scope: [:issue_id, :company_id], case_sensitive: false },
                    length: { minimum: MIN_LENGTH, maximum: MAX_LENGTH_ISSUE_STATE })
   validates :company_id, presence: true
 

@@ -2,6 +2,7 @@ class Issue < ActiveRecord::Base
   belongs_to :company
   belongs_to :project
   belongs_to :issue_state
+  has_many   :issue_states
   belongs_to :issue_type
 
   # An issue belongs to an admin (creator)
@@ -25,4 +26,8 @@ class Issue < ActiveRecord::Base
                              source_type: 'User'
   has_many   :watcher_teams, through: :issue_watchers, source: :watcher,
                              source_type: 'Team'
+
+  def title_with_project_id
+    "P\##{format('%02d', project_id)}: #{title}"
+  end
 end

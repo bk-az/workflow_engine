@@ -1,0 +1,9 @@
+<% if params[:issue_id].nil? && @issue_state.issue_id.present? %>
+issueStateCategory.val('issue');
+showIssueSearch();
+issueStateIssueId.val("<%= @issue_state.issue_id %>");
+<% end %>
+$('#issue_state_name').val("<%= @issue_state.name %>");
+$('#issue_state_modal').modal('show'); 
+issueStateForm.attr("method","patch");
+issueStateForm.attr("action","<%= issue_state_path(@issue_state) %>");

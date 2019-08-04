@@ -1,5 +1,5 @@
 class IssueStatesController < ApplicationController
-  autocomplete :issue, :title
+  autocomplete :issue, :title, display_value: :title_with_project_id, extra_data: [:project_id]
   authorize_resource
 
   def index

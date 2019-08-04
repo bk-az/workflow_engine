@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="jumbotron">
+    <h1 class="text-center">
+      <%= @issue_state.name %><span class="badge badge-pill badge-dark" style="font-size: 0.3em;"><%= @issue.nil? ? 'global' : link_to('issue', '#', class: 'text-white') %></span>
+    </h1>      
+    <p class="text-center"><span class="badge badge-pill badge-danger"><%= @total_issues %></span><%= " issue".pluralize(@total_issues) + " using this state" %>
+    </p>
+  </div>
+
+  <% unless @issue.nil? %>
+  <h3 class="bg-dark text-warning badge-pill text-center py-1"> Issue </h3>
+  <h5 class="bg-light text-success text-center mt-2"> <%= link_to(@issue.title, '#') %> </h5>
+  <% end %>
+</div>

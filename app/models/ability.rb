@@ -5,7 +5,7 @@ class Ability
   def initialize(user)
     if user.present?
       if user.admin?
-        can :manage, :all
+        can :manage, Project
         can :manage, IssueState
       else
         can :show, Project do |project|
