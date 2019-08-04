@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery-ui/widgets/autocomplete
 //= require popper
 //= require turbolinks
 //= require jquery_ujs

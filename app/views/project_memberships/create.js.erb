@@ -1,5 +1,5 @@
-$("#add_member_modal_flash").html('<%= j render partial: "project_memberships/notice" %>');
-clearAddMemberModal();
+projectMembershipFlash.html('<%= j render partial: "project_memberships/notice" %>');
+clearNewProjectMembershipForm();
 <% unless @member.nil? %>
   <% if @member.class.name == 'User' %>
     $("#js_user_memberships").append('<%= j render partial: "member", locals: {member: @member} %>');

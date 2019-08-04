@@ -28,6 +28,7 @@ gem 'devise', '4.1.1'
 gem 'faker', '1.9.1'
 gem 'popper_js', '1.14.5'
 gem 'rspec-collection_matchers', '1.1.3'
+gem 'jquery-ui-rails'
 gem 'simplecov', require: false, group: :test
 
 group :development, :test do

@@ -15,22 +15,23 @@ class ProjectMembership < ActiveRecord::Base
                             user.teams.ids).ids
   end
 
-  def self.create_membership(type, id, project_id)
+  def self.create_membership(params)
+    result = true
     begin
-      member = get_member(type, id)
-      project = Project.find(project_id)
+      member = get_member(params[:project_member_type], params[:project_member_id])
+      project = Project.find(params[:project_id])
       member.projects << project
     rescue ActiveRecord::RecordNotFound, ActiveRecord::RecordNotUnique
-      member = nil
+      result = false
     end
-    [member, project]
+    [result, member, project]
   end
 
-  def self.search_for_membership(member_type, keyword, project)
+  def self.autocomplete_member(member_type, keyword, project)
     if member_type == 'Team'
-      members = Team.where('name like ?', "#{sanitize_sql_like(keyword)}%").where.not(id: project.teams.ids).limit(10).pluck(:name, :id)
+      members = Team.where('LOWER(name) like ?', "#{sanitize_sql_like(keyword)}%").where.not(id: project.teams.ids).limit(10).pluck(:name, :id)
     else # it is user
-      members = User.where('email like ?', "#{sanitize_sql_like(keyword)}%").where.not(id: project.users.ids).limit(10).pluck(:email, :id)
+      members = User.where('LOWER(email) like ?', "#{sanitize_sql_like(keyword)}%").where.not(id: project.users.ids).limit(10).pluck(:email, :id)
     end
     members
   end
@@ -43,6 +44,8 @@ class ProjectMembership < ActiveRecord::Base
                  User.find(id)
                elsif type == 'Team'
                  Team.find(id)
+               else
+                 raise ActiveRecord::RecordNotFound
                end
       member
     end

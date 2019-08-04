@@ -22,7 +22,8 @@
 en:
   project_memberships:
     create:
-      notice: "Member Added Successfully"
+      created: "Member Added Successfully"
+      not_created: "Member not Added"
   comments:
     create:
       btn: 'Comment'

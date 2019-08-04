@@ -4,6 +4,7 @@ class ProjectMembershipsController < ApplicationController
   # GET #index
   def index
     load_project_with_members
+    @project_membership = ProjectMembership.new
     respond_to do |format|
       format.html
     end
@@ -11,18 +12,19 @@ class ProjectMembershipsController < ApplicationController
 
   # POST #create
   def create
-    @member, @project = ProjectMembership.create_membership(
-      params[:project_member_type],
-      params[:project_member_id],
-      params[:project_id]
-    )
-    flash.now[:success] = t('.notice') unless @member.nil?
+    @result, @member, @project = ProjectMembership.create_membership(project_membership_params)
+    if @result
+      flash.now[:success] = t('.created')
+    else
+      flash.now[:danger] = t('.not_created')
+    end
+
     respond_to do |format|
       format.js
     end
   end
 
-  # DELETE #destroy, id: params[:id]
+  # DELETE #destroy
   def destroy
     pm = ProjectMembership.destroy(params[:id])
     @member_id = "\##{pm.project_member_type}_#{pm.project_member_id}"
@@ -34,20 +36,25 @@ class ProjectMembershipsController < ApplicationController
 
   # GET #search
   def search
-    if params[:search_name].present?
+    # byebug
+    if params[:term].length > 1
       @project = Project.find(params[:project_id])
-      @members = ProjectMembership.search_for_membership(
+      @members = ProjectMembership.autocomplete_member(
         params[:member_type],
-        params[:search_name],
+        params[:term],
         @project
       )
     end
     respond_to do |format|
-      format.js
+      format.json
     end
   end
 
   private
+
+  def project_membership_params
+    params.require(:project_membership).permit(:project_id, :project_member_id, :project_member_type)
+  end
 
   def load_project_with_members
     @project = Project.includes(:users, :teams).find(params[:project_id])

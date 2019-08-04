@@ -102,7 +102,7 @@ RSpec.describe ProjectMembershipsController, type: :controller do
     context 'Without Signing in' do
       it 'should not be able to create membership' do
         expect do
-          xhr :post, :create, user_membership_params
+          xhr :post, :create, project_membership: user_membership_params
         end.to raise_exception(CanCan::AccessDenied)
       end
     end
@@ -113,7 +113,7 @@ RSpec.describe ProjectMembershipsController, type: :controller do
       end
       it 'should not be able to create membership' do
         expect do
-          xhr :post, :create, user_membership_params
+          xhr :post, :create, project_membership: user_membership_params
         end.to raise_exception(CanCan::AccessDenied)
       end
     end
@@ -124,18 +124,18 @@ RSpec.describe ProjectMembershipsController, type: :controller do
       context 'with valid attributes' do
         it 'should create a new project-membership for user in the database' do
           expect do
-            xhr :post, :create, user_membership_params
+            xhr :post, :create, project_membership: user_membership_params
           end.to change(ProjectMembership, :count).by(1)
         end
 
         it 'should create a new project-membership for team in the database' do
           expect do
-            xhr :post, :create, team_membership_params
+            xhr :post, :create, project_membership: team_membership_params
           end.to change(ProjectMembership, :count).by(1)
         end
 
         it 'should render create template' do
-          xhr :post, :create, user_membership_params
+          xhr :post, :create, project_membership: user_membership_params
           expect(response).to render_template(:create)
         end
       end
@@ -148,16 +148,14 @@ RSpec.describe ProjectMembershipsController, type: :controller do
         end
         it 'should not create a new project-membership' do
           expect do
-            xhr :post, :create, user_membership_params
+            xhr :post, :create, project_membership: user_membership_params
           end.to_not change(ProjectMembership, :count)
         end
       end
 
       context 'variable assignments' do
         before :each do
-          xhr :post, :create, project_id: project.id,
-                              project_member_id: user.id,
-                              project_member_type: user.class.name
+          xhr :post, :create, project_membership: user_membership_params
         end
         it 'should assign project instance variable to current project' do
           expect(assigns(:project)).to eq project
@@ -216,8 +214,8 @@ RSpec.describe ProjectMembershipsController, type: :controller do
     end
 
     let(:search_params) do
-      { member_type: 'User',
-        search_name: 'm',
+      { term: 'me',
+        member_type: 'User',
         project_id: @project.id }
     end
     context 'Without Signing in' do
@@ -252,10 +250,9 @@ RSpec.describe ProjectMembershipsController, type: :controller do
 
       it 'should return member names and ids' do
         xhr :get, :search, search_params
-        member_names_ids = ProjectMembership.search_for_membership(
-          search_params[:member_type],
-          search_params[:search_name],
-          @project
+        Company.current_id = @company.id
+        member_names_ids = ProjectMembership.autocomplete_member(
+          search_params[:member_type], search_params[:term], @project
         )
         expect(assigns(:members)).to eq member_names_ids
       end

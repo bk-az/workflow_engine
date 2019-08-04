@@ -2,12 +2,12 @@
 <h1 class="mb-4"><%= @project.title %></h1>
 
 <% if can? :create, ProjectMembership %>
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add_member_modal">
-        <i class="fas fa-user-plus mr-2"></i>
-        <strong>Add Member</strong>
-  </button>
-  <!-- Add Member Modal -->
-  <%= render 'project_memberships/new_membership_form' %>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#project_membership_modal">
+  <i class="fas fa-user-plus mr-2"></i>
+  <strong>Add Member</strong>
+</button>
+<!-- Add Member Modal -->
+<%= render 'project_memberships/new_membership_modal' %>
 <% end %>
 
 <h2 class="my-4">Teams</h2>
@@ -19,3 +19,4 @@
 <div class="masonry" id="js_user_memberships">
   <%= render partial: "member", collection: @users, as: :member %>
 </div>
+
