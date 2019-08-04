@@ -8,6 +8,8 @@ class IssueState < ActiveRecord::Base
   belongs_to :company
   belongs_to :issue
 
+  scope :issue_states_for_projects, ->(project) { project.issues.map(&:issue_state) }
+
   def self.safe_update(id, params)
     issue_state = IssueState.find(id)
     if params[:issue_id].nil?

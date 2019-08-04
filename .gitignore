@@ -11,3 +11,9 @@
 /log/*
 !/log/.keep
 /tmp
+
+# Ignore coverage results
+echo "coverage" >> .gitignore
+
+# Ignore bybug history
+.byebug_history
