@@ -24,6 +24,8 @@ Rails.application.routes.draw do
     confirmations: 'users/confirmations'
   }
 
+  get 'reports/issues', to: 'reports#issues', as: 'issues_report'
+
   resources :members do
     member do
       get 'privileges', action: 'privileges_show'

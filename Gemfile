@@ -23,7 +23,7 @@ gem 'jbuilder', '2.9.1'
 gem 'sdoc', '0.4.2', group: :doc
 
 # Custom Gems
-gem 'bootstrap-sass', '3.4.1'
+gem 'bootstrap-sass'
 gem 'cancancan', '3.0.1'
 gem 'devise', '4.1.1'
 gem 'wicked_pdf'
@@ -47,5 +47,4 @@ group :development, :test do
   # background. Read more: https://github.com/rails/spring
   gem 'spring', '2.0.2'
   gem 'pry', '0.12.2'
-  gem 'pry-rails'
 end
