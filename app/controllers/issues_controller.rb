@@ -32,30 +32,31 @@ class IssuesController < ApplicationController
     end
   end
 
-  # GET /issues/:id
+  # GET projects/:id/issues/:id
   def show
     respond_to do |format|
       format.html
     end
   end
 
-  # GET /issues/:id/edit
+  # GET projects/:id/issues/:id/edit
   def edit
     @assignees = current_tenant.users.all
     @issue_types = current_tenant.issue_types.all
     @issue_states = current_tenant.issue_states.all
+    @project = @issue.project
     respond_to do |format|
       format.html
     end
   end
 
-  # PUT /issues/:id
+  # PUT projects/:id/issues/:id
   def update
     if @issue.update(issue_params)
-      flash[:notice] = t('.notice')
+      flash[:notice] = t('issues.update.notice')
 
       respond_to do |format|
-        format.html { redirect_to @issue }
+        format.html { redirect_to project_issue_path(@issue.project, @issue) }
       end
     else
       flash.now[:error] = @issue.errors.full_messages
@@ -67,9 +68,9 @@ class IssuesController < ApplicationController
   def create
     @issue.creator_id = current_user.id
     if @issue.save
-      flash[:notice] = t('.notice')
+      flash[:notice] = t('issues.create.notice')
       respond_to do |format|
-        format.html { redirect_to @issue }
+        format.html { redirect_to project_issue_path(@issue.project, @issue) }
       end
     else
       flash.now[:error] = @issue.errors.full_messages
@@ -77,12 +78,12 @@ class IssuesController < ApplicationController
     end
   end
 
-  # DELETE /issues/:id
+  # DELETE projects/:id/issues/:id
   def destroy
     if @issue.destroy
-      flash[:notice] = t('.notice')
+      flash[:notice] = t('issues.destroy.notice')
       respond_to do |format|
-        format.html { redirect_to issues_path }
+        format.html { redirect_to project_path(@issue.project_id) }
       end
     else
       flash.now[:error] = @issue.errors.full_messages

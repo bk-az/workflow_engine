@@ -41,5 +41,5 @@
   </tbody>
 </table>
 <% if can?(:update, @issue) %>
-  <%= link_to 'Edit', edit_issue_path(@issue), class: 'btn btn-primary' %>
+  <%= link_to 'Edit', edit_project_issue_path(@issue.project_id, @issue.id), class: 'btn btn-primary' %>
 <% end %>

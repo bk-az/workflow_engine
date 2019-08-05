@@ -35,4 +35,9 @@ class Issue < ActiveRecord::Base
                              source_type: 'User'
   has_many   :watcher_teams, through: :issue_watchers, source: :watcher,
                              source_type: 'Team'
+  PRIORITY = {
+    Low: 0,
+    Medium: 1,
+    High: 2
+  }.freeze
 end
