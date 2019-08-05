@@ -87,7 +87,7 @@ class User < ActiveRecord::Base
 
   # returns full name
   def name
-    self[:first_name] + ' ' + self[:last_name]
+    "#{first_name} #{last_name}"
   end
 
   def admin?
@@ -98,7 +98,7 @@ class User < ActiveRecord::Base
     if admin?
       company.projects
     else
-      company.projects.joins('INNER JOIN project_memberships ON project_memberships.project_id = projects.id').where('(project_member_id = ? and project_member_type = "User") OR (project_member_id in (?) and project_member_type = "Team")', id, teams.ids).uniq
+      company.projects.joins('INNER JOIN project_memberships ON project_memberships.project_id = projects.id').where('(project_member_id = :user_id and project_member_type = "User") OR (project_member_id in (:teams) and project_member_type = "Team")', user_id: id, teams: team_ids).uniq
     end
   end
 
@@ -106,7 +106,7 @@ class User < ActiveRecord::Base
     if admin?
       company.issues
     else
-      company.issues.joins('INNER JOIN project_memberships ON project_memberships.project_id = issues.project_id').where('(project_member_id = ? and project_member_type = "User") OR (project_member_id in (?) and project_member_type = "Team")', id, teams.ids).uniq
+      company.issues.joins('INNER JOIN project_memberships ON project_memberships.project_id = issues.project_id').where('(project_member_id = :user_id and project_member_type = "User") OR (project_member_id in (:teams) and project_member_type = "Team")', user_id: id, teams: team_ids).uniq
     end
   end
 end
