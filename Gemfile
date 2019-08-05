@@ -26,7 +26,6 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Custom Gems
-gem 'bootstrap-sass'
 gem 'cancancan'
 gem 'delayed_job_active_record'
 gem 'devise', '4.1.1'
