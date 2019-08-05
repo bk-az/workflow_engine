@@ -6,7 +6,7 @@ issueStateFlash.html('<%= j render partial: "layouts/notice" %>');
   tr.find('td:eq(1)').html( updatedIssueStateIcon() );
   tr.find('td:eq(2)').html( updatedIssueStateIssueId() );
   tr.find('td:eq(3)').html( updatedIssueStateButtons() );
-  table.row(tr).invalidate().draw();
+  issueStatesTable.row(tr).invalidate().draw();
 <% else %>
   issueStatesErrors.html('<%= j render partial: "layouts/errors", locals: {model: @issue_state} %>');
 <% end %>
