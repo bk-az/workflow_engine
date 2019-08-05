@@ -19,6 +19,7 @@ class Company < ActiveRecord::Base
   has_many   :documents, dependent: :destroy
   has_many   :issue_types, dependent: :destroy
   has_many   :issue_states, dependent: :destroy
+  has_many   :project_memberships, dependent: :destroy
 
   def self.current_id=(id)
     Thread.current[:tenant_id] = id
