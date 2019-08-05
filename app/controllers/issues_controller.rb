@@ -4,10 +4,10 @@ class IssuesController < ApplicationController
   # GET /issues
   def index
     @issues = @issues.order(:project_id).page(params[:page])
-    @issue_types = IssueType.all
-    @issue_states = IssueState.all
+    @issue_types = current_tenant.issue_types.all
+    @issue_states = current_tenant.issue_states.all
     @projects = current_user.visible_projects
-    @assignees = User.all
+    @assignees = current_tenant.users.all
     respond_to do |format|
       format.html
     end
@@ -21,11 +21,12 @@ class IssuesController < ApplicationController
     end
   end
 
-  # GET /issues/new
+  # GET projects/:id/issues/new
   def new
-    @assignees = User.all
-    @issue_types = IssueType.all
-    @issue_states = IssueState.all
+    @assignees = current_tenant.users.all
+    @issue_types = current_tenant.issue_types.all
+    @issue_states = current_tenant.issue_states.all
+    @project = current_tenant.projects.find(params[:project_id])
     respond_to do |format|
       format.html
     end
@@ -40,9 +41,9 @@ class IssuesController < ApplicationController
 
   # GET /issues/:id/edit
   def edit
-    @assignees = User.all
-    @issue_types = IssueType.all   # TODO: current_tenant.issue_types
-    @issue_states = IssueState.all # TODO: current_tenant.issue_states
+    @assignees = current_tenant.users.all
+    @issue_types = current_tenant.issue_types.all
+    @issue_states = current_tenant.issue_states.all
     respond_to do |format|
       format.html
     end
@@ -62,10 +63,8 @@ class IssuesController < ApplicationController
     end
   end
 
-  # POST /issues
+  # POST projects/:id/issues
   def create
-    @issue.company_id = 1 # TODO: Remove after merge
-    @issue.project_id = 1 # TODO: Remove after merge
     @issue.creator_id = current_user.id
     if @issue.save
       flash[:notice] = t('.notice')
@@ -80,10 +79,14 @@ class IssuesController < ApplicationController
 
   # DELETE /issues/:id
   def destroy
-    @issue.destroy
-    flash[:notice] = t('.notice')
-    respond_to do |format|
-      format.html { redirect_to issues_path }
+    if @issue.destroy
+      flash[:notice] = t('.notice')
+      respond_to do |format|
+        format.html { redirect_to issues_path }
+      end
+    else
+      flash.now[:error] = @issue.errors.full_messages
+      render 'edit'
     end
   end
 
