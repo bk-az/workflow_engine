@@ -10,9 +10,10 @@ RSpec.describe ProjectMembershipsController, type: :routing do
       )
     end
     it 'should route to #create' do
-      expect(post: '/project_memberships').to route_to(
+      expect(post: '/projects/1/project_memberships').to route_to(
         controller: 'project_memberships',
-        action: 'create'
+        action: 'create',
+        project_id: '1'
       )
     end
     it 'should route to #destroy' do

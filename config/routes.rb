@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   end
   resources :projects do
     resources :comments, shallow: true
-    resources :project_memberships, only: :index, as: 'members'
+    resources :project_memberships, only: %i[index create], as: 'members'
   end
 
   resources :comments, only: [:edit, :update, :destroy]
@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     resources :comments, shallow: true
   end
 
-  resources :project_memberships, only: %i[create destroy] do
+  resources :project_memberships, only: :destroy do
     collection do
       get 'search'
     end

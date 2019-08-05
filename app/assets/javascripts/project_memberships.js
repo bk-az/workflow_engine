@@ -56,7 +56,7 @@ $(document).on('turbolinks:load', function(){
       .autocomplete('instance')._renderItem = $.proxy(this._render, this);
     },
     _select: function(e, ui) {
-      this._input.val(ui.item.name);
+      this._input.val(ui.item.display_value);
       projectMemberId.val(ui.item.id);
       projectMemberType.val(selectedMemberType.val());
       return false;
@@ -66,7 +66,7 @@ $(document).on('turbolinks:load', function(){
       '<div class="media p-1 border m-1">',
       '<img class="rounded" src="/assets/' + selectedMemberType.val().toLowerCase() + '.jpg" width="25" height="25"/>',
       '<div class="media-body">',
-      '<small class="ml-2">' + item.name + '</small>',
+      '<small class="ml-2">' + item.display_value + '</small>',
       '</div>',
       '</div>'
       ];

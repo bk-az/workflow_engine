@@ -1,9 +1,13 @@
 class ProjectMembershipsController < ApplicationController
-  authorize_resource
+  load_resource :project
+  load_and_authorize_resource through: :project, shallow: true
 
   # GET #index
   def index
-    load_project_with_members
+    @project_memberships = @project_memberships.includes(:project_member)
+    @users = @project_memberships.includes(:project_member).where(project_member_type: 'User').map(&:project_member)
+    @teams = @project_memberships.includes(:project_member).where(project_member_type: 'Team').map(&:project_member)
+    # needed for new membership modal
     @project_membership = ProjectMembership.new
     respond_to do |format|
       format.html
@@ -12,8 +16,8 @@ class ProjectMembershipsController < ApplicationController
 
   # POST #create
   def create
-    @result, @member, @project = ProjectMembership.create_membership(project_membership_params)
-    if @result
+    if @project_membership.save
+      @project_member = @project_membership.project_member
       flash.now[:success] = t('.created')
     else
       flash.now[:danger] = t('.not_created')
@@ -26,20 +30,18 @@ class ProjectMembershipsController < ApplicationController
 
   # DELETE #destroy
   def destroy
-    pm = ProjectMembership.destroy(params[:id])
-    @member_id = "\##{pm.project_member_type}_#{pm.project_member_id}"
+    @project_membership.destroy
+    @deleted_view_id = "\##{@project_membership.project_member_type}_#{@project_membership.project_member_id}"
     respond_to do |format|
-      format.html { redirect_to project_project_memberships_path(@project) }
       format.js
     end
   end
 
   # GET #search
   def search
-    # byebug
+    # @project will be loaded by cancancan
     if params[:term].length > 1
-      @project = Project.find(params[:project_id])
-      @members = ProjectMembership.autocomplete_member(
+      @search_results = ProjectMembership.autocomplete_member(
         params[:member_type],
         params[:term],
         @project
@@ -53,12 +55,6 @@ class ProjectMembershipsController < ApplicationController
   private
 
   def project_membership_params
-    params.require(:project_membership).permit(:project_id, :project_member_id, :project_member_type)
-  end
-
-  def load_project_with_members
-    @project = Project.includes(:users, :teams).find(params[:project_id])
-    @users = @project.users
-    @teams = @project.teams
+    params.require(:project_membership).permit(:project_member_id, :project_member_type)
   end
 end

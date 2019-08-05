@@ -17,13 +17,11 @@ RSpec.describe ProjectMembershipsController, type: :controller do
   let(:team)    { create(:team, company: @company) }
 
   let(:user_membership_params) do
-    { project_id: project.id,
-      project_member_id: user.id,
+    { project_member_id: user.id,
       project_member_type: user.class.name }
   end
   let(:team_membership_params) do
-    { project_id: project.id,
-      project_member_id: team.id,
+    { project_member_id: team.id,
       project_member_type: team.class.name }
   end
 
@@ -102,7 +100,7 @@ RSpec.describe ProjectMembershipsController, type: :controller do
     context 'Without Signing in' do
       it 'should not be able to create membership' do
         expect do
-          xhr :post, :create, project_membership: user_membership_params
+          xhr :post, :create, project_id: project, project_membership: user_membership_params
         end.to raise_exception(CanCan::AccessDenied)
       end
     end
@@ -113,7 +111,7 @@ RSpec.describe ProjectMembershipsController, type: :controller do
       end
       it 'should not be able to create membership' do
         expect do
-          xhr :post, :create, project_membership: user_membership_params
+          xhr :post, :create, project_id: project, project_membership: user_membership_params
         end.to raise_exception(CanCan::AccessDenied)
       end
     end
@@ -124,45 +122,44 @@ RSpec.describe ProjectMembershipsController, type: :controller do
       context 'with valid attributes' do
         it 'should create a new project-membership for user in the database' do
           expect do
-            xhr :post, :create, project_membership: user_membership_params
+            xhr :post, :create, project_id: project, project_membership: user_membership_params
           end.to change(ProjectMembership, :count).by(1)
         end
 
         it 'should create a new project-membership for team in the database' do
           expect do
-            xhr :post, :create, project_membership: team_membership_params
+            xhr :post, :create, project_id: project, project_membership: team_membership_params
           end.to change(ProjectMembership, :count).by(1)
         end
 
         it 'should render create template' do
-          xhr :post, :create, project_membership: user_membership_params
+          xhr :post, :create, project_id: project, project_membership: user_membership_params
           expect(response).to render_template(:create)
         end
       end
 
       context 'with invalid attributes' do
         let(:user_membership_params) do
-          { project_id: nil,
-            project_member_id: user.id,
+          { project_member_id: nil,
             project_member_type: user.class.name }
         end
         it 'should not create a new project-membership' do
           expect do
-            xhr :post, :create, project_membership: user_membership_params
+            xhr :post, :create, project_id: project, project_membership: user_membership_params
           end.to_not change(ProjectMembership, :count)
         end
       end
 
       context 'variable assignments' do
         before :each do
-          xhr :post, :create, project_membership: user_membership_params
+          xhr :post, :create, project_id: project, project_membership: user_membership_params
         end
         it 'should assign project instance variable to current project' do
           expect(assigns(:project)).to eq project
         end
 
-        it 'should assign member instance variable to current user' do
-          expect(assigns(:member)).to eq user
+        it 'should assign project_member instance variable to current user' do
+          expect(assigns(:project_member)).to eq user
         end
       end
     end
@@ -254,7 +251,7 @@ RSpec.describe ProjectMembershipsController, type: :controller do
         member_names_ids = ProjectMembership.autocomplete_member(
           search_params[:member_type], search_params[:term], @project
         )
-        expect(assigns(:members)).to eq member_names_ids
+        expect(assigns(:search_results)).to eq member_names_ids
       end
     end
   end

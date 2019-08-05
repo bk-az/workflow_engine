@@ -1,0 +1,23 @@
+<div class="col-lg-2 col-md-3 col-sm-4 col-6 my-3" id= <%= "#{project_member_type(project_member)}_#{project_member.id}" %> >
+  <div class="card p-1 text-center h-100" >
+    <%= image_tag("#{project_member_type(project_member).downcase}.jpg", class: "card-img-top img-thumbnail") %>
+    <div class="card-body">
+      <h6>
+        <% if team?(project_member) %>
+          <%= link_to project_member.name, '#' %>
+        <% else %>
+          <%= link_to project_member.name, member_path(project_member) %>
+        <% end %>
+      </h6>
+      <% if can? :destroy, ProjectMembership %>
+        <p class="badge badge-danger badge-pill">
+          <small><%= link_to 'Remove',
+                  project_membership_path(project_membership(@project, project_member)),
+                  method: 'delete', data: { confirm: 'Are you sure?' },
+                  class: 'text-white', remote: true %>
+          </small>
+        </p>
+      <% end %>
+    </div>
+  </div>
+</div> 

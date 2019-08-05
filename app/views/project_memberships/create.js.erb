@@ -1,9 +1,9 @@
 projectMembershipFlash.html('<%= j render partial: "project_memberships/notice" %>');
 clearNewProjectMembershipForm();
-<% unless @member.nil? %>
-  <% if @member.class.name == 'User' %>
-    $("#js_user_memberships").append('<%= j render partial: "member", locals: {member: @member} %>');
+<% unless @project_member.blank? %>
+  <% if team?(@project_member) %>
+    $("#team_memberships").append('<%= j render partial: "project_member", locals: {project_member: @project_member} %>');
   <% else %>
-    $("#js_team_memberships").append('<%= j render partial: "member", locals: {member: @member} %>');
+    $("#user_memberships").append('<%= j render partial: "project_member", locals: {project_member: @project_member} %>');
   <% end %>
 <% end %>

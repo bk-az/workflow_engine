@@ -1,4 +1,4 @@
-json.array!(@members) do |member|
-  json.name     member[0]
-  json.id       member[1]
+json.array!(@search_results) do |result|
+  json.display_value     result[0]
+  json.id                result[1]
 end

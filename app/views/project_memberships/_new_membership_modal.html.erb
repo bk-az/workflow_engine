@@ -10,27 +10,26 @@
       <div class="modal-body">
         <div id="project_membership_flash">
           <% if notice.present? %>
-          <%= render partial: "project_memberships/notice" %>
+            <%= render partial: "project_memberships/notice" %>
           <% end %>
         </div>
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <label class="input-group-text" for="project_membership_selected_member_type">Member Type</label>
           </div>
-          <%= select_tag("project_membership_selected_member_type", raw("<option value='User' selected>User</option><option value='Team'>Team</option>"), class: "custom-select") %>
+          <%= select_tag("project_membership_selected_member_type", options_for_select(["User", "Team"], 'User'), class: "custom-select") %>
         </div>
         <div class="form-group">
           <input type="text" id="project_membership_search_text" class="form-control" placeholder="Search" autofocus>
         </div>
-        <div class="results" id="project_membership_search_results"></div>
+        <input type="number" id="project_membership_project_id" value="<%= @project.id %>" hidden>
+        <div id="project_membership_search_results"></div>
 
-        <%= form_for(@project_membership, remote: true, html: {id: :new_project_membership_form}) do |f| %>
-          <%= f.number_field :project_id, value: @project.id, hidden: true %>
+        <%= form_for(@project_membership, url: project_members_path(@project), remote: true, html: {id: :new_project_membership_form}) do |f| %>
           <%= f.number_field :project_member_id, hidden: true %>
           <%= f.text_field :project_member_type, hidden: true %>
           <%= f.submit("Add Member", class: "btn btn-primary float-right") %>
         <% end %>
-        <div id="add_member_search_result_area"></div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

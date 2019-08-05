@@ -23,27 +23,6 @@ RSpec.describe ProjectMembership, type: :model do
       project_member_type: team.class.name }
   end
 
-  context 'Create Project-Membership' do
-    it 'should create a project-user-membership' do
-      ProjectMembership.create_membership(user_membership_params)
-      expect(user.projects.include?(project)).to eq true
-    end
-    it 'should create a project-team-membership' do
-      ProjectMembership.create_membership(team_membership_params)
-      expect(team.projects.include?(project)).to eq true
-    end
-
-    it 'should create a project-user-membership and return user and project' do
-      expect(
-        ProjectMembership.create_membership(user_membership_params)
-      ).to eq [true, user, project]
-    end
-    it 'should create a project-team-membership and return team and project' do
-      expect(
-        ProjectMembership.create_membership(team_membership_params)
-      ).to eq [true, team, project]
-    end
-  end
   context 'Searching' do
     it 'should return team names and ids' do
       team_names_and_ids = ProjectMembership.autocomplete_member(team.class.name, team_search_keyword, project)
@@ -59,7 +38,7 @@ RSpec.describe ProjectMembership, type: :model do
     end
     it 'should not return user email if already a member' do
       # create a membership
-      ProjectMembership.create_membership(user_membership_params)
+      ProjectMembership.create(user_membership_params)
       # search users
       user_emails_and_ids = ProjectMembership.autocomplete_member(user.class.name, user_search_keyword, project)
       expect(
@@ -68,7 +47,7 @@ RSpec.describe ProjectMembership, type: :model do
     end
     it 'should not return team name if already a member' do
       # create a membership
-      ProjectMembership.create_membership(team_membership_params)
+      ProjectMembership.create(team_membership_params)
       # search teams
       team_names_and_ids = ProjectMembership.autocomplete_member(team.class.name, team_search_keyword, project)
       expect(
