@@ -3,43 +3,44 @@
   </thead>
   <tbody>
     <tr>
-      <th scope="row">Title :</th>
+      <th scope="row">Title:</th>
       <td><%= @issue.title %></td>
     </tr>
     <tr>
-      <th scope="row">Description :</th>
+      <th scope="row">Description:</th>
       <td><%= @issue.description %></td>
     </tr>
     <tr>
-      <th scope="row">Start Date :</th>
+      <th scope="row">Start Date:</th>
       <td><%= @issue.start_date %></td>
     </tr>
     <tr>
-      <th scope="row">Due Date :</th>
+      <th scope="row">Due Date:</th>
       <td><%= @issue.due_date %></td>
     </tr>
     <tr>
-      <th scope="row">Progress :</th>
+      <th scope="row">Progress:</th>
       <td><%= @issue.progress %></td>
     </tr>
     <tr>
-      <th scope="row">Priority :</th>
+      <th scope="row">Priority:</th>
       <td><%= @issue.priority %></td>
     </tr>
     <tr>
-      <th scope="row">State :</th>
-      <td><%= @issue.issue_state.name %></td>
+      <th scope="row">State:</th>
+      <td><%= @issue.issue_state.try(:name) %></td>
     </tr>
     <tr>
-      <th scope="row">Assignee :</th>
-      <td><span class="glyphicon glyphicon-user"></span> <%= @issue.assignee.first_name %></td>
+      <th scope="row">Assignee:</th>
+      <td><span class="glyphicon glyphicon-user"></span><%= @issue.assignee.try(:name) %></td>
     </tr>
     <tr>
-      <th scope="row">Issue Type :</th>
-      <td><%= @issue.issue_type.name %></td>
+      <th scope="row">Issue Type:</th>
+      <td><%= @issue.issue_type.try(:name) %></td>
     </tr>
   </tbody>
 </table>
+<<<<<<< HEAD
 
 <%= link_to 'Edit', edit_issue_path(@issue),class: 'btn btn-primary' %>
 <%= link_to 'Show all Documents', issue_documents_path(@issue),class: 'btn btn-primary' %>
@@ -77,3 +78,8 @@
 <% end %>
 
 
+=======
+<% if can?(:update, @issue) %>
+  <%= link_to 'Edit', edit_issue_path(@issue), class: 'btn btn-primary' %>
+<% end %>
+>>>>>>> 3e6d3ddb7129b1d47955ee772c7d72301f13dcfd

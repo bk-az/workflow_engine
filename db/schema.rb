@@ -98,8 +98,8 @@ ActiveRecord::Schema.define(version: 20190731054726) do
     t.integer  "assignee_id",     limit: 4
     t.integer  "parent_issue_id", limit: 4
     t.integer  "project_id",      limit: 4
-    t.integer  "issue_state_id",  limit: 4,                 null: false
-    t.integer  "issue_type_id",   limit: 4,                 null: false
+    t.integer  "issue_state_id",  limit: 4
+    t.integer  "issue_type_id",   limit: 4
   end
 
   add_index "issues", ["assignee_id"], name: "index_issues_on_assignee_id", using: :btree
@@ -110,7 +110,7 @@ ActiveRecord::Schema.define(version: 20190731054726) do
   add_index "issues", ["parent_issue_id"], name: "index_issues_on_parent_issue_id", using: :btree
   add_index "issues", ["project_id"], name: "index_issues_on_project_id", using: :btree
 
-  create_table "project_memberships", id: false, force: :cascade do |t|
+  create_table "project_memberships", force: :cascade do |t|
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
     t.integer  "project_member_id",   limit: 4
@@ -137,7 +137,7 @@ ActiveRecord::Schema.define(version: 20190731054726) do
     t.datetime "updated_at",             null: false
   end
 
-  create_table "team_memberships", id: false, force: :cascade do |t|
+  create_table "team_memberships", force: :cascade do |t|
     t.boolean  "is_team_admin", limit: 1, default: false
     t.boolean  "is_approved",   limit: 1, default: false
     t.datetime "created_at",                              null: false

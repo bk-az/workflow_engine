@@ -4,11 +4,9 @@ class Issue < ActiveRecord::Base
   paginates_per 7
 
   # Validations
-  validates :title, presence: true
-  validates :description, presence: true
-  validates :start_date, presence: true
-  validates :due_date, presence: true
-  validates :progress, presence: true
+  validates :title, presence: true, length: { minimum: 3, maximum: 100 }
+  validates :description, length: { minimum: 3, maximum: 500 }
+  validates :progress, presence: true, length: { minimum: 1, maximum: 5 }
   validates :priority, presence: true
 
   belongs_to :company

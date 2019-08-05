@@ -5,14 +5,14 @@ RSpec.describe Issue, type: :model do
   let(:description)     { 'description' }
   let(:start_date)      { '2017-07-23' }
   let(:due_date)        { '2017-07-23' }
-  let(:progress)        { '0' }
-  let(:priority)        { '2' }
-  let(:company_id)      { '1' }
-  let(:creator_id)      { '1' }
-  let(:assignee_id)     { '1' }
-  let(:project_id)      { '1' }
-  let(:issue_type_id)   { '1' }
-  let(:issue_state_id)  { '1' }
+  let(:progress)        { 0 }
+  let(:priority)        { 2 }
+  let(:company_id)      { 1 }
+  let(:creator_id)      { 1 }
+  let(:assignee_id)     { 1 }
+  let(:project_id)      { 1 }
+  let(:issue_type_id)   { 1 }
+  let(:issue_state_id)  { 1 }
 
   let(:issue) do
     Issue.new(title: title, description: description,
@@ -28,19 +28,19 @@ RSpec.describe Issue, type: :model do
       expect(issue.valid?).to eq false
     end
 
-    it 'ensures description presence' do
+    it 'ensures description min length' do
       issue.description = ''
       expect(issue.valid?).to eq false
     end
 
     it 'ensures start date presence' do
       issue.start_date = ''
-      expect(issue.valid?).to eq false
+      expect(issue.valid?).to eq true
     end
 
     it 'ensures due date presence' do
       issue.due_date = ''
-      expect(issue.valid?).to eq false
+      expect(issue.valid?).to eq true
     end
 
     it 'should save successfully' do

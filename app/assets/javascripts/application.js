@@ -14,6 +14,10 @@
 //= require popper
 //= require turbolinks
 //= require jquery_ujs
+<<<<<<< HEAD
 //= require jquery3
+=======
+//= require turbolinks
+>>>>>>> 3e6d3ddb7129b1d47955ee772c7d72301f13dcfd
 //= require_tree .
   
