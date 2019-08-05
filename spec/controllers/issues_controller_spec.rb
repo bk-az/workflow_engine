@@ -55,7 +55,7 @@ RSpec.describe IssuesController, type: :controller do
       Company.current_id = @company.id
       sign_in @member
     end
-    let(:issue_attr) {@issue_attr = FactoryGirl.attributes_for(:issue, company_id: @company.id)}
+    let(:issue_attr) { @issue_attr = FactoryGirl.attributes_for(:issue, company_id: @company.id) }
 
     context 'with valid attributes' do
       it 'saves the new issue in the database' do
