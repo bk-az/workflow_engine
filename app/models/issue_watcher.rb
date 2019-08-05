@@ -17,7 +17,7 @@ class IssueWatcher < ActiveRecord::Base
         return issue, team
       end
     rescue ActiveRecord::RecordNotUnique
-      # Flash message
+      return issue
     end
   end
 

@@ -9,24 +9,8 @@ class IssueWatchersController < ApplicationController
     end
   end
 
-  # POST /issue_watchers/create_watcher_by_admin
-  def create_watcher_by_admin
-    @issue, @watcher = IssueWatcher.add_watcher(watcher_params)
-    respond_to do |format|
-      format.js
-    end
-  end
-
   # POST /issue_watchers/destroy_watcher
   def destroy_watcher
-    @issue, @watcher = IssueWatcher.remove_watcher(watcher_params)
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  # POST /issue_watchers/destroy_watcher_by_admin
-  def destroy_watcher_by_admin
     @issue, @watcher = IssueWatcher.remove_watcher(watcher_params)
     respond_to do |format|
       format.js
