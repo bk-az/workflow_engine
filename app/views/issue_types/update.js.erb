@@ -7,7 +7,7 @@ issueTypeFlash.html('<%= j render partial: "layouts/notice" %>');
   tr.find('td:eq(1)').html( updatedIssueTypeIcon() );
   tr.find('td:eq(2)').html( updatedIssueTypeProjectId() );
   tr.find('td:eq(3)').html( updatedIssueTypeButtons() );
-  table.row(tr).invalidate().draw();
+  issueTypesTable.row(tr).invalidate().draw();
 <% else %>
   issueTypesErrors.html('<%= j render partial: "layouts/errors", locals: {model: @issue_type} %>');
 <% end %>

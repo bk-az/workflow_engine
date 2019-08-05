@@ -39,6 +39,6 @@ RSpec.describe IssueType, type: :model do
   end
   it 'should load all issue types of a project' do
     Company.current_id = 1
-    expect(IssueType.load_issue_types(1)).to eq IssueType.where(project_id: 1)
+    expect(IssueType.load_issue_types(1)).to eq IssueType.where(project_id: [1, nil])
   end
 end

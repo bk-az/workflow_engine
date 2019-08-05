@@ -1,8 +1,8 @@
 $(document).on('turbolinks:load', function(){
-  table = $('#issue_types_datatable').DataTable({
+  issueTypesTable = $('#issue_types_datatable').DataTable({
     "info": false
   });
-  tableBody = $('#issue_types_datatable tbody');
+  issueTypesTableBody = $('#issue_types_datatable tbody');
   issueTypeForm = $("#issue_type_form");
   projectNameSearch = $('#project_name_search');
   issueTypeFlash = $('#issue_type_flash');
@@ -45,7 +45,7 @@ $(document).on('turbolinks:load', function(){
   }); 
 
   issueTypesCategoryFilter.change(function() {
-    tr = tableBody.find('tr');
+    tr = issueTypesTableBody.find('tr');
     tr.show();
     if ($(this).val() == 'global') {
       tr.not(".global").hide();
@@ -61,7 +61,7 @@ $(document).on('turbolinks:load', function(){
       return false
     }
     issueTypesCategoryFilter.val('project');
-    tr = tableBody.find('tr');
+    tr = issueTypesTableBody.find('tr');
     tr.hide();
     tr.filter('.project-' + id).show();
     return false
