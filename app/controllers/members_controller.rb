@@ -24,7 +24,7 @@ class MembersController < ApplicationController
     company = current_tenant
     # Generate a new user belonging to the current company.
     @new_user = company.users.new(new_user_params)
-    @new_user.has_changed_sys_generated_password = true
+    @new_user.has_changed_sys_generated_password = false
 
     @new_user.password = generate_random_password
     
