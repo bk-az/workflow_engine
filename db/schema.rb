@@ -38,6 +38,22 @@ ActiveRecord::Schema.define(version: 20190731054726) do
 
   add_index "companies", ["subdomain"], name: "index_companies_on_subdomain", using: :btree
 
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer  "priority",   limit: 4,     default: 0, null: false
+    t.integer  "attempts",   limit: 4,     default: 0, null: false
+    t.text     "handler",    limit: 65535,             null: false
+    t.text     "last_error", limit: 65535
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by",  limit: 255
+    t.string   "queue",      limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+
   create_table "documents", force: :cascade do |t|
     t.string   "path",       limit: 255, null: false
     t.datetime "created_at",             null: false
@@ -67,7 +83,7 @@ ActiveRecord::Schema.define(version: 20190731054726) do
   add_index "issue_types", ["company_id"], name: "index_issue_types_on_company_id", using: :btree
   add_index "issue_types", ["project_id"], name: "index_issue_types_on_project_id", using: :btree
 
-  create_table "issue_watchers", id: false, force: :cascade do |t|
+  create_table "issue_watchers", force: :cascade do |t|
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.integer  "watcher_id",   limit: 4
@@ -76,6 +92,7 @@ ActiveRecord::Schema.define(version: 20190731054726) do
   end
 
   add_index "issue_watchers", ["issue_id"], name: "index_issue_watchers_on_issue_id", using: :btree
+  add_index "issue_watchers", ["watcher_id", "watcher_type", "issue_id"], name: "index_issue_watchers_on_watcher_id_and_watcher_type_and_issue_id", unique: true, using: :btree
   add_index "issue_watchers", ["watcher_type", "watcher_id"], name: "index_issue_watchers_on_watcher_type_and_watcher_id", using: :btree
 
   create_table "issues", force: :cascade do |t|

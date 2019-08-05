@@ -1,7 +1,18 @@
 Rails.application.routes.draw do
   resources :issues do
+    resources :comments, shallow: true
     get 'filter', on: :collection
   end
+
+  devise_scope :user do
+    get 'signout', to: 'devise/sessions#destroy'
+  end
+
+  resources :projects do
+    resources :comments, shallow: true
+  end
+
+  resources :comments, only: [:edit, :update, :destroy]
 
   get 'user_companies/find', to: 'user_companies#find'
   post 'user_companies/find', to: 'user_companies#find_user_by_email'
