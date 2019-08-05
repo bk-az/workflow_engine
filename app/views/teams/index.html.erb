@@ -35,7 +35,7 @@
 
 
                     <hr>
-                    <% if TeamMembership.where('team_id = ? and user_id= ? and is_approved= ?', team.id, current_user.id, true).present? %>  <!-- change User.last.id to current user id ## CANCANCAN-->
+                    <% if TeamMembership.where('team_id = ? and user_id= ? and is_approved= ?', team.id, current_user.id, false).present? %>  <!-- change User.last.id to current user id ## CANCANCAN-->
 
                       <button class="btn btn-success btn-sm btn-block ">Requested to join</button>
 

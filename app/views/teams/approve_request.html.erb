@@ -1,0 +1,13 @@
+<h1>List of all pending members</h1>
+
+
+
+<table>
+  <th></th>
+<% TeamMembership.all.each do |membership| %>
+  <% if !membership.is_approved%>
+
+  <% end %>
+<% end %>
+
+</table>

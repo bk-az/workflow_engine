@@ -8,6 +8,10 @@ Rails.application.routes.draw do
     collection do
       get 'join_team'
     end
+
+    collection do
+      get 'approve_request'
+    end
   end
   
   devise_scope :user do

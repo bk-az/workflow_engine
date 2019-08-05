@@ -47,7 +47,7 @@
           <th scope="row">Member Last Name</th>
           <th scope="row">Admin</th>
           <% @team_memberships.each_with_index do |membership, index_no| %>
-          <% if membership.team_id == @team.id and membership.is_approved == false  %>
+          <% if membership.team_id == @team.id and membership.is_approved == true  %>
 
 
           <tr> <span class="glyphicon glyphicon-user"></span> 

@@ -23,7 +23,7 @@ class TeamsController < ApplicationController
     if @team.save
       @user_id = current_user.id
       @team_id = Team.last.id
-      TeamMembership.create!(is_team_admin: true, is_approved: false, team_id: @team_id, user_id: @user_id) ## person who   
+      TeamMembership.create!(is_team_admin: true, is_approved: true, team_id: @team_id, user_id: @user_id) ## person who   
       ## member who created team is by default made as admin
 
       redirect_to teams_path, team_created: t('.Team created Successfully')
@@ -64,14 +64,15 @@ class TeamsController < ApplicationController
 
   ## add member in team membership
   def add_member
-    @is_approved = false
+    @is_approved = true
     add_membership(@is_approved)
   end
 
-  # change status of user "is_approved = true" on request to join team
+  # change status of user "is_approved = false" on request to join team
   def join_team
-    @is_approved = true
+    @is_approved = false
     add_membership(@is_approved)
+
   end
 
   def add_membership(is_approved)
@@ -88,5 +89,11 @@ class TeamsController < ApplicationController
         format.js
       end
     end
+  end
+
+
+  def approve_request(user_id, team_id)
+
+    TeamMembership.find_by(team_id: team_id, user_id: user_id).is_approved = true
   end
 end
