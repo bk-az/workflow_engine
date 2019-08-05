@@ -101,18 +101,11 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
-<<<<<<< HEAD
-
-=======
->>>>>>> 3e6d3ddb7129b1d47955ee772c7d72301f13dcfd
 
   config.before(:all) do
     FactoryGirl.reload
   end
-<<<<<<< HEAD
 
-=======
->>>>>>> 3e6d3ddb7129b1d47955ee772c7d72301f13dcfd
 end
 
 

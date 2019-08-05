@@ -33,15 +33,8 @@ class IssuesController < ApplicationController
 
   # GET /issues/:id
   def show
-<<<<<<< HEAD
-    @document = Document.new
     @issue = Issue.find(params[:id])
-
-=======
-    respond_to do |format|
-      format.html
-    end
->>>>>>> 3e6d3ddb7129b1d47955ee772c7d72301f13dcfd
+    @document = Document.new
   end
 
   # GET /issues/:id/edit
@@ -57,15 +50,12 @@ class IssuesController < ApplicationController
   # PUT /issues/:id
   def update
     if @issue.update(issue_params)
-<<<<<<< HEAD
       redirect_to @issue, update_issue: t('.Issue Updated successfully!')
-=======
       flash[:notice] = t('.notice')
 
       respond_to do |format|
         format.html { redirect_to @issue }
       end
->>>>>>> 3e6d3ddb7129b1d47955ee772c7d72301f13dcfd
     else
       flash.now[:error] = @issue.errors.full_messages
       render 'edit'
@@ -78,14 +68,10 @@ class IssuesController < ApplicationController
     @issue.project_id = 1 # TODO: Remove after merge
     @issue.creator_id = current_user.id
     if @issue.save
-<<<<<<< HEAD
-      redirect_to @issue, save_issue: t('.Issue Created and Saved  successfully!') # redirect to show page
-=======
       flash[:notice] = t('.notice')
       respond_to do |format|
         format.html { redirect_to @issue }
       end
->>>>>>> 3e6d3ddb7129b1d47955ee772c7d72301f13dcfd
     else
       flash.now[:error] = @issue.errors.full_messages
       render 'new'
@@ -95,14 +81,9 @@ class IssuesController < ApplicationController
   # DELETE /issues/:id
   def destroy
     @issue.destroy
-<<<<<<< HEAD
-    redirect_to issues_path,  destroy_issue: t('.Issue Deleted successfully')
-=======
-    flash[:notice] = t('.notice')
     respond_to do |format|
       format.html { redirect_to issues_path }
     end
->>>>>>> 3e6d3ddb7129b1d47955ee772c7d72301f13dcfd
   end
 
   private

@@ -14,8 +14,14 @@ Rails.application.routes.draw do
 
   resources :issues do
     get 'filter', on: :collection
-    resources :documents
+    resources :documents do
+
+      # collection do
+      #   get 'download'
+      # end
+    end
     resources :comments, shallow: true
+
   end
 
   get 'user_companies/find', to: 'user_companies#find'

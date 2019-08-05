@@ -36,10 +36,7 @@ class User < ActiveRecord::Base
   has_many   :issue_watchers, as: :watcher
   has_many   :watching_issues, through: :issue_watchers
 
-<<<<<<< HEAD
-  # Include default devise modules. Others available are
-=======
->>>>>>> 3e6d3ddb7129b1d47955ee772c7d72301f13dcfd
+
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
@@ -89,10 +86,7 @@ class User < ActiveRecord::Base
     where(:email => warden_conditions[:email]).first
   end
 
-<<<<<<< HEAD
-  def admin?
-    role.name == 'Administrator'
-=======
+
   # returns full name
   def name
     self[:first_name] + ' ' + self[:last_name]
@@ -100,16 +94,13 @@ class User < ActiveRecord::Base
 
   def admin?
     role == Role.admin
->>>>>>> 3e6d3ddb7129b1d47955ee772c7d72301f13dcfd
   end
 
   def visible_projects
     if admin?
       company.projects
     else
-<<<<<<< HEAD
-      projects
-=======
+
       company.projects.joins('INNER JOIN project_memberships ON project_memberships.project_id = projects.id').where('(project_member_id = ? and project_member_type = "User") OR (project_member_id in (?) and project_member_type = "Team")', id, teams.ids).uniq
     end
   end
@@ -119,7 +110,6 @@ class User < ActiveRecord::Base
       company.issues
     else
       company.issues.joins('INNER JOIN project_memberships ON project_memberships.project_id = issues.project_id').where('(project_member_id = ? and project_member_type = "User") OR (project_member_id in (?) and project_member_type = "Team")', id, teams.ids).uniq
->>>>>>> 3e6d3ddb7129b1d47955ee772c7d72301f13dcfd
     end
   end
 end

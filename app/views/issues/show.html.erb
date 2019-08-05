@@ -40,14 +40,15 @@
     </tr>
   </tbody>
 </table>
-<<<<<<< HEAD
 
-<%= link_to 'Edit', edit_issue_path(@issue),class: 'btn btn-primary' %>
-<%= link_to 'Show all Documents', issue_documents_path(@issue),class: 'btn btn-primary' %>
+<% if can?(:update, @issue) %>
+  <%= link_to 'Edit', edit_issue_path(@issue), class: 'btn btn-primary' %>
+<% end %>
 
 
 
-<div class="page-header"><h2>Upload Document</h2></div>
+  <%= link_to 'Show all Documents', issue_documents_path(@issue),class: 'btn btn-primary' %>
+<div class="page-header"><h3>Upload Document</h3></div>
 
 <%= form_for [@issue, @document], html: { multipart: true } do |f| %>
   <% if @document.errors.any? %>
@@ -77,9 +78,3 @@
   </div>
 <% end %>
 
-
-=======
-<% if can?(:update, @issue) %>
-  <%= link_to 'Edit', edit_issue_path(@issue), class: 'btn btn-primary' %>
-<% end %>
->>>>>>> 3e6d3ddb7129b1d47955ee772c7d72301f13dcfd

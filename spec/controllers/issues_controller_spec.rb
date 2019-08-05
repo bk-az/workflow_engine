@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe IssuesController, type: :controller do
-<<<<<<< HEAD
-=======
   before(:all) do
     @company = FactoryGirl.create(:company)
     @admin = FactoryGirl.create(:admin, company: @company)
@@ -14,7 +12,6 @@ RSpec.describe IssuesController, type: :controller do
     sign_in @member
   end
 
->>>>>>> 3e6d3ddb7129b1d47955ee772c7d72301f13dcfd
   context 'GET #index' do
     it 'returns a success response' do
       get :index
@@ -45,7 +42,6 @@ RSpec.describe IssuesController, type: :controller do
       get :show, id: @issue
       expect(assigns(:issue)).to eq(@issue)
     end
-
     it 'should success and render to the :show template' do
       get :show, id: FactoryGirl.create(:issue)
       expect(response).to have_http_status(200)
@@ -54,12 +50,6 @@ RSpec.describe IssuesController, type: :controller do
   end
 
   context 'POST #create' do
-<<<<<<< HEAD
-    context 'with valid attributes' do
-      it 'saves the new issue in the database' do
-        expect { post :create, issue: FactoryGirl.attributes_for(:issue) }
-          .to change(Issue, :count).by(1)
-=======
     before(:each) do
       @request.host = "#{@company.subdomain}.lvh.me:3000"
       Company.current_id = @company.id
@@ -73,7 +63,6 @@ RSpec.describe IssuesController, type: :controller do
           post :create, issue: issue_attr
           Company.current_id = @company.id
         end.to change(Issue, :count).by(1)
->>>>>>> 3e6d3ddb7129b1d47955ee772c7d72301f13dcfd
       end
 
       it "redirects to that new issue's page" do
@@ -82,40 +71,6 @@ RSpec.describe IssuesController, type: :controller do
         expect(response).to redirect_to Issue.last
       end
     end
-<<<<<<< HEAD
-  end
-
-  describe 'PUT update' do
-    before :all do
-      @issue = FactoryGirl.create(:issue)
-    end
-
-    context 'valid attributes' do
-      it 'locates the requested @issue' do
-        put :update, id: @issue, issue: FactoryGirl.attributes_for(:issue)
-        expect(assigns(:issue)).to eq(@issue)
-      end
-
-      it "changes @issue's attributes" do
-        put :update, id: @issue, issue: FactoryGirl.attributes_for(
-          :issue,
-          title: 'This is edited issue',
-          description: 'Some changed description',
-          start_date: '2017-07-23',
-          due_date: '2017-07-23',
-          progress: '0',
-          priority: '2',
-          company_id: '1',
-          creator_id: '1',
-          assignee_id: '1',
-          project_id: '1',
-          issue_type_id: '1',
-          issue_state_id: '1'
-        )
-        @issue.reload
-        expect(@issue.title).to eq('This is edited issue')
-        expect(@issue.description).to eq('Some changed description')
-=======
 
     context 'with invalid attributes' do
       it 'does not save the new issue in the database' do
@@ -125,12 +80,9 @@ RSpec.describe IssuesController, type: :controller do
       it 're-renders the :new template' do
         post :create, issue: FactoryGirl.attributes_for(:invalid_issue)
         expect(response).to render_template :new
->>>>>>> 3e6d3ddb7129b1d47955ee772c7d72301f13dcfd
       end
     end
   end
-<<<<<<< HEAD
-=======
 
   describe 'PUT update' do
     context 'Login as Member' do
@@ -290,7 +242,6 @@ RSpec.describe IssuesController, type: :controller do
       expect(response).to redirect_to issues_url
     end
   end
->>>>>>> 3e6d3ddb7129b1d47955ee772c7d72301f13dcfd
 
   context 'Routes testing' do
     it 'routes to #index' do
@@ -308,16 +259,9 @@ RSpec.describe IssuesController, type: :controller do
     it 'routes to #update via PUT' do
       expect(put: '/issues/1').to route_to('issues#update', id: '1')
     end
-<<<<<<< HEAD
-=======
 
->>>>>>> 3e6d3ddb7129b1d47955ee772c7d72301f13dcfd
     it 'routes to #update via PATCH' do
       expect(patch: '/issues/1').to route_to('issues#update', id: '1')
     end
   end
-<<<<<<< HEAD
 end
-=======
-end
->>>>>>> 3e6d3ddb7129b1d47955ee772c7d72301f13dcfd

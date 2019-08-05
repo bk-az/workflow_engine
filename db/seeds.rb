@@ -16,12 +16,7 @@ description = 'Lorem Ipsum is simply dummy text of the printing and typesetting 
 debug('Company')
 # Creating Company
 company = Company.create(name: '7vals', subdomain: '7vals', owner_id: 1, description: description)
-<<<<<<< HEAD
-# set current tenant
-=======
 
-# current tenant
->>>>>>> 3e6d3ddb7129b1d47955ee772c7d72301f13dcfd
 Company.current_id = company.id
 
 debug('Roles')
