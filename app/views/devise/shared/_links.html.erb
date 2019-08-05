@@ -1,0 +1,39 @@
+<div class="row text-center">
+  <div class="offset-sm-2 col-sm-8">
+    <%- if controller_name != 'sessions' %>
+      <hr>
+      <em class="text-muted">Already have an Account? &nbsp;</em>
+      <%= link_to "Log in", user_companies_find_path, class: "btn btn-sm btn-outline-primary" %><br />
+    <% end -%>
+
+    <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+      <hr>
+      <em class="text-muted">Don't have an Account? &nbsp;</em>
+      <!-- TODO -->
+      <!-- Must change subdomain in production environment -->
+      <%= link_to "Sign up", new_registration_url(resource_name, subdomain: nil), class: "btn btn-sm btn-outline-primary"  %><br />
+    <% end -%>
+
+    <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+      <hr>
+      <em class="text-muted">Don't Remember Password? &nbsp;</em>
+      <%= link_to "Forgot your password?", new_password_path(resource_name), class: "btn btn-sm btn-outline-primary" %><br />
+    <% end -%>
+
+    <%- if devise_mapping.confirmable? && controller_name != 'confirmations' && controller_name != 'registrations' %>
+      <hr>
+      <%= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name), class: "btn btn-sm btn-outline-primary" %><br />
+    <% end -%>
+
+    <%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
+      <hr>
+      <%= link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name), class: "btn btn-sm btn-outline-primary" %><br />
+    <% end -%>
+
+    <%- if devise_mapping.omniauthable? %>
+      <%- resource_class.omniauth_providers.each do |provider| %>
+        <%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), class: "btn btn-sm btn-outline-primary" %><br />
+      <% end -%>
+    <% end -%>
+  </div>
+</div>

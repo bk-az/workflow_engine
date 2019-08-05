@@ -4,8 +4,8 @@ class IssuesController < ApplicationController
   # GET /issues
   def index
     @issues = @issues.order(:project_id).page(params[:page])
-    @issue_types = IssueType.all   # TODO: current_tenant.issue_types
-    @issue_states = IssueState.all # TODO: current_tenant.issue_states
+    @issue_types = IssueType.all
+    @issue_states = IssueState.all
     @projects = current_user.visible_projects
     @assignees = User.all
     respond_to do |format|
@@ -24,8 +24,8 @@ class IssuesController < ApplicationController
   # GET /issues/new
   def new
     @assignees = User.all
-    @issue_types = IssueType.all   # TODO: current_tenant.issue_types
-    @issue_states = IssueState.all # TODO: current_tenant.issue_states
+    @issue_types = IssueType.all
+    @issue_states = IssueState.all
     respond_to do |format|
       format.html
     end

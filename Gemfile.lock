@@ -242,15 +242,15 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bootstrap-sass
+  bootstrap-sass (= 3.4.1)
   byebug
-  cancancan
+  cancancan (= 3.0.1)
   capybara
   coffee-rails (~> 4.1.0)
   database_cleaner
   devise (= 4.1.1)
   factory_girl_rails
-  faker
+  faker (= 1.9.1)
   jbuilder (~> 2.0)
   jquery-rails
   kaminari

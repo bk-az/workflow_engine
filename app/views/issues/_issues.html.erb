@@ -4,7 +4,7 @@
     <td><%= link_to issue.project.title, issue_path(issue) %></td>
     <td><%= issue.issue_type.name %></td>
     <td><%= issue.title %></td>
-    <td><%= issue.assignee.try(:name) %></td>  <!-- TODO:  add link_to after reverse merge-->
+    <td><%= link_to issue.assignee.try(:name), member_path(issue.assignee) %></td>
     <td><%= issue.issue_state.name %></td>
     <td><%= get_priority(issue.priority) %></td>
     <td><%= issue.start_date %></td>

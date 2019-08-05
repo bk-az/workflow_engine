@@ -1,4 +1,4 @@
-$( document ).ready(function() {
+$(document).on('turbolinks:load', function(){
   $('#issues_filter_form').on("change", function() {
     $(this).submit();
   });

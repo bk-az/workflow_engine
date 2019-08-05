@@ -12,6 +12,13 @@ def debug(msg)
 end
 description = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type'
 
+debug('Company')
+# Creating Company
+company = Company.create(name: '7vals', subdomain: '7vals', owner_id: 1, description: description)
+
+# current tenant
+Company.current_id = company.id
+
 debug('Roles')
 # Creating Roles
 Role.create([{ name: 'Administrator' }, { name: 'Member' }])
@@ -22,9 +29,6 @@ owner = User.create( first_name: 'abubakar', last_name: 'azeem',
                      email: 'abubakar.azeem@7vals.com',
                      password: '123456789', role_id: Role.first.id,
                      company_id: 1)
-debug('Company')
-# Creating Company
-company = Company.create(name: '7vals', subdomain: 'sevenvalues', owner_id: owner.id, description: description)
 
 # debug('Updating Owner')
 # # Updating owner
@@ -50,7 +54,7 @@ end
 
 debug('Projects and Issues')
 # Creating 5 Projects each having 9 issues
-1.upto(15) do |i|
+1.upto(5) do |i|
   project = Project.create( title: "Project#{i}", description: description,
                             company_id: company.id)
   1.upto(9) do |j|

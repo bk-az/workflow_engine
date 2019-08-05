@@ -1,32 +1,48 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>WorkflowEngine</title>  
-  <%= render 'layouts/header' %>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'jquery', 'rails' %>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
-  
-  <%= csrf_meta_tags %>
-</head>
+  <head>
+    <title>WorkflowEngine</title>  
+    <%= render 'layouts/header' %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
 
-<body>
-  <div class="container">
-      <% flash.each do |key, value| %>
-        <div class="alert alert-<%= key %>"><%= value %></div>
+    <!-- BOOTSTRAP 4 COMPONENTS -->
+    <%= stylesheet_link_tag    'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' %>
+   <!--  <%= javascript_include_tag 'https://code.jquery.com/jquery-3.3.1.slim.min.js' %> -->
+    <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' %>
+    <%= javascript_include_tag 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' %>
+    <!-- END - BOOTSTRAP 4 COMPONENTS -->
+
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'jquery', 'rails' %>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+    
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <div class="container">
+      <br>
+
+      <% if user_signed_in? %>
+      <%= button_to "Logout", destroy_user_session_path, data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-sm btn-outline-warning' %>
       <% end %>
-  </div>
-  
-  <div class="container">
-    <%= yield %>  
-  </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-  <script src='https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js'></script> 
-  <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-</body>
+
+      <%= render 'shared/success' %>
+      <%= render 'shared/error' %>
+      <%= render 'shared/alert' %>
+      <%= render 'shared/notice' %>
+      
+      <%= yield %>
+
+      <br>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src='https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js'></script> 
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+
+  </body>
 </html>
