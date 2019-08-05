@@ -6,16 +6,18 @@ RSpec.describe MembersController, type: :controller do
     @role = create(:role_admin)
   end
   before :each do
+    Company.current_id = @company.id
     @member = build(:user)
     @member.company_id = @company.id
+    @member.role_id = @role.id
     @member.save
-    @request.host = "#{@company.subdomain}.localhost:3000"
+    @request.host = "#{@company.subdomain}.lvh.me:3000"
     sign_in(@member)
   end
 
   let(:user) { create(:user) }
-  let(:user_params) { { first_name: 'asdfasdf', last_name: 'asdfasdf', role_id: 1, email: Faker::Internet.email, skip_invitation_email: true } }
-  let(:update_params) { { id: @member.id, first_name: 'blabla', last_name: 'blabla', role_id: 1 } }
+  let(:user_params) { { first_name: 'asdfasdf', last_name: 'asdfasdf', role_id: @role.id, email: Faker::Internet.email, skip_invitation_email: true } }
+  let(:update_params) { { id: @member.id, first_name: 'blabla', last_name: 'blabla', role_id: @role.id } }
   let(:change_password_params) { { id: @member.id, password: 'blabla' } }
 
   describe 'GET #index' do
