@@ -9,6 +9,8 @@ gem 'devise', '4.1.1'
 gem 'jbuilder', '~> 2.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+# JQuery turbolinks
+gem 'jquery-turbolinks'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # bundle exec rake doc:rails generates the API under doc/api.
@@ -23,8 +25,6 @@ gem 'rails', '4.2.0'
 gem 'uglifier', '>= 1.3.0'
 
 gem 'faker'
-
-gem 'web-console', '~> 2.0', group: :development
 
 gem 'web-console', '~> 2.0', group: :development
 

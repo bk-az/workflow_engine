@@ -115,21 +115,21 @@ class MembersController < ApplicationController
 
     # Update
     if @member.update(update_params)
-      flash[:success] = t('members.update.success')
       data = { role_name: @member.role.name, message: t('members.update.success') }
     else
       # status code
       status = 422
       data = { message: @member.errors.full_messages.join }
-      flash[:error] = @member.errors.full_messages
     end
 
     respond_to do |format|
       format.js { render json: { data: data }, status: status }
       format.html do
         if status == 200
+          flash[:success] = t('members.update.success')
           redirect_to edit_member_path(@member)
         else
+          flash[:error] = @member.errors.full_messages
           render 'members/edit'
         end
       end

@@ -20,7 +20,10 @@
     <br>
 
     <% if user_signed_in? %>
-    <%= button_to "Logout", destroy_user_session_path, data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-sm btn-outline-warning' %>
+    <div>
+      <%= link_to "Logout", destroy_user_session_path, data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-sm btn-outline-warning' %>
+      <%= link_to "Edit My Profile", edit_user_registration_path, class: 'btn btn-sm btn-outline-info' %>
+    </div>
     <% end %>
 
     <%= render 'shared/success' %>

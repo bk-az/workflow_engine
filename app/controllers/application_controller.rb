@@ -4,15 +4,23 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   around_filter :scope_current_tenant
 
+  # Override this method to handle request from devise controllers.
   def authenticate_user!(opts = {})
     Company.current_id = Company.find_by_subdomain request.subdomain if Company.current_id.nil?
     super
   end
 
+  # MULTI TENANCY CODE
   WIHTOUT_SUBDOMAIN_URLS = [
+    '/',
     '/users/sign_up',
     '/user_companies/show_companies',
     '/user_companies/find'
+  ]
+
+  SUBDOMAIN_INDEPENDENT_URLS = [
+    ['POST', '/users'],
+    ['PUT', '/users']
   ]
 
   rescue_from ActiveRecord::RecordNotFound do |exception|
@@ -27,7 +35,12 @@ class ApplicationController < ActionController::Base
   private
 
   def scope_current_tenant
-    if WIHTOUT_SUBDOMAIN_URLS.include?(request.path) && request.subdomain.present?
+    # RENDER 404 RESPONSE IF THE PATH OF THE REQUESTED URL BELONGS TO THE URLS THAT ARE ACCESSIBLE
+    # ONLY WITH SUBDOMAINS AND VICE VERSA
+    # SOME URLS LIKE '/users' ARE ACCESSIBLE WITH BOTH SUBDOMAIN AND WITHOUT SUBDOMAIN.
+    if SUBDOMAIN_INDEPENDENT_URLS.include?([request.method, request.path])
+      Company.current_id = current_tenant.id if request.subdomain.present?
+    elsif WIHTOUT_SUBDOMAIN_URLS.include?(request.path) && request.subdomain.present?
       render file: "#{Rails.root}/public/404", status: :not_found
       return
     else

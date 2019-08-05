@@ -6,6 +6,10 @@
         <em class="text-muted float-right">@<%= @company.name %></em>
       </h1>
       <div class="card-body">
+        <p class="text-center text-muted"><em>Want to change roles of members? </em><%= link_to "Manage Privileges", privileges_members_path, class: 'btn btn-sm btn-outline-info' %></p>
+
+        <hr>
+
        <div class="list-group">
         <% @members.each do |member| %>
         <div class="list-group-item list-group-item-action">
@@ -15,6 +19,7 @@
             <em class="text-info"><%= member.role.name %></em>&nbsp;
             <% if can? :delete, :member %>
             <%= link_to "Deactivate", member_path(member), data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-sm btn-outline-danger' %>
+            <%= link_to "Edit", edit_member_path(member), class: 'btn btn-sm btn-outline-info' %>
             <% end %>
           </span>
         </div>

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root 'user_companies#find'
+
   get 'user_companies/find', to: 'user_companies#find'
   post 'user_companies/find', to: 'user_companies#find_user_by_email'
   get 'user_companies/show_companies', to: 'user_companies#show_companies', as: :show_companies

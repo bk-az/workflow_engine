@@ -1,4 +1,4 @@
-$(function(){
+document.addEventListener("turbolinks:load", function() {
   /*
             ON LOAD SCRIPT
   */
