@@ -1,6 +1,8 @@
 class IssueWatcher < ActiveRecord::Base
-  belongs_to :watcher, polymorphic: true
+  not_multitenant
+
   belongs_to :issue
+  belongs_to :watcher, polymorphic: true
 
   # Adds watcher to database
   def self.add_watcher(params)

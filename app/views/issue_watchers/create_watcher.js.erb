@@ -1,5 +1,5 @@
 <% if current_user.role == Role.admin %>
-  $('#create_watcher_<%= @watcher.id %>').fadeOut('slow');
+  $('#create_watcher_<%= @watcher.try(:id) %>').fadeOut('slow');
 <% end %>
 
 $("#watch_button").remove();

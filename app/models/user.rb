@@ -1,8 +1,23 @@
 class User < ActiveRecord::Base
+  attr_accessor :skip_invitation_email
+
+  # Scopes
+  scope :active, -> { where(is_active: true) }
+
+  # Callbacks
+  # Runs only when is_active attribute is changed.
+  before_save :check_for_issues, :check_for_ownership_of_company, if: :is_active_changed?
+
+  # Set Validators.
+  validates :first_name, presence: true, length: { minimum: 2, maximum: 50 }
+  validates :last_name, presence: true, length: { minimum: 2, maximum: 50 }
+  validates :role_id, presence: true
+  validates :email, uniqueness: {scope: :company_id}
   belongs_to :company
   belongs_to :role
   has_many   :comments
 
+  accepts_nested_attributes_for :company
   # Admin can create many issues
   has_many   :created_issues, foreign_key: 'creator_id', class_name: 'Issue'
 
@@ -21,10 +36,54 @@ class User < ActiveRecord::Base
   has_many   :issue_watchers, as: :watcher
   has_many   :watching_issues, through: :issue_watchers, source: :issue
 
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  # :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  # To override devise email validation process.
+  def email_required?
+    false
+  end
+
+  def email_changed?
+    false
+  end
+
+  # For ActiveRecord 5.1+
+  def will_save_change_to_email?
+    false
+  end
+  # -------------
+
+  def send_invitation_email(company, role)
+    UserMailer.invite(company, self, role).deliver unless skip_invitation_email
+  end
+
+  def send_on_create_confirmation_instructions
+    # CONFIRM USER ONLY WHEN HE IS NOT INVITED.
+    send_confirmation_instructions unless has_changed_sys_generated_password?
+  end
+
+  def check_for_issues
+    if assigned_issues.any?
+      errors[:base] << I18n.t('.models.user.check_for_issues.error_message')
+      return false
+    end
+    true
+  end
+
+  def check_for_ownership_of_company
+    # Check if the company to which current user belongs has owner = user himself.
+    if company.owner_id == id
+      errors[:base] << I18n.t('.models.user.check_for_ownership_of_company.error_message')
+      return false
+    end
+    true
+  end
+
+  def self.find_for_database_authentication(warden_conditions)
+    where(:email => warden_conditions[:email]).first
+  end
 
   # returns full name
   def name
@@ -32,10 +91,22 @@ class User < ActiveRecord::Base
   end
 
   def admin?
-    role.name == 'Administrator'
+    role == Role.admin
   end
 
-  def self.visible_projects(user)
-    user.projects
+  def visible_projects
+    if admin?
+      company.projects
+    else
+      company.projects.joins('INNER JOIN project_memberships ON project_memberships.project_id = projects.id').where('(project_member_id = ? and project_member_type = "User") OR (project_member_id in (?) and project_member_type = "Team")', id, teams.ids).uniq
+    end
+  end
+
+  def visible_issues
+    if admin?
+      company.issues
+    else
+      company.issues.joins('INNER JOIN project_memberships ON project_memberships.project_id = issues.project_id').where('(project_member_id = ? and project_member_type = "User") OR (project_member_id in (?) and project_member_type = "Team")', id, teams.ids).uniq
+    end
   end
 end

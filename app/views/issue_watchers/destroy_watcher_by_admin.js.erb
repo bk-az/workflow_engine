@@ -1,6 +1,0 @@
-<% if current_user.role == Role.admin %>
-  $('#destroy_watcher_<%= @watcher.id %>').fadeOut('slow');
-<% end %>
-
-$("#watch_button").remove();
-$("#watch_button_div").append('<%= j render partial: "watch_button", locals: { issue: @issue } %>');
