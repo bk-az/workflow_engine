@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :issues do
+  resources :issues, only: [:index, :show, :edit, :update, :delete] do
     resources :comments, shallow: true
     get 'filter', on: :collection
   end
@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   resources :projects do
     resources :comments, shallow: true
+    resources :issues, only: [:new, :create]
   end
 
   resources :comments, only: [:edit, :update, :destroy]
