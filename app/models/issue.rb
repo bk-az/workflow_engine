@@ -1,4 +1,14 @@
+# Model Class
 class Issue < ActiveRecord::Base
+  # Kaminari build-in attribute for pagination size per page
+  paginates_per 7
+
+  # Validations
+  validates :title, presence: true, length: { minimum: 3, maximum: 100 }
+  validates :description, length: { minimum: 3, maximum: 500 }
+  validates :progress, presence: true, length: { minimum: 1, maximum: 5 }
+  validates :priority, presence: true
+
   belongs_to :company
   belongs_to :project
   belongs_to :issue_state
@@ -25,4 +35,9 @@ class Issue < ActiveRecord::Base
                              source_type: 'User'
   has_many   :watcher_teams, through: :issue_watchers, source: :watcher,
                              source_type: 'Team'
+  PRIORITY = {
+    Low: 0,
+    Medium: 1,
+    High: 2
+  }.freeze
 end
