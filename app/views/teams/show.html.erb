@@ -1,82 +1,61 @@
 <div class="container">
-
-<% if can? :manage, Team %>
-  <!-- show add members facility to only admins  --> <!-- use cancancan authorization here -->
-   <h2>Search members to add </h2>
-    <%= form_tag add_member_teams_path, method: 'get', remote: true do %>
-    <div class="row">
-
-      <div class="col-8">
-        <%= select_tag "user_id", options_from_collection_for_select(@all_members, :id, :first_name), id: 'js_members_select', class: 'form-control' %>
-        <%= hidden_field_tag(:team_id, @team.id) %>
-      </div>
-
-      <div class="col-2">
-        <div class="form-group form-check">
-          <div class="form-check-label">
-            <%= check_box 'join_admin', 'result', {}, 1, 0 %>
-            <%= label_tag(:join_admin, "Admin", class: 'form-check-label') %>
+  <% if can? :manage, Team %>
+     <h2>Search members to add </h2>
+      <%= form_tag add_membership_teams_path, method: 'get', remote: true do %>
+        <div class="row">
+          <div class="col-8">
+            <%= select_tag "user_id", options_from_collection_for_select(@all_members, :id, :first_name), id: 'js_members_select', class: 'form-control' %>
+            <%= hidden_field_tag(:team_id, @team.id) %>
+            <%= hidden_field_tag(:is_approved, true) %>
           </div>
+          <div class="col-2">
+            <div class="form-group form-check">
+              <div class="form-check-label">
+                <%= check_box 'join_admin', 'joining_decision', {}, 1, 0 %>
+                <%= label_tag(:join_admin, "Admin", class: 'form-check-label') %>
+              </div>
+            </div>
+          </div>   
+          <div class="col-2">
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary btn-sm">Add member</button>
+            </div>
+          </div>   
         </div>
-      </div>   
-
-      <div class="col-2">
-        <div class="form-group">
-          <button type="submit" class="btn btn-primary btn-sm">Add member</button>
-        </div>
-      </div>   
-
-    </div>
-    <% end %>
-<% end %>
-  <!-- end of authorization -->
-
-  <div style="height:450px; padding-top: 50px" class="overflow-auto">
-      <% if @team_memberships.count == 0 %>
+      <% end %>
+  <% end %>
+  <br><br>
+  <div>
+    <% if @team_memberships.count == 0 %>
       <h3>No members to show!</h3>
-      <% else %>
-
+    <% else %>
       <h2>Members list of team </h2>
-
       <table class="table">
-        <thead class="thead-dark">
-        </thead>
         <tbody>
-
           <th scope="row">Member First Name</th>
           <th scope="row">Member Last Name</th>
           <th scope="row">Admin</th>
-          <% @team_memberships.each_with_index do |membership, index_no| %>
-          <% if membership.team_id == @team.id and membership.is_approved == true  %>
-
-
-          <tr> <span class="glyphicon glyphicon-user"></span> 
-
-            <td><%= membership.user.first_name%></td>
-            <td><%= membership.user.last_name%></td>
-            <% if membership.is_team_admin %>
-              <td>Yes</td>
-            <% else %>
-              <td>No</td>
+          <% @team_memberships.each do |membership| %>
+            <% if membership.team_id == @team.id && membership.is_approved %>
+              <tr> <span class="glyphicon glyphicon-user"></span> 
+                <td><%= membership.user.first_name%></td>
+                <td><%= membership.user.last_name%></td>
+                <% if membership.is_team_admin %>
+                  <td>Yes</td>
+                <% else %>
+                  <td>No</td>
+                <% end %>
+              </tr>
             <% end %>
-          </tr>
-
           <% end %>
-          <% end %>
-
-
         </tbody>
       </table>
-
-      <% end %>
+    <% end %>
   </div>
-
   <% if can? :manage, Team %>
     <%= link_to "Delete Team", team_path(@team.id), method: :delete,data:{confirm: 'Are you sure?'}, :class => 'btn btn-primary btn-sm' %>
-
     <%= link_to 'Edit Team', edit_team_path(@team.id),class: 'btn btn-primary btn-sm' %>
   <% end %>
- 
 </div>
 <script type="text/javascript">
   $(function() {

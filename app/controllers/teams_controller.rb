@@ -2,55 +2,88 @@ class TeamsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @all_teams = Team.all
+    respond_to do |format|
+      format.html
+    end
   end
 
   def new
     @team = Team.new
+    respond_to do |format|
+      format.html
+    end
   end
 
   def show
-    @team = Team.find(params[:id])
     @team_memberships = TeamMembership.where('team_id = ? ', @team.id)
     already_present_member_ids = @team_memberships.pluck(:user_id)
-    @all_members = User.where.not(id: already_present_member_ids).select(:id, :first_name)
+    @all_members = current_tenant.users.where.not(id: already_present_member_ids).select(:id, :first_name)
+    respond_to do |format|
+      format.html
+    end
   end
 
   def create
     @team = Team.new(team_params)
-    @team.company_id = 1 ## need to be changed
-
+    @team.company_id = current_tenant.id
     if @team.save
-      @user_id = current_user.id
-      @team_id = Team.last.id
-      TeamMembership.create!(is_team_admin: true, is_approved: true, team_id: @team_id, user_id: @user_id) ## person who   
-      ## member who created team is by default made as admin
-
-      redirect_to teams_path, team_created: t('.Team created Successfully')
+      team_created = true
+      flash[:notice] = t('teams.create.success')
+      begin
+        TeamMembership.create!(is_team_admin: true, is_approved: true, team_id: Team.last.id, user_id: current_user.id)
+        flash[:notice] = t('teams.create.success1')
+      rescue StandardError
+        flash.now[:error] = @team.errors.full_messages
+      end
     else
-      render 'new', team_created: t('.Team not created')
+      team_created = false
+      flash.now[:error] = @team.errors.full_messages
+    end
+    respond_to do |format|
+      format.html do
+        if team_created
+          redirect_to teams_path
+        else
+          render 'new'
+        end
+      end
     end
   end
 
   def edit
-    @team = Team.find(params[:id])
+    respond_to do |format|
+      format.html
+    end
   end
 
   def update
-    @team = Team.find(params[:id])
     if @team.update(team_params)
-      redirect_to teams_path, team_updated: t('.Team Successfully updated!')
+      flash[:notice] = t('teams.update.success')
+      team_updated = true
     else
-      render 'edit'
+      flash.now[:error] = @team.errors.full_messages
+      team_updated = false
+    end
+
+    respond_to do |format|
+      format.html do
+        if team_updated
+          redirect_to teams_path
+        else
+          render 'edit'
+        end
+      end
     end
   end
 
   def destroy
-    @team = Team.find(params[:id])
     if @team.destroy
-      redirect_to teams_path, team_deleted: t('.Successfully deleted team!')
+      flash[:notice] = t('teams.destroy.success')
     else
-      redirect_to teams_path team_not_deleted: t('.Error deleting team!')
+      flash.now[:error] = @team.errors.full_messages
+    end
+    respond_to do |format|
+      format.html { redirect_to teams_path }
     end
   end
 
@@ -62,38 +95,9 @@ class TeamsController < ApplicationController
     params.require(:team_memberships).permit(:is_team_admin, :is_approved, :team_id, :user_id)
   end
 
-  ## add member in team membership
-  def add_member
-    @is_approved = true
-    add_membership(@is_approved)
-  end
-
-  # change status of user "is_approved = false" on request to join team
-  def join_team
-    @is_approved = false
-    add_membership(@is_approved)
-
-  end
-
-  def add_membership(is_approved)
-    @user_id = params[:user_id]
-    @team_id = params[:team_id]
-    @is_admin = if params[:join_admin][:result] == '0'
-                  false
-                else
-                  true
-    end
-    @team_membership = TeamMembership.new(is_team_admin: @is_admin, is_approved: is_approved, team_id: @team_id, user_id: @user_id)
-    if @team_membership.save
-      respond_to do |format|
-        format.js
-      end
-    end
-  end
-
-
-  def approve_request(user_id, team_id)
-
-    TeamMembership.find_by(team_id: team_id, user_id: user_id).is_approved = true
+  def add_membership
+    @is_admin = params[:join_admin][:joining_decision] != '0'
+    @team_membership = TeamMembership.new(is_team_admin: @is_admin, is_approved: params[:is_approved], team_id: params[:team_id], user_id: params[:user_id])
+    respond_to { |format| format.js } if @team_membership.save
   end
 end

@@ -4,9 +4,14 @@ RSpec.describe TeamsController, type: :controller do
   subject(:ability) { Ability.new(user) }
   let(:user) { FactoryGirl.build(:user) }
 
+  before(:all) do
+    @company = create(:company)
+    @admin = create(:admin, company: @company)
+    @member = create(:member, company: @company)
+  end
   before(:each) do
-    @admin = create(:admin)
-    @member = create(:member)
+    @request.host = "#{@company.subdomain}.lvh.me:3000"
+    Company.current_id = @company.id
   end
   describe 'GET #index' do
     context 'as member' do
@@ -88,11 +93,17 @@ RSpec.describe TeamsController, type: :controller do
       end
       context 'with valid attributes' do
         it 'saves the new team in the database' do
-          expect { post :create, team: FactoryGirl.attributes_for(:team) }
+          expect do
+            post :create, team: FactoryGirl.attributes_for(:team)
+            Company.current_id = @company.id
+          end
             .to change(Team, :count).by(1)
         end
         it 'doesnt saves the invalid team in the database' do
-          expect { post :create, team: FactoryGirl.attributes_for(:invalid_team) }
+          expect do
+            post :create, team: FactoryGirl.attributes_for(:invalid_team)
+            Company.current_id = @company.id
+          end
             .to_not change(Team, :count)
         end
       end
@@ -121,7 +132,11 @@ RSpec.describe TeamsController, type: :controller do
         sign_in @admin
       end
       it 'removes team from table' do
-        expect { delete :destroy, id: @team }.to change { Team.count }.by(-1)
+        expect do
+         delete :destroy, id: @team
+         Company.current_id = @company.id
+        end
+          .to change { Team.count }.by(-1)
       end
     end
     context 'as member not allowed to destroy' do

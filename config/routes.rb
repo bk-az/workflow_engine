@@ -1,23 +1,14 @@
 Rails.application.routes.draw do
-
   resources :teams do
     collection do
-      get 'add_member'
-    end
-
-    collection do
-      get 'join_team'
-    end
-
-    collection do
-      get 'approve_request'
+      get 'add_membership'
     end
   end
-  
+
   devise_scope :user do
     get 'signout', to: 'devise/sessions#destroy'
   end
-  
+
   resources :projects do
     resources :comments, shallow: true
   end

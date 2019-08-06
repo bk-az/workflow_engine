@@ -22,15 +22,14 @@
 en:
   teams:
     create:
-      team_created: 'Team created Successfully'
-      team_not_created: 'Team not created'
+      success: 'Team created Successfully'
 
     destroy:
-      team_deleted: 'Successfully deleted team!'
-      team_not_deleted: 'Error deleting team!'
+      success: 'Successfully deleted team!'
 
     update:
-      team_updated: 'Team Successfully updated!'
+      success: 'Team Successfully updated!'
+      
   comments:
     create:
       btn: 'Comment'

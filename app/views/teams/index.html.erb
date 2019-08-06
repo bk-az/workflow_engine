@@ -1,70 +1,45 @@
-
-
- 
 <div class="container " style="padding-top: 30px">
-
   <div class="row" style="float: right;">
-
     <% if can? :create, Team %> 
       <%= link_to 'Add Team', new_team_path,class: 'btn btn-primary btn-sm' %>
     <% end %>
   </div>
-
   <div class="row">
-    <% @all_teams.each_with_index do |team, index_no| %>
-
-      <% if index_no+1 % 3 == 0 %>
-        </div><div class="row">
-
-      <% else %>
-
+    <% @teams.each do |team| %>
         <div class="col-md-6">
             <div class="card" style="width:400px">
               <img class="card-img-top" src="/assets/team_card.jpeg" alt="Card image" style="width:100%">
               <div class="card-body">
                 <h4 class="card-title"><%= team.name %></h4>
                 <p class="card-text">Welcome to <%= team.name%></p>
-              <!--   Manage button visibilities using  CanCanCan -->
-               
-              <% if can? :manage, Team %> 
-                    <%= link_to 'Manage Team', team_path(team),class: 'btn btn-sm btn-block btn-outline-info' %><!--  shown to admins only -->
-              <% else %>
-                 
-                    <%= link_to 'View Team', team_path(team),class: 'btn btn-sm btn-block btn-outline-info' %>
-                  
-
-
-                    <hr>
-                    <% if TeamMembership.where('team_id = ? and user_id= ? and is_approved= ?', team.id, current_user.id, false).present? %>  <!-- change User.last.id to current user id ## CANCANCAN-->
-
-                      <button class="btn btn-success btn-sm btn-block ">Requested to join</button>
-
-                    <% else %>
-                      <%= form_tag join_team_teams_path, method: 'get', remote: true do %>
-                              <%= hidden_field_tag(:user_id, current_user.id) %>  <!-- change User.last.id to current user id ## CANCANCAN-->
-                              <%= hidden_field_tag(:team_id, team.id) %> 
-                              <div class="row">
-                                    <div class="col-9">
-                                      <button type="submit" class="btn-sm btn-block btn btn-outline-success">Join Team</button>
-                                    </div>
-                                    <div class="col-3">
-                                          <%= check_box 'join_admin', 'result', {}, 1, 0 %>
-                                          <%= label_tag(:join_admin, "Admin", class: 'form-check-label') %>
-                                       
-                                    </div>  
-                              </div>
-
-                      <% end %>
-                    <% end %> 
-              <% end %>
+                <% if can? :manage, Team %> 
+                  <%= link_to 'Manage Team', team_path(team),class: 'btn btn-sm btn-block btn-outline-info' %>
+                <% else %> 
+                  <%= link_to 'View Team', team_path(team),class: 'btn btn-sm btn-block btn-outline-info' %>
+                  <hr>
+                  <% if requested(team.id, current_user.id) %>
+                    <button class="btn btn-success btn-sm btn-block ">Requested to join</button>
+                  <% else %>
+                    <%= form_tag add_membership_teams_path, method: 'get', remote: true do %>
+                      <%= hidden_field_tag(:user_id, current_user.id) %>
+                      <%= hidden_field_tag(:team_id, team.id) %> 
+                      <%= hidden_field_tag(:is_approved, false) %> 
+                      <div class="row">
+                        <div class="col-9">
+                          <button type="submit" class="btn-sm btn-block btn btn-outline-success">Join Team</button>
+                        </div>
+                        <div class="col-3">
+                          <%= check_box 'join_admin', 'joining_decision', {}, 1, 0 %>
+                          <%= label_tag(:join_admin, "Admin", class: 'form-check-label') %>
+                        </div>  
+                      </div>
+                    <% end %>
+                  <% end %> 
+                <% end %>
               </div>
             </div>
-            <br>
-          </div>
-      <% end %>
-  
+          <br>
+        </div>
     <% end %>
-  
-  
-  
+</div>
 </div>

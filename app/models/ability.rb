@@ -8,7 +8,7 @@ class Ability
           can :manage, :all
         else
           can :read, Team
-          can :join_team, Team
+          can :add_membership, Team
           can :show, Project do |project|
             project.visible?(user)
           end
