@@ -129,7 +129,7 @@ RSpec.describe IssueStatesController, type: :controller do
         get :index, issue_id: issue.id
         Company.current_id = @company.id
         issue_issue_state
-        expect(assigns(:issue_states)).to eq IssueState.where(issue_id: [issue.id, nil])
+        expect(assigns(:issue_states)).to eq IssueState.where(issue_id: issue.id)
       end
     end
     context 'GET #show' do

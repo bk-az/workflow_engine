@@ -1,9 +1,10 @@
 class IssueStatesController < ApplicationController
   autocomplete :issue, :title, display_value: :title_with_project_id, extra_data: [:project_id]
-  authorize_resource
+  load_and_authorize_resource
 
   def index
-    @issue_states = IssueState.load_issue_states(params[:issue_id])
+    @issue_states = @issue_states.issue_specific_states(params[:issue_id]) unless params[:issue_id].nil?
+    # required for new_issue_state_modal
     @issue_state = IssueState.new
     respond_to do |format|
       format.html
@@ -11,7 +12,6 @@ class IssueStatesController < ApplicationController
   end
 
   def show
-    @issue_state = IssueState.find(params[:id])
     @issue = @issue_state.issue if @issue_state.issue_id
     @total_issues = @issue_state.issues.count
     respond_to do |format|
@@ -20,7 +20,6 @@ class IssueStatesController < ApplicationController
   end
 
   def create
-    @issue_state = IssueState.new(issue_state_params)
     if @issue_state.save
       flash.now[:success] = t('.created')
     else
@@ -32,18 +31,16 @@ class IssueStatesController < ApplicationController
   end
 
   def edit
-    @issue_state = IssueState.find(params[:id])
     respond_to do |format|
       format.js
     end
   end
 
   def update
-    @issue_state = IssueState.safe_update(params[:id], issue_state_params)
-    if @issue_state.errors.any?
-      flash.now[:danger] = t('.not_updated')
-    else
+    if @issue_state.safe_update?(issue_state_params)
       flash.now[:success] = t('.updated')
+    else
+      flash.now[:danger] = t('.not_updated')
     end
     respond_to do |format|
       format.js
@@ -51,11 +48,10 @@ class IssueStatesController < ApplicationController
   end
 
   def destroy
-    @issue_state = IssueState.safe_destroy(params[:id])
-    if @issue_state.errors.any?
-      flash.now[:danger] = t('.not_deleted')
-    else
+    if @issue_state.safe_destroy?
       flash.now[:success] = t('.deleted')
+    else
+      flash.now[:danger] = t('.not_deleted')
     end
     respond_to do |format|
       format.js
