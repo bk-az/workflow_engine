@@ -65,7 +65,7 @@ class User < ActiveRecord::Base
   end
 
   def send_on_create_confirmation_instructions
-    # CONFIRM USER ONLY WHEN HE IS NOT INVITED (MEANS has_changed_sys_generated_password) is false.
+    # CONFIRM USER ONLY WHEN HE IS NOT INVITED (MEANS has_changed_sys_generated_password) is true.
     send_confirmation_instructions if has_changed_sys_generated_password?
   end
 
