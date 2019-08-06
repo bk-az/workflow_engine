@@ -165,4 +165,31 @@ RSpec.describe IssueWatchersController, type: :controller do
       expect(response).to render_template(:destroy_watcher)
     end
   end
+
+  describe 'GET search_watcher as @admin' do
+    before(:each) do
+      sign_in @admin
+    end
+    let(:search_watcher_params) do
+      { issue_id: @issue.id,
+        watcher_search: 'member',
+        watcher_type: 'User' }
+    end
+
+    it 'should return list of watchers to add' do
+      xhr :get, :search_watcher_to_add, search_watcher_params
+      Company.current_id = @company.id
+      issue = Issue.find(search_watcher_params[:issue_id])
+      watchers = User.where('first_name LIKE ?', "%#{search_watcher_params[:watcher_search]}%").where.not(id: issue.watcher_users.ids)
+      expect(assigns(:watchers)).to eq watchers
+    end
+
+    it 'should return list of watchers to remove' do
+      xhr :get, :search_watcher_to_destroy, search_watcher_params
+      Company.current_id = @company.id
+      issue = Issue.find(search_watcher_params[:issue_id])
+      watchers = User.where('first_name LIKE ?', "%#{search_watcher_params[:watcher_search]}%").where(id: issue.watcher_users.ids)
+      expect(assigns(:watchers)).to eq watchers
+    end
+  end
 end
