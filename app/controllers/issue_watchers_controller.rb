@@ -1,9 +1,9 @@
 # issue_watchers_controller.rb
 class IssueWatchersController < ApplicationController
-  load_and_authorize_resource
+  authorize_resource
   # POST /issue_watchers/create_watcher
   def create_watcher
-    @issue, @watcher = @issue_watchers.add_watcher(watcher_params)
+    @issue, @watcher = IssueWatcher.add_watcher(watcher_params)
     respond_to do |format|
       format.js
     end
@@ -11,7 +11,7 @@ class IssueWatchersController < ApplicationController
 
   # POST /issue_watchers/destroy_watcher
   def destroy_watcher
-    @issue, @watcher = @issue_watchers.remove_watcher(watcher_params)
+    @issue, @watcher = IssueWatcher.remove_watcher(watcher_params)
     respond_to do |format|
       format.js
     end
@@ -19,7 +19,7 @@ class IssueWatchersController < ApplicationController
 
   # GET /issue_watchers/search_watcher_to_add
   def search_watcher_to_add
-    @watchers = @issue_watchers.get_watchers_to_add(search_watcher_params)
+    @watchers = IssueWatcher.get_watchers_to_add(search_watcher_params)
     @issue = current_tenant.issues.find(params[:issue_id])
     respond_to do |format|
       format.js
@@ -28,7 +28,7 @@ class IssueWatchersController < ApplicationController
 
   # GET /issue_watchers/search_watcher_to_destroy
   def search_watcher_to_destroy
-    @watchers = @issue_watchers.get_watchers_to_remove(search_watcher_params)
+    @watchers = IssueWatcher.get_watchers_to_remove(search_watcher_params)
     @issue = current_tenant.issues.find(params[:issue_id])
     respond_to do |format|
       format.js
