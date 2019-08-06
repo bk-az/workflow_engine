@@ -1,66 +1,50 @@
 <div class="container">
-
-  <% if (@issue_documents and @issue_documents.count == 0) or (@project_documents and @project_documents.count == 0)  %>
+  <% if (@issue_documents.nil?) || (@project_documents.nil?)  %>
     <h3>No documents to show</h3>
-
   <% else %>
-  <h1>Documents List</h1>
-
-  <table class="table table-hover" id="DocumentsTable">
-  <thead>
-    <tr>
-      <th scope="col">Document </th>
-      <th scope="col">Document Index</th>
-      <th scope="col">Name</th>
-      <th scope="col">Type</th>
-      <th scope="col">Download</th>
-    
-    </tr>
-  </thead>
-  <tbody>
-
-      <% if @issue_documents %>
-
-            <% @issue_documents.all.each_with_index do |document, index_no| %>
-                  <tr>
-                    <% if document.document.url.include? 'jpeg' or document.document.url.include? 'png' or document.document.url.include? 'jpg'  %>
-                       <td><%= link_to(image_tag(document.document.url(:medium)), document.document.url, target: '_blank') if document.document.exists? %></td>
-                    
-                    <% else %>
-                      <td>Document</td>
-                    <% end %>
-                    <td><%= index_no + 1 %></td>
-                    <td><%=  document.document_file_name %></td>
-                    <td><%=  document.document_content_type %></td>
-                    <td><%= link_to "Open", document.document.url(:original, false) %></td>
-                  
-                    <td><%= link_to "Delete", issue_document_path(@issue_id ,document), method: :delete, data:{confirm: 'Are you sure?'}, :class => 'btn btn-primary' %></td>
-                    
-                  </tr>
-           <% end %>
-
-
-      <% else %>
-              <% @project_documents.all.each_with_index do |document, index_no| %>
-                  <tr>
-                    <% if document.document.url.include? 'jpeg' or document.document.url.include? 'png' or document.document.url.include? 'jpg'  %>
-                       <td><%= link_to(image_tag(document.document.url(:medium)), document.document.url, target: '_blank') if document.document.exists? %></td>
-                    
-                    <% else %>
-                      <td>Document</td>
-                    <% end %>
-                    <td><%= index_no + 1 %></td>
-                    <td><%=  document.document_file_name %></td>
-                    <td><%=  document.document_content_type %></td>
-                    <td><%= link_to "Open", document.document.url(:original, false) %></td> 
-                    <td><%= link_to "Delete", project_document_path(@project_id ,document), method: :delete, data:{confirm: 'Are you sure?'}, :class => 'btn btn-primary' %></td>
-                  </tr>
-              <% end %>
-
-      <% end %>
-
-  </tbody>
+    <h1>Documents List</h1>
+    <table class="table table-hover" id="DocumentsTable">
+    <thead>
+      <tr>
+        <th scope="col">Document</th>
+        <th scope="col">Document Index</th>
+        <th scope="col">Name</th>
+        <th scope="col">Type</th>
+        <th scope="col">Download</th>
+      </tr>
+    </thead>
+    <tbody>
+        <% if @issue_documents %>
+              <% @issue_documents.each.with_index(1) do |issue_document, index_no| %>
+                    <tr>
+                      <% if issue_document.document.url.include? 'jpeg' or issue_document.document.url.include? 'png' or issue_document.document.url.include? 'jpg'  %>
+                         <td><%= link_to(image_tag(issue_document.document.url(:medium)), issue_document.document.url, target: '_blank') if issue_document.document.exists? %></td>
+                      <% else %>
+                        <td>Document</td>
+                      <% end %>
+                      <td><%= index_no %></td>
+                      <td><%= issue_document.document_file_name %></td>
+                      <td><%= issue_document.document_content_type %></td>
+                      <td><%= link_to "Open", issue_document.document.url(:original, false) %></td>
+                      <td><%= link_to "Delete", issue_document_path(params[:issue_id] ,issue_document), method: :delete, data:{confirm: 'Are you sure?'}, :class => 'btn btn-primary' %></td>
+                    </tr>
+             <% end %>
+        <% else %>
+                <% @project_documents.all.each.with_index(1) do |project_document, index_no| %>
+                    <tr>
+                      <% if project_document.document.url.include? 'jpeg' or project_document.document.url.include? 'png' or project_document.document.url.include? 'jpg'  %>
+                         <td><%= link_to(image_tag(project_document.document.url(:medium)), project_document.document.url, target: '_blank') if project_document.document.exists? %></td>                
+                      <% else %>
+                        <td>Document</td>
+                      <% end %>
+                      <td><%= index_no %></td>
+                      <td><%=  project_document.document_file_name %></td>
+                      <td><%=  project_document.document_content_type %></td>
+                      <td><%= link_to "Open", project_document.document.url(:original, false) %></td> 
+                      <td><%= link_to "Delete", project_document_path(params[:project_id] ,project_document), method: :delete, data:{confirm: 'Are you sure?'}, :class => 'btn btn-primary' %></td>
+                    </tr>
+                <% end %>
+        <% end %>
+    </tbody>
   <% end %>
-  
 </div>
-

@@ -8,7 +8,6 @@ FactoryGirl.define do
     email       { Faker::Internet.email }
     password    { Faker::Internet.password }
     confirmed_at { Date.today }
-    company_id 1
     association :role, factory: :role_member
   end
 
@@ -18,7 +17,7 @@ FactoryGirl.define do
     email       { Faker::Internet.email }
     password    { Faker::Internet.password }
 
-    company_id 1
+    confirmed_at { Date.today }
     association :role, factory: :role_admin
   end
 
@@ -28,7 +27,7 @@ FactoryGirl.define do
     email       { Faker::Internet.email }
     password    { Faker::Internet.password }
 
-    company_id 1
+    confirmed_at { Date.today }
     association :role, factory: :role_member
   end
 end

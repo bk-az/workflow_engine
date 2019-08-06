@@ -1,5 +1,5 @@
 <!-- Partial: Displays rows in a table -->
-<% @issues.each do |issue| %>
+<% issues.each do |issue| %>
   <tr>
     <td><%= link_to issue.project.title, issue_path(issue) %></td>
     <td><%= issue.issue_type.name %></td>

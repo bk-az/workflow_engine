@@ -1,28 +1,23 @@
 Rails.application.routes.draw do
 
+  resources :issues, only: [:index, :show, :edit, :update, :delete] do
+    resources :comments, shallow: true
+    get 'filter', on: :collection
+    resources :documents
+  end
 
   devise_scope :user do
     get 'signout', to: 'devise/sessions#destroy'
   end
-  
+
   resources :projects do
     resources :documents
     resources :comments, shallow: true
+    resources :issues, only: [:new, :create]
   end
 
   resources :comments, only: [:edit, :update, :destroy]
 
-  resources :issues do
-    get 'filter', on: :collection
-    resources :documents do
-
-      # collection do
-      #   get 'download'
-      # end
-    end
-    resources :comments, shallow: true
-
-  end
 
   get 'user_companies/find', to: 'user_companies#find'
   post 'user_companies/find', to: 'user_companies#find_user_by_email'

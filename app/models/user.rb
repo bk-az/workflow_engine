@@ -36,7 +36,6 @@ class User < ActiveRecord::Base
   has_many   :issue_watchers, as: :watcher
   has_many   :watching_issues, through: :issue_watchers
 
-
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
@@ -85,8 +84,6 @@ class User < ActiveRecord::Base
   def self.find_for_database_authentication(warden_conditions)
     where(:email => warden_conditions[:email]).first
   end
-
-
   # returns full name
   def name
     self[:first_name] + ' ' + self[:last_name]
@@ -100,7 +97,6 @@ class User < ActiveRecord::Base
     if admin?
       company.projects
     else
-
       company.projects.joins('INNER JOIN project_memberships ON project_memberships.project_id = projects.id').where('(project_member_id = ? and project_member_type = "User") OR (project_member_id in (?) and project_member_type = "Team")', id, teams.ids).uniq
     end
   end

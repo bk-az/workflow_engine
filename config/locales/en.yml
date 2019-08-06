@@ -34,6 +34,17 @@ en:
 
 
  
+
+  issues:
+    create:
+      notice: 'Issue Created successfully!'
+    destroy:
+      notice: 'Issue Deleted successfully'
+    update:
+      notice: 'Issue Updated successfully!'
+      save_issue: 'Issue Created and Saved  successfully!'
+      destroy_issue: 'Issue Deleted successfully'
+
   comments:
     create:
       btn: 'Comment'
@@ -54,18 +65,7 @@ en:
     destroy:
       destroyed: 'Project destroyed successfully!'
       not_destroyed: 'Project could not be destroyed.'
-
-  issues:
-    create:
-      notice: 'Issue Created successfully!'
-    destroy:
-      notice: 'Issue Deleted successfully'
-    update:
-      notice: 'Issue Updated successfully!'
-      update_issue: 'Issue Updated successfully!'
-      save_issue: 'Issue Created and Saved  successfully!'
-      destroy_issue: 'Issue Deleted successfully'
-
+ 
   users:
     sessions:
       new:

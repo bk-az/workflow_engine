@@ -1,8 +1,8 @@
 class DocumentsController < ApplicationController
   def index
-    @issue_id = params[:issue_id]
-    @project_id = params[:project_id]
-    if params[:issue_id] ## called via issue
+    # @issue_id = params[:issue_id]
+    # @project_id = params[:project_id]
+    if params[:issue_id].present? ## called via issue
       @issue_documents = Issue.find(params[:issue_id]).documents
     else ## called via projects
       @project_documents = Project.find(params[:project_id]).documents
@@ -16,38 +16,44 @@ class DocumentsController < ApplicationController
 
   def create
     @document = Document.new(document_params)
-    @document.company_id = 1
+    @document.company_id = current_tenant.id
     @document.path = @document.document.url
-    if params[:issue_id]
+    unless params[:issue_id].nil?
       @document.documentable_type = 'Issue'
       @document.documentable_id = params[:issue_id]
-      @path = issue_path(params[:issue_id])
+      if @document.save
+        redirect_to issue_path(params[:issue_id]), save_document: t('.save_document') # redirect to show page
+      else
+        render 'new', document_not_saved: t('.Document not saved!')
+      end
 
-    elsif params[:project_id]
+    unless params[:project_id].nil?
       @document.documentable_type = 'Project'
       @document.documentable_id = params[:project_id]
-      @path = project_path(params[:project_id])
+      if @document.save
+        redirect_to project_path(params[:project_id]), save_document: t('.save_document') # redirect to show page
+      else
+        render 'new', document_not_saved: t('.Document not saved!')
+      end
 
     end
-    if @document.save
-      redirect_to @path, save_document: t('.save_document') # redirect to show page
-    else
-      render 'new', document_not_saved: t('.Document not saved!')
-    end
+    
   end
 
   def destroy
     @document = Document.find(params[:id])
-    if params[:issue_id]
-      @path = issue_path(params[:issue_id])
+    if params[:issue_id].present?
+      if @document.destroy
+        redirect_to issue_path(params[:issue_id]), delete_document: t('.Successfully deleted document!')
+      else
+        render 'index', document_not_delete: t('.Error deleting Document!')
+      end
     else
-      @path = project_path(params[:project_id])
-    end
-    if @document.destroy
-      redirect_to @path, delete_document: t('.Successfully deleted document!')
-    else
-      render 'index', document_not_delete: t('.Error deleting Document!')
-    end
+      if @document.destroy
+        redirect_to project_path(params[:project_id]), delete_document: t('.Successfully deleted document!')
+      else
+        render 'index', document_not_delete: t('.Error deleting Document!')
+      end
   end
 
   def document_params
@@ -61,13 +67,4 @@ class DocumentsController < ApplicationController
                                      :document_content_type)
   end
 
-
-  # def download
-  #   download = Document.find(params[:id])
-  #   send_file download.document.path,
-  #   :filename => download.document_file_name,
-  #   :type => download.document_content_type,
-  #   :disposition => 'attachment'
-  #   flash[:notice] = "Your file has been downloaded"
-  # end
 end

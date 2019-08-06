@@ -3,10 +3,16 @@ class TeamsController < ApplicationController
 
   def index
     @all_teams = Team.all
+    respond_to do |format|
+      format.html
+    end
   end
 
   def new
     @team = Team.new
+    respond_to do |format|
+      format.html
+    end
   end
 
   def show
@@ -14,43 +20,56 @@ class TeamsController < ApplicationController
     @team_memberships = TeamMembership.where('team_id = ? ', @team.id)
     already_present_member_ids = @team_memberships.pluck(:user_id)
     @all_members = User.where.not(id: already_present_member_ids).select(:id, :first_name)
+    respond_to do |format|
+      format.html
+    end
   end
 
   def create
     @team = Team.new(team_params)
-    @team.company_id = 1 ## need to be changed
+    @team.company_id = current_tenant.id ## need to be changed
 
     if @team.save
-      @user_id = current_user.id
-      @team_id = Team.last.id
-      TeamMembership.create!(is_team_admin: true, is_approved: false, team_id: @team_id, user_id: @user_id) ## person who   
-      ## member who created team is by default made as admin
-
-      redirect_to teams_path, team_created: t('.Team created Successfully')
+      TeamMembership.create!(is_team_admin: true, is_approved: false, team_id: Team.last.id, user_id: current_user.id)
+      flash[:notice] = t('.Team created Successfully')
+      respond_to do |format|
+        format.html { redirect_to teams_path }
+      end
     else
-      render 'new', team_created: t('.Team not created')
+      flash[:notice] = t('.Team not created')
+      render 'new'
     end
   end
 
   def edit
     @team = Team.find(params[:id])
+    respond_to do |format|
+      format.html
+    end
   end
 
   def update
     @team = Team.find(params[:id])
     if @team.update(team_params)
-      redirect_to teams_path, team_updated: t('.Team Successfully updated!')
+      flash[:notice] = t('.Team Successfully updated!')
+      respond_to do |format|
+        format.html { redirect_to teams_path }
+      end
     else
+      flash[:notice] = t('.Team not updated!')
       render 'edit'
     end
   end
 
   def destroy
-    @team = Team.find(params[:id])
-    if @team.destroy
-      redirect_to teams_path, team_deleted: t('.Successfully deleted team!')
+  
+    if Team.find(params[:id]).destroy
+      flash[:notice] = t('.Successfully deleted team!')
     else
-      redirect_to teams_path team_not_deleted: t('.Error deleting team!')
+      flash[:notice] = t('.Error deleting team!')
+    end
+    respond_to do |format|
+      format.html { redirect_to teams_path }
     end
   end
 

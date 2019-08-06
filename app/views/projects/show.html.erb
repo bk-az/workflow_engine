@@ -3,7 +3,7 @@
 <h1><%= @project.title %></h1>
 
 <h2>Issues</h2>
-
+<%= link_to 'New Issue', new_project_issue_path(@project), class: 'btn btn-primary float-right'%>
 <tr>
   <% if can? [:edit, :delete], Project %>
     <td><%= link_to 'Edit Project', edit_project_path(@project),class: 'btn btn-warning' %></td>

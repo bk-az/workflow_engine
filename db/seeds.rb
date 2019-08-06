@@ -17,6 +17,7 @@ debug('Company')
 # Creating Company
 company = Company.create(name: '7vals', subdomain: '7vals', owner_id: 1, description: description)
 
+# set current tenant
 Company.current_id = company.id
 
 debug('Roles')
