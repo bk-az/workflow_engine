@@ -25,6 +25,12 @@ RSpec.describe IssueType, type: :model do
     duplicate_issue_type.company_id = issue_type.company_id + 1
     expect(duplicate_issue_type.valid?).to eq true
   end
+  it 'name should be unique in project scope' do
+    duplicate_issue_type = issue_type.dup
+    duplicate_issue_type.name = issue_type.name.upcase
+    duplicate_issue_type.project_id = 2000
+    expect(duplicate_issue_type.valid?).to eq true
+  end
   it 'name should not be too long' do
     issue_type.name = 'a' * 21
     expect(issue_type.valid?).to eq false
@@ -32,13 +38,5 @@ RSpec.describe IssueType, type: :model do
   it 'name should not be too short' do
     issue_type.name = 'a' * 2
     expect(issue_type.valid?).to eq false
-  end
-  it 'should load all issue types' do
-    Company.current_id = 1
-    expect(IssueType.load_issue_types(nil)).to eq IssueType.all
-  end
-  it 'should load all issue types of a project' do
-    Company.current_id = 1
-    expect(IssueType.load_issue_types(1)).to eq IssueType.where(project_id: [1, nil])
   end
 end

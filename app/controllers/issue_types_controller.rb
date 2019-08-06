@@ -1,9 +1,10 @@
 class IssueTypesController < ApplicationController
   autocomplete :project, :title
-  authorize_resource
+  load_and_authorize_resource
 
   def index
-    @issue_types = IssueType.load_issue_types(params[:project_id])
+    @issue_types = @issue_types.project_issue_types(params[:project_id]) unless params[:project_id].nil?
+    # required for new_issue_type_modal
     @issue_type = IssueType.new
     respond_to do |format|
       format.html
@@ -11,7 +12,6 @@ class IssueTypesController < ApplicationController
   end
 
   def show
-    @issue_type = IssueType.find(params[:id])
     @project = @issue_type.project if @issue_type.project_id
     @total_issues = @issue_type.issues.count
     respond_to do |format|
@@ -20,7 +20,6 @@ class IssueTypesController < ApplicationController
   end
 
   def create
-    @issue_type = IssueType.new(issue_type_params)
     if @issue_type.save
       flash.now[:success] = t('.created')
     else
@@ -32,18 +31,16 @@ class IssueTypesController < ApplicationController
   end
 
   def edit
-    @issue_type = IssueType.find(params[:id])
     respond_to do |format|
       format.js
     end
   end
 
   def update
-    @issue_type = IssueType.safe_update(params[:id], issue_type_params)
-    if @issue_type.errors.any?
-      flash.now[:danger] = t('.not_updated')
-    else
+    if @issue_type.safe_update?(issue_type_params)
       flash.now[:success] = t('.updated')
+    else
+      flash.now[:danger] = t('.not_updated')
     end
     respond_to do |format|
       format.js
@@ -51,11 +48,10 @@ class IssueTypesController < ApplicationController
   end
 
   def destroy
-    @issue_type = IssueType.safe_destroy(params[:id])
-    if @issue_type.errors.any?
-      flash.now[:danger] = t('.not_deleted')
-    else
+    if @issue_type.safe_destroy?
       flash.now[:success] = t('.deleted')
+    else
+      flash.now[:danger] = t('.not_deleted')
     end
     respond_to do |format|
       format.js

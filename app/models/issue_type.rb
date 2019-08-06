@@ -8,42 +8,36 @@ class IssueType < ActiveRecord::Base
   belongs_to :company
   belongs_to :project
 
+  scope :project_issue_types, ->(project_id) { where(project_id: project_id) }
   scope :issue_types_for_projects, ->(project) { where(project_id: project.id) }
 
-  def self.safe_update(id, params)
-    issue_type = IssueType.find(id)
+  def safe_update?(params)
+    result = true
     if params[:project_id].nil?
-      issue_type.update(params)
+      update(params)
     else
-      count = issue_type.issues.where.not(project_id: params[:project_id]).count
+      count = issues.where.not(project_id: params[:project_id]).count
       if count > 0
-        issue_type.errors[:base] << "#{count} issue".pluralize(count) +
-                                         ' found, preventing to change scope' \
-                                         ' of this issue type'
+        result = false
+        errors[:base] << "#{count} issue".pluralize(count) +
+                         ' found, preventing to change scope' \
+                         ' of this issue type'
       else
-        issue_type.update(params)
+        update(params)
       end
     end
-    issue_type
+    result
   end
 
-  def self.safe_destroy(id)
-    issue_type = IssueType.find(id)
-    count = issue_type.issues.count
+  def safe_destroy?
+    result = true
+    count = issues.count
     if count > 0
-      issue_type.errors[:base] << "#{count} issue".pluralize(count) +
-                                  ' using this type'
+      result = false
+      errors[:base] << "#{count} issue".pluralize(count) +
+                       ' using this type'
     else
-      issue_type.destroy
-    end
-    issue_type
-  end
-
-  def self.load_issue_types(project_id)
-    if project_id.nil?
-      result = IssueType.all
-    else
-      result = IssueType.where(project_id: [project_id, nil])
+      destroy
     end
     result
   end
