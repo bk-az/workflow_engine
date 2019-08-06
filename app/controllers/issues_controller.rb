@@ -59,6 +59,10 @@ class IssuesController < ApplicationController
         format.html { redirect_to project_issue_path(@issue.project, @issue) }
       end
     else
+      @assignees = current_tenant.users.all
+      @issue_types = current_tenant.issue_types.all
+      @issue_states = current_tenant.issue_states.all
+      @project = @issue.project
       flash.now[:error] = @issue.errors.full_messages
       render 'edit'
     end
@@ -73,6 +77,10 @@ class IssuesController < ApplicationController
         format.html { redirect_to project_issue_path(@issue.project, @issue) }
       end
     else
+      @assignees = current_tenant.users.all
+      @issue_types = current_tenant.issue_types.all
+      @issue_states = current_tenant.issue_states.all
+      @project = @issue.project
       flash.now[:error] = @issue.errors.full_messages
       render 'new'
     end
