@@ -26,10 +26,9 @@ gem 'sdoc', '0.4.2', group: :doc
 gem 'bootstrap-sass'
 gem 'cancancan', '3.0.1'
 gem 'devise', '4.1.1'
-gem 'wicked_pdf'
-gem 'wkhtmltopdf-binary'
 gem 'faker', '1.9.1'
 gem 'popper_js', '1.14.5'
+gem 'audited'
 gem 'rspec-collection_matchers', '1.1.3'
 gem 'simplecov', require: false, group: :test
 

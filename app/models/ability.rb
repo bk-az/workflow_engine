@@ -3,11 +3,10 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    # user ||= User.new
-
     if user.present?
       if user.admin?
-        can :manage, :all
+        can :manage, Project
+        can :manage, :report
       else
         can :show, Project do |project|
           project.visible?(user)

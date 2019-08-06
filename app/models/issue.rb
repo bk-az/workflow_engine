@@ -1,4 +1,8 @@
 class Issue < ActiveRecord::Base
+  PRIORITIES = %w[Low High].freeze
+
+  audited
+
   belongs_to :company
   belongs_to :project
   belongs_to :issue_state
