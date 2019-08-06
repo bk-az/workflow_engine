@@ -1,6 +1,6 @@
 # Model Class
 class Issue < ActiveRecord::Base
-  after_save { |issue| send_email(issue) }
+  after_save :send_email
   # Kaminari build-in attribute for pagination size per page
   paginates_per 7
 
@@ -38,9 +38,9 @@ class Issue < ActiveRecord::Base
                              source_type: 'Team', class_name: 'Team'
 
   # Helper method for sending email
-  def send_email(issue)
+  def send_email
     return if Rails.env.test?
 
-    IssueWatcher.notify_creator_assignee_and_watchers(issue)
+    IssueWatcher.notify_creator_assignee_and_watchers(self) if persisted?
   end
 end

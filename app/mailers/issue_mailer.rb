@@ -6,7 +6,6 @@ class IssueMailer < ApplicationMailer
   def notify(email_address, issue)
     @email_address = email_address
     @issue = issue
-    mail(to: @email_address,
-         subject: "#{@issue.project.title} | #{@issue.title} | Update ")
+    mail(to: @email_address, subject: "#{@issue.company.name} | #{@issue.project.title} | #{@issue.title} | Update ")
   end
 end
