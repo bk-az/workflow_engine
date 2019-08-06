@@ -129,7 +129,7 @@ RSpec.describe IssueTypesController, type: :controller do
         get :index, project_id: project.id
         Company.current_id = @company.id
         project_issue_type
-        expect(assigns(:issue_types)).to eq IssueType.where(project_id: project.id)
+        expect(assigns(:issue_types)).to eq IssueType.where(project_id: [project.id, nil])
       end
     end
     context 'GET #show' do

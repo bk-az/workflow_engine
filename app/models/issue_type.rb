@@ -8,7 +8,7 @@ class IssueType < ActiveRecord::Base
   belongs_to :company
   belongs_to :project
 
-  scope :project_issue_types, ->(project_id) { where(project_id: project_id) }
+  scope :project_issue_types, ->(project_id) { where(project_id: [project_id, nil]) }
   scope :issue_types_for_projects, ->(project) { where(project_id: project.id) }
 
   def safe_update?(params)
