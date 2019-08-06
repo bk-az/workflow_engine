@@ -48,12 +48,4 @@ group :development, :test do
   gem 'spring', '2.0.2'
   gem 'pry', '0.12.2'
   gem 'pry-rails'
-
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  # gem 'spring'
-
-  # Access an IRB console on exception pages or by using <%= console %> in views
-  # gem 'database_cleaner'
-  # gem 'capybara'
-  # gem 'factory_girl_rails'
 end

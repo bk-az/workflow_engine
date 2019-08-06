@@ -25,13 +25,10 @@ en:
 
   document:
     create:
-      save_document: 'Document saved successfully!'
-      document_not_saved: 'Document not saved!'
+      success: 'Document saved successfully!'
 
     destroy:
-      delete_document: 'Successfully deleted document!'
-      document_not_delete: 'Error deleting Document!'
-
+      success: 'Successfully deleted document!'
 
  
 
