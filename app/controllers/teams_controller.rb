@@ -1,19 +1,19 @@
 class TeamsController < ApplicationController
   load_and_authorize_resource
-
+  # GET /index
   def index
     respond_to do |format|
       format.html
     end
   end
-
+  # GET /new
   def new
     @team = Team.new
     respond_to do |format|
       format.html
     end
   end
-
+  # GET /show
   def show
     @team_memberships = TeamMembership.where('team_id = ? ', @team.id)
     already_present_member_ids = @team_memberships.pluck(:user_id)
@@ -22,16 +22,14 @@ class TeamsController < ApplicationController
       format.html
     end
   end
-
+  # POST /create
   def create
-    @team = Team.new(team_params)
-    @team.company_id = current_tenant.id
     if @team.save
       team_created = true
-      flash[:notice] = t('teams.create.success')
+      flash[:notice] = t('team.create.success')
       begin
-        TeamMembership.create!(is_team_admin: true, is_approved: true, team_id: Team.last.id, user_id: current_user.id)
-        flash[:notice] = t('teams.create.success1')
+        @team.team_memberships.create!(is_team_admin: true, is_approved: true, user_id: current_user.id)
+        
       rescue StandardError
         flash.now[:error] = @team.errors.full_messages
       end
@@ -58,7 +56,7 @@ class TeamsController < ApplicationController
 
   def update
     if @team.update(team_params)
-      flash[:notice] = t('teams.update.success')
+      flash[:notice] = t('team.update.success')
       team_updated = true
     else
       flash.now[:error] = @team.errors.full_messages
@@ -78,7 +76,7 @@ class TeamsController < ApplicationController
 
   def destroy
     if @team.destroy
-      flash[:notice] = t('teams.destroy.success')
+      flash[:notice] = t('team.destroy.success')
     else
       flash.now[:error] = @team.errors.full_messages
     end
@@ -98,6 +96,12 @@ class TeamsController < ApplicationController
   def add_membership
     @is_admin = params[:join_admin][:joining_decision] != '0'
     @team_membership = TeamMembership.new(is_team_admin: @is_admin, is_approved: params[:is_approved], team_id: params[:team_id], user_id: params[:user_id])
-    respond_to { |format| format.js } if @team_membership.save
+    respond_to do |format| 
+      if @team_membership.save
+        format.js 
+      else
+        flash.now[:error] = @team_membership.errors.full_messages
+      end
+    end
   end
 end
