@@ -20,7 +20,7 @@ class IssueWatchersController < ApplicationController
   # GET /issue_watchers/search_watcher_to_add
   def search_watcher_to_add
     @watchers = IssueWatcher.get_watchers_to_add(search_watcher_params)
-    @issue = current_tenant.issues.find(params[:issue_id])
+    @issue = current_tenant.issues.find_by(id: params[:issue_id])
     respond_to do |format|
       format.js
     end
@@ -29,7 +29,7 @@ class IssueWatchersController < ApplicationController
   # GET /issue_watchers/search_watcher_to_destroy
   def search_watcher_to_destroy
     @watchers = IssueWatcher.get_watchers_to_remove(search_watcher_params)
-    @issue = current_tenant.issues.find(params[:issue_id])
+    @issue = current_tenant.issues.find_by(id: params[:issue_id])
     respond_to do |format|
       format.js
     end

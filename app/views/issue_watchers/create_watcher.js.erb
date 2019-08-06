@@ -1,4 +1,4 @@
-<% if current_user.role == Role.admin %>
+<% if current_user.admin? %>
   $('#create_watcher_<%= @watcher.try(:id) %>').fadeOut('slow');
 <% end %>
 
