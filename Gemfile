@@ -30,7 +30,7 @@ gem 'cancancan'
 gem 'delayed_job_active_record'
 gem 'devise', '4.1.1'
 gem 'faker'
-gem 'kaminari'
+gem 'kaminari', '1.1.1'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

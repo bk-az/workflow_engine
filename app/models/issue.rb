@@ -39,7 +39,7 @@ class Issue < ActiveRecord::Base
 
   # Helper method for sending email
   def send_email(issue)
-    return if ENV['RAILS_ENV'] == 'test'
+    return if Rails.env.test?
 
     IssueWatcher.notify_creator_assignee_and_watchers(issue)
   end
