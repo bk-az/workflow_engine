@@ -7,21 +7,15 @@
       <h3 class="card-header bg-secondary">Members</h3>
       <div class="card-body container-list-of-members">
         <div class="list-group">
-          <%
-          class_of_list_item = 'active'
-          %>
+          <% class_of_list_item = 'active' %>
 
           <% @members.each_with_index do |member, member_index| %>
+            <a data-user-id="<%= member.id %>" href="#_" class="list-group-item js-list-group-item <%= class_of_list_item %>" data-toggle="tab" >
+              <h5 class="list-group-item-heading"><%= member_full_name(member) %></h5>
+              <p class="list-group-item-text js-list-group-item-text"><%= member.role.name %></p>
+            </a>
 
-          <a data-user-id="<%= member.id %>" href="#_" class="list-group-item js-list-group-item <%= class_of_list_item %>" data-toggle="tab" >
-            <h5 class="list-group-item-heading"><%= member_full_name(member) %></h5>
-            <p class="list-group-item-text js-list-group-item-text"><%= member.role.name %></p>
-          </a>
-
-          <% if class_of_list_item == 'active' 
-            class_of_list_item = ''
-          end
-          %>
+            <% class_of_list_item = '' if class_of_list_item == 'active' %>
           <% end %>
         </div>
       </div>
@@ -32,28 +26,28 @@
   <div class="col-sm-6">
     <div class="card">
       <% if @members.size == 0 %>
-      <h3 class="card-header bg-secondary"><em>No Members are Present in this Company.</em></h3>
+        <h3 class="card-header bg-secondary"><em>No Members are Present in this Company.</em></h3>
       <% else %>   
       <h3 id="js_user_fullname_heading" class="card-header bg-secondary"><%= member_full_name(@members[0]) %></h3>
-      <div class="card-body">
-        <div id="js_ajax_request_notification"></div>
-        <div class="form-group">
-          <label for="js_role_select">Role:</label>
-          <select id="js_role_select" class="form-control form-control-sm">
-            <% @roles.each do |role| %>
-            <option value="<%= role.id %>" 
-              <% if role.id == @members[0].role_id %> selected <% end %>>
-              <%= role.name %>
-            </option>
-            <% end %>
-          </select>
-          <input type="hidden" id="js_current_user_id" value="<%= @members[0].id %>">
-        </div>
+        <div class="card-body">
+          <div id="js_ajax_request_notification"></div>
+          <div class="form-group">
+            <label for="js_role_select">Role:</label>
+            <select id="js_role_select" class="form-control form-control-sm">
+              <% @roles.each do |role| %>
+                <option value="<%= role.id %>" 
+                  <% if role.id == @members[0].role_id %> selected <% end %>>
+                  <%= role.name %>
+                </option>
+              <% end %>
+            </select>
+            <input type="hidden" id="js_current_user_id" value="<%= @members[0].id %>">
+          </div>
 
-        <div class="text-right">
-          <button type="button" id="js_change_role_submit" class="btn btn-sm btn-outline-secondary">Change!</button>
+          <div class="text-right">
+            <button type="button" id="js_change_role_submit" class="btn btn-sm btn-outline-secondary">Change!</button>
+          </div>
         </div>
-      </div>
       <% end %>
     </div>
   </div>

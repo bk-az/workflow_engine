@@ -5,15 +5,9 @@
       <h1 class="card-header">Log in</h1>
       <div class="card-body">
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-          <div class="field form-group">
+          <div class="field form-group <%= 'd-none' if @email.present? %>">
             <%= f.label :email %><br />
-            <% if @email.nil? 
-              readonly = false
-            else
-              readonly = true
-            end
-            %>
-            <%= f.email_field :email, autofocus: true, class: "form-control form-control-sm", placeholder: "john.doe@gmail.com", value: @email, readonly: readonly %>
+            <%= f.email_field :email, autofocus: true, class: "form-control form-control-sm", placeholder: "john.doe@gmail.com", value: @email %>
           </div>
 
           <div class="field form-group">
@@ -28,10 +22,10 @@
                 <%= f.label :remember_me %>
               </label>
             </div>
-          <% end -%>
+          <% end %>
 
           <div class="actions text-right">
-            <%= f.submit "Log in", class: "btn btn-info btn-sm"%>
+            <%= f.submit "Log in", class: "btn btn-info btn-sm" %>
           </div>
         <% end %>
       </div>

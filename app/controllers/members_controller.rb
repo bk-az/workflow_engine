@@ -6,6 +6,7 @@ class MembersController < ApplicationController
   # GET /members/new
   def new
     set_invitation_view_variables
+    binding.pry
 
     # Make a dummy new user.
     @new_user = User.new

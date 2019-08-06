@@ -41,6 +41,10 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :confirmable,
   :recoverable, :rememberable, :trackable, :validatable
 
+  def admin?(role)
+    role_id == role.id
+  end
+
   # To override devise email validation process.
   def email_required?
     false
