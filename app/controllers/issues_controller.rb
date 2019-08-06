@@ -1,8 +1,13 @@
 # Issues Controller
 class IssuesController < ApplicationController
+  load_and_authorize_resource
   # GET /issues
   def index
-    @issues = Issue.order(:project_id).page(params[:page])
+    @issues = @issues.order(:project_id).page(params[:page])
+    @issue_types = current_tenant.issue_types.all
+    @issue_states = current_tenant.issue_states.all
+    @projects = current_user.visible_projects
+    @assignees = current_tenant.users.all
     respond_to do |format|
       format.html
     end
@@ -10,65 +15,88 @@ class IssuesController < ApplicationController
 
   # GET /issues/filter
   def filter
-    @issues = Issue.where(search_params).page(params[:page])
+    @issues = @issues.where(search_params).page(params[:page])
     respond_to do |format|
       format.js
     end
   end
 
-  # GET /issues/new
+  # GET projects/:id/issues/new
   def new
-    @issue = Issue.new
+    @assignees = current_tenant.users.all
+    @issue_types = current_tenant.issue_types.all
+    @issue_states = current_tenant.issue_states.all
+    @project = current_tenant.projects.find(params[:project_id])
     respond_to do |format|
       format.html
     end
   end
 
-  # GET /issues/:id
+  # GET projects/:id/issues/:id
   def show
-    @issue = Issue.find(params[:id])
     respond_to do |format|
       format.html
     end
   end
 
-  # GET /issues/:id/edit
+  # GET projects/:id/issues/:id/edit
   def edit
-    @issue = Issue.find(params[:id])
+    @assignees = current_tenant.users.all
+    @issue_types = current_tenant.issue_types.all
+    @issue_states = current_tenant.issue_states.all
+    @project = @issue.project
     respond_to do |format|
       format.html
     end
   end
 
-  # PUT /issues/:id
+  # PUT projects/:id/issues/:id
   def update
-    @issue = Issue.find(params[:id])
     if @issue.update(issue_params)
-      redirect_to @issue, notice: t('.notice')
+      flash[:notice] = t('issues.update.notice')
+
+      respond_to do |format|
+        format.html { redirect_to project_issue_path(@issue.project, @issue) }
+      end
     else
+      @assignees = current_tenant.users.all
+      @issue_types = current_tenant.issue_types.all
+      @issue_states = current_tenant.issue_states.all
+      @project = @issue.project
+      flash.now[:error] = @issue.errors.full_messages
       render 'edit'
     end
   end
 
-  # POST /issues
+  # POST projects/:id/issues
   def create
-    @issue = Issue.new(issue_params)
-    @issue.company_id = 1
-    @issue.project_id = 1
-    @issue.creator_id = 2
-    @issue.parent_issue_id = 1
+    @issue.creator_id = current_user.id
     if @issue.save
-      redirect_to @issue, notice: t('.notice')
+      flash[:notice] = t('issues.create.notice')
+      respond_to do |format|
+        format.html { redirect_to project_issue_path(@issue.project, @issue) }
+      end
     else
+      @assignees = current_tenant.users.all
+      @issue_types = current_tenant.issue_types.all
+      @issue_states = current_tenant.issue_states.all
+      @project = @issue.project
+      flash.now[:error] = @issue.errors.full_messages
       render 'new'
     end
   end
 
-  # DELETE /issues/:id
+  # DELETE projects/:id/issues/:id
   def destroy
-    @issue = Issue.find(params[:id])
-    @issue.destroy
-    redirect_to issues_path, notice: t('.notice')
+    if @issue.destroy
+      flash[:notice] = t('issues.destroy.notice')
+      respond_to do |format|
+        format.html { redirect_to project_path(@issue.project_id) }
+      end
+    else
+      flash.now[:error] = @issue.errors.full_messages
+      render 'edit'
+    end
   end
 
   private

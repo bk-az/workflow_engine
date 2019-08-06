@@ -4,54 +4,59 @@
   </thead>
   <tbody>
     <tr>
-      <th scope="row">Title :</th>
+      <th scope="row">Title:</th>
       <td><%= @issue.title %></td>
     </tr>
     <tr>
-      <th scope="row">Description :</th>
+      <th scope="row">Description:</th>
       <td><%= @issue.description %></td>
     </tr>
     <tr>
-      <th scope="row">Start Date :</th>
+      <th scope="row">Start Date:</th>
       <td><%= @issue.start_date %></td>
     </tr>
     <tr>
-      <th scope="row">Due Date :</th>
+      <th scope="row">Due Date:</th>
       <td><%= @issue.due_date %></td>
     </tr>
     <tr>
-      <th scope="row">Progress :</th>
+      <th scope="row">Progress:</th>
       <td><%= @issue.progress %></td>
     </tr>
     <tr>
-      <th scope="row">Priority :</th>
+      <th scope="row">Priority:</th>
       <td><%= @issue.priority %></td>
     </tr>
     <tr>
-      <th scope="row">State :</th>
-      <td><%= @issue.issue_state.name %></td>
+      <th scope="row">State:</th>
+      <td><%= @issue.issue_state.try(:name) %></td>
     </tr>
-    <% unless @issue.assignee.nil? %>
-      <tr>
-        <th scope="row">Assignee :</th>
-        <td><span class="glyphicon glyphicon-user"></span> <%= @issue.assignee.first_name %></td>
-      </tr>
-    <% end %>
     <tr>
-      <th scope="row">Issue Type :</th>
-      <td><%= @issue.issue_type.name %></td>
+      <th scope="row">Assignee:</th>
+      <td><span class="glyphicon glyphicon-user"></span><%= @issue.assignee.try(:name) %></td>
+    </tr>
+    <tr>
+      <th scope="row">Issue Type:</th>
+      <td><%= @issue.issue_type.try(:name) %></td>
     </tr>
   </tbody>
 </table>
-<%= link_to 'Edit', edit_issue_path(@issue),class: 'btn btn-primary' %>
+<% if can?(:update, @issue) %>
+  <%= link_to 'Edit', edit_project_issue_path(@issue.project_id, @issue.id), class: 'btn btn-primary' %>
+<% end %>
 </br></br>
 <div id="watch_button_div">
-  <%= render partial: 'issue_watchers/watch_button', locals: { issue: @issue, watcher: current_user } %>
+  <%= render partial: 'issue_watchers/watch_button', locals: { issue: @issue } %>
 </div>
 </br>
 
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add_watchers_modal">Add Watcher</button>
+<% if can?([:create_watcher, :search_watcher_to_add], IssueWatcher) %>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add_watchers_modal">Add Watcher</button>
+  <%= render partial: 'issue_watchers/add_watchers_form', locals: { issue: @issue } %>
+<% end %>
 <br><br>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#remove_watchers_modal">Remove Watcher</button>
-<%= render partial: 'issue_watchers/remove_watchers_form', locals: { issue: @issue } %>
-<%= render partial: 'issue_watchers/add_watchers_form', locals: { issue: @issue } %>
+
+<% if can?([:destroy_watcher, :search_watcher_to_destroy], IssueWatcher) %>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#remove_watchers_modal">Remove Watcher</button>
+  <%= render partial: 'issue_watchers/remove_watchers_form', locals: { issue: @issue } %>
+<% end %>

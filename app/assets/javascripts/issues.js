@@ -1,6 +1,6 @@
 $( document ).ready(function() {
   $('#issues_filter_form').on("change", function() {
-    $('#issue_filter_submit').click();
+    $(this).submit();
   });
   
   $('#issues_table').DataTable({
@@ -18,4 +18,3 @@ $( document ).ready(function() {
     $('.watcher_search').val('');
   })
 });
-

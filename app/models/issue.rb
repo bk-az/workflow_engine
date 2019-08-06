@@ -27,7 +27,7 @@ class Issue < ActiveRecord::Base
 
   has_many   :documents
 
-  has_many   :comments, as: :commentable
+  has_many   :comments, as: :commentable, dependent: :destroy
 
   # Polymorphic Watchers
   has_many   :issue_watchers
@@ -37,10 +37,37 @@ class Issue < ActiveRecord::Base
   has_many   :watcher_teams, through: :issue_watchers, source: :watcher,
                              source_type: 'Team', class_name: 'Team'
 
+  PRIORITY = {
+    Low: 0,
+    Medium: 1,
+    High: 2
+  }.freeze
+
   # Helper method for sending email
   def send_email
     return if Rails.env.test?
 
-    IssueWatcher.notify_creator_assignee_and_watchers(self) if persisted?
+    emails = []
+    issue_watchers.find_each do |watcher|
+      if watcher.watcher_type == User.name
+        user_email = User.find_by(id: watcher.watcher_id).email
+        emails << user_email
+      elsif watcher.watcher_type == Team.name
+        team = Team.find_by(id: watcher.watcher_id)
+        team_emails = team.users.pluck(:email)
+        emails += team_emails
+      end
+    end
+    # Fetching creator's email
+    emails << creator.email
+
+    # Fetching assignee's email
+    emails << assignee.email if assignee.present?
+
+    # Removing duplicates
+    emails = emails.uniq
+    emails.each do |email|
+      IssueMailer.delay.notify(email, id, company_id)
+    end
   end
 end

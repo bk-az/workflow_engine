@@ -39,9 +39,14 @@ GEM
     addressable (2.6.0)
       public_suffix (>= 2.0.2, < 4.0)
     arel (6.0.4)
+    autoprefixer-rails (9.6.1)
+      execjs
     bcrypt (3.1.13)
     binding_of_caller (0.8.0)
       debug_inspector (>= 0.0.1)
+    bootstrap-sass (3.4.1)
+      autoprefixer-rails (>= 5.2.1)
+      sassc (>= 2.0.0)
     builder (3.2.3)
     byebug (10.0.2)
     cancancan (3.0.1)
@@ -79,6 +84,7 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.3)
+    docile (1.3.2)
     erubis (2.7.0)
     execjs (2.7.0)
     factory_girl (4.9.0)
@@ -135,6 +141,7 @@ GEM
       cocaine (~> 0.5.5)
       mime-types
       mimemagic (~> 0.3.0)
+    popper_js (1.14.5)
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -176,6 +183,8 @@ GEM
     responders (2.4.1)
       actionpack (>= 4.2.0, < 6.0)
       railties (>= 4.2.0, < 6.0)
+    rspec-collection_matchers (1.1.3)
+      rspec-expectations (>= 2.99.0.beta1)
     rspec-core (3.8.2)
       rspec-support (~> 3.8.0)
     rspec-expectations (3.8.4)
@@ -204,9 +213,16 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    sassc (2.1.0.pre3-x86_64-linux)
+      ffi (~> 1.9)
     sdoc (0.4.2)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    simplecov (0.17.0)
+      docile (~> 1.1)
+      json (>= 1.8, < 3)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.2)
     spring (2.0.2)
       activesupport (>= 4.2)
     sprockets (3.7.2)
@@ -240,30 +256,34 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  byebug
-  cancancan
-  capybara
+  bootstrap-sass (= 3.4.1)
+  byebug (= 10.0.2)
+  cancancan (= 3.0.1)
+  capybara (= 3.1.1)
   coffee-rails (~> 4.1.0)
-  database_cleaner
-  delayed_job_active_record
+  database_cleaner (= 1.7.0)
+  delayed_job_active_record (= 4.1.3)
   devise (= 4.1.1)
-  factory_girl_rails
-  faker
+  factory_girl_rails (= 4.9.0)
+  faker (= 1.9.1)
   jbuilder (~> 2.0)
-  jquery-rails
+  jquery-rails (= 4.3.5)
   kaminari (= 1.1.1)
   mysql2 (= 0.3.21)
   paperclip (~> 5.0.0)
-  pry
-  pry-rails
+  popper_js (= 1.14.5)
+  pry (= 0.12.2)
+  pry-rails (= 0.3.9)
   rails (= 4.2.0)
-  rspec-rails
+  rspec-collection_matchers (= 1.1.3)
+  rspec-rails (= 3.8.2)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
-  spring
-  turbolinks
+  simplecov
+  spring (= 2.0.2)
+  turbolinks (= 5.2.0)
   uglifier (>= 1.3.0)
-  web-console (~> 2.0)
+  web-console (= 2.3.0)
 
 BUNDLED WITH
    1.17.3

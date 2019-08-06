@@ -1,99 +1,79 @@
 class IssueWatcher < ActiveRecord::Base
-  belongs_to :watcher, polymorphic: true
-  belongs_to :issue
+  not_multitenant
 
+  belongs_to :issue
+  belongs_to :watcher, polymorphic: true
+
+  # Adds watcher to database
   def self.add_watcher(params)
-    issue = Issue.find(params[:issue_id])
-    watcher_type = params[:watcher_type]
+    issue = Issue.find_by(id: params[:issue_id])
     begin
-      if watcher_type == 'User'
-        user = User.find(params[:watcher_id])
-        user.watching_issues << issue
-        return issue, user
-      elsif watcher_type == 'Team'
-        team = Team.find(params[:watcher_id])
-        team.watching_issues << issue
-        return issue, team
+      if issue.present?
+        if params[:watcher_type] == User.name
+          user = User.find_by(id: params[:watcher_id])
+          if user.present?
+            user.watching_issues << issue
+            return issue, user
+          end
+        elsif params[:watcher_type] == Team.name
+          team = Team.find_by(id: params[:watcher_id])
+          if team.present?
+            team.watching_issues << issue
+            return issue, team
+          end
+        end
       end
     rescue ActiveRecord::RecordNotUnique
       return issue
     end
   end
 
+  # Removes watcher from database
   def self.remove_watcher(params)
-    issue = Issue.find(params[:issue_id])
-    issue_watcher = issue.issue_watchers
-                         .find_by(watcher_id: params[:watcher_id],
-                                  watcher_type: params[:watcher_type])
-    unless issue_watcher.nil?
+    issue = Issue.find_by(id: params[:issue_id])
+    if issue.present?
+      issue_watcher = issue.issue_watchers.find_by(watcher_id: params[:watcher_id], watcher_type: params[:watcher_type])
+    end
+
+    if issue_watcher.present?
       issue_watcher.destroy
-      watcher_type = params[:watcher_type]
-      if watcher_type == 'User'
-        user = User.find(params[:watcher_id])
+      if params[:watcher_type] == User.name
+        user = User.find_by(id: params[:watcher_id])
         return issue, user
-      elsif watcher_type == 'Team'
-        team = Team.find(params[:watcher_id])
+      elsif params[:watcher_type] == Team.name
+        team = Team.find_by(id: params[:watcher_id])
         return issue, team
       end
     end
   end
 
+  # Returns all searched watchers to add
   def self.get_watchers_to_add(params)
-    issue = Issue.find(params[:issue_id])
-    watcher_type = params[:watcher_type]
-    keyword = params[:watcher_search]
-    if watcher_type == 'User'
-      watchers = User.where('first_name LIKE ?', "%#{sanitize_sql_like(keyword)}%")
-                     .where.not(id: issue.watcher_users.ids)
-    elsif watcher_type == 'Team'
-      watchers = Team.where('name LIKE ?', "%#{sanitize_sql_like(keyword)}%")
-                     .where.not(id: issue.watcher_teams.ids)
-    end
-    watchers
-  end
-
-  def self.get_watchers_to_remove(params)
-    issue = Issue.find(params[:issue_id])
-    watcher_type = params[:watcher_type]
-    keyword = params[:watcher_search]
-    if watcher_type == 'User'
-      watchers = User.where('first_name LIKE ?', "%#{sanitize_sql_like(keyword)}%")
-                     .where(id: issue.watcher_users.ids)
-    elsif watcher_type == 'Team'
-      watchers = Team.where('name LIKE ?', "%#{sanitize_sql_like(keyword)}%")
-                     .where(id: issue.watcher_teams.ids)
-    end
-    watchers
-  end
-
-  # Fetches all the emails from database
-  def self.notify_creator_assignee_and_watchers(issue)
-    emails = []
-    issue.issue_watchers.find_each do |watcher|
-      if watcher.watcher_type == 'User'
-        user_email = User.find(watcher.watcher_id).email
-        emails << user_email
-      elsif watcher.watcher_type == 'Team'
-        team = Team.find(watcher.watcher_id)
-        team_emails = team.users.pluck(:email)
-        emails += team_emails
+    issue = Issue.find_by(id: params[:issue_id])
+    if issue.present?
+      if params[:watcher_type] == User.name
+        watchers = User.where('first_name LIKE ?', "%#{sanitize_sql_like(params[:watcher_search])}%")
+                       .where.not(id: issue.watcher_users.ids)
+      elsif params[:watcher_type] == Team.name
+        watchers = Team.where('name LIKE ?', "%#{sanitize_sql_like(params[:watcher_search])}%")
+                       .where.not(id: issue.watcher_teams.ids)
       end
     end
-    # Fetching creator's email
-    emails << issue.creator.email
-    # Fetching assignee's email
-    unless issue.assignee.nil?
-      emails << issue.assignee.email
-    end
-    # Removing duplicates
-    emails = emails.uniq
-    send_email(emails, issue)
+    watchers
   end
 
-  # Sends email via active jobs
-  def self.send_email(emails, issue)
-    emails.each do |email|
-      IssueMailer.delay.notify(email, issue)
+  # Returns all searched watchers to remove
+  def self.get_watchers_to_remove(params)
+    issue = Issue.find_by(id: params[:issue_id])
+    if issue.present?
+      if params[:watcher_type] == User.name
+        watchers = User.where('first_name LIKE ?', "%#{sanitize_sql_like(params[:watcher_search])}%")
+                       .where(id: issue.watcher_users.ids)
+      elsif params[:watcher_type] == Team.name
+        watchers = Team.where('name LIKE ?', "%#{sanitize_sql_like(params[:watcher_search])}%")
+                       .where(id: issue.watcher_teams.ids)
+      end
     end
+    watchers
   end
 end

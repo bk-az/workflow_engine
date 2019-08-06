@@ -3,26 +3,25 @@
     <div class="row">
       <div class="col-md-3">
         <label>Projects</label>
-        <%= select_tag "project_id", options_from_collection_for_select(Project.all, :id, :title, params[:project_id]), class: 'form-control', include_blank: "All" %> 
+        <%= select_tag "project_id", options_from_collection_for_select(@projects, :id, :title), class: 'form-control', include_blank: "All" %> 
       </div>
 
       <div class="col-md-3">
         <label>Assignee</label>
-        <%= select_tag "assignee_id", options_from_collection_for_select(User.all, :id, :first_name, params[:assignee_id]), class: 'form-control', include_blank: "All" %>
+        <%= select_tag "assignee_id", options_from_collection_for_select(@assignees, :id, :first_name), class: 'form-control', include_blank: "All" %>
       </div>
 
       <div class="col-md-3">
         <label>Issue State</label>
-        <%= select_tag "state_id", options_from_collection_for_select(IssueState.all, :id, :name, params[:state_id]), class: 'form-control', include_blank: "All"%>
+        <%= select_tag "issue_state_id", options_from_collection_for_select(@issue_states, :id, :name), class: 'form-control', include_blank: "All"%>
       </div>
 
       <div class="col-md-3">
         <label>Issue Type</label>
-        <%= select_tag "type_id", options_from_collection_for_select(IssueType.all, :id, :name, params[:type_id]), class: 'form-control', include_blank: "All"%>
+        <%= select_tag "issue_type_id", options_from_collection_for_select(@issue_types, :id, :name), class: 'form-control', include_blank: "All"%>
       </div>
     </div>
     </br>
-    <%= submit_tag "Search", id: 'issue_filter_submit', class: 'd-none' %>
   <% end %>
 </br>
 <br> 
@@ -50,5 +49,5 @@
 </table>
 
 <div id="paginator_2">
-    <%= paginate @issues, remote: true %>
+    <%= paginate @issues %>
 </div>

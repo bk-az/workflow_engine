@@ -1,14 +1,23 @@
 require 'rails_helper'
 
 RSpec.describe IssueWatchersController, type: :controller do
-  before :all do
-    @issue = create(:issue)
-    @watcher = create(:user)
+  before(:all) do
+    @company = FactoryGirl.create(:company)
+    @admin = FactoryGirl.create(:admin, company: @company)
+    @member = FactoryGirl.create(:member, company: @company)
+    @issue = create(:issue, company: @company)
+    @watcher = create(:user, company: @company)
   end
 
-  let(:issue) { FactoryGirl.create(:issue) }
-  let(:user)  { FactoryGirl.create(:user) }
-  let(:team)  { FactoryGirl.create(:team) }
+  before(:each) do
+    @request.host = "#{@company.subdomain}.lvh.me:3000"
+    Company.current_id = @company.id
+    sign_in @member
+  end
+
+  let(:issue) { FactoryGirl.create(:issue, company: @company) }
+  let(:user)  { FactoryGirl.create(:user, company: @company) }
+  let(:team)  { FactoryGirl.create(:team, company: @company) }
 
   let(:user_watcher_params) do
     { issue_id: issue.id,
@@ -26,17 +35,20 @@ RSpec.describe IssueWatchersController, type: :controller do
       it 'should create a new issue-watcher for user in the database' do
         expect do
           xhr :post, :create_watcher, user_watcher_params
+          Company.current_id = @company.id
         end.to change(IssueWatcher, :count).by(1)
       end
 
       it 'should create a new issue-watcher for team in the database' do
         expect do
           xhr :post, :create_watcher, team_watcher_params
+          Company.current_id = @company.id
         end.to change(IssueWatcher, :count).by(1)
       end
 
       it 'should render create_watcher template' do
         xhr :post, :create_watcher, user_watcher_params
+        Company.current_id = @company.id
         expect(response).to render_template(:create_watcher)
       end
     end
@@ -50,28 +62,35 @@ RSpec.describe IssueWatchersController, type: :controller do
       it 'should not create a new issue-watcher' do
         expect do
           xhr :post, :create_watcher, user_watcher_params
+          Company.current_id = @company.id
         end.to_not change(IssueWatcher, :count)
       end
     end
   end
 
-  describe 'POST #create_watcher_by_admin' do
+  describe 'POST #create_watcher as @admin' do
+    before(:each) do
+      sign_in @admin
+    end
     context 'with valid attributes' do
       it 'should create a new issue-watcher for user in the database' do
         expect do
-          xhr :post, :create_watcher_by_admin, user_watcher_params
+          xhr :post, :create_watcher, user_watcher_params
+          Company.current_id = @company.id
         end.to change(IssueWatcher, :count).by(1)
       end
 
       it 'should create a new issue-watcher for team in the database' do
         expect do
-          xhr :post, :create_watcher_by_admin, team_watcher_params
+          xhr :post, :create_watcher, team_watcher_params
+          Company.current_id = @company.id
         end.to change(IssueWatcher, :count).by(1)
       end
 
-      it 'should render create_watcher_by_admin template' do
-        xhr :post, :create_watcher_by_admin, user_watcher_params
-        expect(response).to render_template(:create_watcher_by_admin)
+      it 'should render create_watcher template' do
+        xhr :post, :create_watcher, user_watcher_params
+        Company.current_id = @company.id
+        expect(response).to render_template(:create_watcher)
       end
     end
 
@@ -83,7 +102,8 @@ RSpec.describe IssueWatchersController, type: :controller do
       end
       it 'should not create a new issue-watcher' do
         expect do
-          xhr :post, :create_watcher_by_admin, user_watcher_params
+          xhr :post, :create_watcher, user_watcher_params
+          Company.current_id = @company.id
         end.to_not change(IssueWatcher, :count)
       end
     end
@@ -104,18 +124,22 @@ RSpec.describe IssueWatchersController, type: :controller do
     end
 
     it 'should delete the issue-watcher' do
-      expect { xhr :post, :destroy_watcher, watcher_params }
-        .to change(IssueWatcher, :count).by(-1)
+      expect do
+        xhr :post, :destroy_watcher, watcher_params
+        Company.current_id = @company.id
+      end.to change(IssueWatcher, :count).by(-1)
     end
 
     it 'should render destroy_watcher template' do
       xhr :post, :destroy_watcher, watcher_params
+      Company.current_id = @company.id
       expect(response).to render_template(:destroy_watcher)
     end
   end
 
-  describe 'DELETE destroy_watcher_by_admin' do
-    before :each do
+  describe 'DELETE destroy_watcher as @admin' do
+    before(:each) do
+      sign_in @admin
       @issue_watcher = build(:issue_watcher)
       @issue_watcher.issue_id = @issue.id
       @issue_watcher.watcher_id = @watcher.id
@@ -129,13 +153,43 @@ RSpec.describe IssueWatchersController, type: :controller do
     end
 
     it 'should delete the issue-watcher' do
-      expect { xhr :post, :destroy_watcher_by_admin, watcher_params }
-        .to change(IssueWatcher, :count).by(-1)
+      expect do
+        xhr :post, :destroy_watcher, watcher_params
+        Company.current_id = @company.id
+      end.to change(IssueWatcher, :count).by(-1)
     end
 
     it 'should render destroy_watcher template' do
-      xhr :post, :destroy_watcher_by_admin, watcher_params
-      expect(response).to render_template(:destroy_watcher_by_admin)
+      xhr :post, :destroy_watcher, watcher_params
+      Company.current_id = @company.id
+      expect(response).to render_template(:destroy_watcher)
+    end
+  end
+
+  describe 'GET search_watcher as @admin' do
+    before(:each) do
+      sign_in @admin
+    end
+    let(:search_watcher_params) do
+      { issue_id: @issue.id,
+        watcher_search: 'member',
+        watcher_type: 'User' }
+    end
+
+    it 'should return list of watchers to add' do
+      xhr :get, :search_watcher_to_add, search_watcher_params
+      Company.current_id = @company.id
+      issue = Issue.find(search_watcher_params[:issue_id])
+      watchers = User.where('first_name LIKE ?', "%#{search_watcher_params[:watcher_search]}%").where.not(id: issue.watcher_users.ids)
+      expect(assigns(:watchers)).to eq watchers
+    end
+
+    it 'should return list of watchers to remove' do
+      xhr :get, :search_watcher_to_destroy, search_watcher_params
+      Company.current_id = @company.id
+      issue = Issue.find(search_watcher_params[:issue_id])
+      watchers = User.where('first_name LIKE ?', "%#{search_watcher_params[:watcher_search]}%").where(id: issue.watcher_users.ids)
+      expect(assigns(:watchers)).to eq watchers
     end
   end
 end

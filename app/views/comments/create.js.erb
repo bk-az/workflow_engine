@@ -1,0 +1,7 @@
+
+$("#single-comment").append("<%= j render partial: 'comments/single_comment', locals: { comment: @comment }  %>");
+$('#comment').val('');
+$('#commenttext').val(' ');
+
+$("#comment_edit_form_<%= @comment.id %>").hide()
+$("#this_comment_content_<%= @comment.id %>").show()
