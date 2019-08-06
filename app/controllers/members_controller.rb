@@ -6,8 +6,6 @@ class MembersController < ApplicationController
   # GET /members/new
   def new
     set_invitation_view_variables
-    binding.pry
-
     # Make a dummy new user.
     @new_user = User.new
 
@@ -67,8 +65,7 @@ class MembersController < ApplicationController
 
   # GET /members/privileges/:id
   def privileges_show
-    user_id = params[:id]
-    @user = current_tenant.users.active.find(user_id)
+    @user = current_tenant.users.active.find(params[:id])
     respond_to do |format|
       format.js { render json: { data: { user: @user } } }
     end
@@ -76,7 +73,6 @@ class MembersController < ApplicationController
 
   # GET /members
   def index
-    # TODO
     @company = current_tenant
     # Get members other the logged in user.
     @members = @company.users.active.includes(:role)
