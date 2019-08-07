@@ -2,47 +2,20 @@ $(document).on('turbolinks:load', function(){
   issueStatesTable = $('#issue_states_datatable').DataTable({
     "info": false
   });
+
+  showIssueStateModal = $('#show_issue_state_modal');
+  issueStateModal = $('#issue_state_modal');
   issueStatesTableBody = $('#issue_states_datatable tbody');
-  issueStateForm = $("#issue_state_form");
-  issueNameSearch = $('#issue_name_search');
   issueStateFlash = $('#issue_state_flash');
   issueStatesErrors = $('#issue_state_errors');
-  showIssueStateModal = $('#show_issue_state_modal');
-  issueStateCategory = $('#issue_state_category');
-  issueStateIssueId = $('#issue_state_issue_id');
-  issueIssueStateCategory = $('#issue_issue_state_category');
-
-  var issueStateModal = $('#issue_state_modal');
+  
   var issueStatesCategoryFilter = $('#issue_states_category_filter');
   var issueStatesIssueId = $('#issue_states_issue_id');
 
-  // save these initial attrs to reset form later
-  var issueStateFormMethod = issueStateForm.attr("method");
-  var issueStateFormAction = issueStateForm.attr("action");
-
   issueStateModal.on('hidden.bs.modal', function () {
-    clearIssueStateForm();
-    hideIssueSearch();
     clearFlashMessages();
-    resetAttrIssueStateForm();
+    $('#issue_state_form_area').html('');
   });
-
-  issueStateForm.submit(function(e){
-    if (issueStateCategory.val() == 'issue' && issueStateIssueId.val() == ''){
-      alert('Please Select an Issue');
-      return false;
-    }
-  });
-
-  issueStateCategory.change(function() {
-    if ($(this).val() == 'global') {
-      hideIssueSearch();
-      issueStateIssueId.val('');
-      $('#issue_state_issue_name').val('');
-    } else if ($(this).val() == 'issue') {
-      showIssueSearch();
-    }
-  }); 
 
   issueStatesCategoryFilter.change(function() {
     tr = issueStatesTableBody.find('tr');
@@ -57,7 +30,7 @@ $(document).on('turbolinks:load', function(){
   $('#issue_states_issue_name_apply').click(function(){
     var id = issueStatesIssueId.val();
     if (id == ''){
-      alert('Please select a issue');
+      alert('Please select an issue');
       return false
     }
     issueStatesCategoryFilter.val('issue');
@@ -73,27 +46,38 @@ $(document).on('turbolinks:load', function(){
     issueStatesErrors.html('');
   }
 
-  function hideIssueSearch() {
-    issueNameSearch.attr("hidden",true);
-  }
+  $('#issue_state_form_area').on("change", "select", function(){
+    if ($(this).val() == 'global') {
+      $('#issue_search_area').attr("hidden", true);
+      $('#issue_search_area input').val('');
+    } else if ($(this).val() == 'issue_specific') {
+      $('#issue_search_area').attr("hidden", false);
+    }
+  });
 
-  function resetAttrIssueStateForm(){
-    issueStateForm.attr("method", issueStateFormMethod);
-    issueStateForm.attr("action", issueStateFormAction);
-  }
-
+  $('#issue_state_form_area').on("submit", "form", function(){
+    var category = $('#issue_state_category').val();
+    var issue_id = $('#issue_state_issue_id').val();
+    if (category == 'issue_specific' && issue_id == ''){
+      alert('Please Select an Issue');
+      return false;
+    }
+  });
 });
 
-function resetIssueIssueStateCategory(){
-  issueIssueStateCategory.find('label:eq(1)').removeClass('active');
-  issueIssueStateCategory.find('label:eq(0)').addClass('active');
+function resetIssueStateCategoryToggle(){
+  var categoryToggle = $('#issue_state_category_toggle');
+  if (categoryToggle.length > 0) {
+    categoryToggle.find('label').removeClass('active');
+    categoryToggle.find('label:eq(0)').addClass('active');
+  }
 }
 
-function showIssueSearch() {
-  issueNameSearch.attr("hidden",false);  
-}
-
-function clearIssueStateForm() {
-  issueStateForm.trigger("reset");
-  resetIssueIssueStateCategory();
+function issueStateCategoryToggleSetGlobal(){
+  var categoryToggle = $('#issue_state_category_toggle');
+  if (categoryToggle.length > 0) {
+    categoryToggle.find('label').removeClass('active');
+    categoryToggle.find('label:eq(1)').addClass('active');
+    categoryToggle.find('input[name=category][value=global]').prop('checked', true);
+  }
 }

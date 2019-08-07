@@ -1,61 +1,64 @@
 <div class="text-center my-4">
   <h2>Issue States</h2>
 </div>
-<button type="button" class="btn btn-primary mb-4 mr-2" data-toggle="modal" data-target="#issue_state_modal">
-  <i class="fas fa-plus mr-2"></i>New Issue State</button>
-  <% if params[:issue_id].present? %>
+
+<% if params[:issue_id].present? %>
+  <%= link_to('New Issue State', new_issue_issue_state_path(params[:issue_id]), remote: true, class: 'btn btn-primary mb-4 mr-2') %>
   <a class="btn btn-warning mb-4" href="<%= issue_states_path %>">
     <i class="fas fa-cog mr-2"></i>Manage All Issue States</a>
-    <% end %>
+<% else %>
+  <%= link_to('New Issue State', new_issue_state_path, remote: true, class: 'btn btn-primary mb-4 mr-2') %>
+<% end %>
 
+<!-- Issue State Modals -->
 
-    <!-- Issue State Modals -->
-    <%= render 'issue_states/new_issue_state_modal' %>
-    <%= render 'issue_states/show_issue_state_modal' %>
+<%= render 'issue_states/new_issue_state_modal' %>
+<%= render 'issue_states/show_issue_state_modal' %>
 
-    <div class="row">
-
-      <% if params[:issue_id].nil? %>
-      <div class="col-lg-6 col-md-12 col-sm-12">
-        <% else %>
-        <div class="col-lg-12 col-md-12 col-sm-12">
-          <% end %>
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <label class="input-group-text bg-dark text-light" for="issue_states_category_filter">Category</label>
-            </div>
-            <select id="issue_states_category_filter" class="custom-select">
-              <option value='all' selected>All Issue States</option>
-              <option value='global'>Globally Available</option>
-              <option value='issue'>Issue Specific</option>
-            </select>
-          </div>
+<div class="row">
+  <% if params[:issue_id].nil? %>
+    <div class="col-lg-6 col-md-12 col-sm-12">
+  <% else %>
+    <div class="col-lg-12 col-md-12 col-sm-12">
+  <% end %>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text bg-dark text-light" for="issue_states_category_filter">Category</label>
         </div>
-        <% if params[:issue_id].nil? %>
-        <div class="col-lg-6 col-md-12 col-sm-12">
-          <div class="input-group mb-4">
-            <div class="input-group-prepend">
-              <label class="input-group-text bg-dark text-light" for="issue_states_issue_name">Search Issue</label>
-            </div>
-            <%= autocomplete_field_tag 'issue_states_issue_name', '', autocomplete_issue_title_issue_states_path, :id_element => '#issue_states_issue_id', class: 'form-control', placeholder: 'Search' %>
-            <%= link_to("Apply", "" , id: 'issue_states_issue_name_apply', class: 'btn btn-outline-info ml-2') %>
-            <input type="number" id="issue_states_issue_id" hidden>
-          </div>
+        <select id="issue_states_category_filter" class="custom-select">
+          <option value='all' selected>All Issue States</option>
+          <option value='global'>Globally Available</option>
+          <option value='issue'>Issue Specific</option>
+        </select>
+      </div>
+    </div>
+
+  <% if params[:issue_id].nil? %>
+    <div class="col-lg-6 col-md-12 col-sm-12">
+      <div class="input-group mb-4">
+        <div class="input-group-prepend">
+          <label class="input-group-text bg-dark text-light" for="issue_states_issue_name">Search Issue</label>
         </div>
-        <% end %>
+        <%= autocomplete_field_tag 'issue_states_issue_name', '', autocomplete_issue_title_issue_states_path, :id_element => '#issue_states_issue_id', class: 'form-control', placeholder: 'Search' %>
+        <%= link_to("Apply", "" , id: 'issue_states_issue_name_apply', class: 'btn btn-outline-info ml-2') %>
+        <input type="number" id="issue_states_issue_id" hidden>
       </div>
-      <div class="my-4">
-        <table id="issue_states_datatable" class="table table-hover table-dark">
-          <thead class="bg-info">
-            <tr>
-              <th>Name</th>
-              <th>Global</th>
-              <th>Issue #</th>
-              <th>Manage</th>
-            </tr>
-          </thead>
-          <tbody>
-            <%= render @issue_states %>
-          </tbody>
-        </table>
-      </div>
+    </div>
+  <% end %>
+</div>
+
+<div class="my-4">
+  <table id="issue_states_datatable" class="table table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Global</th>
+        <th>Issue #</th>
+        <th>Manage</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: 'issue_state_table_row', collection: @issue_states, as: :issue_state %>
+    </tbody>
+  </table>
+</div>

@@ -11,33 +11,27 @@ class IssueState < ActiveRecord::Base
   scope :issue_specific_states, ->(issue_id) { where(issue_id: [issue_id, nil]) }
   scope :issue_states_for_projects, ->(project) { project.issues.map(&:issue_state) }
 
-  def safe_update?(params)
+  def can_change_scope?(issue_id)
     result = true
-    if params[:issue_id].nil?
-      update(params)
-    else
-      count = issues.where.not(id: params[:issue_id]).count
+    if issue_id.present?
+      count = issues.where.not(id: issue_id).count
       if count > 0
         result = false
         errors[:base] << "#{count} issue".pluralize(count) +
                          ' found, preventing to change scope' \
                          ' of this issue state'
-      else
-        update(params)
       end
     end
     result
   end
 
-  def safe_destroy?
-    result = true
+  def dependent_issues_present?
+    result = false
     count = issues.count
     if count > 0
-      result = false
+      result = true
       errors[:base] << "#{count} issue".pluralize(count) +
                        ' using this state'
-    else
-      destroy
     end
     result
   end

@@ -11,10 +11,10 @@ Rails.application.routes.draw do
 
   resources :issues do
     resources :comments, shallow: true
-    resources :issue_states, only: %i[index create]
+    resources :issue_states
   end
 
-  resources :issue_states, except: :new do
+  resources :issue_states do
     get :autocomplete_issue_title, on: :collection
   end
 

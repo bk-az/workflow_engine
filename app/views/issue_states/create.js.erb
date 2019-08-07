@@ -1,9 +1,10 @@
 issueStateFlash.html('<%= j render partial: "layouts/notice" %>');
-<% unless @issue_state.errors.any? %>
-  clearIssueStateForm();
-  issueStatesTableBody.append('<%= j render @issue_state %>');
-  tr = $("#issue_state_<%= @issue_state.id %>");
+<% if @issue_state.errors.blank? %>
+  $("#issue_state_form").trigger('reset');
+  issueStatesTableBody.append('<%= j render partial: 'issue_state_table_row', locals: {issue_state: @issue_state} %>');
+  tr = $("#<%= issue_state_table_row_id(@issue_state) %>");
   issueStatesTable.row.add(tr).draw();
 <% else %>
   issueStatesErrors.html('<%= j render partial: "layouts/errors", locals: {model: @issue_state} %>');
 <% end %>
+resetIssueStateCategoryToggle();
