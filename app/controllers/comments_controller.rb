@@ -25,6 +25,7 @@ class CommentsController < ApplicationController
   end
 
   def edit
+    binding.pry
     respond_to do |format|
       format.js
     end
