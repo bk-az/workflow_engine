@@ -2,38 +2,71 @@
 <html>
 <head>
   <title>WorkflowEngine</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <%= stylesheet_link_tag    'application', media: 'all' %>
 
   <!-- BOOTSTRAP 4 COMPONENTS -->
   <%= stylesheet_link_tag    'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' %>
-  <%= javascript_include_tag 'https://code.jquery.com/jquery-3.3.1.slim.min.js' %>
   <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' %>
   <%= javascript_include_tag 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' %>
   <!-- END - BOOTSTRAP 4 COMPONENTS -->
 
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <!-- MDL -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <!-- <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css"> -->
+  <!-- <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script> -->
+  <!-- Material Icons -->
+  <!-- Compiled and minified CSS -->
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> -->
+  <!-- Compiled and minified JavaScript -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> -->
+  <!--Import Google Icon Font-->
+  <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
+  <!--Import materialize.css-->
+  <!-- Font Awesome CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+  <!-- Add icon library -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Material Design for Bootstrap -->
+
+  <%= javascript_include_tag 'jquery', 'rails' %>
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <%= render 'layouts/header' %>
   <div class="container">
-    <br>
-
-    <% if user_signed_in? %>
-    <div>
-      <%= link_to "Logout", destroy_user_session_path, data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-sm btn-outline-warning' %>
-      <%= link_to "Edit My Profile", edit_user_registration_path, class: 'btn btn-sm btn-outline-info' %>
-    </div>
-    <% end %>
-
-    <%= render 'shared/success' %>
-    <%= render 'shared/error' %>
-    <%= render 'shared/alert' %>
-    <%= render 'shared/notice' %>
     
-    <%= yield %>
+    <div id="wrapper">
+      <%= render "layouts/sidebar" %>
+      <!-- Page Content -->
+      <div id="page-content-wrapper" style="overflow: auto;">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-12">
+              <%= render 'shared/flash' %>
+              <%= yield %>                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <br>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src='https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js'></script> 
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
   </div>
 </body>
 </html>
+

@@ -1,0 +1,71 @@
+<!-- render navbar and drawer -->
+
+<h1><%= @project.title %></h1>
+
+<h2>Issues</h2>
+<%= link_to 'New Issue', new_project_issue_path(@project), class: 'btn btn-primary float-right'%>
+<tr>
+  <% if can? [:edit, :delete], Project %>
+    <td><%= link_to 'Edit Project', edit_project_path(@project),class: 'btn btn-warning' %></td>
+    <td><%= link_to 'Delete Project', project_path(@project),class: 'btn btn-danger', method: 'delete', data: { confirm: 'Are you sure?' } %></td>
+  <% end %>
+</tr>
+
+
+<div class="row">
+  <div class="col-md-4">
+    <label>Issue State</label>
+    <select>
+      <%= @issue_states.each do |issue_state| %>
+        <option ><%= issue_state.name %></option>
+      <% end %>
+    </select>    
+  </div>
+  <div class="col-md-4">
+    <input class="form-control" id="myInput" type="text" placeholder="Enter keyword..">    
+  </div>
+</div>
+
+<br>
+
+
+<div style="overflow-x:auto;">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Issue State</th>
+        <th scope="col">Priority</th>
+        <th scope="col">Created</th>
+        <th scope="col">Due Date</th>
+      </tr>
+    </thead>
+    <tbody id="myList">
+      <% @issues.each do |issue| %>
+      <tr>
+        <td><%= issue.title %></td>
+
+        <% if issue.issue_state.name == "Resolved" %>
+          <td ><%= render "resolved" %></td>
+        <% elsif issue.issue_state.name == "Unresolved" %>
+          <td ><%= render "unresolved" %></td>
+        <% end %>
+
+        <% if issue.priority == 2 %>
+          <td ><span class="glyphicon glyphicon-arrow-up red"></span></td>
+        <% elsif issue.priority == 1 %>
+          <td ><span class="glyphicon glyphicon-arrow-right green"></span></td>
+        <% elsif issue.priority == 0 %>
+          <td ><span class="glyphicon glyphicon-arrow-down blue"></span></td>
+        <% end %>
+
+        <td><%= issue.start_date %></td>
+
+        <td><%= issue.due_date %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= render 'comments/comment' %>

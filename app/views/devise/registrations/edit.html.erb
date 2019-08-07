@@ -1,56 +1,45 @@
-<div class="row">
-  <div class="offset-sm-2 col-sm-8">
-    <div class="card">
-      <h1 class="card-header">Edit <%= resource_name.to_s.humanize %></h1>
-      <div class="card-body">
-        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-          <%= devise_error_messages! %>
+<div class="card">
+  <h2 class="card-header">Edit <%= resource_name.to_s.humanize %></h2>
+  <div class="card-body">
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= devise_error_messages! %>
 
-          <%= render 'devise/shared/users_additional_signup_form_attributes', { obj: resource, f: f } %>
+      <%= render 'devise/shared/users_additional_signup_form_attributes', { obj: resource, f: f } %>
 
-          <div class="field form-group">
-            <%= f.label :email %><br />
-            <%= f.email_field :email, autofocus: true, class: "form-control form-control-sm", placeholder: "john.doe@gmail.com", readonly: true%>
-          </div>
-
-          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-          <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-          <% end %>
-
-          <div class="field form-group">
-            <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-            <%= f.password_field :password, autocomplete: "off", class: "form-control form-control-sm", placeholder: "New Password for John Doe." %>
-          </div>
-
-          <div class="field form-group">
-            <%= f.label :password_confirmation %><br />
-            <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control form-control-sm", placeholder: "Confirm New Password for John Doe." %>
-          </div>
-
-          <div class="field form-group">
-            <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-            <%= f.password_field :current_password, autocomplete: "off", class: "form-control form-control-sm", placeholder: "Current Password for John Doe." %>
-          </div>
-
-          <div class="actions text-right">
-            <%= f.submit "Update", class: 'btn btn-sm btn-info' %>
-          </div>
-        <% end %>
-
-        <hr>
-
-        <h3>Cancel my account</h3>
-
-        <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-sm btn-outline-danger' %></p>
+      <div class="field form-group">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true, class: "form-control form-control-sm", placeholder: "john.doe@gmail.com", readonly: true%>
       </div>
-      <div class="card-footer text-right"><em class="text-muted">Workflow Engine</em></div>
-    </div>
-    
-    <div class="row text-center">
-      <div class="offset-sm-2 col-sm-8">
-        <hr>
-        <%= link_to "Back to members", members_path, class: 'btn btn-sm btn-outline-info' %>
+
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+      <% end %>
+
+      <div class="field form-group">
+        <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+        <%= f.password_field :password, autocomplete: "off", class: "form-control form-control-sm", placeholder: "New Password for John Doe." %>
       </div>
-    </div>
+
+      <div class="field form-group">
+        <%= f.label :password_confirmation %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control form-control-sm", placeholder: "Confirm New Password for John Doe." %>
+      </div>
+
+      <div class="field form-group">
+        <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+        <%= f.password_field :current_password, autocomplete: "off", class: "form-control form-control-sm", placeholder: "Current Password for John Doe." %>
+      </div>
+
+      <div class="actions text-right">
+        <%= f.submit "Update", class: 'btn btn-sm btn-secondary' %>
+      </div>
+    <% end %>
+
+    <hr>
+
+    <h3>Cancel my account</h3>
+
+    <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-sm btn-outline-danger' %></p>
   </div>
+  <div class="card-footer text-right"><em class="text-muted">Workflow Engine</em></div>
 </div>
