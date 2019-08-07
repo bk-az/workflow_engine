@@ -35,4 +35,12 @@ class ApplicationController < ActionController::Base
   ensure
     Company.current_id = nil
   end
+
+  def current_ability
+    if request.path =~ /\bprojects\/\d+\/project_memberships\b/
+      @current_ability ||= Ability.new(current_user, project_id: params[:project_id].to_i)
+    else
+      super
+    end
+  end
 end

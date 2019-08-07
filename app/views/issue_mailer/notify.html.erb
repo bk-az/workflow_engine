@@ -1,0 +1,8 @@
+<div>
+  <h3>Hello <strong><%= @email_address %>!</strong></h3>
+  <p>Hey! There is an update in <%= @issue.title %> of <%= @issue.project.title %>. Please have a look at it. </p>
+  <%= link_to 'Go to Issue', project_issue_url(@issue.project, @issue) , style: 'background-color: #007bff;
+    border: none; color: white; padding: 9px; text-align: center; text-decoration: none;
+    display: inline-block; font-size: 10px; margin: 4px 2px; cursor: pointer;
+    border-radius: 4px;' %>
+</div>

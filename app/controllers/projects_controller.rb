@@ -23,6 +23,8 @@ class ProjectsController < ApplicationController
   end
 
   def show
+    @project = Project.find(params[:id])
+    @document = Document.new
     @issues = @project.issues
     @issue_types = IssueType.issue_types_for_projects(@project)
     @issue_states = IssueState.issue_states_for_projects(@project)
