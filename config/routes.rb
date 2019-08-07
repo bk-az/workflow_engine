@@ -1,18 +1,20 @@
 Rails.application.routes.draw do
+  resources :issues, only: :index do
+    resources :comments, shallow: true
+    resources :issue_states
+    get 'filter', on: :collection
+  end
+
   devise_scope :user do
     get 'signout', to: 'devise/sessions#destroy'
   end
 
   resources :projects do
     resources :comments, shallow: true
+    resources :issues, only: [:new, :create, :show, :edit, :update, :destroy]
   end
 
   resources :comments, only: [:edit, :update, :destroy]
-
-  resources :issues do
-    resources :comments, shallow: true
-    resources :issue_states
-  end
 
   resources :issue_states do
     get :autocomplete_issue_title, on: :collection

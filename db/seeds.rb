@@ -16,6 +16,7 @@ description = 'Lorem Ipsum is simply dummy text of the printing and typesetting 
 debug('Company')
 # Creating Company
 company = Company.create(name: '7vals', subdomain: '7vals', owner_id: 1, description: description)
+
 # set current tenant
 Company.current_id = company.id
 
@@ -54,7 +55,7 @@ end
 
 debug('Projects and Issues')
 # Creating 5 Projects each having 9 issues
-1.upto(15) do |i|
+1.upto(5) do |i|
   project = Project.create( title: "Project#{i}", description: description,
                             company_id: company.id)
   1.upto(9) do |j|
