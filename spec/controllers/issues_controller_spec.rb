@@ -5,6 +5,8 @@ RSpec.describe IssuesController, type: :controller do
     @company = FactoryGirl.create(:company)
     @admin = FactoryGirl.create(:admin, company: @company)
     @member = FactoryGirl.create(:member, company: @company)
+    @project = FactoryGirl.create(:project, company: @company)
+    @issue = FactoryGirl.create(:issue, company: @company)
   end
   before(:each) do
     @request.host = "#{@company.subdomain}.lvh.me:3000"
@@ -28,7 +30,7 @@ RSpec.describe IssuesController, type: :controller do
 
   context 'Get #new' do
     it 'it render new template' do
-      get :new
+      get :new, id: @issue, project_id: @project.id
       expect(response).to be_success
     end
   end
@@ -39,11 +41,11 @@ RSpec.describe IssuesController, type: :controller do
     end
 
     it 'returns a success response' do
-      get :show, id: @issue
+      get :show, id: @issue, project_id: @project.id
       expect(assigns(:issue)).to eq(@issue)
     end
     it 'should success and render to the :show template' do
-      get :show, id: FactoryGirl.create(:issue)
+      get :show, id: @issue, project_id: @project.id
       expect(response).to have_http_status(200)
       expect(response).to render_template :show
     end
@@ -55,30 +57,32 @@ RSpec.describe IssuesController, type: :controller do
       Company.current_id = @company.id
       sign_in @member
     end
-    let(:issue_attr) {@issue_attr = FactoryGirl.attributes_for(:issue, company_id: @company.id)}
+    let(:issue_attr) { @issue_attr = FactoryGirl.attributes_for(:issue, company_id: @company.id) }
 
     context 'with valid attributes' do
       it 'saves the new issue in the database' do
         expect do
-          post :create, issue: issue_attr
+          post :create, issue: issue_attr, project_id: @project.id
           Company.current_id = @company.id
         end.to change(Issue, :count).by(1)
       end
 
       it "redirects to that new issue's page" do
-        post :create, issue: issue_attr
+        post :create, issue: issue_attr, project_id: @project.id
         Company.current_id = @company.id
-        expect(response).to redirect_to Issue.last
+        expect(response).to redirect_to project_issue_url(@project.id, Issue.last.id)
       end
     end
 
     context 'with invalid attributes' do
       it 'does not save the new issue in the database' do
-        expect { post :create, issue: FactoryGirl.attributes_for(:invalid_issue) }
-        .to_not change(Project, :count)
+        expect do
+          post :create, issue: FactoryGirl.attributes_for(:invalid_issue), project_id: @project.id
+          Company.current_id = @company.id
+        end.to_not change(Project, :count)
       end
       it 're-renders the :new template' do
-        post :create, issue: FactoryGirl.attributes_for(:invalid_issue)
+        post :create, issue: FactoryGirl.attributes_for(:invalid_issue), project_id: @project.id
         expect(response).to render_template :new
       end
     end
@@ -100,7 +104,7 @@ RSpec.describe IssuesController, type: :controller do
 
       context 'valid attributes' do
         it 'locates the requested @issue with same assignee_id' do
-          put :update, id: @issue, issue: FactoryGirl.attributes_for(:issue)
+          put :update, id: @issue, issue: FactoryGirl.attributes_for(:issue), project_id: @project.id
           Company.current_id = @company.id
           expect(assigns(:issue)).to eq(@issue)
         end
@@ -108,8 +112,8 @@ RSpec.describe IssuesController, type: :controller do
         it "changes @issue's attributes with same assignee_id" do
           put :update, id: @issue, issue: FactoryGirl.attributes_for(
             :issue, title: 'This is edited issue',
-            description: 'Some changed description'
-            )
+                    description: 'Some changed description'
+          ), project_id: @project.id
           Company.current_id = @company.id
           @issue.reload
           expect(@issue.title).to eq('This is edited issue')
@@ -117,13 +121,13 @@ RSpec.describe IssuesController, type: :controller do
         end
 
         it 'redirects to the updated issue with same assignee_id' do
-          put :update, id: @issue, issue: FactoryGirl.attributes_for(:issue)
+          put :update, id: @issue, issue: FactoryGirl.attributes_for(:issue), project_id: @project.id
           Company.current_id = @company.id
-          expect(response).to redirect_to @issue
+          expect(response).to redirect_to project_issue_url(@project, @issue)
         end
 
         it 'locates the requested @issue with same creator_id' do
-          put :update, id: @issue, issue: FactoryGirl.attributes_for(:issue)
+          put :update, id: @issue, issue: FactoryGirl.attributes_for(:issue), project_id: @project.id
           Company.current_id = @company.id
           expect(assigns(:issue)).to eq(@issue)
         end
@@ -132,7 +136,7 @@ RSpec.describe IssuesController, type: :controller do
           put :update, id: @issue, issue: FactoryGirl.attributes_for(
             :issue, title: 'This is edited issue',
             description: 'Some changed description'
-            )
+            ), project_id: @project.id
           Company.current_id = @company.id
           @issue.reload
           expect(@issue.title).to eq('This is edited issue')
@@ -140,23 +144,23 @@ RSpec.describe IssuesController, type: :controller do
         end
 
         it 'redirects to the updated issue same creator_id' do
-          put :update, id: @issue, issue: FactoryGirl.attributes_for(:issue)
+          put :update, id: @issue, issue: FactoryGirl.attributes_for(:issue), project_id: @project.id
           Company.current_id = @company.id
-          expect(response).to redirect_to @issue
+          expect(response).to redirect_to project_issue_url(@project, @issue)
         end
       end
 
       context 'invalid attributes' do
         it 'locates the requested @issue' do
           put :update,
-          id: @issue, issue: FactoryGirl.attributes_for(:invalid_issue)
+          id: @issue, issue: FactoryGirl.attributes_for(:invalid_issue), project_id: @project.id
           Company.current_id = @company.id
           expect(assigns(:issue)).to eq(@issue)
         end
 
         it "does not change @issue's attributes" do
           put :update,
-          id: @issue, issue: FactoryGirl.attributes_for(:issue, title: nil)
+          id: @issue, issue: FactoryGirl.attributes_for(:issue, title: nil), project_id: @project.id
           Company.current_id = @company.id
           @issue.reload
           expect(@issue.title).to eq('This is newly created issue')
@@ -165,7 +169,7 @@ RSpec.describe IssuesController, type: :controller do
         it 're-renders the edit method' do
           put :update, id: @issue, issue: FactoryGirl.attributes_for(
             :invalid_issue
-            )
+          ), project_id: @project.id
           Company.current_id = @company.id
           expect(response).to render_template :edit
         end
@@ -183,7 +187,7 @@ RSpec.describe IssuesController, type: :controller do
       end
       context 'valid attributes' do
         it 'locates the requested @issue' do
-          put :update, id: @issue, issue: FactoryGirl.attributes_for(:issue)
+          put :update, id: @issue, issue: FactoryGirl.attributes_for(:issue), project_id: @project.id
           expect(assigns(:issue)).to eq(@issue)
         end
 
@@ -191,28 +195,28 @@ RSpec.describe IssuesController, type: :controller do
           put :update, id: @issue, issue: FactoryGirl.attributes_for(
             :issue, title: 'This is edited issue',
                     description: 'Some changed description'
-          )
+          ), project_id: @project.id
           @issue.reload
           expect(@issue.title).to eq('This is edited issue')
           expect(@issue.description).to eq('Some changed description')
         end
 
         it 'redirects to the updated issue' do
-          put :update, id: @issue, issue: FactoryGirl.attributes_for(:issue)
-          expect(response).to redirect_to @issue
+          put :update, id: @issue, issue: FactoryGirl.attributes_for(:issue), project_id: @project.id
+          expect(response).to redirect_to project_issue_url(@project, @issue)
         end
       end
 
       context 'invalid attributes' do
         it 'locates the requested @issue' do
           put :update,
-              id: @issue, issue: FactoryGirl.attributes_for(:invalid_issue)
+              id: @issue, issue: FactoryGirl.attributes_for(:invalid_issue), project_id: @project.id
           expect(assigns(:issue)).to eq(@issue)
         end
 
         it "does not change @issue's attributes" do
           put :update,
-              id: @issue, issue: FactoryGirl.attributes_for(:issue, title: nil)
+              id: @issue, issue: FactoryGirl.attributes_for(:issue, title: nil), project_id: @project.id
           @issue.reload
           expect(@issue.title).to eq('This is newly created issue')
         end
@@ -220,7 +224,7 @@ RSpec.describe IssuesController, type: :controller do
         it 're-renders the edit method' do
           put :update, id: @issue, issue: FactoryGirl.attributes_for(
             :invalid_issue
-          )
+          ), project_id: @project.id
           expect(response).to render_template :edit
         end
       end
@@ -238,8 +242,8 @@ RSpec.describe IssuesController, type: :controller do
     end
 
     it 'should delete issue' do
-      delete :destroy, id: @issue.id
-      expect(response).to redirect_to issues_url
+      delete :destroy, id: @issue.id, project_id: @project.id
+      expect(response).to redirect_to project_url(@project.id)
     end
   end
 
@@ -249,19 +253,19 @@ RSpec.describe IssuesController, type: :controller do
     end
 
     it 'routes to #show' do
-      expect(get: '/issues/1').to route_to('issues#show', id: '1')
+      expect(get: 'projects/1/issues/1').to route_to('issues#show', id: '1', project_id: '1')
     end
 
     it 'routes to #new' do
-      expect(get: '/issues/new').to route_to('issues#new')
+      expect(get: 'projects/1/issues/new').to route_to('issues#new', project_id: '1')
     end
 
     it 'routes to #update via PUT' do
-      expect(put: '/issues/1').to route_to('issues#update', id: '1')
+      expect(put: 'projects/1/issues/1').to route_to('issues#update', id: '1', project_id: '1')
     end
 
     it 'routes to #update via PATCH' do
-      expect(patch: '/issues/1').to route_to('issues#update', id: '1')
+      expect(patch: 'projects/1/issues/1').to route_to('issues#update', id: '1', project_id: '1')
     end
   end
 end

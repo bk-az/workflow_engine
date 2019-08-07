@@ -26,11 +26,12 @@ gem 'uglifier', '>= 1.3.0'
 # Custom Gems
 gem 'bootstrap-sass', '3.4.1'
 gem 'cancancan', '3.0.1'
+gem 'delayed_job_active_record', '4.1.3'
 gem 'devise', '4.1.1'
 gem 'sequenceid'
 
 gem 'faker', '1.9.1'
-gem 'kaminari'
+gem 'kaminari', '1.1.1'
 gem 'popper_js', '1.14.5'
 gem 'rspec-collection_matchers', '1.1.3'
 gem 'simplecov', require: false, group: :test
@@ -46,7 +47,7 @@ group :development, :test do
   gem 'web-console', '2.3.0'
   # Spring speeds up development by keeping your application running in the
   # background. Read more: https://github.com/rails/spring
-  gem 'spring', '2.0.2'
   gem 'pry', '0.12.2'
-  gem 'pry-rails'
+  gem 'pry-rails', '0.3.9'
+  gem 'spring', '2.0.2'
 end

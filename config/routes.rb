@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
-  resources :issues, only: [:index, :show, :edit, :update, :delete] do
+  resources :issues, only: :index do
+
     resources :comments, shallow: true
     get 'filter', on: :collection
     resources :documents
@@ -13,7 +14,7 @@ Rails.application.routes.draw do
   resources :projects do
     resources :documents
     resources :comments, shallow: true
-    resources :issues, only: [:new, :create]
+    resources :issues, only: [:new, :create, :show, :edit, :update, :destroy]
   end
 
   resources :comments, only: [:edit, :update, :destroy]
@@ -35,9 +36,17 @@ Rails.application.routes.draw do
       get 'change_password_form', action: 'show_change_password_form'
       put 'change_password', action: 'change_password'
     end
-
     collection do
       get 'privileges'
+    end
+  end
+
+  resources :issue_watchers do
+    collection do
+      post 'create_watcher'
+      post 'destroy_watcher'
+      get  'search_watcher_to_add'
+      get  'search_watcher_to_destroy'
     end
   end
 end

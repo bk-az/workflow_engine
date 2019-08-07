@@ -1,3 +1,4 @@
+<h2><%= @issue.title %></h2>
 <table class="table">
   <thead class="thead-dark">
   </thead>
@@ -41,7 +42,23 @@
   </tbody>
 </table>
 <% if can?(:update, @issue) %>
-  <%= link_to 'Edit', edit_issue_path(@issue), class: 'btn btn-primary' %>
+  <%= link_to 'Edit', edit_project_issue_path(@issue.project_id, @issue.id), class: 'btn btn-primary' %>
+<% end %>
+</br></br>
+<div id="watch_button_div">
+  <%= render partial: 'issue_watchers/watch_button', locals: { issue: @issue } %>
+</div>
+</br>
+
+<% if can?([:create_watcher, :search_watcher_to_add], IssueWatcher) %>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add_watchers_modal">Add Watcher</button>
+  <%= render partial: 'issue_watchers/add_watchers_form', locals: { issue: @issue } %>
+<% end %>
+<br><br>
+
+<% if can?([:destroy_watcher, :search_watcher_to_destroy], IssueWatcher) %>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#remove_watchers_modal">Remove Watcher</button>
+  <%= render partial: 'issue_watchers/remove_watchers_form', locals: { issue: @issue } %>
 <% end %>
   <%= link_to 'Show all Documents', issue_documents_path(@issue),class: 'btn btn-primary' %>
 <div class="page-header"><h3>Upload Document</h3></div>

@@ -38,7 +38,6 @@
         <%= f.select(:assignee_id, assignees.collect { |assignee| [assignee.try(:name), assignee.id] }, { include_blank: 'Select an assignee' }) %>
       </div>
     </div>
-
     <div class="col-md-3">
       <div class="form-group">
         <%= f.label :priority %>
@@ -61,7 +60,7 @@
     </div> 
   </div>
   <hr>
-
+  <%= f.number_field :project_id, value: @project.id, hidden: true %>
   <div class="row">
     <div class="col-md-4">
       <div class="form-group">
