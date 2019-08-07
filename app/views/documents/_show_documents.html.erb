@@ -10,9 +10,9 @@
                       <td><%= document_type.document_content_type %></td>
                       <td><%= link_to "Open", document_type.document.url(:original, false) %></td>
                       <% if @document_type == 'Issue' %>
-                      <td><%= link_to "Delete", issue_document_path(@issue_id, document_type.id ), method: :delete, data:{confirm: 'Are you sure?'}, :class => 'btn btn-primary' %></td>
+                      <td><%= link_to "Delete", issue_document_path(params[:issue_id], document_type.id ), method: :delete, data:{confirm: 'Are you sure?'}, :class => 'btn btn-primary' %></td>
                       <% else %>
-                      <td><%= link_to "Delete", project_document_path(@project_id, document_type.id ), method: :delete, data:{confirm: 'Are you sure?'}, :class => 'btn btn-primary' %></td>
+                      <td><%= link_to "Delete", project_document_path(params[:project_id], document_type.id ), method: :delete, data:{confirm: 'Are you sure?'}, :class => 'btn btn-primary' %></td>
                       <% end %>
                     </tr>
         <% end %>

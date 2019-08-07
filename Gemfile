@@ -27,6 +27,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'bootstrap-sass', '3.4.1'
 gem 'cancancan', '3.0.1'
 gem 'devise', '4.1.1'
+gem 'sequenceid'
 
 gem 'faker', '1.9.1'
 gem 'kaminari'

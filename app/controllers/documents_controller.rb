@@ -1,14 +1,15 @@
 class DocumentsController < ApplicationController
+  load_resource :issue
+  load_resource :project
   load_and_authorize_resource
+
   def index
     if params[:issue_id].present?
       @document_type = 'Issue'
-      @issue_id = params[:issue_id]
-      @documents = Issue.find(params[:issue_id]).documents
-    else
+      @documents = @issue.documents
+    elsif params[:project_id].present?
       @document_type = 'Project'
-      @documents = Project.find(params[:project_id]).documents
-      @project_id = params[:project_id]
+      @documents = @project.documents
     end
     respond_to do |format|
       format.html
@@ -16,65 +17,43 @@ class DocumentsController < ApplicationController
   end
 
   def new
-    @document = Document.new
     respond_to do |format|
       format.html
     end
   end
 
   def create
-    @new_document = Document.new(document_params)
-    @new_document.company_id = current_tenant.id
-    @new_document.path = @new_document.document.url
+    @document.path = @document.document.url
     if params[:issue_id].present?
-      redirect_path = issue_path(params[:issue_id])
       documentable_type = 'Issue'
       documentable_id = params[:issue_id]
     elsif params[:project_id].present?
-      redirect_path = project_path(params[:project_id])
       documentable_type = 'Project'
       documentable_id = params[:project_id]
     end
-    @new_document.documentable_type = documentable_type
-    @new_document.documentable_id = documentable_id
-    if @new_document.save
-      flash[:notice] = t('document.create.success')
-      document_created = true
-    else
-      flash.now[:error] = @document.errors.full_messages
-      document_created = false
-    end
+    @document.documentable_type = documentable_type
+    @document.documentable_id = documentable_id
     respond_to do |format|
       format.html do
-        if document_created
-          redirect_to redirect_path
+        if @document.save
+          flash[:notice] = t('document.create.success')
         else
-          render 'new'
+          flash.now[:error] = @document.errors.full_messages
         end
+        redirect_to :back
       end
     end
   end
 
   def destroy
     @document = Document.find(params[:id])
-    if params[:issue_id].present?
-      redirect_path = issue_path(params[:issue_id])
-    elsif params[:project_id].present?
-      redirect_path = project_path(params[:project_id])
-    end
-    if @document.destroy
-      flash[:notice] = t('document.destroy.success')
-      document_destroyed = true
-    else
-      flash.now[:error] = @document.errors.full_messages
-      document_destroyed = false
-    end
     respond_to do |format|
       format.html do
-        if document_destroyed
-          redirect_to redirect_path
+        if @document.destroy
+          flash[:notice] = t('document.destroy.success')
+          redirect_to :back
         else
-          render 'new'
+          flash.now[:error] = @document.errors.full_messages
         end
       end
     end

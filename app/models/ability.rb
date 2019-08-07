@@ -3,7 +3,8 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    user ||= User.new
+    return if user.nil?
+
     if user.admin?
       can :manage, :all
     else
@@ -27,6 +28,8 @@ class Ability
         issue.creator_id == user.id && issue.company_id == user.company_id
       end
       can :create, Issue, company_id: user.company_id
+
+      can [:create, :index, :destroy], Document, company_id: user.company_id
     end
   end
 end
