@@ -59,6 +59,10 @@ class IssuesController < ApplicationController
         format.html { redirect_to project_issue_path(@issue.project, @issue) }
       end
     else
+      @assignees = current_tenant.users.all
+      @issue_types = current_tenant.issue_types.all
+      @issue_states = current_tenant.issue_states.all
+      @project = @issue.project
       flash.now[:error] = @issue.errors.full_messages
       render 'edit'
     end
@@ -73,6 +77,10 @@ class IssuesController < ApplicationController
         format.html { redirect_to project_issue_path(@issue.project, @issue) }
       end
     else
+      @assignees = current_tenant.users.all
+      @issue_types = current_tenant.issue_types.all
+      @issue_states = current_tenant.issue_states.all
+      @project = @issue.project
       flash.now[:error] = @issue.errors.full_messages
       render 'new'
     end
@@ -93,7 +101,7 @@ class IssuesController < ApplicationController
 
   private
 
-  # Permits columns while adding to database
+  # Permits columns of issue while adding to database
   def issue_params
     params.require(:issue)
           .permit(:title, :description, :start_date, :due_date, :progress,
@@ -102,7 +110,7 @@ class IssuesController < ApplicationController
                   :issue_type_id)
   end
 
-  # Permits columns that are not blank for search
+  # Permits columns of issue that are not blank for search
   def search_params
     params.
       # Optionally, whitelist your search parameters with permit

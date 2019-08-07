@@ -3,7 +3,7 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    return unless user.present?
+    return if user.blank?
 
     if user.admin?
       can :manage, :all
@@ -24,6 +24,10 @@ class Ability
         issue.creator_id == user.id && issue.company_id == user.company_id
       end
       can :create, Issue, company_id: user.company_id
+
+      # IssueWatcher
+      can :create_watcher, IssueWatcher, watcher_id: user.id, watcher_type: IssueWatcher::WATCHER_TYPE_USER
+      can :destroy_watcher, IssueWatcher, watcher_id: user.id, watcher_type: IssueWatcher::WATCHER_TYPE_USER
     end
   end
 end

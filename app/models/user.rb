@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
 
   # A member can be a watcher of many issues
   has_many   :issue_watchers, as: :watcher
-  has_many   :watching_issues, through: :issue_watchers
+  has_many   :watching_issues, through: :issue_watchers, source: :issue
 
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,

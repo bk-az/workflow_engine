@@ -1,0 +1,9 @@
+<div id="watch_button">
+  <% if issue.present? %>  
+    <% if issue.issue_watchers.find_by(watcher_id: current_user).blank? %>
+      <%= link_to 'Watch', create_watcher_issue_watchers_path(issue_id: issue, watcher_id: current_user, watcher_type: 'User'), method: :post, class: 'btn btn-primary', remote: true %>
+    <% else %>
+      <%= link_to 'Unwatch', destroy_watcher_issue_watchers_path(issue_id: issue, watcher_id: current_user, watcher_type: 'User'), method: :post, class: 'btn btn-primary', remote: true %>
+    <% end %>
+  <% end %>
+</div>
