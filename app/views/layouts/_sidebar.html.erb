@@ -1,25 +1,19 @@
-
-  <!-- Sidebar -->
 <div id="sidebar-wrapper">
   <ul class="sidebar-nav">
     <li class="sidebar-brand">
-      <% if user_signed_in? %>
-        <%= link_to 'My Work Place', members_path %>
-      <% else %>
-        <%= link_to 'Workflow Engine', root_url(subdomain: ''), class: 'navbar-brand' %>
-      <% end %>
+      <%= link_to 'Dashboard', members_path %>
     </li>
     <li>
       <a href="#"><i class="material-icons">dashboard</i>&nbsp;Dashboard</a>
     </li>
     <li>
-      <a href="#"><i class="material-icons">event_note</i>&nbsp;Projects</a>
+      <a href="<%= projects_path %>"><i class="material-icons">event_note</i>&nbsp;Projects</a>
     </li>
     <li>
       <a href="#"><i class="material-icons">people</i>&nbsp;Teams</a>
     </li>
     <li>
-      <a href="#"><i class="material-icons">collections_bookmark</i>&nbsp;Issues</a>
+      <a href="<%= issues_path %>"><i class="material-icons">collections_bookmark</i>&nbsp;Issues</a>
     </li>
     <li>
       <a href="#"><i class="material-icons">view_module</i>&nbsp;About</a>

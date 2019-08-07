@@ -6,10 +6,6 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'jbuilder', '~> 2.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails', '~> 4.3.5'
-# JQuery turbolinks
-gem 'jquery-turbolinks', '~> 2.1.0'
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks', '5.2.0'
 
 gem 'paperclip', '~> 5.0.0'
 
@@ -24,12 +20,12 @@ gem 'rails', '4.2.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
-gem 'web-console', '~> 2.0', group: :development
 # Custom Gems
 gem 'cancancan', '3.0.1'
+gem 'delayed_job_active_record', '4.1.3'
 gem 'devise', '4.1.1'
 gem 'faker', '1.9.1'
-gem 'kaminari'
+gem 'kaminari', '1.1.1'
 gem 'popper_js', '1.14.5'
 gem 'rspec-collection_matchers', '1.1.3'
 gem 'simplecov', require: false, group: :test
@@ -39,9 +35,10 @@ group :development, :test do
   gem 'capybara', '3.1.1'
   gem 'database_cleaner', '1.7.0'
   gem 'factory_girl_rails', '4.9.0'
-  gem 'rspec-rails', '3.8.2'
-  gem 'pry'
+  gem 'pry', '0.12.2'
   gem 'pry-byebug'
-  gem 'pry-rails'
-  gem 'spring'
+  gem 'pry-rails', '0.3.9'
+  gem 'rspec-rails', '3.8.2'
+  gem 'spring', '2.0.2'
+  gem 'web-console', '2.3.0'
 end

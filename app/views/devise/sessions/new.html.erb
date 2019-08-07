@@ -2,9 +2,9 @@
   <h2 class="card-header">Log in</h2>
   <div class="card-body">
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-      <div class="field form-group <%= 'd-none' if @email.present? %>">
+      <div class="field form-group">
         <%= f.label :email %><br />
-        <%= f.email_field :email, autofocus: true, class: "form-control form-control-sm", placeholder: "john.doe@gmail.com", value: @email %>
+        <%= f.email_field :email, autofocus: true, class: "form-control form-control-sm", placeholder: "john.doe@gmail.com", value: @email, readonly: @email.present? %>
       </div>
 
       <div class="field form-group">

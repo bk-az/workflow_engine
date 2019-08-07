@@ -36,13 +36,13 @@ owner = User.create( first_name: 'abubakar', last_name: 'azeem',
 # owner.company_id = company.id
 # owner.save
 
-debug('IssueType States')
-# Creating Issues types and states
-IssueState.create([ { name: 'Unresolved', company_id: company.id },
-                    { name: 'Resolved', company_id: company.id }])
+# debug('IssueType States')
+# # Creating Issues types and states
+# IssueState.create([ { name: 'Unresolved', company_id: company.id },
+#                     { name: 'Resolved', company_id: company.id }])
 
-IssueType.create([  { name: 'Improvement', company_id: company.id },
-                    { name: 'New Feature', company_id: company.id }])
+# IssueType.create([  { name: 'Improvement', company_id: company.id },
+#                     { name: 'New Feature', company_id: company.id }])
 
 debug('Members')
 # Creating 9 Members
