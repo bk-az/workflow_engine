@@ -84,7 +84,6 @@ class User < ActiveRecord::Base
   def self.find_for_database_authentication(warden_conditions)
     where(:email => warden_conditions[:email]).first
   end
-
   # returns full name
   def name
     "#{first_name} #{last_name}"

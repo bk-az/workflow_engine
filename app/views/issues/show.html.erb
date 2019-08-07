@@ -60,3 +60,28 @@
   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#remove_watchers_modal">Remove Watcher</button>
   <%= render partial: 'issue_watchers/remove_watchers_form', locals: { issue: @issue } %>
 <% end %>
+  <%= link_to 'Show all Documents', issue_documents_path(@issue),class: 'btn btn-primary' %>
+<div class="page-header"><h3>Upload Document</h3></div>
+<%= form_for [@issue, @document], html: { multipart: true } do |f| %>
+  <% if @document.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= "#{pluralize(@document.errors.count, "error")} prohibited this document from being saved:" %>
+      </h2>
+      <ul>
+        <% @document.errors.full_messages.each do |msg| %>
+          <li>
+            <%= msg %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="form-group">
+    <%= f.label :document %>
+    <%= f.file_field :document, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.submit 'Upload Document', class: 'btn btn-default' %>
+  </div>
+<% end %>

@@ -8,6 +8,10 @@ class Ability
     if user.admin?
       can :manage, :all
     else
+      can :show, Project do |project|
+          project.visible?(user)
+      end
+      can :index, Project, id: user.visible_projects.pluck(:id)
       can [:read, :filter], Issue, user.visible_issues do |issue|
         issue
       end
@@ -28,6 +32,9 @@ class Ability
       # IssueWatcher
       can :create_watcher, IssueWatcher, watcher_id: user.id, watcher_type: IssueWatcher::WATCHER_TYPE_USER
       can :destroy_watcher, IssueWatcher, watcher_id: user.id, watcher_type: IssueWatcher::WATCHER_TYPE_USER
+
+      # Document
+      can [:create, :index, :destroy], Document, company_id: user.company_id
     end
   end
 end

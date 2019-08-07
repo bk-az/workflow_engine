@@ -13,5 +13,6 @@
 //= require jquery
 //= require popper
 //= require jquery_ujs
+//= require jquery3
 //= require_tree .
   

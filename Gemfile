@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.1.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -27,12 +28,13 @@ gem 'bootstrap-sass', '3.4.1'
 gem 'cancancan', '3.0.1'
 gem 'delayed_job_active_record', '4.1.3'
 gem 'devise', '4.1.1'
+gem 'sequenceid'
+
 gem 'faker', '1.9.1'
 gem 'kaminari', '1.1.1'
 gem 'popper_js', '1.14.5'
 gem 'rspec-collection_matchers', '1.1.3'
 gem 'simplecov', require: false, group: :test
-
 group :development, :test do
   # Call 'byebug' in the code to stop execution and get a debugger console
   gem 'byebug', '10.0.2'

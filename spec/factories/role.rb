@@ -1,4 +1,3 @@
-require 'faker'
 
 FactoryGirl.define do
   factory :role do

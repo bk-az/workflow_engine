@@ -6,7 +6,7 @@ class CreateDocuments < ActiveRecord::Migration
 
       # Foreign Keys
       t.integer :company_id, null: false, index: true
-      t.integer :issue_id, null: false, index: true
+      t.references :documentable, polymorphic: true, index: true
     end
   end
 end
