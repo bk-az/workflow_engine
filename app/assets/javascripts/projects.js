@@ -4,7 +4,8 @@ $( document ).ready(function() {
       e.preventDefault();
       $("#wrapper").toggleClass("toggled");
   });
-
+  
+  // TODO: Needs to be updated later
   $("#myInput").on("keyup", function() {
     var value = $(this).val().toLowerCase();
     $("#myList tr").filter(function() {

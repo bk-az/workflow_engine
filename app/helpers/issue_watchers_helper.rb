@@ -1,0 +1,2 @@
+module IssueWatchersHelper
+end

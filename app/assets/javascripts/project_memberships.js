@@ -1,4 +1,4 @@
-$(document).on('turbolinks:load', function(){
+$(document).ready(function(){
   var projectMemberType  = $('#project_membership_project_member_type');
   var projectMemberId    = $('#project_membership_project_member_id');
   var projectId          = $('#project_membership_project_id');

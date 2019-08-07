@@ -34,9 +34,8 @@ class User < ActiveRecord::Base
 
   # A member can be a watcher of many issues
   has_many   :issue_watchers, as: :watcher
-  has_many   :watching_issues, through: :issue_watchers
+  has_many   :watching_issues, through: :issue_watchers, source: :issue
 
-  # Include default devise modules. Others available are
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
@@ -85,20 +84,32 @@ class User < ActiveRecord::Base
   def self.find_for_database_authentication(warden_conditions)
     where(:email => warden_conditions[:email]).first
   end
+  # returns full name
+  def name
+    "#{first_name} #{last_name}"
+  end
 
   def name
     "#{first_name} #{last_name}"
   end
 
   def admin?
-    role.name == 'Administrator'
+    role == Role.admin
   end
 
   def visible_projects
     if admin?
       company.projects
     else
-      projects
+      company.projects.joins('INNER JOIN project_memberships ON project_memberships.project_id = projects.id').where('(project_member_id = :user_id and project_member_type = "User") OR (project_member_id in (:teams) and project_member_type = "Team")', user_id: id, teams: team_ids).uniq
+    end
+  end
+
+  def visible_issues
+    if admin?
+      company.issues
+    else
+      company.issues.joins('INNER JOIN project_memberships ON project_memberships.project_id = issues.project_id').where('(project_member_id = :user_id and project_member_type = "User") OR (project_member_id in (:teams) and project_member_type = "Team")', user_id: id, teams: team_ids).uniq
     end
   end
 end

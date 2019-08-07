@@ -1,17 +1,18 @@
 Rails.application.routes.draw do
-  devise_scope :user do
-    get 'signout', to: 'devise/sessions#destroy'
+  resources :issues, only: :index do
+    resources :comments, shallow: true
+    get 'filter', on: :collection
+    resources :documents
   end
+
   resources :projects do
+    resources :documents
     resources :comments, shallow: true
     resources :project_memberships, only: %i[index create], as: 'members'
+    resources :issues, only: [:new, :create, :show, :edit, :update, :destroy]
   end
 
   resources :comments, only: [:edit, :update, :destroy]
-
-  resources :issues do
-    resources :comments, shallow: true
-  end
 
   resources :project_memberships, only: :destroy do
     collection do
@@ -35,9 +36,17 @@ Rails.application.routes.draw do
       get 'change_password_form', action: 'show_change_password_form'
       put 'change_password', action: 'change_password'
     end
-
     collection do
       get 'privileges'
+    end
+  end
+
+  resources :issue_watchers do
+    collection do
+      post 'create_watcher'
+      post 'destroy_watcher'
+      get  'search_watcher_to_add'
+      get  'search_watcher_to_destroy'
     end
   end
 end
