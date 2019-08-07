@@ -48,12 +48,12 @@ class Issue < ActiveRecord::Base
     return if Rails.env.test?
 
     emails = []
-    issue_watchers.find_each do |watcher|
-      if watcher.watcher_type == User.name
-        user_email = User.find_by(id: watcher.watcher_id).email
+    issue_watchers.each do |issue_watcher|
+      if issue_watcher.watcher.is_a?(User)
+        user_email = User.find_by(id: issue_watcher.watcher_id).email
         emails << user_email
-      elsif watcher.watcher_type == Team.name
-        team = Team.find_by(id: watcher.watcher_id)
+      elsif issue_watcher.watcher.is_a?(Team)
+        team = Team.find_by(id: issue_watcher.watcher_id)
         team_emails = team.users.pluck(:email)
         emails += team_emails
       end
@@ -64,8 +64,8 @@ class Issue < ActiveRecord::Base
     # Fetching assignee's email
     emails << assignee.email if assignee.present?
 
-    # Removing duplicates
-    emails = emails.uniq
+    # Removing duplicates and nil values
+    emails = emails.compact.uniq
     emails.each do |email|
       IssueMailer.delay.notify(email, id, company_id)
     end
