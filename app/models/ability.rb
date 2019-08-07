@@ -2,24 +2,25 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(user)
+  def initialize(user, options = {})
     return if user.nil?
 
     if user.admin?
       can :manage, :all
     else
-      can :show, Project do |project|
-          project.visible?(user)
-      end
-      can :index, Project, id: user.visible_projects.pluck(:id)
-      can [:read, :filter], Issue, user.visible_issues do |issue|
-        issue
-      end
+      # Project
       can :show, Project do |project|
         project.visible?(user)
       end
       can :index, Project, id: user.visible_projects.pluck(:id)
 
+      # Project Membership
+      can :index, ProjectMembership if ProjectMembership.user_projects(user, options[:project_id]).present?
+
+      # Issue
+      can [:read, :filter], Issue, user.visible_issues do |issue|
+        issue
+      end
       can :update, Issue do |issue|
         (issue.assignee_id == user.id || issue.creator_id == user.id) &&
           issue.company_id == user.company_id

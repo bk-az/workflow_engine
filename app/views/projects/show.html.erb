@@ -1,16 +1,19 @@
-<!-- render navbar and drawer -->
-
-<h1><%= @project.title %></h1>
+<h1 class="mb-4"><%= @project.title %></h1>
 
 <h2>Issues</h2>
 <%= link_to 'New Issue', new_project_issue_path(@project), class: 'btn btn-primary float-right'%>
 <tr>
-  <% if can? [:edit, :delete], Project %>
-    <td><%= link_to 'Edit Project', edit_project_path(@project),class: 'btn btn-warning' %></td>
-    <td><%= link_to 'Delete Project', project_path(@project),class: 'btn btn-danger', method: 'delete', data: { confirm: 'Are you sure?' } %></td>
-  <% end %>
+  <td><%= link_to 'Edit Project', edit_project_path(@project),class: 'btn btn-warning' %></td>
+  <td><%= link_to 'Delete Project', project_path(@project),class: 'btn btn-danger', method: 'delete', data: { confirm: 'Are you sure?' } %></td>
+  <td>
+    <a class="btn btn-primary float-right mr-2" href= "<%= project_members_path(@project) %>">
+      <i class="fas fa-users mr-2"></i>
+      <strong>Members</strong>
+    </a>
+  </td>
 </tr>
 
+<h2 class="my-4">Issues</h2>
 
 <div class="row">
   <div class="col-md-4">

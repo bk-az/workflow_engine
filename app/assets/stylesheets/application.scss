@@ -11,18 +11,26 @@
  * file per style scope.
  *
  *= require_tree .
+ *= require jquery-ui
  *= require_self
  */
 
-/* CSS for sidebar */
+.ui-autocomplete {
+  position: absolute;
+  z-index: 2150000000 !important;
+  cursor: default;
+  border: 2px solid #ccc;
+  padding: 5px 0;
+  border-radius: 2px;
+}
 
-/*!
- * Start Bootstrap - Simple Sidebar HTML Template (http://startbootstrap.com)
- * Code licensed under the Apache License v2.0.
- * For details, see http://www.apache.org/licenses/LICENSE-2.0.
- */
-
-/* Toggle Styles */
+select {
+  display: block;
+}
+.rounded-button {
+  border-radius: 50%;
+  font-size: 0.75em;
+}
 
 select {
   display: block;

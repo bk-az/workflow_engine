@@ -29,7 +29,7 @@ debug('Owner')
 owner = User.create( first_name: 'abubakar', last_name: 'azeem',
                      email: 'abubakar.azeem@7vals.com',
                      password: '123456789', role_id: Role.first.id,
-                     company_id: 1)
+                     company_id: 1, confirmed_at: Date.today)
 
 # debug('Updating Owner')
 # # Updating owner
@@ -50,7 +50,7 @@ debug('Members')
   User.create( first_name: "Member#{i}", last_name: 'Last Name',
                email: "member#{i}@7vals.com",
                password: '123456789', role_id: Role.last.id,
-               company_id: company.id)
+               company_id: company.id, confirmed_at: Date.today)
 end
 
 debug('Projects and Issues')
