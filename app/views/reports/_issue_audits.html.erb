@@ -1,0 +1,14 @@
+<tr>
+  <% if audit.keys.include?('title') %>
+    <td class="text-danger"><%= audit['title'][-1] %></td>
+  <% else %>
+    <td>---</td>
+  <% end %>
+  
+  <% if audit.keys.include?('description') %>
+    <td class="text-danger"><%= audit['description'][-1] %></td>
+  <% else %>
+    <td>---</td>
+  <% end %>
+</tr>
+

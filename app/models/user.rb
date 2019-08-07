@@ -91,7 +91,7 @@ class User < ActiveRecord::Base
   end
 
   def admin?
-    role == Role.admin
+    role.name == Role::ROLES[:administrator]
   end
 
   def full_name

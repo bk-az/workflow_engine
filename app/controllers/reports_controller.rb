@@ -7,4 +7,12 @@ class ReportsController < ApplicationController
       format.html
     end
   end
+
+  def issue_history
+    @issue = Issue.find(params[:issue_id])
+    @audits = @issue.audits.map(&:audited_changes)
+    respond_to do |format|
+      format.html
+    end
+  end
 end

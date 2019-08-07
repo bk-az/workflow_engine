@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   }
 
   get 'reports/issues', to: 'reports#issues', as: 'issues_report'
+  get 'issues/:issue_id/reports/issue_history', to: 'reports#issue_history', as: 'issue_history_report'
 
   resources :members do
     member do
