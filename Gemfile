@@ -23,6 +23,7 @@ gem 'jbuilder', '2.9.1'
 gem 'sdoc', '0.4.2', group: :doc
 
 # Custom Gems
+gem 'sequenceid', '0.0.6'
 gem 'bootstrap-sass', '3.4.1'
 gem 'cancancan', '3.0.1'
 gem 'devise', '4.1.1'

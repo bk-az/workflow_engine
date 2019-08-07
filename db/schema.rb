@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190731054726) do
+ActiveRecord::Schema.define(version: 20190807065639) do
 
   create_table "comments", force: :cascade do |t|
     t.text     "content",          limit: 65535, null: false
@@ -39,15 +39,20 @@ ActiveRecord::Schema.define(version: 20190731054726) do
   add_index "companies", ["subdomain"], name: "index_companies_on_subdomain", using: :btree
 
   create_table "documents", force: :cascade do |t|
-    t.string   "path",       limit: 255, null: false
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.integer  "company_id", limit: 4,   null: false
-    t.integer  "issue_id",   limit: 4,   null: false
+    t.string   "path",                  limit: 255, null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.integer  "company_id",            limit: 4,   null: false
+    t.integer  "documentable_id",       limit: 4
+    t.string   "documentable_type",     limit: 255
+    t.string   "document_file_name",    limit: 255
+    t.string   "document_content_type", limit: 255
+    t.integer  "document_file_size",    limit: 4
+    t.datetime "document_updated_at"
   end
 
   add_index "documents", ["company_id"], name: "index_documents_on_company_id", using: :btree
-  add_index "documents", ["issue_id"], name: "index_documents_on_issue_id", using: :btree
+  add_index "documents", ["documentable_type", "documentable_id"], name: "index_documents_on_documentable_type_and_documentable_id", using: :btree
 
   create_table "issue_states", force: :cascade do |t|
     t.string  "name",       limit: 255, null: false
@@ -92,8 +97,8 @@ ActiveRecord::Schema.define(version: 20190731054726) do
     t.integer  "assignee_id",     limit: 4
     t.integer  "parent_issue_id", limit: 4
     t.integer  "project_id",      limit: 4
-    t.integer  "issue_state_id",  limit: 4,                 null: false
-    t.integer  "issue_type_id",   limit: 4,                 null: false
+    t.integer  "issue_state_id",  limit: 4
+    t.integer  "issue_type_id",   limit: 4
   end
 
   add_index "issues", ["assignee_id"], name: "index_issues_on_assignee_id", using: :btree
@@ -104,7 +109,7 @@ ActiveRecord::Schema.define(version: 20190731054726) do
   add_index "issues", ["parent_issue_id"], name: "index_issues_on_parent_issue_id", using: :btree
   add_index "issues", ["project_id"], name: "index_issues_on_project_id", using: :btree
 
-  create_table "project_memberships", id: false, force: :cascade do |t|
+  create_table "project_memberships", force: :cascade do |t|
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
     t.integer  "project_member_id",   limit: 4
@@ -131,7 +136,7 @@ ActiveRecord::Schema.define(version: 20190731054726) do
     t.datetime "updated_at",             null: false
   end
 
-  create_table "team_memberships", id: false, force: :cascade do |t|
+  create_table "team_memberships", force: :cascade do |t|
     t.boolean  "is_team_admin", limit: 1, default: false
     t.boolean  "is_approved",   limit: 1, default: false
     t.datetime "created_at",                              null: false
@@ -144,13 +149,15 @@ ActiveRecord::Schema.define(version: 20190731054726) do
   add_index "team_memberships", ["user_id"], name: "index_team_memberships_on_user_id", using: :btree
 
   create_table "teams", force: :cascade do |t|
-    t.string   "name",       limit: 255, null: false
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.integer  "company_id", limit: 4,   null: false
+    t.string   "name",         limit: 255, null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "company_id",   limit: 4,   null: false
+    t.integer  "sequence_num", limit: 4,   null: false
   end
 
   add_index "teams", ["company_id"], name: "index_teams_on_company_id", using: :btree
+  add_index "teams", ["sequence_num", "company_id"], name: "index_teams_on_sequence_num_and_company_id", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name",                         limit: 255,                null: false

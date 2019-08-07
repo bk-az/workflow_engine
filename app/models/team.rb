@@ -1,4 +1,5 @@
 class Team < ActiveRecord::Base
+	sequenceid :company , :teams
   validates :name, presence: true
   belongs_to :company
 

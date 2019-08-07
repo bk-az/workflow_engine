@@ -29,7 +29,6 @@ class TeamsController < ApplicationController
       flash[:notice] = t('team.create.success')
       begin
         @team.team_memberships.create!(is_team_admin: true, is_approved: true, user_id: current_user.id)
-        
       rescue StandardError
         flash.now[:error] = @team.errors.full_messages
       end
@@ -54,6 +53,7 @@ class TeamsController < ApplicationController
     end
   end
 
+  # POST /update
   def update
     if @team.update(team_params)
       flash[:notice] = t('team.update.success')
@@ -96,9 +96,9 @@ class TeamsController < ApplicationController
   def add_membership
     @is_admin = params[:join_admin][:joining_decision] != '0'
     @team_membership = TeamMembership.new(is_team_admin: @is_admin, is_approved: params[:is_approved], team_id: params[:team_id], user_id: params[:user_id])
-    respond_to do |format| 
+    respond_to do |format|
       if @team_membership.save
-        format.js 
+        format.js
       else
         flash.now[:error] = @team_membership.errors.full_messages
       end
