@@ -60,13 +60,8 @@ class DocumentsController < ApplicationController
   end
 
   def document_params
-    params.require(:document).permit(:path,
-                                     :company_id,
-                                     :document,
-                                     :documentable_id,
-                                     :documentable_type,
-                                     :document_file_name,
-                                     :document_file_size,
-                                     :document_content_type)
+    params
+      .require(:document)
+      .permit(:path, :company_id, :document, :documentable_id, :documentable_type, :document_file_name, :document_file_size, :document_content_type)
   end
 end

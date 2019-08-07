@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root 'user_companies#find'
+
   resources :issues, only: :index do
     resources :comments, shallow: true
     get 'filter', on: :collection

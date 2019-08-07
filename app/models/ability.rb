@@ -5,8 +5,12 @@ class Ability
   def initialize(user, options = {})
     return if user.nil?
 
+    can [:show_change_password_form, :change_password], :member if options[:change_password_member_id] == user.id
+    can [:index, :show], :member
+    
     if user.admin?
       can :manage, :all
+      can [:new, :create, :privileges, :privileges_show, :edit, :destroy, :update], :member
     else
       # Project
       can :show, Project do |project|

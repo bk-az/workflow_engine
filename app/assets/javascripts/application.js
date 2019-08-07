@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery-ui/widgets/autocomplete
-//= require popper
 //= require jquery_ujs
+//= require popper
 //= require_tree .
   

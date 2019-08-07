@@ -14,7 +14,6 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    @project.company_id = 1
     if @project.save
       redirect_to @project, notice: t('projects.create.created')
     else
