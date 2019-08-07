@@ -14,7 +14,6 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    @project.company_id = 1
     if @project.save
       redirect_to @project, notice: t('projects.create.created')
     else
@@ -23,6 +22,8 @@ class ProjectsController < ApplicationController
   end
 
   def show
+    @project = Project.find(params[:id])
+    @document = Document.new
     @issues = @project.issues
     @issue_types = IssueType.issue_types_for_projects(@project)
     @issue_states = IssueState.issue_states_for_projects(@project)

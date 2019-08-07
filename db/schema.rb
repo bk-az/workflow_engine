@@ -38,32 +38,21 @@ ActiveRecord::Schema.define(version: 20190806113017) do
 
   add_index "companies", ["subdomain"], name: "index_companies_on_subdomain", using: :btree
 
-  create_table "delayed_jobs", force: :cascade do |t|
-    t.integer  "priority",   limit: 4,     default: 0, null: false
-    t.integer  "attempts",   limit: 4,     default: 0, null: false
-    t.text     "handler",    limit: 65535,             null: false
-    t.text     "last_error", limit: 65535
-    t.datetime "run_at"
-    t.datetime "locked_at"
-    t.datetime "failed_at"
-    t.string   "locked_by",  limit: 255
-    t.string   "queue",      limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
-
   create_table "documents", force: :cascade do |t|
-    t.string   "path",       limit: 255, null: false
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.integer  "company_id", limit: 4,   null: false
-    t.integer  "issue_id",   limit: 4,   null: false
+    t.string   "path",                  limit: 255, null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.integer  "company_id",            limit: 4,   null: false
+    t.integer  "documentable_id",       limit: 4
+    t.string   "documentable_type",     limit: 255
+    t.string   "document_file_name",    limit: 255
+    t.string   "document_content_type", limit: 255
+    t.integer  "document_file_size",    limit: 4
+    t.datetime "document_updated_at"
   end
 
   add_index "documents", ["company_id"], name: "index_documents_on_company_id", using: :btree
-  add_index "documents", ["issue_id"], name: "index_documents_on_issue_id", using: :btree
+  add_index "documents", ["documentable_type", "documentable_id"], name: "index_documents_on_documentable_type_and_documentable_id", using: :btree
 
   create_table "issue_states", force: :cascade do |t|
     t.string  "name",       limit: 255, null: false
@@ -124,12 +113,13 @@ ActiveRecord::Schema.define(version: 20190806113017) do
   create_table "project_memberships", force: :cascade do |t|
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
-    t.integer  "project_member_id",   limit: 4
-    t.string   "project_member_type", limit: 255
-    t.integer  "project_id",          limit: 4
+    t.integer  "project_member_id",   limit: 4,   null: false
+    t.string   "project_member_type", limit: 255, null: false
+    t.integer  "project_id",          limit: 4,   null: false
   end
 
   add_index "project_memberships", ["project_id"], name: "index_project_memberships_on_project_id", using: :btree
+  add_index "project_memberships", ["project_member_type", "project_member_id", "project_id"], name: "index_project_memberships_on_project_member_and_project_id", unique: true, using: :btree
   add_index "project_memberships", ["project_member_type", "project_member_id"], name: "index_project_memberships_on_project_member_type_and_id", using: :btree
 
   create_table "projects", force: :cascade do |t|
@@ -157,6 +147,7 @@ ActiveRecord::Schema.define(version: 20190806113017) do
     t.integer  "user_id",       limit: 4
   end
 
+  add_index "team_memberships", ["team_id", "user_id"], name: "index_team_memberships_on_team_id_and_user_id", unique: true, using: :btree
   add_index "team_memberships", ["team_id"], name: "index_team_memberships_on_team_id", using: :btree
   add_index "team_memberships", ["user_id"], name: "index_team_memberships_on_user_id", using: :btree
 

@@ -56,6 +56,8 @@ class ApplicationController < ActionController::Base
   def current_ability
     if request.path =~ /members\/\d+\/(change_password_form|change_password)/
       @current_ability ||= Ability.new(current_user, change_password_member_id: params[:id].to_i)
+    elsif request.path =~ /\bprojects\/\d+\/project_memberships\b/
+      @current_ability ||= Ability.new(current_user, project_id: params[:project_id].to_i)
     else
       super
     end

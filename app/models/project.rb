@@ -5,6 +5,8 @@ class Project < ActiveRecord::Base
   belongs_to :company
   has_many   :issues
 
+  has_many :comments, as: :commentable
+  has_many :documents, as: :documentable
   has_many :comments, as: :commentable, dependent: :destroy
 
   # Polymorphic Team/User

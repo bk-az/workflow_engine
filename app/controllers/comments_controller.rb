@@ -13,7 +13,6 @@ class CommentsController < ApplicationController
 
   def create
     @comment = @project.comments.build(comment_params)
-    @comment.company_id = 1
     if @comment.save
       flash[:notice] = t('comments.create.created')
     else
@@ -25,7 +24,6 @@ class CommentsController < ApplicationController
   end
 
   def edit
-    binding.pry
     respond_to do |format|
       format.js
     end

@@ -34,9 +34,8 @@ class IssuesController < ApplicationController
 
   # GET projects/:id/issues/:id
   def show
-    respond_to do |format|
-      format.html
-    end
+    @issue = Issue.find(params[:id])
+    @document = Document.new
   end
 
   # GET projects/:id/issues/:id/edit
@@ -88,6 +87,7 @@ class IssuesController < ApplicationController
 
   # DELETE projects/:id/issues/:id
   def destroy
+
     if @issue.destroy
       flash[:notice] = t('issues.destroy.notice')
       respond_to do |format|
@@ -113,9 +113,7 @@ class IssuesController < ApplicationController
   # Permits columns of issue that are not blank for search
   def search_params
     params.
-      # Optionally, whitelist your search parameters with permit
       permit(:project_id, :assignee_id, :issue_state_id, :issue_type_id).
-      # Delete any passed params that are nil or empty string
       delete_if { |_key, value| value.blank? }
   end
 end

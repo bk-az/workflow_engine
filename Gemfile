@@ -24,12 +24,14 @@ gem 'uglifier', '>= 1.3.0'
 gem 'cancancan', '3.0.1'
 gem 'delayed_job_active_record', '4.1.3'
 gem 'devise', '4.1.1'
+gem 'sequenceid'
+
 gem 'faker', '1.9.1'
 gem 'kaminari', '1.1.1'
 gem 'popper_js', '1.14.5'
 gem 'rspec-collection_matchers', '1.1.3'
+gem 'jquery-ui-rails'
 gem 'simplecov', require: false, group: :test
-
 group :development, :test do
   gem 'byebug', '10.0.2'
   gem 'capybara', '3.1.1'

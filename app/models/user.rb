@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   validates :first_name, presence: true, length: { minimum: 2, maximum: 50 }
   validates :last_name, presence: true, length: { minimum: 2, maximum: 50 }
   validates :role_id, presence: true
-  validates :email, uniqueness: {scope: :company_id}
+  validates :email, uniqueness: { scope: :company_id }
   belongs_to :company
   belongs_to :role
   has_many   :comments
@@ -84,8 +84,11 @@ class User < ActiveRecord::Base
   def self.find_for_authentication(warden_conditions)
     where(:email => warden_conditions[:email]).first
   end
-
   # returns full name
+  def name
+    "#{first_name} #{last_name}"
+  end
+
   def name
     "#{first_name} #{last_name}"
   end
