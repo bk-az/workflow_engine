@@ -12,7 +12,7 @@
       <% if can? :destroy, ProjectMembership %>
         <p class="badge badge-danger badge-pill">
           <small><%= link_to 'Remove',
-                  project_membership_path(project_membership(@project, project_member)),
+                  project_membership_path(project_membership(@project, project_member, @project_memberships)),
                   method: 'delete', data: { confirm: 'Are you sure?' },
                   class: 'text-white', remote: true %>
           </small>

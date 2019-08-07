@@ -4,7 +4,6 @@
 <h1 class="mb-4"><%= @project.title %></h1>
 
 <tr>
-  <!--   <td><%= link_to 'Members', project_memberships_path(@project),class: 'btn btn-primary' %></td> -->
   <td><%= link_to 'Edit Project', edit_project_path(@project),class: 'btn btn-warning' %></td>
   <td><%= link_to 'Delete Project', project_path(@project),class: 'btn btn-danger', method: 'delete', data: { confirm: 'Are you sure?' } %></td>
   <td>

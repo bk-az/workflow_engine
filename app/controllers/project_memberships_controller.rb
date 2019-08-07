@@ -1,12 +1,10 @@
 class ProjectMembershipsController < ApplicationController
   load_resource :project
   load_and_authorize_resource through: :project, shallow: true
-
   # GET #index
   def index
-    @project_memberships = @project_memberships.includes(:project_member)
-    @users = @project_memberships.includes(:project_member).where(project_member_type: 'User').map(&:project_member)
-    @teams = @project_memberships.includes(:project_member).where(project_member_type: 'Team').map(&:project_member)
+    @users = @project.users
+    @teams = @project.teams
     # needed for new membership modal
     @project_membership = ProjectMembership.new
     respond_to do |format|
