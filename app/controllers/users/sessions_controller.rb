@@ -5,6 +5,8 @@ class Users::SessionsController < Devise::SessionsController
     super
   end
 
+  private
+
   def after_sign_in_path_for(resource)
     if current_user.has_changed_sys_generated_password
       members_path

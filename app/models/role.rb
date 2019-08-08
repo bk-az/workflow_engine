@@ -11,4 +11,8 @@ class Role < ActiveRecord::Base
   def self.admin
     find_by(name: ROLES[:administrator])
   end
+
+  def self.member
+    find_by(name: ROLES[:member])
+  end
 end

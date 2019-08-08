@@ -1,0 +1,34 @@
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
+
+  
+  <% if user_signed_in? %>
+    <a href="#js_side_menu_toggle_button" class="btn btn-md btn-outline-secondary side_menu_toggle_button" id="js_side_menu_toggle_button"><i class="material-icons">menu</i></a>
+    <%= link_to 'Dashboard', members_path, class: 'navbar-brand' %>
+  <% else %>
+    <%= link_to 'Workflow Engine', root_url(subdomain: ''), class: 'navbar-brand' %>
+  <% end %>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbar">
+    <ul class="navbar-nav mr-auto"></ul>
+    <ul class="navbar-nav">
+      <% if user_signed_in? %>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#_" id="navbardrop" data-toggle="dropdown">
+            <%= member_full_name current_user %>
+          </a>
+          <div class="dropdown-menu">
+            <%= link_to "Edit My Profile", edit_user_registration_path, class: 'dropdown-item' %>
+            <%= link_to "Logout", destroy_user_session_path, data: { confirm: "Are you sure?" }, method: :delete, class: 'dropdown-item' %>
+          </div>
+        </li>
+      <% else %>
+        <li class="nav-item"><%= link_to 'Log In', user_companies_find_url(subdomain: nil), class: 'nav-link' %></li>
+        <li class="nav-item"><%= link_to "Sign up", new_user_registration_url(subdomain: nil), class: 'nav-link' %></li>
+      <% end %>
+    </ul>
+  </div>
+</nav>

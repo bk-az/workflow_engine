@@ -6,6 +6,8 @@ class Project < ActiveRecord::Base
   has_many   :issues
   has_many   :issue_types
 
+  has_many :comments, as: :commentable
+  has_many :documents, as: :documentable
   has_many :comments, as: :commentable, dependent: :destroy
 
   # Polymorphic Team/User
