@@ -14,14 +14,14 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2019-08-06T11:33:16+05:00">2019-08-06T11:33:16+05:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2019-08-08T10:41:27+05:00">2019-08-08T10:41:27+05:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="yellow">86.3%</span></span>
+    (<span class="covered_percent"><span class="yellow">86.42%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
@@ -32,8 +32,8 @@
   <a name="AllFiles"></a>
   <div>
     <b>37</b> files in total.
-    <b>343</b> relevant lines. 
-    <span class="green"><b>296</b> lines covered</span> and
+    <b>346</b> relevant lines. 
+    <span class="green"><b>299</b> lines covered</span> and
     <span class="red"><b>47</b> lines missed </span>
   </div>
   <table class="file_list">
@@ -82,12 +82,12 @@
       
       <tr>
         <td class="strong"><a href="#4fbb757bf956d08c74c0d2b70617cafd08f88a3f" class="src_link" title="app/helpers/issue_types_helper.rb">app/helpers/issue_types_helper.rb</a></td>
-        <td class="green strong">100.0 %</td>
-        <td>2</td>
-        <td>1</td>
-        <td>1</td>
-        <td>0</td>
-        <td>1.0</td>
+        <td class="red strong">57.14 %</td>
+        <td>13</td>
+        <td>7</td>
+        <td>4</td>
+        <td>3</td>
+        <td>0.6</td>
       </tr>
       
       <tr>
@@ -132,11 +132,11 @@
       
       <tr>
         <td class="strong"><a href="#6cd7b1b0fb4ec1dc5494b5983f5edfb1e87af5fd" class="src_link" title="app/models/issue_type.rb">app/models/issue_type.rb</a></td>
-        <td class="red strong">38.46 %</td>
-        <td>44</td>
-        <td>26</td>
+        <td class="red strong">43.48 %</td>
+        <td>38</td>
+        <td>23</td>
         <td>10</td>
-        <td>16</td>
+        <td>13</td>
         <td>0.4</td>
       </tr>
       
@@ -556,11 +556,11 @@
         <div class="source_table" id="4fbb757bf956d08c74c0d2b70617cafd08f88a3f">
   <div class="header">
     <h3>app/helpers/issue_types_helper.rb</h3>
-    <h4><span class="green">100.0 %</span> covered</h4>
+    <h4><span class="red">57.14 %</span> covered</h4>
     <div>
-      <b>1</b> relevant lines. 
-      <span class="green"><b>1</b> lines covered</span> and
-      <span class="red"><b>0</b> lines missed.</span>
+      <b>7</b> relevant lines. 
+      <span class="green"><b>4</b> lines covered</span> and
+      <span class="red"><b>3</b> lines missed.</span>
     </div>
   </div>
   
@@ -573,7 +573,73 @@
           <code class="ruby">module IssueTypesHelper</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="2">
+        <li class="covered" data-hits="1" data-linenumber="2">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def issue_type_table_row_id(issue_type)</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="3">
+          
+          
+          <code class="ruby">    &quot;issue_type_#{issue_type.id}&quot;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="4">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="5">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="6">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def issue_type_table_row_class(issue_type)</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="7">
+          
+          
+          <code class="ruby">    issue_type.project_id.nil? ? &#39;global&#39; : &quot;project-#{issue_type.project_id}&quot;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="8">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="9">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="10">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def issue_type_project_number(issue_type)</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="11">
+          
+          
+          <code class="ruby">    issue_type.project_id.nil? ? &#39;NA&#39; : issue_type.project_id.to_s</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="12">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="13">
           
           
           <code class="ruby">end</code>
@@ -975,11 +1041,11 @@
         <div class="source_table" id="6cd7b1b0fb4ec1dc5494b5983f5edfb1e87af5fd">
   <div class="header">
     <h3>app/models/issue_type.rb</h3>
-    <h4><span class="red">38.46 %</span> covered</h4>
+    <h4><span class="red">43.48 %</span> covered</h4>
     <div>
-      <b>26</b> relevant lines. 
+      <b>23</b> relevant lines. 
       <span class="green"><b>10</b> lines covered</span> and
-      <span class="red"><b>16</b> lines missed.</span>
+      <span class="red"><b>13</b> lines missed.</span>
     </div>
   </div>
   
@@ -1067,7 +1133,7 @@
         <li class="covered" data-hits="1" data-linenumber="14">
           <span class="hits">1</span>
           
-          <code class="ruby">  def safe_update?(params)</code>
+          <code class="ruby">  def can_change_scope?(project_id)</code>
         </li>
       
         <li class="missed" data-hits="0" data-linenumber="15">
@@ -1079,172 +1145,136 @@
         <li class="missed" data-hits="0" data-linenumber="16">
           
           
-          <code class="ruby">    if params[:project_id].nil?</code>
+          <code class="ruby">    if project_id.present?</code>
         </li>
       
         <li class="missed" data-hits="0" data-linenumber="17">
           
           
-          <code class="ruby">      update(params)</code>
+          <code class="ruby">      count = issues.where.not(project_id: project_id).count</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="18">
-          
-          
-          <code class="ruby">    else</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="19">
-          
-          
-          <code class="ruby">      count = issues.where.not(project_id: params[:project_id]).count</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="20">
+        <li class="missed" data-hits="0" data-linenumber="18">
           
           
           <code class="ruby">      if count &gt; 0</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="21">
+        <li class="missed" data-hits="0" data-linenumber="19">
           
           
           <code class="ruby">        result = false</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="22">
+        <li class="never" data-hits="" data-linenumber="20">
           
           
           <code class="ruby">        errors[:base] &lt;&lt; &quot;#{count} issue&quot;.pluralize(count) +</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="23">
+        <li class="never" data-hits="" data-linenumber="21">
           
           
           <code class="ruby">                         &#39; found, preventing to change scope&#39; \</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="24">
+        <li class="missed" data-hits="0" data-linenumber="22">
           
           
           <code class="ruby">                         &#39; of this issue type&#39;</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="25">
-          
-          
-          <code class="ruby">      else</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="26">
-          
-          
-          <code class="ruby">        update(params)</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="27">
+        <li class="never" data-hits="" data-linenumber="23">
           
           
           <code class="ruby">      end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="28">
+        <li class="never" data-hits="" data-linenumber="24">
           
           
           <code class="ruby">    end</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="29">
+        <li class="missed" data-hits="0" data-linenumber="25">
           
           
           <code class="ruby">    result</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="30">
+        <li class="never" data-hits="" data-linenumber="26">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="31">
+        <li class="never" data-hits="" data-linenumber="27">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="32">
+        <li class="covered" data-hits="1" data-linenumber="28">
           <span class="hits">1</span>
           
-          <code class="ruby">  def safe_destroy?</code>
+          <code class="ruby">  def dependent_issues_present?</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="33">
+        <li class="missed" data-hits="0" data-linenumber="29">
           
           
-          <code class="ruby">    result = true</code>
+          <code class="ruby">    result = false</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="34">
+        <li class="missed" data-hits="0" data-linenumber="30">
           
           
           <code class="ruby">    count = issues.count</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="35">
+        <li class="missed" data-hits="0" data-linenumber="31">
           
           
           <code class="ruby">    if count &gt; 0</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="36">
+        <li class="missed" data-hits="0" data-linenumber="32">
           
           
-          <code class="ruby">      result = false</code>
+          <code class="ruby">      result = true</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="37">
+        <li class="never" data-hits="" data-linenumber="33">
           
           
           <code class="ruby">      errors[:base] &lt;&lt; &quot;#{count} issue&quot;.pluralize(count) +</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="38">
+        <li class="missed" data-hits="0" data-linenumber="34">
           
           
           <code class="ruby">                       &#39; using this type&#39;</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="39">
-          
-          
-          <code class="ruby">    else</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="40">
-          
-          
-          <code class="ruby">      destroy</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="41">
+        <li class="never" data-hits="" data-linenumber="35">
           
           
           <code class="ruby">    end</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="42">
+        <li class="missed" data-hits="0" data-linenumber="36">
           
           
           <code class="ruby">    result</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="43">
+        <li class="never" data-hits="" data-linenumber="37">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="44">
+        <li class="never" data-hits="" data-linenumber="38">
           
           
           <code class="ruby">end</code>
@@ -5003,7 +5033,7 @@
         <li class="covered" data-hits="1" data-linenumber="8">
           <span class="hits">1</span>
           
-          <code class="ruby">    resources :issue_types, only: %i[index create]</code>
+          <code class="ruby">    resources :issue_types, except: :destroy</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="9">

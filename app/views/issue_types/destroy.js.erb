@@ -1,6 +1,6 @@
 $("#flash_messages").html('<%= j render partial: "layouts/notice" %>');
 $("#error_messages").html('<%= j render partial: "layouts/errors", locals: {model: @issue_type} %>');
 
-<% unless @issue_type.errors.any? %>
-issueTypesTable.row("#issue_type_<%= @issue_type.id %>").remove().draw();
+<% if @issue_type.errors.blank? %>
+  issueTypesTable.row("#<%= issue_type_table_row_id(@issue_type) %>").remove().draw();
 <% end %>

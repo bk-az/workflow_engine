@@ -918,6 +918,17 @@
       ],
       "/home/abubakar/workflow_engine/app/helpers/issue_types_helper.rb": [
         1,
+        1,
+        0,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null,
+        1,
+        0,
+        null,
         null
       ],
       "/home/abubakar/workflow_engine/app/helpers/members_helper.rb": [
@@ -953,13 +964,9 @@
         0,
         0,
         0,
-        null,
-        0,
         0,
         0,
         null,
-        null,
-        0,
         null,
         0,
         null,
@@ -971,8 +978,6 @@
         0,
         0,
         0,
-        0,
-        null,
         0,
         null,
         0,
@@ -1027,6 +1032,6 @@
         null
       ]
     },
-    "timestamp": 1565073196
+    "timestamp": 1565242887
   }
 }

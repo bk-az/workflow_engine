@@ -18,98 +18,6 @@ RSpec.describe IssueTypesController, type: :controller do
     @request.host = "#{@company.subdomain}.lvh.me:3000"
   end
 
-  describe 'Authorization' do
-    context 'Without Signing in' do
-      it 'should not be able to index issue_types' do
-        expect do
-          get :index
-        end.to raise_exception(CanCan::AccessDenied)
-      end
-      it 'should not be able to show issue_type' do
-        expect do
-          xhr :get, :show, id: issue_type
-        end.to raise_exception(CanCan::AccessDenied)
-      end
-      it 'should not be able to create issue_type' do
-        expect do
-          xhr :post, :create, issue_type: issue_type_params
-        end.to raise_exception(CanCan::AccessDenied)
-      end
-      it 'should not be able to update issue_type' do
-        expect do
-          xhr :put, :update, id: issue_type, issue_type: issue_type_params
-        end.to raise_exception(CanCan::AccessDenied)
-      end
-      it 'should not be able to destroy issue_type' do
-        expect do
-          xhr :delete, :destroy, id: issue_type
-        end.to raise_exception(CanCan::AccessDenied)
-      end
-    end
-
-    context 'When is an admin' do
-      before(:each) do
-        sign_in @admin
-      end
-      it 'should be able to index issue_types' do
-        expect do
-          get :index
-        end.to_not raise_error
-      end
-      it 'should be able to show issue_type' do
-        expect do
-          xhr :get, :show, id: issue_type
-        end.to_not raise_error
-      end
-      it 'should be able to create issue_type' do
-        expect do
-          xhr :post, :create, issue_type: issue_type_params
-        end.to_not raise_error
-      end
-      it 'should be able to update issue_type' do
-        expect do
-          xhr :put, :update, id: issue_type, issue_type: issue_type_params
-        end.to_not raise_error
-      end
-      it 'should be able to destroy issue_type' do
-        expect do
-          xhr :delete, :destroy, id: issue_type
-        end.to_not raise_error
-      end
-    end
-
-    context 'When is a member' do
-      before(:each) do
-        sign_in @member
-      end
-      it 'should not be able to index issue_types' do
-        expect do
-          get :index
-        end.to raise_exception(CanCan::AccessDenied)
-      end
-      it 'should not be able to show issue_type' do
-        expect do
-          xhr :get, :show, id: issue_type
-        end.to raise_exception(CanCan::AccessDenied)
-      end
-      it 'should not be able to create issue_type' do
-        expect do
-          xhr :post, :create, issue_type: issue_type_params
-        end.to raise_exception(CanCan::AccessDenied)
-      end
-      it 'should not be able to update issue_type' do
-        expect do
-          xhr :put, :update, id: issue_type, issue_type: issue_type_params
-        end.to raise_exception(CanCan::AccessDenied)
-      end
-      it 'should not be able to destroy issue_type' do
-        expect do
-          xhr :delete, :destroy, id: issue_type
-        end.to raise_exception(CanCan::AccessDenied)
-      end
-    end
-  end
-
   describe 'Controller Action Testing' do
     before(:each) do
       sign_in @admin
@@ -211,6 +119,98 @@ RSpec.describe IssueTypesController, type: :controller do
           xhr :delete, :destroy, id: @issue_type.id
           Company.current_id = @company.id
         end.to_not change(IssueType, :count)
+      end
+    end
+  end
+
+  describe 'Authorization' do
+    context 'Without Signing in' do
+      it 'should not be able to index issue_types' do
+        expect do
+          get :index
+        end.to raise_exception(CanCan::AccessDenied)
+      end
+      it 'should not be able to show issue_type' do
+        expect do
+          xhr :get, :show, id: issue_type
+        end.to raise_exception(CanCan::AccessDenied)
+      end
+      it 'should not be able to create issue_type' do
+        expect do
+          xhr :post, :create, issue_type: issue_type_params
+        end.to raise_exception(CanCan::AccessDenied)
+      end
+      it 'should not be able to update issue_type' do
+        expect do
+          xhr :put, :update, id: issue_type, issue_type: issue_type_params
+        end.to raise_exception(CanCan::AccessDenied)
+      end
+      it 'should not be able to destroy issue_type' do
+        expect do
+          xhr :delete, :destroy, id: issue_type
+        end.to raise_exception(CanCan::AccessDenied)
+      end
+    end
+
+    context 'When is an admin' do
+      before(:each) do
+        sign_in @admin
+      end
+      it 'should be able to index issue_types' do
+        expect do
+          get :index
+        end.to_not raise_error
+      end
+      it 'should be able to show issue_type' do
+        expect do
+          xhr :get, :show, id: issue_type
+        end.to_not raise_error
+      end
+      it 'should be able to create issue_type' do
+        expect do
+          xhr :post, :create, issue_type: issue_type_params
+        end.to_not raise_error
+      end
+      it 'should be able to update issue_type' do
+        expect do
+          xhr :put, :update, id: issue_type, issue_type: issue_type_params
+        end.to_not raise_error
+      end
+      it 'should be able to destroy issue_type' do
+        expect do
+          xhr :delete, :destroy, id: issue_type
+        end.to_not raise_error
+      end
+    end
+
+    context 'When is a member' do
+      before(:each) do
+        sign_in @member
+      end
+      it 'should not be able to index issue_types' do
+        expect do
+          get :index
+        end.to raise_exception(CanCan::AccessDenied)
+      end
+      it 'should not be able to show issue_type' do
+        expect do
+          xhr :get, :show, id: issue_type
+        end.to raise_exception(CanCan::AccessDenied)
+      end
+      it 'should not be able to create issue_type' do
+        expect do
+          xhr :post, :create, issue_type: issue_type_params
+        end.to raise_exception(CanCan::AccessDenied)
+      end
+      it 'should not be able to update issue_type' do
+        expect do
+          xhr :put, :update, id: issue_type, issue_type: issue_type_params
+        end.to raise_exception(CanCan::AccessDenied)
+      end
+      it 'should not be able to destroy issue_type' do
+        expect do
+          xhr :delete, :destroy, id: issue_type
+        end.to raise_exception(CanCan::AccessDenied)
       end
     end
   end

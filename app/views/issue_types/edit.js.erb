@@ -1,9 +1,9 @@
+$('#issue_type_form_area').html('<%= j render partial: "issue_type_form" %>');
+issueTypeModal.modal('show');
+
 <% if params[:project_id].nil? && @issue_type.project_id.present? %>
-issueTypeCategory.val('project');
-showProjectSearch();
-issueTypeProjectId.val("<%= @issue_type.project_id %>");
+  $('#issue_type_category').val('issue_specific');
+  $('#project_search_area').attr("hidden", false);
+<% elsif params[:project_id].present? && @issue_type.project_id.blank? %>
+  issueTypeCategoryToggleSetGlobal();
 <% end %>
-$('#issue_type_name').val("<%= @issue_type.name %>");
-$('#issue_type_modal').modal('show'); 
-issueTypeForm.attr("method","patch");
-issueTypeForm.attr("action","<%= issue_type_path(@issue_type) %>");

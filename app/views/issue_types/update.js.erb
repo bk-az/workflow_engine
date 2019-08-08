@@ -1,41 +1,14 @@
 issueTypeFlash.html('<%= j render partial: "layouts/notice" %>');
-<% unless @issue_type.errors.any? %>
-  // $("#issue_type_<%= @issue_type.id %>").replaceWith('<%= j render @issue_type %>');
-  tr = $("#issue_type_<%= @issue_type.id %>");
-  issueTypeUpdateClassAndId(tr);
-  tr.find('td:eq(0)').html( updatedIssueTypeName() );
-  tr.find('td:eq(1)').html( updatedIssueTypeIcon() );
-  tr.find('td:eq(2)').html( updatedIssueTypeProjectId() );
-  tr.find('td:eq(3)').html( updatedIssueTypeButtons() );
+<% if @issue_type.errors.blank? %>
+  tr = $("#<%= issue_type_table_row_id(@issue_type) %>");
+  updateClassAndId(tr);
+  tr.html('<%= j render partial: 'issue_type_table_row_body', locals: {issue_type: @issue_type} %>');
   issueTypesTable.row(tr).invalidate().draw();
 <% else %>
   issueTypesErrors.html('<%= j render partial: "layouts/errors", locals: {model: @issue_type} %>');
 <% end %>
 
-
-function updatedIssueTypeName() {
-  return "<%= @issue_type.name %>"
-}
-
-function updatedIssueTypeIcon() {
-  <% if @issue_type.project_id.nil? %>
-  return "<i class='fas fa-check-circle'></i>"
-  <% else %>
-  return "<i class='fas fa-times-circle'></i>"
-  <% end %>
-}
-
-function updatedIssueTypeProjectId() {
-  return "<%= @issue_type.project_id.nil? ? 'NA' : @issue_type.project_id.to_s %>"
-}
-
-function updatedIssueTypeButtons() {
-  return "<%= j link_to("Delete", issue_type_path(@issue_type), method: "delete", remote: true, data: { confirm: "Are you sure to delete this issue type?"}, class: "btn btn-danger btn-sm text-white mr-2 mb-1 mb-md-0 fixed-width") %>  " +
-         "<%= j link_to("Edit", edit_issue_type_path(@issue_type), remote: true, class: "btn btn-primary btn-sm text-white mr-2 mb-1 mb-md-0 fixed-width") %>  " +
-         "<%= j link_to("Show", issue_type_path(@issue_type), remote: true, class: "btn btn-success btn-sm text-white fixed-width") %>"
-}
-
-function issueTypeUpdateClassAndId(row) {
-  row.attr('id', "issue_type_<%= @issue_type.id %>");
-  row.attr('class', "<%= @issue_type.project_id.nil? ? 'global' : 'project-'+@issue_type.project_id.to_s %>");
+function updateClassAndId(row) {
+  row.attr('id', "<%= issue_type_table_row_id(@issue_type) %>");
+  row.attr('class', "<%= issue_type_table_row_class(@issue_type) %>");
 }

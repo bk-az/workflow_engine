@@ -1,48 +1,21 @@
-$(document).on('turbolinks:load', function(){
+$(document).ready(function(){
   issueTypesTable = $('#issue_types_datatable').DataTable({
     "info": false
   });
+
+  showIssueTypeModal = $('#show_issue_type_modal');
+  issueTypeModal = $('#issue_type_modal');
   issueTypesTableBody = $('#issue_types_datatable tbody');
-  issueTypeForm = $("#issue_type_form");
-  projectNameSearch = $('#project_name_search');
   issueTypeFlash = $('#issue_type_flash');
   issueTypesErrors = $('#issue_type_errors');
-  showIssueTypeModal = $('#show_issue_type_modal');
-  issueTypeCategory = $('#issue_type_category');
-  issueTypeProjectId = $('#issue_type_project_id');
-  projectIssueTypeCategory = $('#project_issue_type_category');
-
-  var issueTypeModal = $('#issue_type_modal');
+  
   var issueTypesCategoryFilter = $('#issue_types_category_filter');
   var issueTypesProjectId = $('#issue_types_project_id');
 
-  // save these initial attrs to reset form later
-  var issueTypeFormMethod = issueTypeForm.attr("method");
-  var issueTypeFormAction = issueTypeForm.attr("action");
-
   issueTypeModal.on('hidden.bs.modal', function () {
-    clearIssueTypeForm();
-    hideProjectSearch();
     clearFlashMessages();
-    resetAttrIssueTypeForm();
+    $('#issue_type_form_area').html('');
   });
-
-  issueTypeForm.submit(function(e){
-    if (issueTypeCategory.val() == 'project' && issueTypeProjectId.val() == ''){
-      alert('Please Select a Project');
-      return false;
-    }
-  });
-
-  issueTypeCategory.change(function() {
-    if ($(this).val() == 'global') {
-      hideProjectSearch();
-      issueTypeProjectId.val('');
-      $('#issue_type_project_name').val('');
-    } else if ($(this).val() == 'project') {
-      showProjectSearch();
-    }
-  }); 
 
   issueTypesCategoryFilter.change(function() {
     tr = issueTypesTableBody.find('tr');
@@ -73,27 +46,38 @@ $(document).on('turbolinks:load', function(){
     issueTypesErrors.html('');
   }
 
-  function hideProjectSearch() {
-    projectNameSearch.attr("hidden",true);
-  }
+  $('#issue_type_form_area').on("change", "select", function(){
+    if ($(this).val() == 'global') {
+      $('#project_search_area').attr("hidden", true);
+      $('#project_search_area input').val('');
+    } else if ($(this).val() == 'project_specific') {
+      $('#project_search_area').attr("hidden", false);
+    }
+  });
 
-  function resetAttrIssueTypeForm(){
-    issueTypeForm.attr("method", issueTypeFormMethod);
-    issueTypeForm.attr("action", issueTypeFormAction);
-  }
-
+  $('#issue_type_form_area').on("submit", "form", function(){
+    var category = $('#issue_type_category').val();
+    var project_id = $('#issue_type_project_id').val();
+    if (category == 'project_specific' && project_id == ''){
+      alert('Please Select a Project');
+      return false;
+    }
+  });
 });
 
-function resetProjectIssueTypeCategory(){
-  projectIssueTypeCategory.find('label:eq(1)').removeClass('active');
-  projectIssueTypeCategory.find('label:eq(0)').addClass('active');
+function resetIssueTypeCategoryToggle(){
+  var categoryToggle = $('#issue_type_category_toggle');
+  if (categoryToggle.length > 0) {
+    categoryToggle.find('label').removeClass('active');
+    categoryToggle.find('label:eq(0)').addClass('active');
+  }
 }
 
-function showProjectSearch() {
-  projectNameSearch.attr("hidden",false);  
-}
-
-function clearIssueTypeForm() {
-  issueTypeForm.trigger("reset");
-  resetProjectIssueTypeCategory();
+function issueTypeCategoryToggleSetGlobal(){
+  var categoryToggle = $('#issue_type_category_toggle');
+  if (categoryToggle.length > 0) {
+    categoryToggle.find('label').removeClass('active');
+    categoryToggle.find('label:eq(1)').addClass('active');
+    categoryToggle.find('input[name=category][value=global]').prop('checked', true);
+  }
 }

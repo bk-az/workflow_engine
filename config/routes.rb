@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   
   resources :projects do
     resources :comments, shallow: true
-    resources :issue_types, only: %i[index create]
+    resources :issue_types, except: :destroy
   end
 
   resources :comments, only: [:edit, :update, :destroy]

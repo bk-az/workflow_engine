@@ -11,33 +11,27 @@ class IssueType < ActiveRecord::Base
   scope :project_issue_types, ->(project_id) { where(project_id: [project_id, nil]) }
   scope :issue_types_for_projects, ->(project) { where(project_id: project.id) }
 
-  def safe_update?(params)
+  def can_change_scope?(project_id)
     result = true
-    if params[:project_id].nil?
-      update(params)
-    else
-      count = issues.where.not(project_id: params[:project_id]).count
+    if project_id.present?
+      count = issues.where.not(project_id: project_id).count
       if count > 0
         result = false
         errors[:base] << "#{count} issue".pluralize(count) +
                          ' found, preventing to change scope' \
                          ' of this issue type'
-      else
-        update(params)
       end
     end
     result
   end
 
-  def safe_destroy?
-    result = true
+  def dependent_issues_present?
+    result = false
     count = issues.count
     if count > 0
-      result = false
+      result = true
       errors[:base] << "#{count} issue".pluralize(count) +
                        ' using this type'
-    else
-      destroy
     end
     result
   end

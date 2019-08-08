@@ -1,13 +1,9 @@
 <div class="container">
   <div class="jumbotron">
     <h1 class="text-center">
-      <%= @issue_type.name %> <span class="badge badge-pill badge-dark" style="font-size: 0.3em;"><%= @project.nil? ? 'global' : link_to('project', '#', class: 'text-white') %></span>
+      <%= @issue_type.name %> <span class="badge badge-pill badge-dark ml-1" style="font-size: 0.3em;"><%= @issue_type.project_id.nil? ? 'global' : link_to('project', '#', class: 'text-white') %></span>
     </h1>      
     <p class="text-center"><span class="badge badge-pill badge-danger"><%= @total_issues %></span><%= " issue".pluralize(@total_issues) + " using this type" %>
     </p>
   </div>
-  <% unless @project.nil? %>
-  <h3 class="bg-dark text-warning badge-pill text-center py-1"> Project </h3>
-  <h5 class="bg-light text-success text-center mt-2"> <%= link_to(@project.title, '#') %> </h5>
-  <% end %>  
 </div>

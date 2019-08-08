@@ -1,28 +1,29 @@
 <div class="text-center my-4">
-  <h1>Issue Types</h1>
+  <h2>Issue Types</h2>
 </div>
-<button type="button" class="btn btn-success mb-4 mr-2" data-toggle="modal" data-target="#issue_type_modal">
-  <i class="fas fa-plus mr-2"></i>New Issue Type</button>
+
 <% if params[:project_id].present? %>
-<a class="btn btn-primary mb-4" href="<%= issue_types_path %>">
-  <i class="fas fa-cog mr-2"></i>Manage All Issue Types</a>
+  <%= link_to('New Issue Type', new_project_issue_type_path(params[:project_id]), remote: true, class: 'btn btn-primary mb-4 mr-2') %>
+  <a class="btn btn-warning mb-4" href="<%= issue_types_path %>">
+    <i class="fas fa-cog mr-2"></i>Manage All Issue Types</a>
+<% else %>
+  <%= link_to('New Issue Type', new_issue_type_path, remote: true, class: 'btn btn-primary mb-4 mr-2') %>
 <% end %>
 
+<!-- Issue Type Modals -->
 
-  <!-- Issue Type Modals -->
-  <%= render 'issue_types/new_issue_type_modal' %>
-  <%= render 'issue_types/show_issue_type_modal' %>
+<%= render 'issue_types/new_issue_type_modal' %>
+<%= render 'issue_types/show_issue_type_modal' %>
 
-  <div class="row">
-
-    <% if params[:project_id].nil? %>
+<div class="row">
+  <% if params[:project_id].nil? %>
     <div class="col-lg-6 col-md-12 col-sm-12">
-    <% else %>
+  <% else %>
     <div class="col-lg-12 col-md-12 col-sm-12">
-    <% end %>
+  <% end %>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
-          <label class="input-group-text bg-warning text-dark" for="issue_types_category_filter">Category</label>
+          <label class="input-group-text bg-dark text-light" for="issue_types_category_filter">Category</label>
         </div>
         <select id="issue_types_category_filter" class="custom-select">
           <option value='all' selected>All Issue Types</option>
@@ -31,31 +32,33 @@
         </select>
       </div>
     </div>
-    <% if params[:project_id].nil? %>
+
+  <% if params[:project_id].nil? %>
     <div class="col-lg-6 col-md-12 col-sm-12">
       <div class="input-group mb-4">
         <div class="input-group-prepend">
-          <label class="input-group-text bg-warning text-dark" for="issue_types_project_name">Search Project</label>
+          <label class="input-group-text bg-dark text-light" for="issue_types_project_name">Search Project</label>
         </div>
         <%= autocomplete_field_tag 'issue_types_project_name', '', autocomplete_project_title_issue_types_path, :id_element => '#issue_types_project_id', class: 'form-control', placeholder: 'Search' %>
-        <%= link_to("Apply", "" , id: 'issue_types_project_name_apply', class: 'btn btn-outline-success ml-2') %>
+        <%= link_to("Apply", "" , id: 'issue_types_project_name_apply', class: 'btn btn-outline-info ml-2') %>
         <input type="number" id="issue_types_project_id" hidden>
       </div>
     </div>
-    <% end %>
-  </div>
-  <div class="my-4">
-    <table id="issue_types_datatable" class="table">
-      <thead class="thead-dark">
-        <tr>
-          <th>Name</th>
-          <th>Global</th>
-          <th>Project #</th>
-          <th>Manage</th>
-        </tr>
-      </thead>
-      <tbody id="table_body">
-        <%= render @issue_types %>
-      </tbody>
-    </table>
-  </div>
+  <% end %>
+</div>
+
+<div class="my-4">
+  <table id="issue_types_datatable" class="table table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Global</th>
+        <th>Project #</th>
+        <th>Manage</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: 'issue_type_table_row', collection: @issue_types, as: :issue_type %>
+    </tbody>
+  </table>
+</div>
