@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(version: 20190807065639) do
   add_index "issue_types", ["company_id"], name: "index_issue_types_on_company_id", using: :btree
   add_index "issue_types", ["project_id"], name: "index_issue_types_on_project_id", using: :btree
 
-  create_table "issue_watchers", id: false, force: :cascade do |t|
+  create_table "issue_watchers", force: :cascade do |t|
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.integer  "watcher_id",   limit: 4
@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(version: 20190807065639) do
   end
 
   add_index "issue_watchers", ["issue_id"], name: "index_issue_watchers_on_issue_id", using: :btree
+  add_index "issue_watchers", ["watcher_id", "watcher_type", "issue_id"], name: "index_issue_watchers_on_watcher_id_and_watcher_type_and_issue_id", unique: true, using: :btree
   add_index "issue_watchers", ["watcher_type", "watcher_id"], name: "index_issue_watchers_on_watcher_type_and_watcher_id", using: :btree
 
   create_table "issues", force: :cascade do |t|
@@ -112,12 +113,13 @@ ActiveRecord::Schema.define(version: 20190807065639) do
   create_table "project_memberships", force: :cascade do |t|
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
-    t.integer  "project_member_id",   limit: 4
-    t.string   "project_member_type", limit: 255
-    t.integer  "project_id",          limit: 4
+    t.integer  "project_member_id",   limit: 4,   null: false
+    t.string   "project_member_type", limit: 255, null: false
+    t.integer  "project_id",          limit: 4,   null: false
   end
 
   add_index "project_memberships", ["project_id"], name: "index_project_memberships_on_project_id", using: :btree
+  add_index "project_memberships", ["project_member_type", "project_member_id", "project_id"], name: "index_project_memberships_on_project_member_and_project_id", unique: true, using: :btree
   add_index "project_memberships", ["project_member_type", "project_member_id"], name: "index_project_memberships_on_project_member_type_and_id", using: :btree
 
   create_table "projects", force: :cascade do |t|
@@ -145,6 +147,7 @@ ActiveRecord::Schema.define(version: 20190807065639) do
     t.integer  "user_id",       limit: 4
   end
 
+  add_index "team_memberships", ["team_id", "user_id"], name: "index_team_memberships_on_team_id_and_user_id", unique: true, using: :btree
   add_index "team_memberships", ["team_id"], name: "index_team_memberships_on_team_id", using: :btree
   add_index "team_memberships", ["user_id"], name: "index_team_memberships_on_user_id", using: :btree
 
@@ -163,7 +166,7 @@ ActiveRecord::Schema.define(version: 20190807065639) do
     t.string   "first_name",                         limit: 255,                null: false
     t.string   "last_name",                          limit: 255,                null: false
     t.string   "designation",                        limit: 255
-    t.string   "has_changed_sys_generated_password", limit: 255, default: "0",  null: false
+    t.boolean  "has_changed_sys_generated_password", limit: 1,   default: true, null: false
     t.string   "email",                              limit: 255, default: "",   null: false
     t.string   "encrypted_password",                 limit: 255, default: "",   null: false
     t.string   "reset_password_token",               limit: 255
