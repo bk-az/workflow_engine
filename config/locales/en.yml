@@ -20,7 +20,16 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  project_memberships:
+    create:
+      created: "Member Added Successfully"
+      not_created: "Member not Added"
+  document:
+    create:
+      success: 'Document saved successfully!'
 
+    destroy:
+      success: 'Successfully deleted document!'
   issues:
     create:
       notice: 'Issue Created successfully!'
@@ -28,7 +37,8 @@ en:
       notice: 'Issue Deleted successfully'
     update:
       notice: 'Issue Updated successfully!'
-
+      save_issue: 'Issue Created and Saved  successfully!'
+      destroy_issue: 'Issue Deleted successfully'
   comments:
     create:
       btn: 'Comment'
@@ -49,7 +59,7 @@ en:
     destroy:
       destroyed: 'Project destroyed successfully!'
       not_destroyed: 'Project could not be destroyed.'
-
+ 
   users:
     sessions:
       new:

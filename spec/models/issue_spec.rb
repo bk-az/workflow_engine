@@ -1,13 +1,5 @@
 require 'rails_helper'
 
-# t.string   :title, null: false
-# t.text     :description, null: false
-# t.date     :start_date
-# t.date     :due_date
-# t.integer  :progress, default: 0
-# t.integer  :priority, default: 0
-# t.timestamps null: false
-
 RSpec.describe Issue, type: :model do
   let(:title)           { 'title' }
   let(:description)     { 'description' }

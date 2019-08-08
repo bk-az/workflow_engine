@@ -1,0 +1,22 @@
+<div class="container">
+  <% if (@documents.blank?) %>
+    <h3>No documents to show</h3>
+  <% else %>
+    <h1>Documents List</h1>
+    <table class="table table-hover" id="DocumentsTable">
+    <thead>
+      <tr>
+        <th scope="col">Document</th>
+        <th scope="col">Document Index</th>
+        <th scope="col">Name</th>
+        <th scope="col">Type</th>
+        <th scope="col">Download</th>
+      </tr>
+    </thead>
+    <tbody>
+
+     <%= render partial: "show_documents", locals: { documents: @documents } %>
+
+    </tbody>
+  <% end %>
+</div>

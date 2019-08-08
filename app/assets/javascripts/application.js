@@ -11,7 +11,8 @@
 // about supported directives.
 //
 //= require jquery
-//= require popper
+//= require jquery-ui/widgets/autocomplete
 //= require jquery_ujs
+//= require popper
 //= require_tree .
   
