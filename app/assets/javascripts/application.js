@@ -11,7 +11,8 @@
 // about supported directives.
 //
 //= require jquery
+//= require autocomplete-rails
 //= require jquery-ui/widgets/autocomplete
-//= require jquery_ujs
 //= require popper
+//= require jquery_ujs
 //= require_tree .
