@@ -27,7 +27,7 @@ Role.create([{ name: 'Administrator' }, { name: 'Member' }])
 debug('Owner')
 # Creating Owner
 owner = User.create( first_name: 'abubakar', last_name: 'azeem',
-                     email: 'muhammad.basil@7vals.com',
+                     email: 'abubakar.azeem@7vals.com',
                      password: '123456789', role_id: Role.first.id,
                      company_id: 1, confirmed_at: Date.today)
 
