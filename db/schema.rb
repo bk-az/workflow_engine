@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190806092950) do
+ActiveRecord::Schema.define(version: 20190806113017) do
 
   create_table "audits", force: :cascade do |t|
     t.integer  "auditable_id",    limit: 4
@@ -62,11 +62,15 @@ ActiveRecord::Schema.define(version: 20190806092950) do
   add_index "companies", ["subdomain"], name: "index_companies_on_subdomain", using: :btree
 
   create_table "documents", force: :cascade do |t|
-    t.string   "path",       limit: 255, null: false
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.integer  "company_id", limit: 4,   null: false
-    t.integer  "issue_id",   limit: 4,   null: false
+    t.string   "path",                  limit: 255, null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.integer  "company_id",            limit: 4,   null: false
+    t.integer  "issue_id",              limit: 4,   null: false
+    t.string   "document_file_name",    limit: 255
+    t.string   "document_content_type", limit: 255
+    t.integer  "document_file_size",    limit: 4
+    t.datetime "document_updated_at"
   end
 
   add_index "documents", ["company_id"], name: "index_documents_on_company_id", using: :btree
@@ -137,6 +141,7 @@ ActiveRecord::Schema.define(version: 20190806092950) do
   end
 
   add_index "project_memberships", ["project_id"], name: "index_project_memberships_on_project_id", using: :btree
+  add_index "project_memberships", ["project_member_type", "project_member_id", "project_id"], name: "index_project_memberships_on_project_member_and_project_id", unique: true, using: :btree
   add_index "project_memberships", ["project_member_type", "project_member_id"], name: "index_project_memberships_on_project_member_type_and_id", using: :btree
 
   create_table "projects", force: :cascade do |t|
@@ -164,6 +169,7 @@ ActiveRecord::Schema.define(version: 20190806092950) do
     t.integer  "user_id",       limit: 4
   end
 
+  add_index "team_memberships", ["team_id", "user_id"], name: "index_team_memberships_on_team_id_and_user_id", unique: true, using: :btree
   add_index "team_memberships", ["team_id"], name: "index_team_memberships_on_team_id", using: :btree
   add_index "team_memberships", ["user_id"], name: "index_team_memberships_on_user_id", using: :btree
 
@@ -180,7 +186,7 @@ ActiveRecord::Schema.define(version: 20190806092950) do
     t.string   "first_name",                         limit: 255,                null: false
     t.string   "last_name",                          limit: 255,                null: false
     t.string   "designation",                        limit: 255
-    t.string   "has_changed_sys_generated_password", limit: 255, default: "0",  null: false
+    t.boolean  "has_changed_sys_generated_password", limit: 1,   default: true, null: false
     t.string   "email",                              limit: 255, default: "",   null: false
     t.string   "encrypted_password",                 limit: 255, default: "",   null: false
     t.string   "reset_password_token",               limit: 255

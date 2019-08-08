@@ -1,0 +1,10 @@
+<%= form_for(@issue_state, html: {id: 'issue_state_form'}, remote: true) do |f| %>
+
+  <div class="form-group">
+    <%= f.label :name, 'Issue State Name:' %>
+    <%= f.text_field :name, class: 'form-control', placeholder: 'Enter Name', required: true %>
+  </div>
+  <div class="form-group">
+    <%= f.submit 'Submit', class: 'btn btn-primary' %>
+  </div>
+<% end %>

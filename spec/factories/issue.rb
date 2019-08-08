@@ -1,3 +1,5 @@
+require 'faker'
+
 FactoryGirl.define do
   factory :issue do
     title 'This is newly created issue'

@@ -1,4 +1,25 @@
-<h2><%= @issue.title %></h2>
+
+<div class="wrapper">
+  <h2 class="float-left"><%= @issue.title %></h2>
+  <% if can?([:destroy_watcher, :search_watcher_to_destroy], IssueWatcher) %>
+    <button type="button" class="btn btn-secondary float-right" data-toggle="modal" data-target="#remove_watchers_modal">Remove Watcher</button>
+    <%= render partial: 'issue_watchers/remove_watchers_form', locals: { issue: @issue } %>
+  <% end %>  
+
+  <% if can?([:create_watcher, :search_watcher_to_add], IssueWatcher) %>
+    <button type="button" class="btn btn-secondary float-right mr-2" data-toggle="modal" data-target="#add_watchers_modal">Add Watcher</button>
+    <%= render partial: 'issue_watchers/add_watchers_form', locals: { issue: @issue } %>
+  <% end %>
+
+  <div id="watch_button_div" class="float-right mr-2">
+    <%= render partial: 'issue_watchers/watch_button', locals: { issue: @issue } %>
+  </div>
+
+  <% if can?(:update, @issue) %>
+    <%= link_to 'Edit', edit_project_issue_path(@issue.project_id, @issue.id), class: 'btn btn-secondary float-right mr-2' %>
+  <% end %>
+</div>
+<br>
 <table class="table">
   <thead class="thead-dark">
   </thead>
@@ -41,22 +62,28 @@
     </tr>
   </tbody>
 </table>
-<% if can?(:update, @issue) %>
-  <%= link_to 'Edit', edit_project_issue_path(@issue.project_id, @issue.id), class: 'btn btn-primary' %>
-<% end %>
-</br></br>
-<div id="watch_button_div">
-  <%= render partial: 'issue_watchers/watch_button', locals: { issue: @issue } %>
-</div>
-</br>
 
-<% if can?([:create_watcher, :search_watcher_to_add], IssueWatcher) %>
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add_watchers_modal">Add Watcher</button>
-  <%= render partial: 'issue_watchers/add_watchers_form', locals: { issue: @issue } %>
-<% end %>
-<br><br>
-
-<% if can?([:destroy_watcher, :search_watcher_to_destroy], IssueWatcher) %>
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#remove_watchers_modal">Remove Watcher</button>
-  <%= render partial: 'issue_watchers/remove_watchers_form', locals: { issue: @issue } %>
+<%= link_to 'Show all Documents', issue_documents_path(@issue),class: 'btn btn-primary' %>
+<div class="page-header"><h3>Upload Document</h3></div>
+<%= form_for [@issue, @document], html: { multipart: true } do |f| %>
+  <% if @document.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= "#{pluralize(@document.errors.count, "error")} prohibited this document from being saved:" %>
+      </h2>
+      <ul>
+        <% @document.errors.full_messages.each do |msg| %>
+          <li>
+            <%= msg %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="form-group upload_document_field">
+    <%= f.file_field :document %>
+  </div>
+  <div class="form-group">
+    <%= f.submit 'Upload Document', class: 'btn btn-secondary' %>
+  </div>
 <% end %>

@@ -21,6 +21,7 @@ class Issue < ActiveRecord::Base
   belongs_to :company
   belongs_to :project
   belongs_to :issue_state
+  has_many   :issue_states
   belongs_to :issue_type
 
   # An issue belongs to an admin (creator)
@@ -35,6 +36,8 @@ class Issue < ActiveRecord::Base
 
   has_many   :documents
 
+  has_many   :comments, as: :commentable
+  has_many :documents, as: :documentable
   has_many   :comments, as: :commentable, dependent: :destroy
 
   # Polymorphic Watchers

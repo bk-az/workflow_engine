@@ -1,0 +1,24 @@
+<div class="text-center my-4">
+  <h2>Issue States</h2>
+</div>
+
+<%= link_to('New Issue State', new_issue_state_path, remote: true, class: 'btn btn-primary mb-4 mr-2') %>
+
+<!-- Issue State Modals -->
+
+<%= render 'issue_states/new_issue_state_modal' %>
+<%= render 'issue_states/show_issue_state_modal' %>
+
+<div class="my-4">
+  <table id="issue_states_datatable" class="table table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Manage</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: 'issue_state_table_row', collection: @issue_states, as: :issue_state %>
+    </tbody>
+  </table>
+</div>

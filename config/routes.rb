@@ -1,19 +1,35 @@
 Rails.application.routes.draw do
+  root 'user_companies#find'
+
   resources :issues, only: :index do
     resources :comments, shallow: true
     get 'filter', on: :collection
-  end
-
-  devise_scope :user do
-    get 'signout', to: 'devise/sessions#destroy'
+    resources :documents
   end
 
   resources :projects do
+    resources :documents
     resources :comments, shallow: true
+    resources :issue_types, except: :destroy
+    resources :project_memberships, only: %i[index create], as: 'members'
     resources :issues, only: [:new, :create, :show, :edit, :update, :destroy]
   end
 
   resources :comments, only: [:edit, :update, :destroy]
+
+  resources :issue_states do
+    get :autocomplete_issue_title, on: :collection
+  end
+
+  resources :project_memberships, only: :destroy do
+    collection do
+      get 'search'
+    end
+  end
+
+  resources :issue_types do
+    get :autocomplete_project_title, on: :collection
+  end
 
   get 'user_companies/find', to: 'user_companies#find'
   post 'user_companies/find', to: 'user_companies#find_user_by_email'
