@@ -5,10 +5,8 @@ class DocumentsController < ApplicationController
 
   def index
     if params[:issue_id].present?
-      @document_type = 'Issue'
       @documents = @issue.documents
     elsif params[:project_id].present?
-      @document_type = 'Project'
       @documents = @project.documents
     end
     respond_to do |format|
