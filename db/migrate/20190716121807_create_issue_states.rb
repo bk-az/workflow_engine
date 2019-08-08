@@ -5,7 +5,6 @@ class CreateIssueStates < ActiveRecord::Migration
 
       # Foreign Keys
       t.integer :company_id, null: false, index: true
-      t.integer :issue_id, null: true, index: true
     end
   end
 end

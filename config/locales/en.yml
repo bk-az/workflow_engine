@@ -20,6 +20,16 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  issue_states:
+    create:
+      created: "Issue State created Successfully"
+      not_created: "Issue State not Created"
+    destroy:
+      deleted: "Issue State Deleted Successfully"
+      not_deleted: "Unable to delete this Issue State"
+    update:
+      updated: "Issue State Updated Successfully"
+      not_updated: "Issue State not Updated"
   issue_types:
     create:
       created: "Issue Type created Successfully"
@@ -37,7 +47,6 @@ en:
   document:
     create:
       success: 'Document saved successfully!'
-
     destroy:
       success: 'Successfully deleted document!'
   issues:

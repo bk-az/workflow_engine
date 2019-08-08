@@ -1,0 +1,9 @@
+issueStateFlash.html('<%= j render partial: "layouts/notice" %>');
+<% if @issue_state.errors.blank? %>
+  tr = $("#<%= issue_state_table_row_id(@issue_state) %>");
+  tr.html('<%= j render partial: 'issue_state_table_row_body', locals: {issue_state: @issue_state} %>');
+  issueStatesTable.row(tr).invalidate().draw();
+<% else %>
+  issueStatesErrors.html('<%= j render partial: "layouts/errors", locals: {model: @issue_state} %>');
+<% end %>
+

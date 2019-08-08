@@ -13,6 +13,7 @@ class Issue < ActiveRecord::Base
   belongs_to :company
   belongs_to :project
   belongs_to :issue_state
+  has_many   :issue_states
   belongs_to :issue_type
 
   # An issue belongs to an admin (creator)

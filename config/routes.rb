@@ -17,6 +17,10 @@ Rails.application.routes.draw do
 
   resources :comments, only: [:edit, :update, :destroy]
 
+  resources :issue_states do
+    get :autocomplete_issue_title, on: :collection
+  end
+
   resources :project_memberships, only: :destroy do
     collection do
       get 'search'
