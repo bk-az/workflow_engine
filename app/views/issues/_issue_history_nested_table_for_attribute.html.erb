@@ -1,0 +1,9 @@
+<table class="table table-sm">
+  <% audit.audited_changes.keys.each do |key| %>
+    <tr>
+      <td>
+        <%= attribute_title_from_key(key) %>
+      </td>
+    </tr>
+  <% end %>
+</table>

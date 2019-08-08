@@ -1,0 +1,24 @@
+<div class="text-center my-4">
+  <h1>Issues Report</h1>
+</div>
+
+<div class="my-4">
+  <table id="report_datatable"  class="table table-sm">
+    <thead class="thead-dark">
+      <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Project</th>
+      <th scope="col">Assignee</th>
+      <th scope="col">Creator</th>
+      <th scope="col">State</th>
+      <th scope="col">Type</th>
+      <th scope="col">Priority</th>
+      <th scope="col">Created</th>
+      <th scope="col">Due Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: 'issues_report', collection: @issues, as: :issue %>
+    </tbody>
+  </table>
+</div>

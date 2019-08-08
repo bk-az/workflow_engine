@@ -89,12 +89,12 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
-  def name
-    "#{first_name} #{last_name}"
+  def admin?
+    role.name == Role::ROLES[:administrator]
   end
 
-  def admin?
-    role_id == Role.admin.id
+  def full_name
+    "#{first_name} #{last_name}"
   end
 
   def visible_projects
