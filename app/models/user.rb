@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   validates :first_name, presence: true, length: { minimum: 2, maximum: 50 }
   validates :last_name, presence: true, length: { minimum: 2, maximum: 50 }
   validates :role_id, presence: true
-  validates :email, uniqueness: {scope: :company_id}
+  validates :email, uniqueness: { scope: :company_id }
   belongs_to :company
   belongs_to :role
   has_many   :comments
@@ -60,8 +60,8 @@ class User < ActiveRecord::Base
   end
 
   def send_on_create_confirmation_instructions
-    # CONFIRM USER ONLY WHEN HE IS NOT INVITED.
-    send_confirmation_instructions unless has_changed_sys_generated_password?
+    # CONFIRM USER ONLY WHEN HE IS NOT INVITED (MEANS has_changed_sys_generated_password) is true.
+    send_confirmation_instructions if has_changed_sys_generated_password?
   end
 
   def check_for_issues
@@ -81,7 +81,7 @@ class User < ActiveRecord::Base
     true
   end
 
-  def self.find_for_database_authentication(warden_conditions)
+  def self.find_for_authentication(warden_conditions)
     where(:email => warden_conditions[:email]).first
   end
   # returns full name
@@ -94,7 +94,7 @@ class User < ActiveRecord::Base
   end
 
   def admin?
-    role == Role.admin
+    role_id == Role.admin.id
   end
 
   def visible_projects

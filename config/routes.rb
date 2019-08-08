@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root 'user_companies#find'
+
   resources :issues, only: :index do
     resources :comments, shallow: true
     get 'filter', on: :collection
@@ -8,6 +10,7 @@ Rails.application.routes.draw do
   resources :projects do
     resources :documents
     resources :comments, shallow: true
+    resources :issue_types, except: :destroy
     resources :project_memberships, only: %i[index create], as: 'members'
     resources :issues, only: [:new, :create, :show, :edit, :update, :destroy]
   end
@@ -22,6 +25,10 @@ Rails.application.routes.draw do
     collection do
       get 'search'
     end
+  end
+
+  resources :issue_types do
+    get :autocomplete_project_title, on: :collection
   end
 
   get 'user_companies/find', to: 'user_companies#find'

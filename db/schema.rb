@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190806092950) do
+ActiveRecord::Schema.define(version: 20190806113017) do
 
   create_table "audits", force: :cascade do |t|
     t.integer  "auditable_id",    limit: 4
@@ -186,7 +186,7 @@ ActiveRecord::Schema.define(version: 20190806092950) do
     t.string   "first_name",                         limit: 255,                null: false
     t.string   "last_name",                          limit: 255,                null: false
     t.string   "designation",                        limit: 255
-    t.string   "has_changed_sys_generated_password", limit: 255, default: "0",  null: false
+    t.boolean  "has_changed_sys_generated_password", limit: 1,   default: true, null: false
     t.string   "email",                              limit: 255, default: "",   null: false
     t.string   "encrypted_password",                 limit: 255, default: "",   null: false
     t.string   "reset_password_token",               limit: 255

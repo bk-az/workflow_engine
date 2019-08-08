@@ -27,8 +27,6 @@ class TeamsController < ApplicationController
 
   def create
     @team = Team.new(team_params)
-    @team.company_id = current_tenant.id ## need to be changed
-
     if @team.save
       TeamMembership.create!(is_team_admin: true, is_approved: false, team_id: Team.last.id, user_id: current_user.id)
       flash[:notice] = t('.Team created Successfully')

@@ -30,6 +30,16 @@ en:
     update:
       updated: "Issue State Updated Successfully"
       not_updated: "Issue State not Updated"
+  issue_types:
+    create:
+      created: "Issue Type created Successfully"
+      not_created: "Issue Type not Created"
+    destroy:
+      deleted: "Issue Type Deleted Successfully"
+      not_deleted: "Unable to delete this Issue Type"
+    update:
+      updated: "Issue Type Updated Successfully"
+      not_updated: "Issue Type not Updated"
   project_memberships:
     create:
       created: "Member Added Successfully"
@@ -37,7 +47,6 @@ en:
   document:
     create:
       success: 'Document saved successfully!'
-
     destroy:
       success: 'Successfully deleted document!'
   issues:

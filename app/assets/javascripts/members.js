@@ -1,4 +1,4 @@
-$(function(){
+$(function() {
   /*
             ON LOAD SCRIPT
   */
