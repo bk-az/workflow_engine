@@ -1,6 +1,6 @@
 <div class="container">
   <% if can? :manage, Team %>
-     <h2>Search members to add </h2>
+     <h2>Add members </h2>
       <%= form_tag add_membership_teams_path, method: 'get', remote: true do %>
         <div class="row">
           <div class="col-8">

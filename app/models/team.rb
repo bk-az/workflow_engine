@@ -1,6 +1,6 @@
 class Team < ActiveRecord::Base
 	sequenceid :company , :teams
-  validates :name, presence: true
+  validates :name, presence: true,  length: { minimum: 3, maximum: 100 }
   belongs_to :company
 
   has_many :team_memberships

@@ -37,7 +37,7 @@ group :development, :test do
   # Call 'byebug' in the code to stop execution and get a debugger console
   gem 'byebug', '10.0.2'
   gem 'capybara', '3.1.1'
-  gem 'database_cleaner', '1.7.0'
+  gem 'database_cleaner', '~> 1.0.1'
   gem 'factory_girl_rails', '4.9.0'
   # rspec
   gem 'rspec-rails', '3.8.2'

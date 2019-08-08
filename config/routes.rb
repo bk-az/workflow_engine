@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :teams do
     collection do
       get 'add_membership'
+      get 'approve_request'
     end
   end
 

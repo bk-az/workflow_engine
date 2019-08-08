@@ -34,13 +34,14 @@ class TeamsController < ApplicationController
       end
     else
       team_created = false
-      flash.now[:error] = @team.errors.full_messages
+      flash[:error] = @team.errors.full_messages
     end
     respond_to do |format|
       format.html do
         if team_created
           redirect_to teams_path
         else
+          flash[:notice] = @team.errors.full_messages
           render 'new'
         end
       end
@@ -103,5 +104,10 @@ class TeamsController < ApplicationController
         flash.now[:error] = @team_membership.errors.full_messages
       end
     end
+  end
+
+
+  def approve_request
+    TeamMembership.find_by(team_id: params[:team_id] , user_id: params[:user_id]).update(is_approved: true)
   end
 end

@@ -8,6 +8,7 @@ RSpec.describe TeamsController, type: :controller do
     @company = create(:company)
     @admin = create(:admin, company: @company)
     @member = create(:member, company: @company)
+
   end
   before(:each) do
     @request.host = "#{@company.subdomain}.lvh.me:3000"
@@ -48,7 +49,8 @@ RSpec.describe TeamsController, type: :controller do
 
   describe 'Get #show' do
     before :all do
-      @team = FactoryGirl.create(:team)
+      # @team = FactoryGirl.create(:team)
+      @team = create(:team, company: @company)
     end
     context 'as admin' do 
       before(:each) do
@@ -60,7 +62,7 @@ RSpec.describe TeamsController, type: :controller do
       end
 
       it 'should success and render to the :show template' do
-        get :show, id: FactoryGirl.create(:team)
+        get :show, id: @team
         expect(response).to have_http_status(200)
         expect(response).to render_template :show
       end
@@ -76,7 +78,7 @@ RSpec.describe TeamsController, type: :controller do
       end
 
       it 'should success and render to the :show template' do
-        get :show, id: FactoryGirl.create(:team)
+        get :show, id: @team
         expect(response).to have_http_status(200)
         expect(response).to render_template :show
       end
@@ -86,6 +88,7 @@ RSpec.describe TeamsController, type: :controller do
   describe 'POST #create' do
     before(:all) {
       FactoryGirl.create(:user)
+      @team = create(:team, company: @company)
     }
     context 'as admin allowed to create' do
       before(:each) do
@@ -94,7 +97,7 @@ RSpec.describe TeamsController, type: :controller do
       context 'with valid attributes' do
         it 'saves the new team in the database' do
           expect do
-            post :create, team: FactoryGirl.attributes_for(:team)
+            post :create, team: @team
             Company.current_id = @company.id
           end
             .to change(Team, :count).by(1)
@@ -125,7 +128,7 @@ RSpec.describe TeamsController, type: :controller do
 
   describe '#destroy' do
     before :all do
-      @team = FactoryGirl.create(:team)
+      @team = create(:team, company: @company)
     end
     context 'as admin allowed to destroy' do
       before(:each) do
