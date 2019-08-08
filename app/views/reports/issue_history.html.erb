@@ -3,21 +3,18 @@
 </div>
 
 <div class="my-4">
-  <table id="issues_report_datatable"  class="table table-sm">
+  <table id="issues_report_datatable"  class="table">
     <thead class="thead-dark">
       <tr>
-      <th scope="col">Title</th>
-      <th scope="col">Description</th>
-<!--       <th scope="col">Assignee</th>
-      <th scope="col">State</th>
-      <th scope="col">Type</th>
-      <th scope="col">Priority</th>
-      <th scope="col">Created</th>
-      <th scope="col">Due Date</th> -->
+        <th scope="col">Sr#</th>
+        <th scope="col">Time</th>
+        <th scope="col">Attribute</th>
+        <th scope="col">From</th>
+        <th scope="col">To</th>
       </tr>
     </thead>
     <tbody>
-      <%= render partial: 'issue_audits', collection: @audits, as: :audit %>
+      <%= render partial: 'issue_audit_row', collection: @audits, as: :audit %>
     </tbody>
   </table>
 </div>

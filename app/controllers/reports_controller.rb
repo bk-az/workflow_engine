@@ -10,7 +10,7 @@ class ReportsController < ApplicationController
 
   def issue_history
     @issue = Issue.find(params[:issue_id])
-    @audits = @issue.audits.map(&:audited_changes).reverse
+    @audits = @issue.audits
     respond_to do |format|
       format.html
     end

@@ -1,0 +1,13 @@
+<table class="table table-sm">
+  <% audit.audited_changes.each do |key, value| %>
+    <tr>
+      <td>
+        <% if assignee_id_key?(key) %>
+          <%= display_user_name(value[1]) %>
+        <% else %>
+          <%= value[1] %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>
