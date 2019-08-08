@@ -25,12 +25,6 @@ RSpec.describe IssueState, type: :model do
     duplicate_issue_state.company_id = issue_state.company_id + 1
     expect(duplicate_issue_state.valid?).to eq true
   end
-  it 'name should be unique in issue scope' do
-    duplicate_issue_state = issue_state.dup
-    duplicate_issue_state.name = issue_state.name.upcase
-    duplicate_issue_state.issue_id = 2000
-    expect(duplicate_issue_state.valid?).to eq true
-  end
   it 'name should not be too long' do
     issue_state.name = 'a' * 21
     expect(issue_state.valid?).to eq false

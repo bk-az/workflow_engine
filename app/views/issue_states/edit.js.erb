@@ -1,9 +1,2 @@
 $('#issue_state_form_area').html('<%= j render partial: "issue_state_form" %>');
 issueStateModal.modal('show');
-
-<% if params[:issue_id].nil? && @issue_state.issue_id.present? %>
-  $('#issue_state_category').val('issue_specific');
-  $('#issue_search_area').attr("hidden", false);
-<% elsif @issue_state.issue_id.blank? %>
-  issueStateCategoryToggleSetGlobal();
-<% end %>

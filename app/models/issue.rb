@@ -73,8 +73,4 @@ class Issue < ActiveRecord::Base
       IssueMailer.delay.notify(email, id, company_id)
     end
   end
-
-  def title_with_project_id
-    "#{title} (P\##{format('%02d', project_id)})"
-  end
 end

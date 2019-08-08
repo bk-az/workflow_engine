@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   resources :issues, only: :index do
     resources :comments, shallow: true
-    resources :issue_states
     get 'filter', on: :collection
     resources :documents
   end

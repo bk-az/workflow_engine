@@ -1,7 +1,7 @@
 <div class="container">
   <div class="jumbotron">
     <h1 class="text-center">
-      <%= @issue_state.name %><span class="badge badge-pill badge-dark ml-1" style="font-size: 0.3em;"><%= @issue_state.issue_id.nil? ? 'global' : link_to('issue', '#', class: 'text-white') %></span>
+      <%= @issue_state.name %>
     </h1>      
     <p class="text-center"><span class="badge badge-pill badge-danger"><%= @total_issues %></span><%= " issue".pluralize(@total_issues) + " using this state" %>
     </p>

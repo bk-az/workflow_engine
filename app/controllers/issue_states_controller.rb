@@ -1,10 +1,7 @@
 class IssueStatesController < ApplicationController
-  autocomplete :issue, :title, display_value: :title_with_project_id, extra_data: [:project_id]
-  load_resource :issue, except: :destroy
   load_and_authorize_resource
 
   def index
-    @issue_states = @issue_states.issue_specific_states(params[:issue_id]) if params[:issue_id].present?
     respond_to do |format|
       format.html
     end
@@ -41,8 +38,8 @@ class IssueStatesController < ApplicationController
   end
 
   def update
-    if @issue_state.can_change_scope?(issue_state_params[:issue_id])
-      @issue_state.update(issue_state_params)
+    @issue_state.update(issue_state_params)
+    if @issue_state.errors.blank?
       flash.now[:success] = t('.updated')
     else
       flash.now[:danger] = t('.not_updated')
@@ -65,10 +62,6 @@ class IssueStatesController < ApplicationController
   end
 
   def issue_state_params
-    result = params.require(:issue_state).permit(:name, :issue_id)
-    if params[:issue_id].present?
-      result[:issue_id] = nil if params[:category] == 'global'
-    end
-    result
+    params.require(:issue_state).permit(:name)
   end
 end

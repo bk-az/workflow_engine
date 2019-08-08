@@ -8,13 +8,6 @@ RSpec.describe IssueStatesController, type: :routing do
         action: 'index'
       )
     end
-    it 'should route to #index' do
-      expect(get: 'issues/1/issue_states').to route_to(
-        controller: 'issue_states',
-        action: 'index',
-        issue_id: '1'
-      )
-    end
     it 'should route to #show' do
       expect(get: '/issue_states/1').to route_to(
         controller: 'issue_states',
@@ -26,13 +19,6 @@ RSpec.describe IssueStatesController, type: :routing do
       expect(post: '/issue_states').to route_to(
         controller: 'issue_states',
         action: 'create'
-      )
-    end
-    it 'should route to #create' do
-      expect(post: 'issues/1/issue_states').to route_to(
-        controller: 'issue_states',
-        action: 'create',
-        issue_id: '1'
       )
     end
     it 'should route to #edit' do
