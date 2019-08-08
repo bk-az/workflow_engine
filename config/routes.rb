@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :issues, only: :index do
     resources :comments, shallow: true
     get 'filter', on: :collection
+    get 'history', on: :member
     resources :documents
   end
 
@@ -42,8 +43,7 @@ Rails.application.routes.draw do
   }
 
   get 'reports/issues', to: 'reports#issues', as: 'issues_report'
-  get 'issues/:issue_id/reports/issue_history', to: 'reports#issue_history', as: 'issue_history_report'
-
+  
   resources :members do
     member do
       get 'privileges', action: 'privileges_show'

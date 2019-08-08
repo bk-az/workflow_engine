@@ -5,13 +5,7 @@
   <td><%= link_to(issue.creator.full_name, member_path(issue.creator)) %></td>
   <td><%= issue.issue_state.name %></td>
   <td><%= issue.issue_type.name %></td>
-  <% if issue.priority == 0 %>
-    <td><span class="badge badge-pill badge-success"><%= issue_priority(issue) %></span></td>
-  <% elsif issue.priority == 1 %>
-    <td><span class="badge badge-pill badge-warning"><%= issue_priority(issue) %></span></td>
-  <% else %>
-    <td><span class="badge badge-pill badge-danger"><%= issue_priority(issue) %></span></td>
-  <% end %>
+  <td><span class="badge badge-pill badge-<%= badge_class_from_priority(issue.priority) %>"><%= issue_priority(issue) %></span></td>
   <td><%= issue.start_date %></td>
   <td><%= issue.due_date %></td>
 </tr>

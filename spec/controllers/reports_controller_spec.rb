@@ -23,12 +23,6 @@ RSpec.describe ReportsController, type: :controller do
       expect(response).to have_http_status(200)
       expect(response).to render_template(:issues)
     end
-    it 'should be render to issue_history action' do
-      get :issue_history, issue_id: issue
-      expect(response).to be_success
-      expect(response).to have_http_status(200)
-      expect(response).to render_template(:issue_history)
-    end
   end
 
   describe 'Authorization' do
@@ -40,10 +34,6 @@ RSpec.describe ReportsController, type: :controller do
         get :issues
         expect(response).to be_success
       end
-      it 'should be able to access issue history report' do
-        get :issue_history, issue_id: issue
-        expect(response).to be_success
-      end
     end
     context 'As a Member of Company' do
       before(:each) do
@@ -52,11 +42,6 @@ RSpec.describe ReportsController, type: :controller do
       it 'should not be able to access issues report' do
         expect do
           get :issues
-        end.to raise_exception(CanCan::AccessDenied)
-      end
-      it 'should not be able to access issue history report' do
-        expect do
-          get :issue_history, issue_id: issue
         end.to raise_exception(CanCan::AccessDenied)
       end
     end

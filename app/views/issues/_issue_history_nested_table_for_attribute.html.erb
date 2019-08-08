@@ -2,11 +2,7 @@
   <% audit.audited_changes.keys.each do |key| %>
     <tr>
       <td>
-        <% if assignee_id_key?(key) %>
-          <%= 'Assignee' %>
-        <% else %>
-          <%= key.titleize %>
-        <% end %>
+        <%= attribut_title_from_key(key) %>
       </td>
     </tr>
   <% end %>
