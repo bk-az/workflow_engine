@@ -1,4 +1,5 @@
 class TeamsController < ApplicationController
+  before_action :authenticate_user!
   load_and_authorize_resource find_by: :sequence_num, through: :current_tenant
 
   # GET /index

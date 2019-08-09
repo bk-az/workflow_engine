@@ -1,5 +1,6 @@
 # Controller for comments model. Comments are to be shown on projects and issues
 class CommentsController < ApplicationController
+  before_action :authenticate_user!
   before_action :load_project, except: [:edit, :update, :destroy]
   before_action :current_comment, only: [:edit, :update, :destroy]
 
@@ -13,6 +14,7 @@ class CommentsController < ApplicationController
 
   def create
     @comment = @project.comments.build(comment_params)
+    @comment.user_id = current_user.id
     if @comment.save
       flash[:notice] = t('comments.create.created')
     else

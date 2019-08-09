@@ -1,4 +1,5 @@
 class ProjectMembershipsController < ApplicationController
+  before_action :authenticate_user!
   load_resource :project
   load_and_authorize_resource through: :project, shallow: true
   # GET #index

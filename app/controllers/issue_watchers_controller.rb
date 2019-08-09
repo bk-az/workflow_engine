@@ -1,5 +1,6 @@
 # issue_watchers_controller.rb
 class IssueWatchersController < ApplicationController
+  before_action :authenticate_user!
   authorize_resource
   # POST /issue_watchers/create_watcher
   def create_watcher
