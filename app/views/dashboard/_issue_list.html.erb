@@ -1,5 +1,5 @@
 <tr>
-  <td><%= link_to issue.title, project_issue_path(@project, issue) %></td>
+  <td><%= link_to issue.title, project_issue_path(issue.project_id, issue) %></td>
   <td><%= issue.issue_state.name %></td>
   <td><span class="badge badge-pill badge-<%= badge_class_from_priority(issue.priority) %>"><%= issue_priority(issue) %></span></td>
 </tr>
