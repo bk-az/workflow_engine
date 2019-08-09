@@ -52,7 +52,8 @@ debug('Projects and Issues')
                   assignee_id: User.find(2 + rand(9)).id,
                   project_id: project.id,
                   issue_type_id: IssueType.find(1 + rand(2)).id,
-                  issue_state_id: IssueState.find(1 + rand(2)).id)
+                  issue_state_id: IssueState.find(1 + rand(2)).id,
+                  due_date: Date.today, start_date: Date.yesterday)
   end
 end
 
