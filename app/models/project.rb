@@ -5,7 +5,7 @@ class Project < ActiveRecord::Base
   validates :description, presence: true, length: { minimum: 3, maximum: 1024 }
 
   belongs_to :company
-  has_many   :issues
+  has_many   :issues, dependent: :destroy
   has_many   :issue_types
 
   has_many :comments, as: :commentable
@@ -23,5 +23,15 @@ class Project < ActiveRecord::Base
   def visible?(user)
     return true if user.admin?
     user.projects.find_by(id: id)
+  end
+
+  def has_dependent_issues?
+    result = false
+    count = issues.count
+    if count > 0
+      result = true
+      errors[:base] << "Unable to delete this project, contains #{count} active issue".pluralize(count)
+    end
+    result
   end
 end

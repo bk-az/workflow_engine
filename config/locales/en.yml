@@ -24,7 +24,7 @@ en:
     create:
       success: 'Team created Successfully'
     destroy:
-      success: 'Successfully deleted team!'
+      success: 'Successfully deleted team'
     update:
       success: 'Team updated successfully'
     remove_member:
@@ -59,18 +59,18 @@ en:
 
   document:
     create:
-      success: 'Document saved successfully!'
+      success: 'Document saved successfully'
     destroy:
-      success: 'Successfully deleted document!'
+      success: 'Successfully deleted document'
 
   issues:
     create:
-      notice: 'Issue Created successfully!'
+      notice: 'Issue Created successfully'
     destroy:
       notice: 'Issue Deleted successfully'
     update:
-      notice: 'Issue Updated successfully!'
-      save_issue: 'Issue Created and Saved  successfully!'
+      notice: 'Issue Updated successfully'
+      save_issue: 'Issue Created and Saved  successfully'
       destroy_issue: 'Issue Deleted successfully'
 
   comments:
@@ -80,8 +80,8 @@ en:
       not_created: 'Unable to add comment'
     update:
       btn: 'Update'
-      updated: 'Comment updated successfully!'
-      not_updated: 'Comment is invalid!'
+      updated: 'Comment updated successfully'
+      not_updated: 'Comment is invalid'
     destroy:
       destroyed: 'Comment deleted'
       not_destroyed: 'Comment could not be destroyed.'
@@ -90,10 +90,10 @@ en:
     create:
       created: 'Successfully created a project.'
     update:
-      updated: 'Project updated successfully!'
+      updated: 'Project updated successfully'
     destroy:
-      destroyed: 'Project destroyed successfully!'
-      not_destroyed: 'Project could not be destroyed.'
+      destroyed: 'Project deleted successfully'
+      not_destroyed: 'Project could not be deleted'
  
   users:
     sessions:
@@ -102,11 +102,11 @@ en:
 
   members:
     create:
-      success: 'Invitation Sent Successfully!'
+      success: 'Invitation Sent Successfully'
     update:
-      success: 'Details Updated Successfully!'
+      success: 'Details Updated Successfully'
     destroy:
-      success: 'Member Deactivated Successfully!'
+      success: 'Member Deactivated Successfully'
     change_password:
       success: 'Your password has been changed successfully.'
     show_change_password_form: # For invited_user?

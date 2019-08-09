@@ -8,6 +8,8 @@
     </a>
 <br><br><br>
 
+<p class="h5 text-muted jumbotron"><%= @project.description %></p>
+
 <h2 class="float-left">Issues</h2>
 
 <%= link_to 'New Issue', new_project_issue_path(@project), class: 'btn btn-secondary float-right'%>
