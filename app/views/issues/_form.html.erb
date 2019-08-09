@@ -1,7 +1,7 @@
  <%= form_for [@project, @issue] do |f| %>
   <div class="form-group">
     <%= f.label :title %>
-    <%= f.text_field :title, class: 'form-control' ,maxlength: 100%>
+    <%= f.text_field :title, class: 'form-control' ,maxlength: 100, required: true, minlength: 3 %>
   </div>
   <hr>
 
@@ -9,7 +9,7 @@
     <div class="col-md-6">
       <div class="form-group">
         <%= f.label :description %>
-        <%= f.text_area :description, class: 'form-control', cols: 2, rows: 6 %>   
+        <%= f.text_area :description, class: 'form-control', cols: 2, rows: 6, required: true, minlength: 3 %>
       </div>
     </div>
   </div>
@@ -35,27 +35,27 @@
     <div class="col-md-3">
       <div class="form-group">
         <%= f.label :assignee_id %>
-        <%= f.select(:assignee_id, assignees.collect { |assignee| [assignee.try(:name), assignee.id] }, { include_blank: 'Select an assignee' }) %>
+        <%= f.select :assignee_id, assignees.collect { |assignee| [assignee.try(:name), assignee.id] }, { include_blank: 'Select an assignee' }, class: 'form-control' %>
       </div>
     </div>
     <div class="col-md-3">
       <div class="form-group">
         <%= f.label :priority %>
-        <%= f.select :priority, show_priority.collect { |key, value| [key, value] } %>
+        <%= f.select :priority, show_priority.collect { |key, value| [key, value] }, { include_blank: false }, class: 'form-control' %>
       </div>
     </div>
 
     <div class="col-md-3">
       <div class="form-group">
         <%= f.label :issue_state_id %>       
-        <%= f.select(:issue_state_id, issue_states.collect { |issue_state| [issue_state.try(:name), issue_state.id] }, { include_blank: 'Select an issue state' }) %>
+        <%= f.select :issue_state_id, issue_states.collect { |issue_state| [issue_state.try(:name), issue_state.id] }, { include_blank: false }, class: 'form-control' %>
       </div>
     </div>
 
     <div class="col-md-3">
       <div class="form-group">
         <%= f.label :issue_type_id %>
-           <%= f.select(:issue_type_id, issue_types.collect { |issue_type| [issue_type.try(:name), issue_type.id] }, { include_blank: 'Select an issue type' }) %>
+           <%= f.select :issue_type_id, issue_types.collect { |issue_type| [issue_type.try(:name), issue_type.id] }, { include_blank: 'Select an issue type' }, class: 'form-control' %>
       </div>
     </div> 
   </div>
@@ -65,7 +65,7 @@
     <div class="col-md-4">
       <div class="form-group">
         <%= f.label :progress %>
-        <%= f.number_field :progress, class: 'form-control', min: 0, max: 100, step: 10 %>
+        <%= f.number_field :progress, class: 'form-control', min: 0, max: 100, step: 5, required: true %>
       </div>
     </div>
   </div>
