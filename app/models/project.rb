@@ -1,6 +1,6 @@
 class Project < ActiveRecord::Base
-  paginates_per 7
-  
+  has_associated_audits
+
   validates :title, presence: true, length: { minimum: 3, maximum: 100 }
   validates :description, presence: true, length: { minimum: 3, maximum: 1024 }
 

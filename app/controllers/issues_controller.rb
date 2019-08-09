@@ -97,6 +97,13 @@ class IssuesController < ApplicationController
     end
   end
 
+  def history
+    @audits = @issue.audits
+    respond_to do |format|
+      format.html
+    end
+  end
+
   private
 
   # Permits columns of issue while adding to database

@@ -23,6 +23,7 @@ gem 'rails', '4.2.0'
 gem 'uglifier', '>= 1.3.0'
 
 # Custom Gems
+gem 'audited'
 gem 'cancancan', '3.0.1'
 gem 'delayed_job_active_record', '4.1.3'
 gem 'devise', '4.1.1'

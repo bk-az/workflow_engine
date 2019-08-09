@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :issues, only: :index do
     resources :comments, shallow: true
     get 'filter', on: :collection
+    get 'history', on: :member
     resources :documents
   end
 
@@ -52,6 +53,8 @@ Rails.application.routes.draw do
     confirmations: 'users/confirmations'
   }
 
+  get 'reports/issues', to: 'reports#issues', as: 'issues_report'
+  
   resources :members do
     member do
       get 'privileges', action: 'privileges_show'

@@ -76,7 +76,12 @@ $(document).ready(function(){
     }
   };
 
-  // new app.NewMembersihp;
+  // any random element is selected to verify where to load membership search UI or not
+  if (projectMemberType.length > 0) {
+
+    new app.NewMembersihp;
+  }
+
 });
 
 function clearNewProjectMembershipForm() {
