@@ -1,0 +1,54 @@
+
+1) git init
+	-- To initialize git in an existing folder
+
+2) git add .
+	-- Add git necessary files in an existing folder
+	-- Add all changes to commit
+
+3) git remote add origin https://github.com/abdullah-siddiqui-git/calender.git
+	-- Configure repository origin
+
+3.5) git branch -a
+	-- Check git branches
+
+
+4) git commit -m "initial commit"
+	-- Start initial commit
+	-- -a flag for committing all changes to "commit"
+
+
+set configs
+
+5) git commit -a -m "initial commit"
+
+6) git push origin master
+	-- Push to master branch
+	-- In case of two factor authentication, create an access token and provide that in to the 		password field, prompted by git just before pushing
+	-- Reference: https://mycyberuniverse.com/how-fix-fatal-authentication-failed-for-https-github-com.html
+
+
+6) git checkout -b [name_of_your_new_branch]
+	-- Create the branch on your local machine and switch in this branch
+
+7) git push origin [name_of_your_new_branch]
+	-- Push the branch on github
+
+8) git commit -a -m [commit message for new branch]
+
+9) git push origin [name_of_your_new_branch]
+
+////////////////////////////////////////
+
+8) git remote add [name_of_your_remote] [name_of_your_new_branch]
+	-- Add remote to the new branch
+
+8.5) git fetch [name_of_your_remote]
+	-- Update your branch when the original branch from official repository has been updated
+
+9) git branch <name_of_your_new_branch>
+	-- Create a new branch
+
+10) git branch -d [name_of_your_new_branch]
+	-- Delete a branch
+

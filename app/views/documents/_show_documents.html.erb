@@ -11,9 +11,9 @@
     <td><%= document.document_content_type %></td>
     <td><%= link_to 'Open', document.document.url(:original, false), target: :_blank %></td>
     <% if document.of_issue? %>
-      <td><%= link_to "Delete", issue_document_path(params[:issue_id], document.id ), method: :delete, data:{ confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+      <td><%= link_to "Delete", issue_document_path(params[:issue_id], document.id ), method: :delete, data:{ confirm: 'Are you sure?' }, class: 'btn btn-outline-danger btn-sm' %></td>
     <% else %>
-      <td><%= link_to "Delete", project_document_path(params[:project_id], document.id ), method: :delete, data:{ confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+      <td><%= link_to "Delete", project_document_path(params[:project_id], document.id ), method: :delete, data:{ confirm: 'Are you sure?' }, class: 'btn btn-outline-danger btn-sm' %></td>
     <% end %>
   </tr>
 <% end %>

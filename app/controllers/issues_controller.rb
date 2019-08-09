@@ -35,7 +35,6 @@ class IssuesController < ApplicationController
 
   # GET projects/:id/issues/:id
   def show
-    @issue = Issue.find(params[:id])
     @document = Document.new
   end
 
@@ -88,7 +87,6 @@ class IssuesController < ApplicationController
 
   # DELETE projects/:id/issues/:id
   def destroy
-
     if @issue.destroy
       flash[:notice] = t('issues.destroy.notice')
       respond_to do |format|
@@ -97,6 +95,13 @@ class IssuesController < ApplicationController
     else
       flash.now[:error] = @issue.errors.full_messages
       render 'edit'
+    end
+  end
+
+  def history
+    @audits = @issue.audits
+    respond_to do |format|
+      format.html
     end
   end
 

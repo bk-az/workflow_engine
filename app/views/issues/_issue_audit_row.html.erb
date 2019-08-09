@@ -1,0 +1,17 @@
+<% if audit.action == 'update' %>
+  <tr>
+    <td><%= audit_counter %></td>
+    <td><%= audit.created_at.strftime("%b %d %Y %I:%M %p") %></td>
+    <td>
+      <%= render partial: 'issue_history_nested_table_for_attribute', locals: {audit: audit} %>
+    </td>
+    <td>
+      <%= render partial: 'issue_history_nested_table_for_from', locals: {audit: audit} %>
+    </td>
+    <td>
+      <%= render partial: 'issue_history_nested_table_for_to', locals: {audit: audit} %>
+    </td>
+  </tr>  
+<% end %>
+
+

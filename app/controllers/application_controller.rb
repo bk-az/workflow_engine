@@ -2,6 +2,8 @@
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
+
+  # protect_from_forgery with: :exception
   protect_from_forgery with: :exception
   around_filter :scope_current_tenant
 
@@ -23,6 +25,11 @@ class ApplicationController < ActionController::Base
     ['POST', '/users'],
     ['PUT', '/users']
   ]
+
+  # rescue_from CanCan::AccessDenied do |exception|
+  #   flash[:warning] = exception.message
+  #   redirect_to users_path
+  # end
 
   rescue_from ActiveRecord::RecordNotFound do |exception|
     render file: "#{Rails.root}/public/404", status: :not_found

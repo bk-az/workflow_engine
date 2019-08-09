@@ -10,19 +10,13 @@
       <a href="<%= projects_path %>"><i class="material-icons">event_note</i>&nbsp;Projects</a>
     </li>
     <li>
-      <a href="#"><i class="material-icons">people</i>&nbsp;Teams</a>
+      <a href="<%= teams_path %>"><i class="material-icons">people</i>&nbsp;Teams</a>
     </li>
     <li>
       <a href="<%= issues_path %>"><i class="material-icons">collections_bookmark</i>&nbsp;Issues</a>
     </li>
     <li>
-      <a href="#"><i class="material-icons">view_module</i>&nbsp;About</a>
-    </li>
-    <li>
-      <a href="#"><i class="material-icons">view_module</i>&nbsp;Services</a>
-    </li>
-    <li>
-      <a href="#"><i class="material-icons">view_module</i>&nbsp;Contact</a>
+      <a href="<%= issues_report_path %>"><i class="material-icons">view_module</i>&nbsp;Issues Report</a>
     </li>
     <li>
       <% if can? :create, Project %>
