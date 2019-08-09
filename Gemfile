@@ -5,7 +5,8 @@ gem 'coffee-rails', '~> 4.1.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # Use jquery as the JavaScript library
-gem 'jquery-rails', '4.3.5'
+# gem 'jquery-rails', '4.3.5'
+gem "jquery-rails", "~> 2.3.0"
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks', '5.2.0'
 

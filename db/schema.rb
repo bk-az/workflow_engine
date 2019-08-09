@@ -95,7 +95,7 @@ ActiveRecord::Schema.define(version: 20190807065639) do
   add_index "issue_types", ["company_id"], name: "index_issue_types_on_company_id", using: :btree
   add_index "issue_types", ["project_id"], name: "index_issue_types_on_project_id", using: :btree
 
-  create_table "issue_watchers", force: :cascade do |t|
+  create_table "issue_watchers", id: false, force: :cascade do |t|
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.integer  "watcher_id",   limit: 4
@@ -136,9 +136,9 @@ ActiveRecord::Schema.define(version: 20190807065639) do
   create_table "project_memberships", force: :cascade do |t|
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
-    t.integer  "project_member_id",   limit: 4,   null: false
-    t.string   "project_member_type", limit: 255, null: false
-    t.integer  "project_id",          limit: 4,   null: false
+    t.integer  "project_member_id",   limit: 4
+    t.string   "project_member_type", limit: 255
+    t.integer  "project_id",          limit: 4
   end
 
   add_index "project_memberships", ["project_id"], name: "index_project_memberships_on_project_id", using: :btree
