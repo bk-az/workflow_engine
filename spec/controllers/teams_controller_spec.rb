@@ -4,9 +4,15 @@ RSpec.describe TeamsController, type: :controller do
   subject(:ability) { Ability.new(user) }
   let(:user) { FactoryGirl.build(:user) }
 
+  before(:all) do
+    @company = create(:company)
+    @admin = create(:admin, company: @company)
+    @member = create(:member, company: @company)
+
+  end
   before(:each) do
-    @admin = create(:admin)
-    @member = create(:member)
+    @request.host = "#{@company.subdomain}.lvh.me:3000"
+    Company.current_id = @company.id
   end
   describe 'GET #index' do
     context 'as member' do
@@ -39,12 +45,11 @@ RSpec.describe TeamsController, type: :controller do
         expect(response).to be_success
       end
     end
-    
   end
 
   describe 'Get #show' do
     before :all do
-      @team = FactoryGirl.create(:team)
+      @team = create(:team, company: @company)
     end
     context 'as admin' do 
       before(:each) do
@@ -56,7 +61,7 @@ RSpec.describe TeamsController, type: :controller do
       end
 
       it 'should success and render to the :show template' do
-        get :show, id: FactoryGirl.create(:team)
+        get :show, id: @team
         expect(response).to have_http_status(200)
         expect(response).to render_template :show
       end
@@ -72,7 +77,7 @@ RSpec.describe TeamsController, type: :controller do
       end
 
       it 'should success and render to the :show template' do
-        get :show, id: FactoryGirl.create(:team)
+        get :show, id: @team
         expect(response).to have_http_status(200)
         expect(response).to render_template :show
       end
@@ -82,6 +87,7 @@ RSpec.describe TeamsController, type: :controller do
   describe 'POST #create' do
     before(:all) {
       FactoryGirl.create(:user)
+      @team = create(:team, company: @company)
     }
     context 'as admin allowed to create' do
       before(:each) do
@@ -89,12 +95,17 @@ RSpec.describe TeamsController, type: :controller do
       end
       context 'with valid attributes' do
         it 'saves the new team in the database' do
-          expect { post :create, team: FactoryGirl.attributes_for(:team) }
+          expect do
+            post :create, team: @team
+            Company.current_id = @company.id
+          end
             .to change(Team, :count).by(1)
         end
         it 'doesnt saves the invalid team in the database' do
-          expect { post :create, team: FactoryGirl.attributes_for(:invalid_team) }
-            .to_not change(Team, :count)
+          expect do
+            post :create, team: FactoryGirl.attributes_for(:invalid_team)
+            Company.current_id = @company.id
+          end.to_not change(Team, :count)
         end
       end
     end
@@ -115,14 +126,18 @@ RSpec.describe TeamsController, type: :controller do
 
   describe '#destroy' do
     before :all do
-      @team = FactoryGirl.create(:team)
+      @team = create(:team, company: @company)
     end
     context 'as admin allowed to destroy' do
       before(:each) do
         sign_in @admin
       end
       it 'removes team from table' do
-        expect { delete :destroy, id: @team }.to change { Team.count }.by(-1)
+        expect do
+         delete :destroy, id: @team
+         Company.current_id = @company.id
+        end
+          .to change { Team.count }.by(-1)
       end
     end
     context 'as member not allowed to destroy' do

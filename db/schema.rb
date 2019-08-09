@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190806113017) do
+ActiveRecord::Schema.define(version: 20190807065639) do
 
   create_table "audits", force: :cascade do |t|
     t.integer  "auditable_id",    limit: 4
@@ -66,7 +66,8 @@ ActiveRecord::Schema.define(version: 20190806113017) do
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
     t.integer  "company_id",            limit: 4,   null: false
-    t.integer  "issue_id",              limit: 4,   null: false
+    t.integer  "documentable_id",       limit: 4
+    t.string   "documentable_type",     limit: 255
     t.string   "document_file_name",    limit: 255
     t.string   "document_content_type", limit: 255
     t.integer  "document_file_size",    limit: 4
@@ -74,7 +75,7 @@ ActiveRecord::Schema.define(version: 20190806113017) do
   end
 
   add_index "documents", ["company_id"], name: "index_documents_on_company_id", using: :btree
-  add_index "documents", ["issue_id"], name: "index_documents_on_issue_id", using: :btree
+  add_index "documents", ["documentable_type", "documentable_id"], name: "index_documents_on_documentable_type_and_documentable_id", using: :btree
 
   create_table "issue_states", force: :cascade do |t|
     t.string  "name",       limit: 255, null: false
@@ -135,9 +136,9 @@ ActiveRecord::Schema.define(version: 20190806113017) do
   create_table "project_memberships", force: :cascade do |t|
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
-    t.integer  "project_member_id",   limit: 4
-    t.string   "project_member_type", limit: 255
-    t.integer  "project_id",          limit: 4
+    t.integer  "project_member_id",   limit: 4,   null: false
+    t.string   "project_member_type", limit: 255, null: false
+    t.integer  "project_id",          limit: 4,   null: false
   end
 
   add_index "project_memberships", ["project_id"], name: "index_project_memberships_on_project_id", using: :btree
@@ -174,13 +175,15 @@ ActiveRecord::Schema.define(version: 20190806113017) do
   add_index "team_memberships", ["user_id"], name: "index_team_memberships_on_user_id", using: :btree
 
   create_table "teams", force: :cascade do |t|
-    t.string   "name",       limit: 255, null: false
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.integer  "company_id", limit: 4,   null: false
+    t.string   "name",         limit: 255, null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "company_id",   limit: 4,   null: false
+    t.integer  "sequence_num", limit: 4,   null: false
   end
 
   add_index "teams", ["company_id"], name: "index_teams_on_company_id", using: :btree
+  add_index "teams", ["sequence_num", "company_id"], name: "index_teams_on_sequence_num_and_company_id", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name",                         limit: 255,                null: false

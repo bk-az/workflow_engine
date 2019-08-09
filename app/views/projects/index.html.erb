@@ -1,7 +1,6 @@
-<h1 class="text-center m-5">Listing Projects</h1>
-
-<!-- <%= link_to 'New Project', new_project_path, class: 'btn btn-lg btn-primary' %>-->
-
+<h1 class="float-left">Projects</h1>
+<%= link_to 'New Project', new_project_path, class: 'btn btn-secondary float-right' %>
+<br><br><br>
 <div class="card-columns">
   <%= render @projects %>
 </div>

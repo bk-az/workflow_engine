@@ -18,14 +18,14 @@
               <%= hidden_field_tag :issue_id, issue.id %>
               <%= hidden_field_tag :watcher_id, watcher.id %>
               <%= hidden_field_tag :watcher_type, watcher.class %>
-              <%= submit_tag :Add, class: "btn btn-primary" %> 
+              <%= submit_tag :Add, class: "btn btn-secondary" %> 
             <% end %>
           <% else %>
             <%= form_tag destroy_watcher_issue_watchers_path, method: 'post', remote: true do %>
               <%= hidden_field_tag :issue_id, issue.id %>
               <%= hidden_field_tag :watcher_id, watcher.id %>
               <%= hidden_field_tag :watcher_type, watcher.class %>
-              <%= submit_tag :Remove, class: "btn btn-primary" %> 
+              <%= submit_tag :Remove, class: "btn btn-secondary" %> 
             <% end %>
           <% end %>
         </td>

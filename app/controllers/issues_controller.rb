@@ -34,7 +34,6 @@ class IssuesController < ApplicationController
 
   # GET projects/:id/issues/:id
   def show
-    @issue = Issue.find(params[:id])
     @document = Document.new
   end
 

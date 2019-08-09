@@ -11,7 +11,7 @@
       <div class="modal-body">
        <!-- Search member form -->
         <%= form_tag search_watcher_to_destroy_issue_watchers_path, method: 'get', remote: true do %>
-          <div class="form-group">
+          <div class="form-group radio_button_div">
             <%= radio_button_tag(:watcher_type, "User", true) %>
             <%= label_tag(:add_watcher_user, "User") %>
             <%= radio_button_tag(:watcher_type, "Team") %>
@@ -23,7 +23,7 @@
             <%= text_field_tag "watcher_search", nil, placeholder:"Search", class: 'form-control watcher_search' %>
           </div>
           <div class="form-group">
-            <button type="submit" class="btn btn-primary">Search</button>
+            <button type="submit" class="btn btn-secondary">Search</button>
           </div>
         <% end %>
         <!-- Search member form -->

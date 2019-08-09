@@ -1,4 +1,15 @@
 Rails.application.routes.draw do
+  resources :teams do
+    collection do
+      get 'add_membership'
+      get 'approve_request'
+    end
+
+    member do
+      delete 'remove_member'
+    end
+  end
+
   root 'user_companies#find'
 
   resources :issues, only: :index do
