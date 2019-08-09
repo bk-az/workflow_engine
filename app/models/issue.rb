@@ -8,7 +8,7 @@ class Issue < ActiveRecord::Base
     High: 2
   }.freeze
 
-  # after_save :send_email
+  after_save :send_email
   # Kaminari build-in attribute for pagination size per page
   paginates_per 7
 
