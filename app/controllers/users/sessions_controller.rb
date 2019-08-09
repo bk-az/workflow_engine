@@ -9,7 +9,7 @@ class Users::SessionsController < Devise::SessionsController
 
   def after_sign_in_path_for(resource)
     if current_user.has_changed_sys_generated_password
-      members_path
+      dashboard_path
     else
       change_password_form_member_path(current_user)
     end

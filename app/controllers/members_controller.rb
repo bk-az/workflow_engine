@@ -183,7 +183,7 @@ class MembersController < ApplicationController
         if validation_error
           render 'members/change_password_form'
         else
-          redirect_to members_path
+          redirect_to dashboard_path
         end
       end
     end
