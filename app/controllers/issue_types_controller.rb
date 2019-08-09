@@ -1,4 +1,5 @@
 class IssueTypesController < ApplicationController
+  before_action :authenticate_user!
   autocomplete :project, :title
   load_resource :project, except: :destroy
   load_and_authorize_resource

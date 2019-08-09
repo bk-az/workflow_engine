@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190806113017) do
+ActiveRecord::Schema.define(version: 20190807065639) do
 
   create_table "audits", force: :cascade do |t|
     t.integer  "auditable_id",    limit: 4
@@ -173,13 +173,15 @@ ActiveRecord::Schema.define(version: 20190806113017) do
   add_index "team_memberships", ["user_id"], name: "index_team_memberships_on_user_id", using: :btree
 
   create_table "teams", force: :cascade do |t|
-    t.string   "name",       limit: 255, null: false
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.integer  "company_id", limit: 4,   null: false
+    t.string   "name",         limit: 255, null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "company_id",   limit: 4,   null: false
+    t.integer  "sequence_num", limit: 4,   null: false
   end
 
   add_index "teams", ["company_id"], name: "index_teams_on_company_id", using: :btree
+  add_index "teams", ["sequence_num", "company_id"], name: "index_teams_on_sequence_num_and_company_id", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name",                         limit: 255,                null: false

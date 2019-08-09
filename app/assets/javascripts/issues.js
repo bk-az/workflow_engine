@@ -17,4 +17,10 @@ $(function() {
     $('#remove_modal_search_results').html('');
     $('.watcher_search').val('');
   })
+
+  $('.radio_button_div').on("change", function() {
+    $('#add_modal_search_results').html('');
+    $('#remove_modal_search_results').html('');
+    $('.watcher_search').val('');
+  });
 });

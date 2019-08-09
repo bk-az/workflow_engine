@@ -1,6 +1,6 @@
 class MembersController < ApplicationController
-  authorize_resource class: false
   before_action :authenticate_user!
+  authorize_resource class: false
   before_action :changed_sys_generated_password?, only: [:show_change_password_form, :change_password]
 
   # GET /members/new

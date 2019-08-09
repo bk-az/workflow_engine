@@ -1,5 +1,6 @@
 # Issues Controller
 class IssuesController < ApplicationController
+  before_action :authenticate_user!
   load_and_authorize_resource
   # GET /issues
   def index
@@ -34,7 +35,6 @@ class IssuesController < ApplicationController
 
   # GET projects/:id/issues/:id
   def show
-    @issue = Issue.find(params[:id])
     @document = Document.new
   end
 

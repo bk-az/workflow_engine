@@ -65,11 +65,11 @@
     <div class="col-md-4">
       <div class="form-group">
         <%= f.label :progress %>
-        <%= f.number_field :progress, class: 'form-control' %>
+        <%= f.number_field :progress, class: 'form-control', min: 0, max: 100, step: 10 %>
       </div>
     </div>
   </div>
   <hr>
 
-  <%= f.submit({ class: 'btn btn-primary' }) %>
+  <%= f.submit({ class: 'btn btn-secondary float-left mr-2' }) %>
 <% end %>

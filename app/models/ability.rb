@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 class Ability
   include CanCan::Ability
-
   def initialize(user, options = {})
     return if user.nil?
 
@@ -17,6 +16,10 @@ class Ability
         project.visible?(user)
       end
       can :index, Project, id: user.visible_projects.pluck(:id)
+
+      # Team
+      can :read, Team
+      can :add_membership, Team
 
       # Project Membership
       can :index, ProjectMembership if ProjectMembership.user_projects(user, options[:project_id]).present?

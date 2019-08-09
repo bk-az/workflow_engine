@@ -28,7 +28,7 @@
         <%= form_for(@project_membership, url: project_members_path(@project), remote: true, html: {id: :new_project_membership_form}) do |f| %>
           <%= f.number_field :project_member_id, hidden: true %>
           <%= f.text_field :project_member_type, hidden: true %>
-          <%= f.submit("Add Member", class: "btn btn-primary float-right") %>
+          <%= f.submit("Add Member", class: "btn btn-secondary float-right") %>
         <% end %>
       </div>
       <div class="modal-footer">
