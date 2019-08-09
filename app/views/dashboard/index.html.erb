@@ -1,0 +1,80 @@
+<ul class="nav nav-pills mb-4" role="tablist">
+  <li class="nav-item">
+    <a class="btn btn-outline-secondary mr-2 active" id="pills_projects_tab" data-toggle="pill" href="#pills_projects" role="tab" aria-controls="pills_projects" aria-selected="true">My Projects</a>
+  </li>
+  <li class="nav-item">
+    <a class="btn btn-outline-secondary mr-2" id="pills_assigned_issues_tab" data-toggle="pill" href="#pills_assigned_issues" role="tab" aria-controls="pills_assigned_issues" aria-selected="false">Assigned Issues</a>
+  </li>
+  <li class="nav-item">
+    <a class="btn btn-outline-secondary mr-2" id="pills_watching_issues_tab" data-toggle="pill" href="#pills_watching_issues" role="tab" aria-controls="pills_watching_issues" aria-selected="false">Watching Issues</a>
+  </li>
+</ul>
+
+
+<div class="tab-content">
+  <div class="tab-pane fade show active" id="pills_projects" role="tabpanel" aria-labelledby="pills_projects_tab">
+    <div class="row">
+      <div class="col-4">
+        <p class="h3 my-4">Projects</p>
+        <% if @projects.count > 0 %>
+          <div class="list-group mt-4">
+            <%= render partial: 'project_list', collection: @projects, as: :project %>
+          </div>
+        <% else %>
+        <p class="my-4">You don't have membership in any project right now</p>
+        <% end %>
+      </div>
+      <div class="col-8">
+        <p class="h3 my-4">Project Issues</p>
+        <div id="project_issues">
+          <table id="project_issues_table" class="table table-hover">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>State</th>
+                <th>Priority</th>
+              </tr>
+            </thead>
+              <tbody id="selected_project_issues">
+                <% if @issues.present? %>
+                  <%= render partial: "issue_list", collection: @issues, as: :issue %>
+                <% end %>
+              </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="tab-pane fade" id="pills_assigned_issues" role="tabpanel" aria-labelledby="pills_assigned_issues_tab">
+    <table class="table table-hover" id="assigned_issues_table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>State</th>
+          <th>Priority</th>
+        </tr>
+      </thead>
+        <tbody id="selected_project_issues">
+          <%= render partial: "issue_list", collection: @assigned_issues, as: :issue %>
+        </tbody>
+    </table>
+  </div>
+
+
+  <div class="tab-pane fade" id="pills_watching_issues" role="tabpanel" aria-labelledby="pills_watching_issues_tab">
+    <table class="table table-hover" id="watching_issues_table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>State</th>
+          <th>Priority</th>
+        </tr>
+      </thead>
+        <tbody id="selected_project_issues">
+          <%= render partial: "issue_list", collection: @watching_issues, as: :issue %>
+        </tbody>
+    </table>
+  </div>
+</div>

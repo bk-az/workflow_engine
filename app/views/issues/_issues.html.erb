@@ -2,7 +2,7 @@
 <% issues.each do |issue| %>
   <tr>
     <td><%= link_to issue.title, project_issue_path(issue.project_id, issue.id) %></td>
-    <% if !project.present? %>
+    <% if request.path.include?('issues') %>
       <td><%= link_to issue.project.title, project_path(issue.project_id) %></td>
     <% end %>
     <td><%= link_to issue.assignee.try(:name), member_path(issue.assignee) %></td>

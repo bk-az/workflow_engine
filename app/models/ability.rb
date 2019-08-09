@@ -43,6 +43,9 @@ class Ability
 
       # Document
       can [:create, :index, :destroy], Document, company_id: user.company_id
+
+      # Dashboard
+      can :manage, :dashboard
     end
   end
 end

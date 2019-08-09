@@ -25,7 +25,7 @@
             </div>
           <% end %>
           <div class="form-group upload_document_field">
-            <%= f.file_field :document %>
+            <%= f.file_field :document, required: true %>
           </div>
           <div class="form-group">
             <%= f.submit 'Upload', class: 'btn btn-secondary' %>

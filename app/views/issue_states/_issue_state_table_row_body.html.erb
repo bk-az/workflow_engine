@@ -1,6 +1,12 @@
 <td><%= issue_state.name %></td>
 <td> 
-  <%= link_to('Delete', issue_state_path(issue_state), method: 'delete', remote: true, data: { confirm: 'Are you sure to delete this issue state?'}, class: 'btn btn-danger btn-sm text-white mr-2 mb-1 mb-md-0 fixed-width') %>
-  <%= link_to('Edit', edit_issue_state_path(issue_state), remote: true, class: 'btn btn-secondary btn-sm text-white mr-2 mb-1 mb-md-0 fixed-width') %>
-  <%= link_to('Show', issue_state_path(issue_state), remote: true, class: 'btn btn-success btn-sm text-white fixed-width') %>
+  <%= link_to(issue_state_path(issue_state), method: 'delete', remote: true, data: { confirm: 'Are you sure to delete this issue state?'}, class: 'text-danger mr-2 mb-1 mb-md-0 fixed-width') do %>
+    <i class="far fa-trash-alt"></i>
+  <% end %>
+  <%= link_to(edit_issue_state_path(issue_state), remote: true, class: 'text-primary mr-2 mb-1 mb-md-0 fixed-width') do %>
+      <i class="far fa-edit"></i>
+    <% end %>
+  <%= link_to(issue_state_path(issue_state), remote: true, class: 'text-success fixed-width') do %>
+    <i class="far fa-eye"></i>
+  <% end %>
 </td>

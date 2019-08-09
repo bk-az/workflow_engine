@@ -26,12 +26,7 @@ class ApplicationController < ActionController::Base
     ['PUT', '/users']
   ]
 
-  # rescue_from CanCan::AccessDenied do |exception|
-  #   flash[:warning] = exception.message
-  #   redirect_to users_path
-  # end
-
-  rescue_from ActiveRecord::RecordNotFound do |exception|
+  rescue_from ActiveRecord::RecordNotFound, CanCan::AccessDenied do |exception|
     render file: "#{Rails.root}/public/404", status: :not_found
   end
 
