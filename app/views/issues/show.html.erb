@@ -66,10 +66,11 @@
 </table>
 
 
-<div class="page-header">
+<div class="page-header clearfix">
   <h3 class="float-left">Documents</h3>
   <button type="button" class="btn btn-secondary float-right" data-toggle="modal" data-target="#upload_document_modal">Upload Document</button>
   <%= render partial: 'documents/upload_document_modal' %>
   <%= link_to 'View Documents', issue_documents_path(@issue),class: 'btn btn-secondary float-right mr-2' %>
 </div>
 
+<%= render partial: 'comments/comment', locals: { commentable_object: @issue, comment: @comment, comments: @comments } %>

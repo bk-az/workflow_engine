@@ -30,10 +30,9 @@
   </tbody>
 </table>
 
-<%= render 'comments/comment' %>
+<%= render partial: 'comments/comment', locals: { commentable_object: @project, comment: @comment, comments: @comments } %>
 
 <%= link_to 'Show all Documents', project_documents_path(@project),class: 'btn btn-secondary' %>
-
 
 
 <div class="page-header"><h3>Upload Document</h3></div>

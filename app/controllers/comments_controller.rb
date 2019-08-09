@@ -1,7 +1,7 @@
 # Controller for comments model. Comments are to be shown on projects and issues
 class CommentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :load_project, except: [:edit, :update, :destroy]
+  before_action :load_commentable, except: [:edit, :update, :destroy]
   before_action :current_comment, only: [:edit, :update, :destroy]
 
   def new
@@ -13,7 +13,7 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = @project.comments.build(comment_params)
+    @comment = @commentable.comments.build(comment_params)
     @comment.user_id = current_user.id
     if @comment.save
       flash[:notice] = t('comments.create.created')
@@ -57,8 +57,12 @@ class CommentsController < ApplicationController
 
   private
 
-  def load_project
-    @project = Project.find(params[:project_id])
+  def load_commentable
+    if params[:project_id].present?
+      @commentable = Project.find(params[:project_id])
+    elsif params[:issue_id].present?
+      @commentable = Issue.find(params[:issue_id])
+    end
   end
 
   def current_comment
