@@ -55,7 +55,7 @@ Rails.application.routes.draw do
 
   get 'reports/issues', to: 'reports#issues', as: 'issues_report'
   
-  get 'dashboard', to: 'dashboard#index', as: 'dashboard'
+  get 'workplace', to: 'dashboard#index', as: 'dashboard'
   get 'dashboard/issues', to: 'dashboard#issues', as: 'dashboard_issues'
 
   resources :members do

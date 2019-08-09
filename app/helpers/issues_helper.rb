@@ -24,7 +24,7 @@ module IssuesHelper
   end
 
   def display_user_name(id)
-    current_tanant.users.find(id).name
+    User.find(id).name
   end
 
   def badge_class_from_priority(priority)
