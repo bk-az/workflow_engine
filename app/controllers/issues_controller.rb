@@ -2,12 +2,13 @@
 class IssuesController < ApplicationController
   before_action :authenticate_user!
   load_and_authorize_resource
+
   # GET /issues
   def index
+    @projects = current_user.visible_projects
     @issues = @issues.order(:project_id).page(params[:page])
     @issue_types = current_tenant.issue_types.all
     @issue_states = current_tenant.issue_states.all
-    @projects = current_user.visible_projects
     @assignees = current_tenant.users.all
     respond_to do |format|
       format.html
@@ -24,10 +25,10 @@ class IssuesController < ApplicationController
 
   # GET projects/:id/issues/new
   def new
-    @assignees = current_tenant.users.all
-    @issue_types = current_tenant.issue_types.all
-    @issue_states = current_tenant.issue_states.all
     @project = current_tenant.projects.find(params[:project_id])
+    @assignees = current_tenant.users.all
+    @issue_types = current_tenant.issue_types.project_issue_types(@project.id)
+    @issue_states = current_tenant.issue_states.all
     respond_to do |format|
       format.html
     end
@@ -40,10 +41,10 @@ class IssuesController < ApplicationController
 
   # GET projects/:id/issues/:id/edit
   def edit
-    @assignees = current_tenant.users.all
-    @issue_types = current_tenant.issue_types.all
-    @issue_states = current_tenant.issue_states.all
     @project = @issue.project
+    @assignees = current_tenant.users.all
+    @issue_types = current_tenant.issue_types.project_issue_types(@project.id)
+    @issue_states = current_tenant.issue_states.all
     respond_to do |format|
       format.html
     end
