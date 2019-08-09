@@ -49,7 +49,6 @@ RSpec.describe TeamsController, type: :controller do
 
   describe 'Get #show' do
     before :all do
-      # @team = FactoryGirl.create(:team)
       @team = create(:team, company: @company)
     end
     context 'as admin' do 
@@ -106,8 +105,7 @@ RSpec.describe TeamsController, type: :controller do
           expect do
             post :create, team: FactoryGirl.attributes_for(:invalid_team)
             Company.current_id = @company.id
-          end
-            .to_not change(Team, :count)
+          end.to_not change(Team, :count)
         end
       end
     end

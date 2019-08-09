@@ -1,0 +1,6 @@
+<h1>Edit Issue</h1>
+<%= render partial: "form", locals: { issue: @issue, assignees: @assignees, issue_states: @issue_states, issue_types: @issue_types } %>
+<% if can?(:destroy, @issue) %>
+  <%= link_to "Delete", project_issue_path(@issue.project_id, @issue.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-secondary' %>
+<% end %>
+

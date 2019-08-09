@@ -1,11 +1,11 @@
 class MembersController < ApplicationController
+  authorize_resource class: false
   before_action :authenticate_user!
   before_action :changed_sys_generated_password?, only: [:show_change_password_form, :change_password]
 
   # GET /members/new
   def new
     set_invitation_view_variables
-
     # Make a dummy new user.
     @new_user = User.new
 
@@ -23,7 +23,7 @@ class MembersController < ApplicationController
     company = current_tenant
     # Generate a new user belonging to the current company.
     @new_user = company.users.new(new_user_params)
-    @new_user.has_changed_sys_generated_password = true
+    @new_user.has_changed_sys_generated_password = false
 
     @new_user.password = generate_random_password
     
@@ -49,9 +49,6 @@ class MembersController < ApplicationController
 
   # GET /members/privileges
   def privileges
-    # Get logged in User
-    @user = current_user
-
     # Get Company
     @company = current_tenant
 
@@ -68,8 +65,7 @@ class MembersController < ApplicationController
 
   # GET /members/privileges/:id
   def privileges_show
-    user_id = params[:id]
-    @user = current_tenant.users.active.find(user_id)
+    @user = current_tenant.users.active.find(params[:id])
     respond_to do |format|
       format.js { render json: { data: { user: @user } } }
     end
@@ -77,7 +73,6 @@ class MembersController < ApplicationController
 
   # GET /members
   def index
-    # TODO
     @company = current_tenant
     # Get members other the logged in user.
     @members = @company.users.active.includes(:role)
@@ -117,21 +112,21 @@ class MembersController < ApplicationController
 
     # Update
     if @member.update(update_params)
-      flash[:success] = t('members.update.success')
       data = { role_name: @member.role.name, message: t('members.update.success') }
     else
       # status code
       status = 422
       data = { message: @member.errors.full_messages.join }
-      flash[:error] = @member.errors.full_messages
     end
 
     respond_to do |format|
       format.js { render json: { data: data }, status: status }
       format.html do
         if status == 200
+          flash[:success] = t('members.update.success')
           redirect_to edit_member_path(@member)
         else
+          flash[:error] = @member.errors.full_messages
           render 'members/edit'
         end
       end
@@ -152,7 +147,7 @@ class MembersController < ApplicationController
     end
   end
 
-  # GET /member/:id/setpassword/
+  # GET /member/:id/change_password_form/
   # executes :changed_sys_generated_password? as before_action
   def show_change_password_form
     # TODO
@@ -164,7 +159,7 @@ class MembersController < ApplicationController
     end
   end
 
-  # PUT /member/setpassword/
+  # PUT /member/:id/change_password/
   # executes :changed_sys_generated_password? as before_action
   def change_password
     validation_error = false

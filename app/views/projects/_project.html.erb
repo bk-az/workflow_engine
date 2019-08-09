@@ -1,10 +1,9 @@
 
 <% if can?(:index, project) %>
 <div class="card">
-  <img class="card-img-top img-thumbnail" src="assets/default.jpg" alt="Card image cap">
   <div class="card-body">
     <h5 class="card-title"><%= link_to project.title, project%>
-      <span class="badge badge-primary badge-pill float-right ml-2"><%= project.issues.size%></span>
+      <span class="badge badge-secondary badge-pill float-right ml-2"><%= project.issues.size%></span>
       <span class="badge badge-danger badge-pill float-right"><%= link_to 'Issues', '#', class: 'text-white'%></span>
     </h5>
     <p class="card-text text-truncate"><%= project.description%></p>

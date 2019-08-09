@@ -1,43 +1,33 @@
-
-<div id="wrapper">
-    <!-- Sidebar -->
-    <div id="sidebar-wrapper">
-        <ul class="sidebar-nav">
-            <li class="sidebar-brand">
-                <a href="#">
-                    Company
-                </a>
-            </li>
-            <li>
-                <a href="#"><i class="material-icons">dashboard</i>&nbsp;Dashboard</a>
-            </li>
-            <li>
-                <a href="#"><i class="material-icons">event_note</i>&nbsp;Projects</a>
-            </li>
-            <li>
-                <a href="#"><i class="material-icons">people</i>&nbsp;Teams</a>
-            </li>
-            <li>
-                <a href="#"><i class="material-icons">collections_bookmark</i>&nbsp;Issues</a>
-            </li>
-            <li>
-                <a href="#"><i class="material-icons">view_module</i>&nbsp;About</a>
-            </li>
-            <li>
-                <a href="#"><i class="material-icons">view_module</i>&nbsp;Services</a>
-            </li>
-            <li>
-                <a href="#"><i class="material-icons">view_module</i>&nbsp;Contact</a>
-            </li>
-            <li>
-              <% if can? :create, Project %>
-                <!-- <a href="#" class="download">Add a Project</a> -->
-                <%= link_to "New Project", new_project_path, class: 'download' %>
-              <% end %>
-
-              
-            </li>
-        </ul>
-    </div>
-    <!-- /#sidebar-wrapper -->
+<div id="sidebar-wrapper">
+  <ul class="sidebar-nav">
+    <li class="sidebar-brand">
+      <%= link_to 'Dashboard', members_path %>
+    </li>
+    <li>
+      <a href="#"><i class="material-icons">dashboard</i>&nbsp;Dashboard</a>
+    </li>
+    <li>
+      <a href="<%= projects_path %>"><i class="material-icons">event_note</i>&nbsp;Projects</a>
+    </li>
+    <li>
+      <a href="<%= teams_path %>"><i class="material-icons">people</i>&nbsp;Teams</a>
+    </li>
+    <li>
+      <a href="<%= issues_path %>"><i class="material-icons">collections_bookmark</i>&nbsp;Issues</a>
+    </li>
+    <li>
+      <a href="#"><i class="material-icons">view_module</i>&nbsp;About</a>
+    </li>
+    <li>
+      <a href="#"><i class="material-icons">view_module</i>&nbsp;Services</a>
+    </li>
+    <li>
+      <a href="#"><i class="material-icons">view_module</i>&nbsp;Contact</a>
+    </li>
+    <li>
+      <% if can? :create, Project %>
+        <%= link_to "New Project", new_project_path, class: 'download' %>
+      <% end %>
+    </li>
+  </ul>
 </div>

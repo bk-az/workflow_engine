@@ -11,10 +11,9 @@
 // about supported directives.
 //
 //= require jquery
+//= require autocomplete-rails
+//= require jquery-ui/widgets/autocomplete
 //= require popper
-//= require turbolinks
 //= require select2
 //= require jquery_ujs
-//= require jquery3
 //= require_tree .
-  

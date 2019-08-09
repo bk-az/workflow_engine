@@ -1,0 +1,47 @@
+<%= form_for(params[:project_id].nil? ? @issue_type : [@project, @issue_type], html: {id: 'issue_type_form'}, remote: true) do |f| %>
+
+  <% if params[:project_id].nil? %>
+    <div class="input-group mb-4">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="issue_type_category">Category</label>
+      </div>
+      <%= select_tag("issue_type_category", options_for_select([['Global', 'global'], ['Project Specific', 'project_specific']]), class: "custom-select") %>
+    </div>
+  <% else %>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="btn-group btn-group-toggle float-right" id="issue_type_category_toggle" data-toggle="buttons">
+          <label class="btn btn-info btn-sm active">
+            <input type="radio" name="category" value="project" checked> Project Specific
+          </label>
+          <label class="btn btn-info btn-sm">
+            <input type="radio" name="category" value="global"> Global
+          </label>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :name, 'Issue Type Name:' %>
+    <%= f.text_field :name, class: 'form-control', placeholder: 'Enter Name', required: true %>
+    <% if @project.present? %>
+      <%= f.number_field :project_id, value: @project.id, class: 'form-control', readonly: true, hidden: true %>
+    <% end %>
+  </div>
+  <% if params[:project_id].nil? %>
+    <div id="project_search_area" hidden>
+      <label class="mt-2">Choose Project:</label>
+      <div class="input-group mb-4">
+        <div class="input-group-prepend">
+          <label class="input-group-text bg-dark text-white" for="issue_type_issue_name">Project</label>
+        </div>
+        <%= autocomplete_field_tag 'issue_type_project_name', '', autocomplete_project_title_issue_types_path, id_element: '#issue_type_project_id', class: 'form-control', placeholder: 'Search' %>
+      </div>
+        <%= f.number_field :project_id, class: 'form-control', readonly: true, hidden: true %>
+    </div>
+  <% end %>
+    <div class="form-group">
+      <%= f.submit 'Submit', class: 'btn btn-secondary' %>
+    </div>
+<% end %>

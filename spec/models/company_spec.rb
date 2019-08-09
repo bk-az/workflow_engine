@@ -28,7 +28,7 @@ RSpec.describe Company, type: :model do
   end
 
   it 'subdomain validation should accept valid subdomains' do
-    valid_subdomains = %w[a ab a-b a-b_c 7abc a7 a7b-c a-7-c]
+    valid_subdomains = %w[aaa abb a-bc a-b_c 7abc a7c a7b-c a-7-c]
 
     valid_subdomains.each do |valid_subdomain|
       company.subdomain = valid_subdomain

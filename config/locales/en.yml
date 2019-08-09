@@ -20,16 +20,59 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  teams:
+  team:
     create:
       success: 'Team created Successfully'
-
     destroy:
       success: 'Successfully deleted team!'
-
     update:
-      success: 'Team Successfully updated!'
+      success: 'Team updated successfully'
+    remove_member:
+      success: 'Member deleted successfully'
       
+  issue_states:
+    create:
+      created: "Issue State created Successfully"
+      not_created: "Issue State not Created"
+    destroy:
+      deleted: "Issue State Deleted Successfully"
+      not_deleted: "Unable to delete this Issue State"
+    update:
+      updated: "Issue State Updated Successfully"
+      not_updated: "Issue State not Updated"
+
+  issue_types:
+    create:
+      created: "Issue Type created Successfully"
+      not_created: "Issue Type not Created"
+    destroy:
+      deleted: "Issue Type Deleted Successfully"
+      not_deleted: "Unable to delete this Issue Type"
+    update:
+      updated: "Issue Type Updated Successfully"
+      not_updated: "Issue Type not Updated"
+
+  project_memberships:
+    create:
+      created: "Member Added Successfully"
+      not_created: "Member not Added"
+
+  document:
+    create:
+      success: 'Document saved successfully!'
+    destroy:
+      success: 'Successfully deleted document!'
+
+  issues:
+    create:
+      notice: 'Issue Created successfully!'
+    destroy:
+      notice: 'Issue Deleted successfully'
+    update:
+      notice: 'Issue Updated successfully!'
+      save_issue: 'Issue Created and Saved  successfully!'
+      destroy_issue: 'Issue Deleted successfully'
+
   comments:
     create:
       btn: 'Comment'
@@ -42,6 +85,7 @@ en:
     destroy:
       destroyed: 'Comment deleted'
       not_destroyed: 'Comment could not be destroyed.'
+
   projects:
     create:
       created: 'Successfully created a project.'
@@ -50,10 +94,12 @@ en:
     destroy:
       destroyed: 'Project destroyed successfully!'
       not_destroyed: 'Project could not be destroyed.'
+ 
   users:
     sessions:
       new:
         success: 'Your account has been created successfully. A confirmation email is sent to you. Confirm your email and login here.'
+
   members:
     create:
       success: 'Invitation Sent Successfully!'

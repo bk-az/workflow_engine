@@ -1,0 +1,3 @@
+$('#add_modal_search_results').html('')
+  .html("<%= j render partial: 'watchers_search_result', locals: { watchers: @watchers, issue: @issue, action: 'create' } %>")
+  

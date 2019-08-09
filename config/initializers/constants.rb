@@ -1,2 +1,3 @@
 # Constants
 MIN_LENGTH = 3
+MAX_LENGTH_ISSUE_STATE = 20
