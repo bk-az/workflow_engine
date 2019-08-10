@@ -1,10 +1,6 @@
 <% @documents.each.with_index(1) do |document, index| %>
   <tr>
-    <% if document.document.url.include? 'jpeg' or document.document.url.include? 'png' or document.document.url.include? 'jpg'  %>
-      <td><%= link_to(image_tag(document.document.url(:medium)), document.document.url, target: '_blank') if document.document.exists? %></td>
-    <% else %>
-      <td>Document</td>
-    <% end %>
+    
 
     <td><%= index %></td>
     <td><%= document.document_file_name %></td>

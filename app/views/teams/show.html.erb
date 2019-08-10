@@ -5,6 +5,8 @@
     <%= link_to "Remove Team", team_path(@team.id), method: :delete, data:{ confirm: 'Are you sure?' }, class: 'btn btn-secondary float-right' %>
     <button type="button" class="btn btn-secondary float-right mr-2" data-toggle="modal" data-target="#edit_team_modal">Edit Team</button>
     <%= render partial: 'edit_team_modal'%>
+    <button type="button" class="btn btn-secondary float-right mr-2" data-toggle="modal" data-target="#add_member_modal">Add Member</button>
+    <%= render partial: 'add_member_modal' %>
   <% end %>  
   </div>
   <br>
@@ -36,29 +38,5 @@
     </table>
   </div>
   <br><br>
-  <% if can? :manage, Team %>
-     <h2>Add member </h2>
-      <%= form_tag add_membership_teams_path, method: 'get', remote: true do %>
-        <div class="row">
-          <div class="col-3">
-            <%= select_tag "user_id", options_from_collection_for_select(@all_members, :id, :first_name), id: 'js_members_select', class: 'form-control' %>
-            <%= hidden_field_tag(:team_id, @team.id) %>
-            <%= hidden_field_tag(:is_approved, true) %>
-          </div>
-          <div class="col-2">
-            <div class="form-group form-check">
-              <div class="form-check-label">
-                <%= check_box 'join_admin', 'joining_decision', {}, 1, 0 %>
-                <%= label_tag(:join_admin, "Admin", class: 'form-check-label') %>
-              </div>
-            </div>
-          </div>   
-          <div class="col-2">
-            <div class="form-group">
-              <button type="submit" class="btn btn-secondary">Add member</button>
-            </div>
-          </div>
-        </div>
-      <% end %>
-  <% end %>
+ 
 </div>

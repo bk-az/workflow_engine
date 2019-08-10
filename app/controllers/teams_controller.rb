@@ -4,6 +4,7 @@ class TeamsController < ApplicationController
 
   # GET /index
   def index
+    @team = Team.new
     respond_to do |format|
       format.html
     end
@@ -11,6 +12,7 @@ class TeamsController < ApplicationController
 
   # GET /new
   def new
+
     respond_to do |format|
       format.html
     end
@@ -86,12 +88,12 @@ class TeamsController < ApplicationController
   def add_membership
     @is_admin = params[:join_admin][:joining_decision] != '0'
     @team_membership = TeamMembership.new(is_team_admin: @is_admin, is_approved: params[:is_approved], team_id: params[:team_id], user_id: params[:user_id])
-    respond_to do |format|
-      if @team_membership.save
+    if @team_membership.save
+      respond_to do |format|
         format.js
-      else
-        flash.now[:error] = @team_membership.errors.full_messages
       end
+    else
+      flash.now[:error] = @team_membership.errors.full_messages
     end
   end
 

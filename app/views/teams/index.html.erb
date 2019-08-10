@@ -1,7 +1,8 @@
 <div class="container " style="padding-top: 30px">
   <div class="row float-right">
     <% if can? :create, Team %> 
-      <%= link_to 'New Team', new_team_path,class: 'btn btn-secondary btn-sm' %>
+       <button type="button" class="btn btn-secondary float-right mr-2" data-toggle="modal" data-target="#create_team_modal">Create Team</button>
+    <%= render partial: 'create_team_modal' %>
     <% end %>
   </div>
   <div class="row">
