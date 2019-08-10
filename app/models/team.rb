@@ -20,4 +20,7 @@ class Team < ActiveRecord::Base
     @all_members = User.where.not(id: already_present_member_ids).select(:id, :first_name)
     [@team_memberships, @all_members]
   end
+  def pending_requests(id)
+    TeamMembership.where(team_id: id, is_approved: false)
+  end
 end

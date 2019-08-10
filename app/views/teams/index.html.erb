@@ -1,14 +1,15 @@
-<div class="container " style="padding-top: 30px">
-  <div class="row float-right">
-    <% if can? :create, Team %> 
-       <button type="button" class="btn btn-secondary float-right mr-2" data-toggle="modal" data-target="#create_team_modal">Create Team</button>
-    <%= render partial: 'create_team_modal' %>
-    <% end %>
-  </div>
+<h1 class="float-left">Teams</h1>
+<% if can? :create, Team %> 
+  <button type="button" class="btn btn-secondary float-right mr-2" data-toggle="modal"data-target="#create_team_modal">Create Team
+  </button>
+  <%= render partial: 'create_team_modal' %>
+<% end %>
+<br><br><br>
+<div class="container ">
   <div class="row">
     <% @teams.each do |team| %>
       <div class="col-md-6">
-        <div class="card" style="width:400px">
+        <div class="card card_width">
           <div class="card-body">
             <h4 class="card-title"><%= team.name %></h4>
             <p class="card-text">Welcome to <%= team.name%></p>
@@ -41,5 +42,5 @@
         <br>
       </div>
     <% end %>
-</div>
+  </div>
 </div>

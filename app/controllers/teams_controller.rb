@@ -12,7 +12,6 @@ class TeamsController < ApplicationController
 
   # GET /new
   def new
-
     respond_to do |format|
       format.html
     end
@@ -21,6 +20,7 @@ class TeamsController < ApplicationController
   # GET /show
   def show
     @team_memberships, @all_members = @team.member_and_team_memberships
+    @pendings = @team.pending_requests(@team.id)
     respond_to do |format|
       format.html
     end
@@ -113,7 +113,7 @@ class TeamsController < ApplicationController
   end
 
   def approve_request
-    TeamMembership.find_by(team_id: params[:team_id], user_id: params[:user_id]).update(is_approved: true)
+    @team.team_memberships.find_by(id: params[:membership_id]).update(is_approved: true)
   end
 
   private

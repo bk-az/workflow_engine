@@ -9,7 +9,6 @@
       </div>
       <%= form_tag add_membership_teams_path, method: 'get', remote: true do %>
         <div class="modal-body" id="add_member_modal" >
-      
           <div class="row">
             <div class="col-3">
               <%= select_tag "user_id", options_from_collection_for_select(@all_members, :id, :first_name), id: 'js_members_select', class: 'form-control' %>
@@ -24,11 +23,6 @@
                 </div>
               </div>
             </div>   
-            <!-- <div class="col-2">
-              <div class="form-group">
-                <button type="submit" class="btn btn-secondary">Add member</button>
-              </div>
-            </div> -->
           </div>
         </div>
         <div class="modal-footer">
