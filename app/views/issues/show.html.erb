@@ -27,10 +27,11 @@
     <%= link_to 'Edit', edit_project_issue_path(@issue.project_id, @issue.id), class: 'btn btn-secondary float-right mr-2' %>
   <% end %>
 </div>
+<br>
 <table class="table">
   <tbody>
     <tr>
-      <th scope="row">Title:</th>
+      <th scope="row" class="remove_border_top_from_th">Title:</th>
       <td><%= @issue.title %></td>
     </tr>
     <tr>
@@ -76,4 +77,3 @@
 </div>
 <br><br><br>
 <%= render partial: "documents/show_documents", locals: { documents: @issue.documents } %>
-
