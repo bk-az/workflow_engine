@@ -1,0 +1,10 @@
+issueTypeFlash.html('<%= j render partial: "layouts/notice" %>');
+<% if @issue_type.errors.blank? %>
+  $("#issue_type_form").trigger('reset');
+  issueTypesTableBody.append('<%= j render partial: 'issue_type_table_row', locals: {issue_type: @issue_type} %>');
+  tr = $("#<%= issue_type_table_row_id(@issue_type) %>");
+  issueTypesTable.row.add(tr).draw();
+<% else %>
+  issueTypesErrors.html('<%= j render partial: "layouts/errors", locals: {model: @issue_type} %>');
+<% end %>
+resetIssueTypeCategoryToggle();

@@ -1,0 +1,5 @@
+<% @comments.each do |comment| %>
+  <% next if comment.new_record? %>
+  <%= render partial: 'comments/single_comment', locals: { comment: comment } %>
+<% end %>
+

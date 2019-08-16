@@ -1,0 +1,8 @@
+$('#issues_table').DataTable().clear().destroy();
+$("#issues_list tr").remove();
+$("#issues_table tbody").append('<%= j render partial: "issues", locals: { issues: @issues } %>');
+$('#issues_paginator').html('<%= j paginate(@issues, remote: true).to_s %>');
+$('#issues_table').DataTable({
+    "paging": false,
+    "info":   false
+});

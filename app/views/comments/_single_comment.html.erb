@@ -1,0 +1,36 @@
+
+<div id="this_comment_<%= comment.id %>" class="card v-card v-sheet theme--light elevation-2">
+  <div  class="header">
+    <span  class="displayName title"><%= member_full_name(comment.user) %></span>
+    
+    <span  class="displayName caption"><%= time_ago_in_words(comment.created_at) %> ago</span>
+
+    <span  class="displayName caption"> <%= link_to "Edit", edit_comment_path(comment), remote: true %> </span>
+      <span  class="displayName caption"> <%= link_to 'Delete', comment_path(comment), method: :delete, data: { confirm: 'Are you sure?' }, remote: true %> </span>
+
+      <%= form_for comment, url: comment_path(comment), hidden: true, remote: true, html: {id: "comment_edit_form_"+comment.id.to_s, class: "comment_edit_form"} do |f| %>
+        <% if @comment.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this project from being saved:</h2>
+
+            <ul>
+            <% @comment.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <%= f.text_area :content, id: "comment_update" %>
+        <%= f.submit t('comments.update.btn'), id: "comment_update_btn", class: "btn comments_btn info" %>
+      <% end %>
+  </div>
+  <!---->
+  <div  class="wrapper comment comment-content-wrapper">
+    <p id="this_comment_content_<%= comment.id %>"><%= comment.content %></p>
+  </div>
+  <div  class="actions">
+  </div>
+  <div  class="v-dialog__container" style="display: block;"></div>
+</div>
+
+

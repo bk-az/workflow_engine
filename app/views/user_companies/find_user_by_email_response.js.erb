@@ -1,0 +1,7 @@
+<% if @found_users.count == 0 %>
+  alert("Invalid Email.");
+<% elsif @found_users.count == 1  %>
+  window.location.replace("<%= new_user_session_url(subdomain: @found_users.first.company.subdomain, user_email: @found_users.first.email) %>");
+<% else %>
+  window.location.replace('<%= show_companies_path(user_email: @found_users.first.email) %>');
+<% end %>

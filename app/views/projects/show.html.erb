@@ -1,0 +1,66 @@
+<h1 class="float-left"><%= @project.title %></h1>
+<%= link_to 'Add Custom Issue Type', project_issue_types_path(@project),class: 'btn btn-secondary float-right mr-2' %>
+<%= link_to 'Edit Project', edit_project_path(@project),class: 'btn btn-secondary float-right mr-2' %>
+<%= link_to 'Delete Project', project_path(@project),class: 'btn btn-secondary float-right mr-2', method: 'delete', data: { confirm: 'Are you sure?' } %>
+<a class="btn btn-secondary float-right mr-2" href= "<%= project_members_path(@project) %>">
+      <i class="fas fa-users mr-2"></i>
+      <strong>Members</strong>
+    </a>
+<br><br><br>
+
+<h2 class="float-left">Issues</h2>
+
+<%= link_to 'New Issue', new_project_issue_path(@project), class: 'btn btn-secondary float-right'%>
+<br><br><br>
+
+<table class="table table-hover" id="projects_table">
+  <thead>
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Assignee</th>
+      <th scope="col">Issue Type</th>
+      <th scope="col">Status</th>
+      <th scope="col">Priority</th>
+      <th scope="col">Created</th>
+      <th scope="col">Due Date</th>
+    </tr>
+  </thead>
+  <tbody id="projects_list">
+    <%= render partial: "issues/issues", locals: { issues: @issues } %>
+  </tbody>
+</table>
+
+<%= render 'comments/comment' %>
+
+<%= link_to 'Show all Documents', project_documents_path(@project),class: 'btn btn-secondary' %>
+
+
+
+<div class="page-header"><h3>Upload Document</h3></div>
+
+<%= form_for [@project, @document], html: { multipart: true } do |f| %>
+  <% if @document.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= "#{pluralize(@document.errors.count, "error")} prohibited this document from being saved:" %>
+      </h2>
+      <ul>
+        <% @document.errors.full_messages.each do |msg| %>
+          <li>
+            <%= msg %>
+          </li>
+          <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="form-group upload_document_field">
+    <%= f.file_field :document %> 
+  </div>
+
+  <div class="form-group">
+        <%= f.submit 'Upload Document', class: 'btn btn-secondary' %>
+  </div>
+<% end %>
+

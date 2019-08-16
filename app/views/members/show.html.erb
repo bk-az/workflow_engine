@@ -1,0 +1,38 @@
+<div class="card">
+  <h2 class="card-header clearfix">
+    <%= member_full_name(@member) %>
+    <em class="text-muted float-right">@<%= @company.name %></em>
+  </h2>
+  <div class="card-body">
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th>Attribute</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>First Name</td>
+          <td><%= @member.first_name %></td>
+        </tr>
+        <tr>
+          <td>Last Name</td>
+          <td><%= @member.last_name %></td>
+        </tr>
+        <tr>
+          <td>Email</td>
+          <td><%= @member.email %></td>
+        </tr>
+        <tr>
+          <td>Role</td>
+          <td><%= @member.role.name %></td>
+        </tr>
+        <tr>
+          <td>Designation</td>
+          <td><%= @member.designation %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

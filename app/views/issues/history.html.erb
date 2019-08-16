@@ -1,0 +1,20 @@
+<div class="text-center my-4">
+  <h1><%= @issue.title %> History Report</h1>
+</div>
+
+<div class="my-4">
+  <table id="report_datatable"  class="table">
+    <thead>
+      <tr>
+        <th scope="col">Sr#</th>
+        <th scope="col">Time</th>
+        <th scope="col">Attribute</th>
+        <th scope="col">From</th>
+        <th scope="col">To</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: 'issue_audit_row', collection: @audits, as: :audit %>
+    </tbody>
+  </table>
+</div>

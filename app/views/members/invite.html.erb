@@ -1,0 +1,31 @@
+<div class="card">
+  <h2 class="card-header">Invite a Member</h2>
+  <div class="card-body">
+    <%= form_for(@new_user, url: members_path, method: :post) do |f| %>
+      <div class="field form-group">
+        <%= f.label :first_name %><br />
+        <%= f.text_field :first_name, autofocus: true, class: "form-control form-control-sm", placeholder: "E.g. John" %>
+      </div>
+
+      <div class="field form-group">
+        <%= f.label :last_name %><br />
+        <%= f.text_field :last_name, autofocus: true, class: "form-control form-control-sm", placeholder: "E.g. Doe" %>
+      </div>
+
+      <div class="field form-group">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true, class: "form-control form-control-sm", placeholder: "john.doe@gmail.com" %>
+      </div>
+
+      <div class="form-group">
+        <label for="role_select">Role:</label>
+        <%= f.select(:role_id, get_roles(@roles), { include_blank: 'None' }, class: 'form-control form-control-sm', id: 'role_select') %>
+      </div>
+
+      <div class="actions text-right">
+        <%= f.submit "Send Invitation", class: "btn btn-info btn-sm" %>
+      </div>
+    <% end %>
+  </div>
+  <div class="card-footer text-right">@<%= @company.name %></div>
+</div>

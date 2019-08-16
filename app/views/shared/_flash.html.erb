@@ -1,0 +1,67 @@
+<% unless flash[:alert].nil? %>
+  <% if flash[:alert].is_a? Enumerable %>
+    <% flash[:alert].each do |msg| %>
+      <div class="alert alert-warning">
+        <a class="close" data-dismiss="alert" href="#_">&times;</a>
+        <%= msg %>
+      </div>
+    <% end %>
+    <% flash[:alert].clear %>
+  <% else %>
+    <div class="alert alert-warning">
+      <a class="close" data-dismiss="alert" href="#_">&times;</a>
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+<% end %>
+
+<% unless flash[:error].nil? %>
+  <% if flash[:error].is_a? Enumerable %>
+    <% flash[:error].each do |msg| %>
+      <div class="alert alert-danger">
+        <a class="close" data-dismiss="alert" href="#_">&times;</a>
+        <%= msg %>
+      </div>
+    <% end %>
+    <% flash[:error].clear %>
+  <% else %>
+    <div class="alert alert-danger">
+      <a class="close" data-dismiss="alert" href="#_">&times;</a>
+      <%= flash[:error] %>
+    </div>
+  <% end %>
+<% end %>
+
+<% unless flash[:notice].nil? %>
+  <% if flash[:notice].is_a? Enumerable %>
+    <% flash[:notice].each do |msg| %>
+      <div class="alert alert-info">
+        <a class="close" data-dismiss="alert" href="#_">&times;</a>
+        <%= msg %>
+      </div>
+    <% end %>
+    <% flash[:notice].clear %>
+  <% else %>
+    <div class="alert alert-info">
+      <a class="close" data-dismiss="alert" href="#_">&times;</a>
+      <%= flash[:notice] %>
+    </div>
+  <% end %>
+<% end %>
+
+<% unless flash[:success].nil? %>
+  <% if flash[:success].is_a? Enumerable %>
+    <% flash[:success].each do |msg| %>
+      <div class="alert alert-success">
+        <a class="close" data-dismiss="alert" href="#_">&times;</a>
+        <%= msg %>
+      </div>
+    <% end %>
+    <% flash[:success].clear %>
+  <% else %>
+    <div class="alert alert-success">
+      <a class="close" data-dismiss="alert" href="#_">&times;</a>
+      <%= flash[:success] %>
+    </div>
+  <% end %>
+<% end %>
