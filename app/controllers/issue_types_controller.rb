@@ -5,9 +5,8 @@ class IssueTypesController < ApplicationController
   load_and_authorize_resource
 
   def index
+    @issues_count = Issue.group(:issue_type_id).count
     @issue_types = @issue_types.project_issue_types(params[:project_id]) if params[:project_id].present?
-    # required for new_issue_type_modal
-    @issue_type = IssueType.new
     respond_to do |format|
       format.html
     end
