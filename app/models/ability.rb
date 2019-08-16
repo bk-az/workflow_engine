@@ -38,8 +38,8 @@ class Ability
       can :create, Issue, company_id: user.company_id
 
       # IssueWatcher
-      can :create_watcher, IssueWatcher, watcher_id: user.id, watcher_type: IssueWatcher::WATCHER_TYPE_USER
-      can :destroy_watcher, IssueWatcher, watcher_id: user.id, watcher_type: IssueWatcher::WATCHER_TYPE_USER
+      can :create_watcher, IssueWatcher, company_id: user.company_id, watcher_id: user.id, watcher_type: IssueWatcher::WATCHER_TYPE_USER
+      can :destroy_watcher, IssueWatcher, company_id: user.company_id, watcher_id: user.id, watcher_type: IssueWatcher::WATCHER_TYPE_USER
 
       # Document
       can [:create, :index, :destroy], Document, company_id: user.company_id

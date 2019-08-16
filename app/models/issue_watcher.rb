@@ -1,7 +1,6 @@
 class IssueWatcher < ActiveRecord::Base
-  not_multitenant
-
   belongs_to :issue
+  belongs_to :company
   belongs_to :watcher, polymorphic: true
 
   WATCHER_TYPE_USER = 'User'.freeze
