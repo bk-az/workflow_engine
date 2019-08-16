@@ -13,18 +13,22 @@ Rails.application.routes.draw do
   root 'user_companies#find'
 
   resources :issues, only: :index do
-    resources :comments, shallow: true
     get 'filter', on: :collection
     get 'history', on: :member
-    resources :documents
+    resources :comments, shallow: true
+    resources :documents, except: :destroy
   end
 
   resources :projects do
-    resources :documents
+    resources :documents, except: :destroy
     resources :comments, shallow: true
     resources :issue_types, except: :destroy
     resources :project_memberships, only: %i[index create], as: 'members'
     resources :issues, only: [:new, :create, :show, :edit, :update, :destroy]
+  end
+
+  resources :documents do
+    delete :destroy
   end
 
   resources :comments, only: [:edit, :update, :destroy]
@@ -54,7 +58,6 @@ Rails.application.routes.draw do
   }
 
   get 'reports/issues', to: 'reports#issues', as: 'issues_report'
-  
   get 'workplace', to: 'dashboard#index', as: 'dashboard'
   get 'dashboard/issues', to: 'dashboard#issues', as: 'dashboard_issues'
 
