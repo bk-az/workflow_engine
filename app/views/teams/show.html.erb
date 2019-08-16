@@ -17,7 +17,9 @@
       <thead>
         <th scope="row">Name</th>
         <th scope="row">Admin</th>
-        <th scope="row">Action</th>
+        <% if can? :manage, Team %>
+         <th scope="row">Action</th>
+        <% end %>
       </thead>
       <tbody>
         <% @team_memberships.each do |membership| %>
@@ -29,7 +31,9 @@
               <% else %>
                 <td>No</td>
               <% end %>
-              <td><%= link_to 'Remove', remove_member_team_path(@team.id, membership_id: membership.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger btn-sm', remote: true %></td>
+              <% if can? :manage, Team %>
+                <td><%= link_to 'Remove', remove_member_team_path(@team.id, membership_id: membership.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger btn-sm', remote: true %></td>
+              <% end %>
             </tr>
           <% end %>
         <% end %>
