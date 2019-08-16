@@ -22,7 +22,7 @@
 en:
   team:
     create:
-      success: 'Team created Successfully'
+      success: 'Team created successfully'
     destroy:
       success: 'Team deleted successfully'
     update:
@@ -32,30 +32,30 @@ en:
       
   issue_states:
     create:
-      created: "Issue State created Successfully"
-      not_created: "Issue State not Created"
+      created: "Issue State created successfully"
+      not_created: "Issue State not created"
     destroy:
-      deleted: "Issue State Deleted Successfully"
+      deleted: "Issue State deleted successfully"
       not_deleted: "Unable to delete this Issue State"
     update:
-      updated: "Issue State Updated Successfully"
-      not_updated: "Issue State not Updated"
+      updated: "Issue State updated successfully"
+      not_updated: "Issue State not updated"
 
   issue_types:
     create:
-      created: "Issue Type created Successfully"
-      not_created: "Issue Type not Created"
+      created: "Issue Type created successfully"
+      not_created: "Issue Type not created"
     destroy:
-      deleted: "Issue Type Deleted Successfully"
+      deleted: "Issue Type deleted successfully"
       not_deleted: "Unable to delete this Issue Type"
     update:
-      updated: "Issue Type Updated Successfully"
-      not_updated: "Issue Type not Updated"
+      updated: "Issue Type updated successfully"
+      not_updated: "Issue Type not updated"
 
   project_memberships:
     create:
-      created: "Member Added Successfully"
-      not_created: "Member not Added"
+      created: "Member added successfully"
+      not_created: "Member not added"
 
   document:
     create:
@@ -92,8 +92,9 @@ en:
     update:
       updated: 'Project updated successfully'
     destroy:
-      destroyed: 'Project destroyed successfully'
-      not_destroyed: 'Project could not be destroyed'
+      dependent_issues: "Unable to delete project, contains %{count} active issues"
+      destroyed: 'Project deleted successfully'
+      not_destroyed: 'Project could not be deleted'
  
   users:
     sessions:
@@ -102,11 +103,11 @@ en:
 
   members:
     create:
-      success: 'Invitation Sent Successfully'
+      success: 'Invitation sent successfully'
     update:
-      success: 'Details Updated Successfully'
+      success: 'Details updated successfully'
     destroy:
-      success: 'Member Deactivated Successfully'
+      success: 'Member deactivated successfully'
     change_password:
       success: 'Your password has been changed successfully'
     show_change_password_form: # For invited_user?
