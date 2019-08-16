@@ -41,7 +41,6 @@ class ApplicationController < ActionController::Base
     elsif params[:is_collapsed].to_i == 1
       session[:is_sidebar_collapsed] = true
     end
-
     respond_to do |format|
       format.js { render json: {}, status: 200 }
     end
