@@ -1,11 +1,7 @@
 Rails.application.routes.draw do
   resources :teams do
-    collection do
-      get 'add_membership'
-      
-    end
-
     member do
+      get 'add_membership'
       delete 'remove_member'
       get 'approve_request'
     end

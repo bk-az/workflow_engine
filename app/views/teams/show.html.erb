@@ -53,7 +53,6 @@
           </thead>
           <tbody>
             <% @pendings.each do |pending_membership| %>
-              
                 <tr id="pending_membership_<%= pending_membership.id %>"> <span class="glyphicon glyphicon-user"></span> 
                   <td><%= pending_membership.user.name%></td>
                   <td><%= link_to 'Accept', approve_request_team_path(@team.sequence_num, membership_id: pending_membership.id), class: 'btn btn-outline-success btn-sm', remote: true %></td>

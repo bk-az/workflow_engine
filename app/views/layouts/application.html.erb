@@ -34,12 +34,10 @@
   </head>
   <body>
     <%= render "layouts/header" %>
-    
     <% if user_signed_in? %>
       <div id="wrapper" class="<%= sidebar_toggle_class %>">
         <%= render "layouts/sidebar" %>
     <% end %>
-
     <div id="page-content-wrapper">
       <div class="row">
         <div id="main_container_to_right_of_sidebar" class="<%= main_layout_class %>">
@@ -50,11 +48,9 @@
         </div>
       </div>
     </div>
-
     <% if user_signed_in? %>
       </div>
     <% end %>
-
     <%= javascript_include_tag "https://code.jquery.com/ui/1.12.1/jquery-ui.js" %>
     <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' %>
     <%= javascript_include_tag 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' %>

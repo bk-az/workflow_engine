@@ -7,7 +7,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <%= form_tag add_membership_teams_path, method: 'get', remote: true do %>
+      <%= form_tag add_membership_team_path(@team.sequence_num), method: 'get', remote: true do %>
         <div class="modal-body" id="add_member_modal" >
           <div class="row">
             <div class="col-8">
@@ -29,11 +29,9 @@
       <% end %>  
         <div class="modal-footer">
           <div class="form-group">
-           <!-- <button type="submit" class="btn btn-secondary" >Add Member</button> -->
            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
         </div>
-          
     </div>
   </div>
 </div>

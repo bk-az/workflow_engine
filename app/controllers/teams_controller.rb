@@ -87,7 +87,7 @@ class TeamsController < ApplicationController
 
   def add_membership
     @is_admin = params[:join_admin][:joining_decision] != '0'
-    @team_membership = TeamMembership.new(is_team_admin: @is_admin, is_approved: params[:is_approved], team_id: params[:team_id], user_id: params[:user_id])
+    @team_membership = @team.team_memberships.new(is_team_admin: @is_admin, is_approved: params[:is_approved], team_id: params[:team_id], user_id: params[:user_id])
     if @team_membership.save
       respond_to do |format|
         format.js

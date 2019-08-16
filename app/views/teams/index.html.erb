@@ -21,7 +21,7 @@
               <% if requested(team.id, current_user.id) %>
                 <button class="btn btn-success btn-sm btn-block ">Requested to join</button>
               <% elsif !already_joined_team(team.id, current_user.id) %>
-                <%= form_tag add_membership_teams_path, method: 'get', remote: true do %>
+                <%= form_tag add_membership_team_path(team.sequence_num), method: 'get', remote: true do %>
                   <%= hidden_field_tag(:user_id, current_user.id) %>
                   <%= hidden_field_tag(:team_id, team.id) %> 
                   <%= hidden_field_tag(:is_approved, false) %> 
