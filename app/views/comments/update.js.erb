@@ -1,4 +1,10 @@
-$("#comment_edit_form_<%= @comment.id %>").hide();
-$("#this_comment_content_<%= @comment.id %>").html('<%= j @comment.content %>');
-$("#this_comment_content_<%= @comment.id %>").show();
+<% if @comment_invalid %>
+  $("#comment_edit_form_<%= @comment.id %> textarea").addClass('is-invalid');
+  alert("Invalid Comment. Please, see errors.");  
+<% else %>
+  $("#comment_edit_form_<%= @comment.id %>").hide();
+  $("#this_comment_content_<%= @comment.id %>").html('<%= j @comment.content %>');
+  $("#this_comment_content_<%= @comment.id %>").show();
+  $("#comment_edit_form_<%= @comment.id %> textarea").removeClass('is-invalid');
+<% end %>
 $("#flash_messages").html("<%= j render partial: 'shared/flash' %>");

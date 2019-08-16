@@ -8,7 +8,7 @@
     <span  class="displayName caption"> <%= link_to "Edit", edit_comment_path(comment), remote: true %> </span>
       <span  class="displayName caption"> <%= link_to 'Delete', comment_path(comment), method: :delete, data: { confirm: 'Are you sure?' }, remote: true %> </span>
 
-      <%= form_for comment, url: comment_path(comment), hidden: true, remote: true, html: {id: "comment_edit_form_"+comment.id.to_s, class: "comment_edit_form"} do |f| %>
+      <%= form_for comment, url: comment_path(comment), hidden: true, remote: true, html: {id: "comment_edit_form_" + comment.id.to_s, class: "comment_edit_form"} do |f| %>
         <% if @comment.errors.any? %>
           <div id="error_explanation">
             <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this project from being saved:</h2>
@@ -20,7 +20,7 @@
             </ul>
           </div>
         <% end %>
-        <%= f.text_area :content, id: "comment_update" %>
+        <%= f.text_area :content, id: "comment_update", class: 'form-control' %>
         <%= f.submit t('comments.update.btn'), id: "comment_update_btn", class: "btn comments_btn info" %>
       <% end %>
   </div>
