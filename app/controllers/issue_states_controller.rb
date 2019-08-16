@@ -3,7 +3,7 @@ class IssueStatesController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @issues_count = Issue.group(:issue_state_id).count
+    @issues_count = current_tenant.issues.group(:issue_state_id).count
     respond_to do |format|
       format.html
     end
