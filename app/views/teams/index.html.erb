@@ -14,13 +14,13 @@
             <h4 class="card-title"><%= team.name %></h4>
             <p class="card-text">Welcome to <%= team.name%></p>
             <% if can? :manage, Team %> 
-              <%= link_to 'Manage Team', team_path(team.id),class: 'btn btn-sm btn-block btn-outline-secondary' %>
+              <%= link_to 'Manage Team', team_path(team.sequence_num),class: 'btn btn-sm btn-block btn-outline-secondary' %>
             <% else %> 
-              <%= link_to 'View Team', team_path(team.id),class: 'btn btn-sm btn-block btn-outline-secondary' %>
+              <%= link_to 'View Team', team_path(team.sequence_num),class: 'btn btn-sm btn-block btn-outline-secondary' %>
               <hr>
               <% if requested(team.id, current_user.id) %>
                 <button class="btn btn-success btn-sm btn-block ">Requested to join</button>
-              <% else %>
+              <% elsif !already_joined_team(team.id, current_user.id) %>
                 <%= form_tag add_membership_teams_path, method: 'get', remote: true do %>
                   <%= hidden_field_tag(:user_id, current_user.id) %>
                   <%= hidden_field_tag(:team_id, team.id) %> 
