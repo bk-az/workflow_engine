@@ -18,7 +18,6 @@ class CommentsController < ApplicationController
   # POST /projects/:project_id/comments
   # POST /issues/:issue_id/comments
   def create
-    # @comment = @commentable.comments.build(comment_params)
     @comment.user_id = current_user.id
     if @comment.save
       flash.now[:notice] = t('comments.create.created')
