@@ -24,7 +24,7 @@ en:
     create:
       success: 'Team created Successfully'
     destroy:
-      success: 'Successfully deleted team'
+      success: 'Team deleted successfully'
     update:
       success: 'Team updated successfully'
     remove_member:
@@ -88,7 +88,7 @@ en:
 
   projects:
     create:
-      created: 'Successfully created a project'
+      created: 'Project created successfully'
     update:
       updated: 'Project updated successfully'
     destroy:

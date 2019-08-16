@@ -19,3 +19,5 @@ echo "coverage" >> .gitignore
 /.byebug_history
 
 /config/database.yml
+
+public/system/*
