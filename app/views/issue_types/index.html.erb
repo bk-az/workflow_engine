@@ -1,13 +1,14 @@
 <div class="wrapper mb-5">
   <h1 class="float-left">Issue Types</h1>
   <% if params[:project_id].present? %>
-    <%= link_to(new_project_issue_type_path(params[:project_id]), remote: true, class: 'btn btn-secondary mr-2 float-right') do %>
+    <%= link_to(new_project_issue_type_path(params[:project_id]), remote: true, class: 'btn btn-secondary float-right') do %>
       <i class="fas fa-plus mr-2"></i>New Issue Type
     <% end %>
-    <a class="btn btn-secondary float-right" href="<%= issue_types_path %>">
+    <%= link_to(issue_types_path, class: "btn btn-secondary float-right mr-2") do %>
       <i class="fas fa-cog mr-2"></i>Manage All Issue Types</a>
+    <% end %>
   <% else %>
-    <%= link_to(new_issue_type_path, remote: true, class: 'btn btn-secondary mr-2 float-right') do %>
+    <%= link_to(new_issue_type_path, remote: true, class: 'btn btn-secondary float-right') do %>
       <i class="fas fa-plus mr-2"></i>New Issue Type
     <% end %>
   <% end %>

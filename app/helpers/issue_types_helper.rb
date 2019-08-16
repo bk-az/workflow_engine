@@ -7,7 +7,7 @@ module IssueTypesHelper
     issue_type.project_id.nil? ? 'global' : "project-#{issue_type.project_id}"
   end
 
-  def issues_count_helper(issues_count, issue_type)
+  def issue_type_issues_count(issues_count, issue_type)
     if issues_count.nil?
       result = issue_type.issues.count
     else
