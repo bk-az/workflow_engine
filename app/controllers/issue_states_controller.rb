@@ -3,15 +3,9 @@ class IssueStatesController < ApplicationController
   load_and_authorize_resource
 
   def index
+    @issues_count = Issue.group(:issue_state_id).count
     respond_to do |format|
       format.html
-    end
-  end
-
-  def show
-    @total_issues = @issue_state.issues.count
-    respond_to do |format|
-      format.js
     end
   end
 
@@ -57,6 +51,13 @@ class IssueStatesController < ApplicationController
       @issue_state.destroy
       flash.now[:success] = t('.deleted')
     end
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def issues
+    @issues = @issue_state.issues
     respond_to do |format|
       format.js
     end

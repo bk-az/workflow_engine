@@ -31,6 +31,7 @@ Rails.application.routes.draw do
 
   resources :issue_states do
     get :autocomplete_issue_title, on: :collection
+    get :issues, on: :member
   end
 
   resources :project_memberships, only: :destroy do

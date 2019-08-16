@@ -1,20 +1,20 @@
-<div class="text-center my-4">
-  <h2>Issue States</h2>
+<div class="wrapper">
+<h1 class="float-left my-4">Issue States</h1>
+<%= link_to(new_issue_state_path, remote: true, class: 'btn btn-secondary float-right my-4') do %>
+<i class="fas fa-plus mr-2"></i> New Issue State
+<% end %>
 </div>
 
-<%= link_to('New Issue State', new_issue_state_path, remote: true, class: 'btn btn-secondary mb-4 mr-2') %>
-
 <!-- Issue State Modals -->
-
-<%= render 'issue_states/new_issue_state_modal' %>
-<%= render 'issue_states/show_issue_state_modal' %>
+<%= render 'new_issue_state_modal' %>
+<%= render 'issue_state_issues_modal' %>
 
 <div class="my-4">
   <table id="issue_states_datatable" class="table table-hover">
     <thead>
       <tr>
         <th>Name</th>
-        <th>Manage</th>
+        <th>Total Issues</th>
       </tr>
     </thead>
     <tbody>
