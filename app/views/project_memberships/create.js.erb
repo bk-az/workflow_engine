@@ -8,3 +8,4 @@ clearNewProjectMembershipForm();
   <% end %>
   $("<%= project_member_view_id(@project_member) %>").hide().fadeIn();
 <% end %>
+$("#flash_messages").html("<%= j render partial: 'shared/flash' %>");

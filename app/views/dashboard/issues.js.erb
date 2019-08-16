@@ -2,3 +2,4 @@ dashboardTable.hide();
 $('#selected_project_issues').html('<%= j render partial: "issue_list", collection: @issues, as: :issue %>');
 dashboardTable.fadeIn(700);
 dashboardTable.invalidate().draw();
+$("#flash_messages").html("<%= j render partial: 'shared/flash' %>");

@@ -8,3 +8,4 @@ issueTypeFlash.html('<%= j render partial: "layouts/notice" %>');
   issueTypesErrors.html('<%= j render partial: "layouts/errors", locals: {model: @issue_type} %>');
 <% end %>
 resetIssueTypeCategoryToggle();
+$("#flash_messages").html("<%= j render partial: 'shared/flash' %>");

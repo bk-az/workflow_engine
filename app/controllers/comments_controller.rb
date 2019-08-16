@@ -16,9 +16,9 @@ class CommentsController < ApplicationController
     @comment = @commentable.comments.build(comment_params)
     @comment.user_id = current_user.id
     if @comment.save
-      flash[:notice] = t('comments.create.created')
+      flash.now[:notice] = t('comments.create.created')
     else
-      flash[:alert] = t('comments.create.not_created')
+      flash.now[:alert] = t('comments.create.not_created')
     end
     respond_to do |format|
       format.js
@@ -36,22 +36,22 @@ class CommentsController < ApplicationController
       respond_to do |format|
         format.js
       end
-      flash[:notice] = t('comments.update.updated')
+      flash.now[:notice] = t('comments.update.updated')
     else
       # how to show the errors
       render 'edit'
-      flash[:notice] = t('comments.update.not_updated')
+      flash.now[:notice] = t('comments.update.not_updated')
     end
   end
 
   def destroy
     if @comment.destroy
-      flash[:notice] = t('comments.destroy.destroyed')
+      flash.now[:notice] = t('comments.destroy.destroyed')
       respond_to do |format|
         format.js
       end
     else
-      flash[:notice] = t('comments.destroy.not_destroyed')
+      flash.now[:notice] = t('comments.destroy.not_destroyed')
     end
   end
 

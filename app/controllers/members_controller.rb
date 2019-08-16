@@ -31,7 +31,7 @@ class MembersController < ApplicationController
       @new_user.send_invitation_email(company, @new_user.role) unless @new_user.skip_invitation_email
       flash[:success] = t('members.create.success')
     else
-      flash[:error] = @new_user.errors.full_messages
+      flash.now[:error] = @new_user.errors.full_messages
       validation_error = true
     end
 
@@ -75,7 +75,7 @@ class MembersController < ApplicationController
   def index
     @company = current_tenant
     # Get members other the logged in user.
-    @members = @company.users.active.includes(:role)
+    @members = @company.users.where.not(id: current_user.id).active.includes(:role)
 
     respond_to do |format|
       format.html { render 'members/index' }
@@ -126,7 +126,7 @@ class MembersController < ApplicationController
           flash[:success] = t('members.update.success')
           redirect_to edit_member_path(@member)
         else
-          flash[:error] = @member.errors.full_messages
+          flash.now[:error] = @member.errors.full_messages
           render 'members/edit'
         end
       end
@@ -150,7 +150,6 @@ class MembersController < ApplicationController
   # GET /member/:id/change_password_form/
   # executes :changed_sys_generated_password? as before_action
   def show_change_password_form
-    # TODO
     # Make sure that params[:id] == current_user.id through CANCANCAN
     @current_user = current_tenant.users.active.find(params[:id])
 
@@ -163,7 +162,7 @@ class MembersController < ApplicationController
   # executes :changed_sys_generated_password? as before_action
   def change_password
     validation_error = false
-    # TODO
+
     # Make sure that params[:id] == current_user.id through CANCANCAN
     @current_user = current_tenant.users.active.find(change_password_params[:id])
     @current_user.password = change_password_params[:password]
@@ -174,7 +173,7 @@ class MembersController < ApplicationController
       sign_in(@current_user, bypass: true)
       flash[:success] = t('members.change_password.success')
     else
-      flash[:error] = @current_user.errors.full_messages
+      flash.now[:error] = @current_user.errors.full_messages
       validation_error = true
     end
 
@@ -199,8 +198,6 @@ class MembersController < ApplicationController
   end
 
   def set_invitation_view_variables
-    # TODO
-    # remove these lines as they will be handled through can can can
     # Get logged in User
     @user      = current_user
 

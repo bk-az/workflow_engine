@@ -5,3 +5,4 @@ $('#commenttext').val(' ');
 
 $("#comment_edit_form_<%= @comment.id %>").hide()
 $("#this_comment_content_<%= @comment.id %>").show()
+$("#flash_messages").html("<%= j render partial: 'shared/flash' %>");

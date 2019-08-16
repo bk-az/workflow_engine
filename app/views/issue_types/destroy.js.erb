@@ -4,3 +4,4 @@ $("#error_messages").html('<%= j render partial: "layouts/errors", locals: {mode
 <% if @issue_type.errors.blank? %>
   issueTypesTable.row("#<%= issue_type_table_row_id(@issue_type) %>").remove().draw();
 <% end %>
+$("#flash_messages").html("<%= j render partial: 'shared/flash' %>");

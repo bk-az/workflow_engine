@@ -16,7 +16,8 @@ class ProjectsController < ApplicationController
 
   def create
     if @project.save
-      redirect_to @project, notice: t('projects.create.created')
+      flash[:notice] = t('projects.create.created')
+      redirect_to @project
     else
       render :new
     end
@@ -55,7 +56,7 @@ class ProjectsController < ApplicationController
       flash[:notice] = t('projects.destroy.destroyed')
       redirect_to projects_path
     else
-      flash[:notice] = t('projects.destroy.not_destroyed')
+      flash.now[:notice] = t('projects.destroy.not_destroyed')
     end
   end
 

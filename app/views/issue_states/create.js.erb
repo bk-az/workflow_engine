@@ -7,3 +7,4 @@ issueStateFlash.html('<%= j render partial: "layouts/notice" %>');
 <% else %>
   issueStatesErrors.html('<%= j render partial: "layouts/errors", locals: {model: @issue_state} %>');
 <% end %>
+$("#flash_messages").html("<%= j render partial: 'shared/flash' %>");

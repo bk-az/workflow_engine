@@ -7,6 +7,7 @@ issueTypeFlash.html('<%= j render partial: "layouts/notice" %>');
 <% else %>
   issueTypesErrors.html('<%= j render partial: "layouts/errors", locals: {model: @issue_type} %>');
 <% end %>
+$("#flash_messages").html("<%= j render partial: 'shared/flash' %>");
 
 function updateClassAndId(row) {
   row.attr('id', "<%= issue_type_table_row_id(@issue_type) %>");
