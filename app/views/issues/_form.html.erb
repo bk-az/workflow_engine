@@ -1,15 +1,17 @@
  <%= form_for [@project, @issue] do |f| %>
   <div class="form-group">
-    <%= f.label :title %>
-    <%= f.text_field :title, class: 'form-control' ,maxlength: 100, required: true, minlength: 3 %>
+    <%= f.label :title do %>
+      Title<span class="text-danger">*</span>
+    <% end %>
+    <%= f.text_field :title, class: 'form-control', maxlength: 100, required: true, minlength: 3 %>
   </div>
-  <hr>
+  <br>
 
   <div class="row">
     <div class="col-md-6">
       <div class="form-group">
         <%= f.label :description %>
-        <%= f.text_area :description, class: 'form-control', cols: 2, rows: 6, required: true, minlength: 3 %>
+        <%= f.text_area :description, class: 'form-control', cols: 2, rows: 6, minlength: 3 %>
       </div>
     </div>
   </div>
@@ -29,7 +31,7 @@
       </div>
     </div>
   </div>
-  <hr>
+  <br>
 
   <div class="row">
     <div class="col-md-3">
@@ -40,14 +42,18 @@
     </div>
     <div class="col-md-3">
       <div class="form-group">
-        <%= f.label :priority %>
+        <%= f.label :priority do %>
+          Priority<span class="text-danger">*</span>
+        <% end %>
         <%= f.select :priority, show_priority.collect { |key, value| [key, value] }, { include_blank: false }, class: 'form-control' %>
       </div>
     </div>
 
     <div class="col-md-3">
       <div class="form-group">
-        <%= f.label :issue_state_id %>       
+        <%= f.label :issue_state_id do %>
+          Issue State<span class="text-danger">*</span>
+        <% end %>       
         <%= f.select :issue_state_id, issue_states.collect { |issue_state| [issue_state.try(:name), issue_state.id] }, { include_blank: false }, class: 'form-control' %>
       </div>
     </div>
@@ -64,7 +70,9 @@
   <div class="row">
     <div class="col-md-4">
       <div class="form-group">
-        <%= f.label :progress %>
+        <%= f.label :progress do %>
+          Progress<span class="text-danger">*</span>
+        <% end %>
         <%= f.number_field :progress, class: 'form-control', min: 0, max: 100, step: 5, required: true %>
       </div>
     </div>
