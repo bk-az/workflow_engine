@@ -61,7 +61,7 @@
     <div class="col-md-3">
       <div class="form-group">
         <%= f.label :issue_type_id %>
-           <%= f.select :issue_type_id, issue_types.collect { |issue_type| [issue_type.try(:name), issue_type.id] }, { include_blank: 'Select an issue type' }, class: 'form-control' %>
+           <%= f.select :issue_type_id, issue_types.collect { |issue_type| [issue_type.try(:name), issue_type.id] }, { include_blank: false }, class: 'form-control', required: true %>
       </div>
     </div> 
   </div>

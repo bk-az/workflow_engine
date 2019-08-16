@@ -18,6 +18,7 @@ class Issue < ActiveRecord::Base
   validates :progress, presence: true, length: { minimum: 1, maximum: 5 }
   validates :priority, presence: true
   validates :issue_state_id, presence: true
+  validates :issue_type_id, presence: true
 
   belongs_to :company
   belongs_to :project
