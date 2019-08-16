@@ -1,7 +1,7 @@
 # Model Class
 class Issue < ActiveRecord::Base
   audited associated_with: :project
-  
+
   PRIORITY = {
     Low: 0,
     Medium: 1,
@@ -9,7 +9,7 @@ class Issue < ActiveRecord::Base
   }.freeze
 
   after_save :send_email
-  # Kaminari build-in attribute for pagination size per page
+
   paginates_per 7
 
   # Validations
@@ -17,6 +17,7 @@ class Issue < ActiveRecord::Base
   validates :description, length: { minimum: 3, maximum: 500 }
   validates :progress, presence: true, length: { minimum: 1, maximum: 5 }
   validates :priority, presence: true
+  validates :issue_state_id, presence: true
 
   belongs_to :company
   belongs_to :project
