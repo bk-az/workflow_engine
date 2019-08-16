@@ -69,14 +69,14 @@ class CommentsController < ApplicationController
 
   def load_commentable
     if params[:project_id].present?
-      @commentable = Project.find(params[:project_id])
+      @commentable = current_tenant.projects.find(params[:project_id])
     elsif params[:issue_id].present?
-      @commentable = Issue.find(params[:issue_id])
+      @commentable = current_tenant.issues.find(params[:issue_id])
     end
   end
 
   def current_comment
-    @comment = Comment.find(params[:id])
+    @comment = current_tenant.comments.find(params[:id])
   end
 
   def comment_params
