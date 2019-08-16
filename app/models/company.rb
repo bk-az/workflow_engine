@@ -1,9 +1,6 @@
 class Company < ActiveRecord::Base
   not_multitenant
 
-  DEFAULT_ISSUE_TYPES = %w[Improvement New\ Feature].freeze
-  DEFAULT_ISSUE_STATES = %w[Resolved Unresolved].freeze
-
   before_save { subdomain.downcase! }
   after_create :create_issue_states, :create_issue_types
 
@@ -33,12 +30,12 @@ class Company < ActiveRecord::Base
   end
 
   def create_issue_states
-    DEFAULT_ISSUE_STATES.each { |name| issue_states.create!(name: name) }
+    IssueState::DEFAULT_ISSUE_STATES.each { |name| issue_states.create!(name: name) }
     true
   end
 
   def create_issue_types
-    DEFAULT_ISSUE_TYPES.each { |name| issue_types.create!(name: name) }
+    IssueType::DEFAULT_ISSUE_TYPES.each { |name| issue_types.create!(name: name) }
     true
   end
 end
