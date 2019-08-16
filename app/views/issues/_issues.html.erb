@@ -2,7 +2,7 @@
 <% issues.each do |issue| %>
   <tr>
     <td><%= link_to issue.title, project_issue_path(issue.project_id, issue.id) %></td>
-    <% if request_path_issues %>
+    <% if local_assigns[:render_project_title] %>
       <td><%= link_to issue.project.title, project_path(issue.project_id) %></td>
     <% end %>
     <td>
