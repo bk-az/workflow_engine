@@ -1,0 +1,17 @@
+if (typeof issueTypeIssuesTable !== 'undefined'){
+  issueTypeIssuesTable.destroy();
+}
+
+$('#issue_type_issues_table tbody').html('<%= j render partial: "shared/list_issues", collection: @issues, as: :issue %>');
+issueTypeIssuesModal.find('.modal-title').html('<%= j @issue_type.name %>');
+issueTypeIssuesModal.modal('show');
+
+issueTypeIssuesTable = $('#issue_type_issues_table').DataTable({
+    info: false,
+    paging: false,
+    scrollY:  "260px",
+    scrollCollapse: true,
+    oLanguage: {
+        sEmptyTable: "No issue using this type"
+    }
+  });

@@ -8,6 +8,6 @@ module IssueTypesHelper
   end
 
   def issue_type_project_number(issue_type)
-    issue_type.project_id.nil? ? 'NA' : issue_type.project_id.to_s
+    issue_type.project_id.nil? ? 'NA' : link_to(project_path(issue_type.project_id)) {'<i class="fas fa-external-link-square-alt"></i>'}
   end
 end

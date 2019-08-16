@@ -13,13 +13,6 @@ class IssueTypesController < ApplicationController
     end
   end
 
-  def show
-    @total_issues = @issue_type.issues.count
-    respond_to do |format|
-      format.js
-    end
-  end
-
   def new
     respond_to do |format|
       format.js
@@ -62,6 +55,13 @@ class IssueTypesController < ApplicationController
       @issue_type.destroy
       flash.now[:success] = t('.deleted')
     end
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def issues
+    @issues = @issue_type.issues
     respond_to do |format|
       format.js
     end

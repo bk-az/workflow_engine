@@ -1,29 +1,42 @@
 <td><%= issue_type.name %></td>
 <td>
+  <span class="badge badge-pill badge-danger">
+    <%= link_to(issue_type.issues.count, issues_issue_type_path(issue_type), class: 'text-white font-weight-bold', remote: true) %>
+  </span>
+</td>
+<td>
   <% if issue_type.project_id.nil? %>
-    <i class="fas fa-check-circle"></i>
+    <i class="text-success fas fa-check-circle"></i>
   <% else %>
-    <i class="fas fa-times-circle"></i>
+    <i class="text-danger fas fa-times-circle"></i>
   <% end %>
 </td>
-<td><%= issue_type_project_number(issue_type) %></td>
-<td> 
-  <%= link_to(issue_type_path(issue_type), method: 'delete', remote: true, data: { confirm: 'Are you sure to delete this issue type?'}, class: 'text-danger mr-2 mb-1 mb-md-0 fixed-width') do %>
-    <i class="far fa-trash-alt"></i>
-  <% end %>
-  <% if @project.present? %>
-    <%= link_to(edit_project_issue_type_path(@project, issue_type), remote: true, class: 'text-primary mr-2 mb-1 mb-md-0 fixed-width') do %>
-      <i class="far fa-edit"></i>
-    <% end %>
-    <%= link_to(project_issue_type_path(@project, issue_type), remote: true, class: 'text-success fixed-width') do %>
-      <i class="fas fa-eye"></i>
-    <% end %>
+<td>
+  <% if issue_type.project_id.nil? %>
+    NA
   <% else %>
-    <%= link_to(edit_issue_type_path(issue_type), remote: true, class: 'text-primary mr-2 mb-1 mb-md-0 fixed-width') do %>
-      <i class="far fa-edit"></i>
-    <% end %>
-    <%= link_to(issue_type_path(issue_type), remote: true, class: 'text-success fixed-width') do %>
-      <i class="fas fa-eye"></i>
-    <% end %>
+    <%= link_to(project_path(issue_type.project_id), class: 'text-info') do %>
+      Visit <i class="fas fa-external-link-square-alt"></i>
+      <% end %>
   <% end %>
+
+  <div class="btn-group dropright float-right mr-4">
+    <i class="fas fa-ellipsis-v text-secondary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+    <div class="dropdown-menu">
+      <%= link_to(issue_type_path(issue_type), method: 'delete', remote: true, data: { confirm: 'Are you sure to delete this issue type?'}, class: 'dropdown-item text-danger mr-2 mb-1 mb-md-0 fixed-width') do %>
+        Delete <i class="far fa-trash-alt"></i>
+      <% end %>
+      <% if @project.present? %>
+        <%= link_to(edit_project_issue_type_path(@project, issue_type), remote: true, class: 'dropdown-item text-primary mr-2 mb-1 mb-md-0 fixed-width') do %>
+          Edit <i class="far fa-edit"></i>
+        <% end %>
+      <% else %>
+        <%= link_to(edit_issue_type_path(issue_type), remote: true, class: 'dropdown-item text-primary mr-2 mb-1 mb-md-0 fixed-width') do %>
+          Edit <i class="far fa-edit"></i>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 </td>
+
+

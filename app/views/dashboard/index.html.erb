@@ -35,9 +35,9 @@
                 <th>Priority</th>
               </tr>
             </thead>
-              <tbody id="selected_project_issues">
+              <tbody>
                 <% if @issues.present? %>
-                  <%= render partial: "issue_list", collection: @issues, as: :issue %>
+                  <%= render partial: "shared/list_issues", collection: @issues, as: :issue %>
                 <% end %>
               </tbody>
           </table>
@@ -56,8 +56,8 @@
           <th>Priority</th>
         </tr>
       </thead>
-        <tbody id="selected_project_issues">
-          <%= render partial: "issue_list", collection: @assigned_issues, as: :issue %>
+        <tbody>
+          <%= render partial: "shared/list_issues", collection: @assigned_issues, as: :issue %>
         </tbody>
     </table>
   </div>
@@ -72,8 +72,8 @@
           <th>Priority</th>
         </tr>
       </thead>
-        <tbody id="selected_project_issues">
-          <%= render partial: "issue_list", collection: @watching_issues, as: :issue %>
+        <tbody>
+          <%= render partial: "shared/list_issues", collection: @watching_issues, as: :issue %>
         </tbody>
     </table>
   </div>

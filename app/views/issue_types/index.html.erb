@@ -11,9 +11,8 @@
 <% end %>
 
 <!-- Issue Type Modals -->
-
-<%= render 'issue_types/new_issue_type_modal' %>
-<%= render 'issue_types/show_issue_type_modal' %>
+<%= render 'new_issue_type_modal' %>
+<%= render 'issue_type_issues_modal' %>
 
 <div class="row">
   <% if params[:project_id].nil? %>
@@ -52,9 +51,9 @@
     <thead>
       <tr>
         <th>Name</th>
+        <th>Total Issues</th>
         <th>Global</th>
-        <th>Project #</th>
-        <th>Manage</th>
+        <th>Project</th>
       </tr>
     </thead>
     <tbody>
