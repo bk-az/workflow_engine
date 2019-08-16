@@ -2,12 +2,14 @@
 <% issues.each do |issue| %>
   <tr>
     <td><%= link_to issue.title, project_issue_path(issue.project_id, issue.id) %></td>
-    <% if request.path.include?('issues') %>
+    <% if request_path_issues %>
       <td><%= link_to issue.project.title, project_path(issue.project_id) %></td>
     <% end %>
-    <% if issue.assignee.present? %>
-      <td><%= link_to issue.assignee.try(:name), member_path(issue.assignee) %></td>
-    <% end %>
+    <td>
+      <% if issue.assignee.present? %>
+        <%= link_to issue.assignee.try(:name), member_path(issue.assignee) %>
+      <% end %>
+    </td>
     <td><%= issue.issue_type.try(:name) %></td>
     <td><%= issue.issue_state.try(:name) %></td>
     <td><%= get_priority(issue.priority) %></td>

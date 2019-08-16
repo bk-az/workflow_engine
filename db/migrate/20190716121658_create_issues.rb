@@ -16,7 +16,7 @@ class CreateIssues < ActiveRecord::Migration
       t.integer :parent_issue_id, null: true, index: true
       t.integer :project_id, index: true
       t.integer :issue_state_id, null: false, index: true
-      t.integer :issue_type_id, null: true, index: true
+      t.integer :issue_type_id, null: false, index: true
     end
   end
 end
