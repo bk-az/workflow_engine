@@ -11,4 +11,8 @@ module DocumentsHelper
     end
     return [documents, path]
   end
+
+  def remove_extension_from_filename(filename)
+    File.basename(filename, File.extname(filename))
+  end
 end

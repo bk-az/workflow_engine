@@ -13,7 +13,8 @@
  *= require_tree .
  *= require select2
  *= require select2-bootstrap
- *= require jquery-ui
+ *= require jquery-ui/datepicker
+ *= require jquery-ui/autocomplete
  *= require_self
  */
 

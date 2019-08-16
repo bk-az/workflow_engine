@@ -59,9 +59,9 @@ en:
 
   document:
     create:
-      success: 'Document saved successfully'
+      success: 'Document uploaded successfully'
     destroy:
-      success: 'document deleted successfully'
+      success: 'Document deleted successfully'
 
   issues:
     create:
@@ -70,7 +70,7 @@ en:
       notice: 'Issue deleted successfully'
     update:
       notice: 'Issue updated successfully'
-      save_issue: 'Issue created and saved  successfully'
+      save_issue: 'Issue created and saved successfully'
       destroy_issue: 'Issue deleted successfully'
 
   comments:
@@ -99,7 +99,7 @@ en:
   users:
     sessions:
       new:
-        success: 'Your account has been created successfully. A confirmation email is sent to you. Confirm your email and login here.'
+        success: 'Your account has been created successfully. A confirmation email is sent to you. Confirm your email and login here'
 
   members:
     create:
@@ -109,13 +109,13 @@ en:
     destroy:
       success: 'Member deactivated successfully'
     change_password:
-      success: 'Your password has been changed successfully.'
+      success: 'Your password has been changed successfully'
     show_change_password_form: # For invited_user?
-      failure: 'You cannot access that page. Either you have already changed your password or you are not an inivited user.'
+      failure: 'You cannot access that page. Either you have already changed your password or you are not an inivited user'
 
   models:
     user:
       check_for_issues:
-        error_message: 'Cannot deactivate this Member as there are Issues assigned to him/her.'
+        error_message: 'Cannot deactivate this Member as there are Issues assigned to him/her'
       check_for_ownership_of_company:
-        error_message: 'Cannot deactivate this Member as he/she is owner of the current company.'
+        error_message: 'Cannot deactivate this Member as he/she is owner of the current company'
