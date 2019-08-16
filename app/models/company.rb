@@ -2,7 +2,7 @@ class Company < ActiveRecord::Base
   not_multitenant
 
   before_save { subdomain.downcase! }
-  after_commit :create_issue_states, :create_issue_types
+  after_create :create_issue_states, :create_issue_types
 
   validates :name, presence: true, length: { minimum: MIN_LENGTH, maximum: 50 }
   VALID_SUBDOMAIN_REGEX = /\A([a-z\d]+(-[a-z\d]+)*(_[a-z\d]+)*)\z/i.freeze
