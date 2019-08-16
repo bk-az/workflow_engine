@@ -51,13 +51,18 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    if @project.has_dependent_issues?
-      flash[:error] = @project.errors[:base]
-      redirect_to project_path(@project)
+    if @project.dependent_issues?
+      flash[:error] = t('projects.destroy.dependent_issues', count: @project.issues.count)
     else
       @project.destroy
-      flash[:notice] = t('projects.destroy.destroyed')
-      redirect_to projects_path
+      if @project.destroyed?
+        flash[:notice] = t('projects.destroy.destroyed')
+      else
+        flash[:error] = t('projects.destroy.not_destroyed')
+      end
+    end
+    respond_to do |format|
+      format.html { redirect_to projects_path }
     end
   end
 

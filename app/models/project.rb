@@ -25,13 +25,7 @@ class Project < ActiveRecord::Base
     user.projects.find_by(id: id)
   end
 
-  def has_dependent_issues?
-    result = false
-    count = issues.count
-    if count > 0
-      result = true
-      errors[:base] << "Unable to delete this project, contains #{count} active issue".pluralize(count)
-    end
-    result
+  def dependent_issues?
+    issues.count > 0
   end
 end
