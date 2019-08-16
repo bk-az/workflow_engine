@@ -41,4 +41,4 @@
 
 <%= render partial: "documents/show_documents", locals: { documents: @project.documents } %>
 
-<%= render 'comments/comment' %>
+<%= render partial: 'comments/comment', locals: { commentable_object: @project, comment: @comment, comments: @comments } %>
