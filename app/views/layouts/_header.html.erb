@@ -5,7 +5,9 @@
     <a href="#js_side_menu_toggle_button" class="btn btn-md btn-outline-secondary side_menu_toggle_button" id="js_side_menu_toggle_button"><i class="material-icons">menu</i></a>
     <%= link_to 'Home', dashboard_path, class: 'navbar-brand' %>
   <% else %>
-    <%= link_to 'Workflow Engine', root_url(subdomain: ''), class: 'navbar-brand' %>
+    <%= link_to(root_url(subdomain: ''), class: 'navbar-brand ml-4') do %>
+    <i class="fab fa-connectdevelop mr-2 text-white"></i>Workflow Engine
+    <% end %>
   <% end %>
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
@@ -26,8 +28,8 @@
           </div>
         </li>
       <% else %>
-        <li class="nav-item"><%= link_to 'Log In', user_companies_find_url(subdomain: nil), class: 'nav-link' %></li>
-        <li class="nav-item"><%= link_to "Sign up", new_user_registration_url(subdomain: nil), class: 'nav-link' %></li>
+        <li class="nav-item"><%= link_to 'Log In', user_companies_find_url(subdomain: nil), class: 'btn btn-outline-secondary text-white mr-2' %></li>
+        <li class="nav-item"><%= link_to "Sign up", new_user_registration_url(subdomain: nil), class: 'btn btn-outline-secondary text-white' %></li>
       <% end %>
     </ul>
   </div>
