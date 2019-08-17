@@ -2,11 +2,7 @@
   <% audit.audited_changes.each do |key, value| %>
     <tr>
       <td>
-        <% if assignee_id_key?(key) %>
-          <%= display_user_name(value[0]) %>
-        <% else %>
-          <%= value[0] %>
-        <% end %>
+        <%= get_readable_information(key, value[0]) %>
       </td>
     </tr>
   <% end %>
