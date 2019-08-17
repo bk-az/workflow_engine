@@ -1,8 +1,8 @@
 class DocumentsController < ApplicationController
   before_action :authenticate_user!
-  load_resource :issue
-  load_resource :project
-  load_and_authorize_resource
+  load_resource :issue , :find_by => :sequence_num
+  load_resource :project , :find_by => :sequence_num
+  load_and_authorize_resource 
 
   def index
     if params[:issue_id].present?
@@ -25,10 +25,10 @@ class DocumentsController < ApplicationController
     @document.path = @document.document.url
     if params[:issue_id].present?
       documentable_type = 'Issue'
-      documentable_id = params[:issue_id]
+      documentable_id = @issue.id
     elsif params[:project_id].present?
       documentable_type = 'Project'
-      documentable_id = params[:project_id]
+      documentable_id = @project.id
     end
     @document.documentable_type = documentable_type
     @document.documentable_id = documentable_id

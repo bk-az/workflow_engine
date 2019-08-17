@@ -1,5 +1,6 @@
 # Model Class
 class Issue < ActiveRecord::Base
+	sequenceid :company , :issues
   audited associated_with: :project
   
   PRIORITY = {

@@ -1,4 +1,5 @@
 class Project < ActiveRecord::Base
+	sequenceid :company , :projects
   has_associated_audits
 
   validates :title, presence: true, length: { minimum: 3, maximum: 100 }

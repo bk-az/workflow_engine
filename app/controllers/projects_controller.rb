@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
-  load_and_authorize_resource
+  load_and_authorize_resource :find_by => :sequence_num
 
   def index
     respond_to do |format|
@@ -23,7 +23,7 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @project = Project.find(params[:id])
+    # @project = Project.find(params[:id])
     @document = Document.new
     @issues = @project.issues
     @issue_types = IssueType.issue_types_for_projects(@project)

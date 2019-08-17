@@ -1,7 +1,7 @@
 # Issues Controller
 class IssuesController < ApplicationController
   before_action :authenticate_user!
-  load_and_authorize_resource
+  load_and_authorize_resource :find_by => :sequence_num
 
   # GET /issues
   def index
@@ -25,7 +25,7 @@ class IssuesController < ApplicationController
 
   # GET projects/:id/issues/new
   def new
-    @project = current_tenant.projects.find(params[:project_id])
+    @project = current_tenant.projects.find_by(sequence_num: params[:project_id])
     @assignees = current_tenant.users.all
     @issue_types = current_tenant.issue_types.project_issue_types(@project.id)
     @issue_states = current_tenant.issue_states.all
@@ -54,7 +54,6 @@ class IssuesController < ApplicationController
   def update
     if @issue.update(issue_params)
       flash[:notice] = t('issues.update.notice')
-
       respond_to do |format|
         format.html { redirect_to project_issue_path(@issue.project, @issue) }
       end
