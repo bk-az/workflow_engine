@@ -36,7 +36,6 @@ class IssuesController < ApplicationController
 
   # GET projects/:id/issues/:id
   def show
-    @issue = current_tenant.issues.find(params[:id])
     @document = Document.new
     @comment = Comment.new
     @comments = @issue.comments
