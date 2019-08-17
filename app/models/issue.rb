@@ -75,8 +75,4 @@ class Issue < ActiveRecord::Base
       IssueMailer.delay.notify(email, id, company_id)
     end
   end
-
-  def issue_watchers_count
-    issue_watcher.count
-  end
 end

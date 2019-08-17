@@ -5,4 +5,4 @@
 $("#watch_button").remove();
 $("#watch_button_div").append('<%= j render partial: "watch_button", locals: { issue: @issue } %>');
 
-$("#issue_delete_button").data('confirm','<%= issue_delete_data_confirm(@issue.issue_watchers.count) %>');
+$("#issue_delete_button").data('confirm','<%= issue_delete_data_confirm(@issue) %>');
