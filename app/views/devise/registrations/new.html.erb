@@ -1,51 +1,61 @@
 <div class="card">
   <h2 class="card-header">Sign up</h2>
   <div class="card-body">
-    <%= form_for(@new_user, url: user_registration_path, method: :post) do |f| %>
+    <div class="row">
+      <div class="col-sm-6 d-none d-sm-block"></div>
+      <div class="col-sm-6">
+        <%= form_for(@new_user, url: user_registration_path, method: :post) do |f| %>
+          <div class="form-group">
+            <%= f.label :first_name, 'First Name: ' %>
+            <%= f.text_field :first_name, autofocus: true, class: "form-control", placeholder: "E.g. John", required: true %>
+          </div>
+          <div class="form-group">
+            <%= f.label :last_name, 'Last Name: ' %>
+            <%= f.text_field :last_name, autofocus: true, class: "form-control", placeholder: "E.g. Doe", required: true %>
+          </div>
 
-      <%= render 'devise/shared/users_additional_signup_form_attributes', { obj: @new_user, f: f } %>
+          <div class="form-group">
+            <%= f.label :email, 'Email: ' %>
+            <%= f.email_field :email, autofocus: true, class: "form-control", placeholder: "john.doe@gmail.com", required: true %>
+          </div>
 
-      <div class="field form-group">
-        <%= f.label :email %><br />
-        <%= f.email_field :email, autofocus: true, class: "form-control form-control-sm", placeholder: "john.doe@gmail.com" %>
+          <div class="form-group">
+            <%= f.label :password, 'Password: ' %>
+            <%= f.password_field :password, autocomplete: "off", class: "form-control d-inline", placeholder: "Password for John Doe.", id: 'password_text_field', required: true %>
+            <span class="fa fa-fw fa-eye-slash" id="show_password_eye"></span>
+          </div>
+
+          <div class="form-group d-none">
+            <%= f.label :password_confirmation, 'Password Confirmation: ' %>
+            <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control", placeholder: "Confirm Password for John Doe.", id: "password_confirmation_text_field", required: true %>
+          </div>
+
+          <h4>Company Related Information</h4>
+
+          <%= f.fields_for :company do |company| %>
+            <div>
+              <%= company.label :name, 'Name: ' %>
+              <%= company.text_field :name, autocomplete: "off", class: "form-control", placeholder: "E.g. 7vals Co.", id: "company_name_text_field", required: true %>
+            </div>
+            <div id="company_subdomain_display_area" class="col-sm-12 text-muted text-right pt-2">
+              <p>Your Portal Will be Live On: <strong class="text-dark"><span id="subdomain_text_area"><%= @new_user.company.subdomain %></span>.<%= request.domain %></strong></p>
+            </div>
+
+            <div class="form-group d-none">
+              <%= company.label :subdomain, 'Subdomain: ' %>
+              <%= company.text_field :subdomain, autocomplete: "off", class: "form-control", placeholder: "E.g. 7vals", id: "company_subdomain_text_field", required: true %>
+            </div>
+          <% end %>
+
+          <div class="actions mt-2 text-right">
+            <%= f.submit "Sign up", class: "btn btn-sm btn-secondary" %>
+          </div>
+        <% end %>
+        <div class="text-center">
+          <hr>
+          <%= render "devise/shared/links" %>
+        </div>
       </div>
-
-      <div class="field form-group">
-        <%= f.label :password %> <br />
-        <%= f.password_field :password, autocomplete: "off", class: "form-control form-control-sm", placeholder: "Password for John Doe." %>
-      </div>
-
-      <div class="field form-group">
-        <%= f.label :password_confirmation %><br />
-        <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control form-control-sm", placeholder: "Confirm Password for John Doe." %>
-      </div>
-
-      <h4>Company Related Information.</h4>
-
-      <%= f.fields_for :company do |company| %>
-      <div class="field form-group">
-        <%= company.label :name %><br />
-        <%= company.text_field :name, autocomplete: "off", class: "form-control form-control-sm", placeholder: "E.g. 7vals Co." %>
-      </div>
-      <div class="field form-group">
-        <%= company.label :subdomain %><br />
-        <%= company.text_field :subdomain, autocomplete: "off", class: "form-control form-control-sm", placeholder: "E.g. 7vals" %>
-      </div>
-      <div class="field form-group">
-        <%= company.label :description %><br />
-        <%= company.text_area :description, autocomplete: "off", class: "form-control form-control-sm", placeholder: "E.g. 7vals is a product based company which focuses on the development of high utility products. :P" %>
-      </div>
-    <% end %> 
-    
-    <div class="actions text-right">
-      <%= f.submit "Sign up", class: "btn btn-secondary btn-sm" %>
-    </div>
-    <% end %>
-
-    <div class="text-center">
-      <hr>
-      <%= render "devise/shared/links" %>
     </div>
   </div>
-  <div class="card-footer text-right"><em class="text-muted">Workflow Engine</em></div>
 </div>

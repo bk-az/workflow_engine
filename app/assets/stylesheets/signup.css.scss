@@ -1,0 +1,10 @@
+#show_password_eye:hover {
+  cursor: pointer;
+}
+
+#show_password_eye {
+  z-index: 999;
+  position: absolute;
+  margin-top: 10px;
+  margin-left: -25px;
+}
