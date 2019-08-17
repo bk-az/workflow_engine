@@ -5,7 +5,12 @@ class IssueTypesController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @issue_types = @issue_types.project_issue_types(params[:project_id]) if params[:project_id].present?
+    if params[:project_id].present?
+      @issue_types = @issue_types.project_issue_types(params[:project_id])
+      add_breadcrumb 'Projects', projects_path
+      add_breadcrumb @project.title, project_path(@project)
+    end
+    add_breadcrumb 'Issue Types', :issue_types_path
     # required for new_issue_type_modal
     @issue_type = IssueType.new
     respond_to do |format|

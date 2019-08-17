@@ -1,5 +1,6 @@
 class IssueStatesController < ApplicationController
   before_action :authenticate_user!
+  add_breadcrumb 'Issue States', :issue_states_path
   load_and_authorize_resource
 
   def index

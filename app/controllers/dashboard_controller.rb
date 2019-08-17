@@ -1,5 +1,6 @@
 class DashboardController < ApplicationController
   authorize_resource class: false
+  add_breadcrumb 'My Workplace', :dashboard_path
 
   def index
     @projects = current_tenant.projects.accessible_by(current_ability)

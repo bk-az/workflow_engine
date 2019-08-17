@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
+  add_breadcrumb 'Projects', :projects_path
   load_and_authorize_resource
 
   def index
@@ -9,6 +10,7 @@ class ProjectsController < ApplicationController
   end
 
   def new
+    add_breadcrumb 'New Project', :new_project_path
     respond_to do |format|
       format.html
     end
@@ -30,12 +32,15 @@ class ProjectsController < ApplicationController
     @issue_states = IssueState.issue_states_for_projects(@project)
     @comments = @project.comments
     @comment = Comment.new
+    add_breadcrumb @project.title, :project_path
     respond_to do |format|
       format.html
     end
   end
 
   def edit
+    add_breadcrumb @project.title, :project_path
+    add_breadcrumb 'Edit', :edit_project_path
     respond_to do |format|
       format.html
     end

@@ -13,7 +13,7 @@ $(document).ready(function(){
   $('.list-group a:eq(0)').addClass('active');
   $('#assigned_issues_table').DataTable({
     oLanguage: {
-        sEmptyTable: "No issue found"
+        sEmptyTable: "No assigned issues found"
     }
   });
   $('#watching_issues_table').DataTable({
