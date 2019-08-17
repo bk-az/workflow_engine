@@ -1,8 +1,7 @@
 class MembersController < ApplicationController
   before_action :authenticate_user!
-  authorize_resource class: false
+  load_and_authorize_resource class: User, :find_by => :sequence_num
   before_action :changed_sys_generated_password?, only: [:show_change_password_form, :change_password]
-
   # GET /members/new
   def new
     set_invitation_view_variables

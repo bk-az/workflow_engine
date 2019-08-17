@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+	sequenceid :company , :users
   attr_accessor :skip_invitation_email
 
   # Scopes
