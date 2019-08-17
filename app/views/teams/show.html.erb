@@ -40,27 +40,28 @@
       </tbody>
     </table>
   </div>
-  <br><br>
-  <% if can? :manage, Team %>
-    <a href="#pending_requests" class="btn btn-secondary" data-toggle="collapse">Show pending requests</a>
-    <div id="pending_requests" class="collapse pending_requests_div">
-      <% if @pendings.count == 0 %>
-        <div class="container"><span>No pending requests</span></div>
-      <% else %>
-        <table class="table table-hover" id="pending_members_table">
-          <thead>
-            <th scope="row">Name</th>
-          </thead>
-          <tbody>
-            <% @pendings.each do |pending_membership| %>
-                <tr id="pending_membership_<%= pending_membership.id %>"> <span class="glyphicon glyphicon-user"></span> 
-                  <td><%= pending_membership.user.name%></td>
-                  <td><%= link_to 'Accept', approve_request_team_path(@team.sequence_num, membership_id: pending_membership.id), class: 'btn btn-outline-success btn-sm', remote: true %></td>
-                </tr>
-            <% end %>
-          </tbody>
-        </table>
-      <% end %>
-    </div>
-  <% end %>
+  <div class="pending_top_margin">
+    <% if can? :manage, Team %>
+      <a href="#pending_requests" class="btn btn-secondary" data-toggle="collapse">Show pending requests</a>
+      <div id="pending_requests" class="collapse pending_requests_div">
+        <% if @pendings.count == 0 %>
+          <div class="container"><span>No pending requests</span></div>
+        <% else %>
+          <table class="table table-hover" id="pending_members_table">
+            <thead>
+              <th scope="row">Name</th>
+            </thead>
+            <tbody>
+              <% @pendings.each do |pending_membership| %>
+                  <tr id="pending_membership_<%= pending_membership.id %>"> <span class="glyphicon glyphicon-user"></span> 
+                    <td><%= pending_membership.user.name%></td>
+                    <td><%= link_to 'Accept', approve_request_team_path(@team.sequence_num, membership_id: pending_membership.id), class: 'btn btn-outline-success btn-sm', remote: true %></td>
+                  </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 </div>

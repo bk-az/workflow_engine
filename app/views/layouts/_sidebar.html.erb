@@ -1,17 +1,17 @@
 <div id="sidebar-wrapper">
   <ul class="sidebar-nav">
     <li class="sidebar-brand">
-      <%= link_to 'My Workplace', dashboard_path %>
+      <%= link_to 'My Workplace', dashboard_path, class: sidebar_active_class_provider(request.path, 'workplace') %>
     </li>
     <li>
-      <a href="<%= members_path %>">
+      <a href="<%= members_path %>" class="<%= sidebar_active_class_provider(request.path, 'members') %>">
         <div class="row">
           <span class="align-self-center"><i class="fas fa-user"></i>&nbsp; &nbsp; Members</span>
         </div>
       </a>
     </li>
     <li>
-      <a href="<%= projects_path %>">
+      <a href="<%= projects_path %>" class="<%= sidebar_active_class_provider(request.path, 'projects') %>">
         <div class="row">
           <span class="align-self-center"><i class="fas fa-calendar-week"></i>&nbsp; &nbsp; Projects</span>
         </div>
@@ -19,7 +19,7 @@
     </li>
 
     <li>
-      <a href="<%= teams_path %>">
+      <a href="<%= teams_path %>" class="<%= sidebar_active_class_provider(request.path, 'teams') %>">
         <div class="row">
           <span class="align-self-center"><i class="fas fa-users"></i>&nbsp; Teams</span>
         </div>
@@ -27,7 +27,7 @@
     </li>
 
     <li>
-      <a href="<%= issues_path %>">
+      <a href="<%= issues_path %>" class="<%= sidebar_active_class_provider(request.path, 'issues') %>">
         <div class="row">
           <span class="align-self-center"><i class="fas fa-bookmark"></i>&nbsp; &nbsp; Issues</span>
         </div>
@@ -35,7 +35,7 @@
     </li>
 
     <li>
-      <a href="<%= issue_types_path %>">
+      <a href="<%= issue_types_path %>" class="<%= sidebar_active_class_provider(request.path, 'issue_types') %>">
         <div class="row">
           <span class="align-self-center"><i class="fas fa-bookmark"></i>&nbsp; &nbsp; Issue Types</span>
         </div>
@@ -43,7 +43,7 @@
     </li>
 
     <li>
-      <a href="<%= issue_states_path %>">
+      <a href="<%= issue_states_path %>" class="<%= sidebar_active_class_provider(request.path, 'issue_states') %>">
         <div class="row">
           <span class="align-self-center"><i class="fas fa-bookmark"></i>&nbsp; &nbsp; Issue States</span>
         </div>
@@ -51,7 +51,7 @@
     </li>
 
     <li>
-      <a href="<%= issues_report_path %>">
+      <a href="<%= issues_report_path %>" class="<%= sidebar_active_class_provider(request.path, 'reports') %>">
         <div class="row">
           <span class="align-self-center"><i class="fas fa-chart-bar"></i>&nbsp; &nbsp; Reports</span>
         </div>

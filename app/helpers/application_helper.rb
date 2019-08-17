@@ -6,4 +6,10 @@ module ApplicationHelper
   def sidebar_toggle_class
     'toggled' if session.has_key?(:is_sidebar_collapsed) 
   end
+
+  def sidebar_active_class_provider(request_path, current_link_name)
+    if request_path.split('/')[1] == current_link_name
+      'active'
+    end
+  end
 end

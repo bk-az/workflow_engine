@@ -4,12 +4,11 @@
   </button>
   <%= render partial: 'create_team_modal' %>
 <% end %>
-<br><br><br>
-<div class="container ">
+<div class="container index_top_margin">
   <div class="row">
     <% @teams.each do |team| %>
       <div class="col-md-6">
-        <div class="card card_width">
+        <div class="card card_width card_bottom_margin">
           <div class="card-body">
             <h4 class="card-title"><%= team.name %></h4>
             <p class="card-text">Welcome to <%= team.name%></p>
@@ -18,12 +17,12 @@
             <% else %> 
               <%= link_to 'View Team', team_path(team.sequence_num),class: 'btn btn-sm btn-block btn-outline-secondary' %>
               <hr>
-              <% if requested(team.id, current_user.id) %>
+              <% if requested?(team.sequence_num, current_user.id) %>
                 <button class="btn btn-success btn-sm btn-block ">Requested to join</button>
-              <% elsif !already_joined_team(team.id, current_user.id) %>
+              <% elsif !already_joined_team?(team.sequence_num, current_user.id) %>
                 <%= form_tag add_membership_team_path(team.sequence_num), method: 'get', remote: true do %>
                   <%= hidden_field_tag(:user_id, current_user.id) %>
-                  <%= hidden_field_tag(:team_id, team.id) %> 
+                  <%= hidden_field_tag(:team_sequence_num, team.sequence_num) %> 
                   <%= hidden_field_tag(:is_approved, false) %> 
                   <div class="row">
                     <div class="col-9">
@@ -39,7 +38,6 @@
             <% end %>
           </div>
         </div>
-        <br>
       </div>
     <% end %>
   </div>

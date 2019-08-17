@@ -11,8 +11,8 @@
         <div class="modal-body" id="add_member_modal" >
           <div class="row">
             <div class="col-8">
-              <%= select_tag "user_id", options_from_collection_for_select(@all_members, :id, :first_name), id: 'js_members_select', class: 'select_tag_width'%>
-              <%= hidden_field_tag(:team_id, @team.id) %>
+              <%= select_tag "user_id", options_from_collection_for_select(@all_members, :id, :first_name),class: 'select_tag_width'%>
+              <%= hidden_field_tag(:team_sequence_num, @team.sequence_num) %>
               <%= hidden_field_tag(:is_approved, true) %>
             </div>
             <div class="col-4">

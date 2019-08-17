@@ -20,7 +20,7 @@ class TeamsController < ApplicationController
   # GET /show
   def show
     @team_memberships, @all_members = @team.member_and_team_memberships
-    @pendings = @team.pending_requests(@team.id)
+    @pendings = @team.pending_requests
     respond_to do |format|
       format.html
     end
@@ -87,13 +87,13 @@ class TeamsController < ApplicationController
 
   def add_membership
     @is_admin = params[:join_admin][:joining_decision] != '0'
-    @team_membership = @team.team_memberships.new(is_team_admin: @is_admin, is_approved: params[:is_approved], team_id: params[:team_id], user_id: params[:user_id])
-    if @team_membership.save
-      respond_to do |format|
+    @team_membership = @team.team_memberships.build(is_team_admin: @is_admin, is_approved: params[:is_approved], team_id: params[:team_sequence_num], user_id: params[:user_id])
+    respond_to do |format|
+      if @team_membership.save
         format.js
+      else
+        flash.now[:error] = @team_membership.errors.full_messages
       end
-    else
-      flash.now[:error] = @team_membership.errors.full_messages
     end
   end
 

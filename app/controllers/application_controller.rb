@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_tenant
 
   def sidebar_toggle
-    if params[:is_collapsed].to_i == 0
+    if params[:is_collapsed].to_i.zero?
       session.delete(:is_sidebar_collapsed) if session.has_key?(:is_sidebar_collapsed)
     elsif params[:is_collapsed].to_i == 1
       session[:is_sidebar_collapsed] = true
