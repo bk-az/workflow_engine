@@ -17,4 +17,6 @@
 //= require popper
 //= require select2
 //= require jquery_ujs
+//= require chartkick
+//= require Chart.bundle
 //= require_tree .

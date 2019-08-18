@@ -25,6 +25,7 @@ gem 'uglifier', '>= 1.3.0'
 # Custom Gems
 gem 'audited'
 gem 'cancancan', '3.0.1'
+gem 'chartkick'
 gem 'delayed_job_active_record', '4.1.3'
 gem 'devise', '4.1.1'
 gem 'faker', '1.9.1'
