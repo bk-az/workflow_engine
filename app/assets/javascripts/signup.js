@@ -1,13 +1,13 @@
 $(function() {
   // ------------------- DOM elements reference variables. -------------------
-  var companyNameTextField = $("#company_name_text_field");
-  var companySubdomainDisplayArea = $("#company_subdomain_display_area");
-  var subdomainTextArea = $("#subdomain_text_area");
-  var passwordTextField = $("#password_text_field");
-  var passwordConfirmationTextField = $("#password_confirmation_text_field");
-  var companySubdomainTextField = $("#company_subdomain_text_field");
-  var showPasswordButton = $("#show_password_eye");
-  var subdomainVerficationIconContainer = $("#subdomain_verification_icon");
+  var companyNameTextField                = $("#company_name_text_field");
+  var companySubdomainDisplayArea         = $("#company_subdomain_display_area");
+  var subdomainTextArea                   = $("#subdomain_text_area");
+  var passwordTextField                   = $("#password_text_field");
+  var passwordConfirmationTextField       = $("#password_confirmation_text_field");
+  var companySubdomainTextField           = $("#company_subdomain_text_field");
+  var showPasswordButton                  = $("#show_password_eye");
+  var subdomainVerficationIconContainer   = $("#subdomain_verification_icon");
 
 
   // ------------------- SCRIPT GLOBAL variables ------------------------------
@@ -75,21 +75,24 @@ $(function() {
 
     // Remove all text related classes when user types something.
     subdomainTextArea.parent().addClass('text-dark');
+
+    // Add spinner html only when it already not present.
     if (!subdomainVerficationIconContainer.html()) {
       subdomainVerficationIconContainer.html('<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>');
     }
+
     subdomainTextArea.parent().removeClass('text-danger text-success');
     subdomainVerficationIconContainer.removeClass('fa-check-circle text-success fa-close text-danger');
 
     // The following syntax of jquery is for giving a delay of some milliseconds after the key is pressed. 
-    // If the delay between 2 consecutive key presses increases from the amount of time we specifiy in "delayThreshold"
+    // If the delay between 2 consecutive key presses increases from the amount of time we specifiy in "thresholdOfDelayBetweenKeys"
     // variable then the ajax request is sent otherwise the timer is reset.
     clearTimeout($.data(this, 'timer'));
-    var delayThreshold = setTimeout(function () { 
+    var delayTimer = setTimeout(function () { 
       if (subdomain) prepareAndSendRequestForSubdomainAvailability(subdomain);
       else subdomainVerficationIconContainer.html('');
     }, thresholdOfDelayBetweenKeys);
-    $(this).data('timer', delayThreshold);
+    $(this).data('timer', delayTimer);
   }
 
   function generateSubdomainFromCompanyName(companyName) {
