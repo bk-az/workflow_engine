@@ -112,11 +112,13 @@ ActiveRecord::Schema.define(version: 20190809065552) do
   create_table "issue_watchers", force: :cascade do |t|
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.integer  "company_id",   limit: 4,   null: false
     t.integer  "watcher_id",   limit: 4
     t.string   "watcher_type", limit: 255
     t.integer  "issue_id",     limit: 4
   end
 
+  add_index "issue_watchers", ["company_id"], name: "index_issue_watchers_on_company_id", using: :btree
   add_index "issue_watchers", ["issue_id"], name: "index_issue_watchers_on_issue_id", using: :btree
   add_index "issue_watchers", ["watcher_id", "watcher_type", "issue_id"], name: "index_issue_watchers_on_watcher_id_and_watcher_type_and_issue_id", unique: true, using: :btree
   add_index "issue_watchers", ["watcher_type", "watcher_id"], name: "index_issue_watchers_on_watcher_type_and_watcher_id", using: :btree
@@ -150,11 +152,13 @@ ActiveRecord::Schema.define(version: 20190809065552) do
   create_table "project_memberships", force: :cascade do |t|
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+    t.integer  "company_id",          limit: 4,   null: false
     t.integer  "project_member_id",   limit: 4,   null: false
     t.string   "project_member_type", limit: 255, null: false
     t.integer  "project_id",          limit: 4,   null: false
   end
 
+  add_index "project_memberships", ["company_id"], name: "index_project_memberships_on_company_id", using: :btree
   add_index "project_memberships", ["project_id"], name: "index_project_memberships_on_project_id", using: :btree
   add_index "project_memberships", ["project_member_type", "project_member_id", "project_id"], name: "index_project_memberships_on_project_member_and_project_id", unique: true, using: :btree
   add_index "project_memberships", ["project_member_type", "project_member_id"], name: "index_project_memberships_on_project_member_type_and_id", using: :btree
@@ -180,10 +184,12 @@ ActiveRecord::Schema.define(version: 20190809065552) do
     t.boolean  "is_approved",   limit: 1, default: false
     t.datetime "created_at",                              null: false
     t.datetime "updated_at",                              null: false
+    t.integer  "company_id",    limit: 4,                 null: false
     t.integer  "team_id",       limit: 4
     t.integer  "user_id",       limit: 4
   end
 
+  add_index "team_memberships", ["company_id"], name: "index_team_memberships_on_company_id", using: :btree
   add_index "team_memberships", ["team_id", "user_id"], name: "index_team_memberships_on_team_id_and_user_id", unique: true, using: :btree
   add_index "team_memberships", ["team_id"], name: "index_team_memberships_on_team_id", using: :btree
   add_index "team_memberships", ["user_id"], name: "index_team_memberships_on_user_id", using: :btree
