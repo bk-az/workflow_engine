@@ -2,6 +2,27 @@
   margin-top: 1%;
 }
 
+.shodowed_card {
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
+  -moz-box-shadow: 0 0 20px rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0 0 20px rgba(0,0,0,0.4);
+  -o-box-shadow: 0 0 20px rgba(0,0,0,0.4);
+}
+
 .upload_document_field {
   width: 70%;
+}
+
+.user-forms-container {
+  border-left: 2px solid rgba(0,0,0,.2) ;
+}
+
+.textured-background {
+  background-image: url("main_background.jpg");
+  background-repeat: repeat;
+}
+
+.page-content-wrapper > .vertically-centered-box-container {
+  height: 1000px !important;
+  text-align: center !important;
 }

@@ -1,10 +1,14 @@
-<div class="card">
-  <h2 class="card-header">Select a Company</h2>
-  <div class="card-body">
-   <div class="list-group">
-    <% @companies.each do |company| %>
-      <%= link_to company.name, new_user_session_url(subdomain: company.subdomain, user_email: @email), data: { confirm: "Proceed to #{company.name}?" }, class: 'list-group-item list-group-item-action' %>
-    <% end %>
-    </div> 
+<div class="row">
+  <div class="offset-sm-3 col-sm-6">
+    <div class="card shodowed_card">
+      <h2 class="card-header">Select a Company</h2>
+      <div class="card-body">
+       <div class="list-group">
+        <% @companies.each do |company| %>
+          <%= link_to company.name, new_user_session_url(subdomain: company.subdomain, user_email: @email), data: { confirm: "Proceed to #{company.name}?" }, class: 'list-group-item list-group-item-action' %>
+        <% end %>
+        </div> 
+      </div>
+    </div>
   </div>
 </div>

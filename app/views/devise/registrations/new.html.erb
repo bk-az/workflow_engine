@@ -1,10 +1,13 @@
-<div class="card">
+<div class="card shodowed_card">
   <h2 class="card-header">Sign up</h2>
   <div class="card-body">
-    <div class="row">
-      <div class="col-sm-6 d-none d-sm-block"></div>
-      <div class="col-sm-6">
-        <%= form_for(@new_user, url: user_registration_path, method: :post) do |f| %>
+    <div class="row align-items-center">
+      <div class="col-sm-6 d-none d-sm-block">
+        <img src="/assets/signup.svg" class="img-fluid" />
+      </div>
+
+      <div class="col-sm-6 user-forms-container">
+        <%= form_for(@new_user, url: user_registration_path, method: :post, html: { id: 'sign_up_form' }) do |f| %>
           <div class="form-group">
             <%= f.label :first_name, 'First Name: ' %>
             <%= f.text_field :first_name, autofocus: true, class: "form-control", placeholder: "E.g. John", required: true %>
@@ -30,12 +33,12 @@
             <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control", placeholder: "Confirm Password for John Doe.", id: "password_confirmation_text_field", required: true %>
           </div>
 
-          <h4>Company Related Information</h4>
 
           <%= f.fields_for :company do |company| %>
             <div>
-              <%= company.label :name, 'Name: ' %>
-              <%= company.text_field :name, autocomplete: "off", class: "form-control", placeholder: "E.g. 7vals Co.", id: "company_name_text_field", required: true %>
+              <%= company.label :name, 'Company Name: ' %>
+              <%= company.text_field :name, autocomplete: "off", class: "form-control d-inline", placeholder: "E.g. 7vals Co.", id: "company_name_text_field", required: true %>
+              <span class="fa lds-dual-ring" id="subdomain_verification_icon"></span>
             </div>
             <div id="company_subdomain_display_area" class="col-sm-12 text-muted text-right pt-2">
               <p>Your Portal Will be Live On: <strong class="text-dark"><span id="subdomain_text_area"><%= @new_user.company.subdomain %></span>.<%= request.domain %></strong></p>

@@ -7,10 +7,11 @@ $(function() {
   var passwordConfirmationTextField = $("#password_confirmation_text_field");
   var companySubdomainTextField = $("#company_subdomain_text_field");
   var showPasswordButton = $("#show_password_eye");
+  var subdomainVerficationIconContainer = $("#subdomain_verification_icon");
 
-  // ------------------- ONLOAD scripts --------------------------------------
-  companySubdomainDisplayArea.hide();
-  passwordConfirmationTextField.val(passwordTextField.val());
+
+  // ------------------- SCRIPT GLOBAL variables ------------------------------
+  var isSubdomainValid = false;
 
 
   // ------------------- EVENT Listeners -------------------------------------
@@ -19,6 +20,13 @@ $(function() {
   companyNameTextField.keyup(companyNameTextFieldOnKeyUpHandler);
   passwordTextField.keyup(passwordTextFieldOnKeyUpHandler);
   showPasswordButton.click(passwordTextFieldLabelOnClickHandler);
+  $('#sign_up_form').submit(signUpFormSubmitHandler);
+
+
+  // ------------------- ONLOAD scripts --------------------------------------
+  companySubdomainDisplayArea.hide();
+  passwordConfirmationTextField.val(passwordTextField.val());
+  companyNameTextField.keyup(); // Force company name to be validated on page reload.
 
 
   // ------------------- EVENT Handlers --------------------------------------
@@ -50,17 +58,86 @@ $(function() {
     }
   }
 
-
-  // ------------------- HELPER Functions -------------------------------------
-  function changeSubdomainValue(company_name) {
-    var subdomain = generateSubdomainFromCompanyName(company_name);
-    subdomainTextArea.html(subdomain);
-    companySubdomainTextField.val(subdomain);
+  function signUpFormSubmitHandler() {
+    if (!isSubdomainValid) { 
+      alert("Please verify the subdomain before continuing.");
+      return false; //Cancel the form submission if subdomain is not valid.
+    }
+    return true;
   }
 
-  function generateSubdomainFromCompanyName(company_name) {
-    company_name = company_name.replace(/\s+/g, "");
-    company_name  = company_name.replace(/[^a-zA-Z0-9]/g, "");
-    return company_name
+  // ------------------- HELPER Functions -------------------------------------
+  function changeSubdomainValue(companyName) {
+    var subdomain = generateSubdomainFromCompanyName(companyName);
+    subdomainTextArea.html(subdomain);
+    companySubdomainTextField.val(subdomain);
+
+    // Remove all text related classes when user types something.
+    subdomainTextArea.parent().addClass('text-dark');
+    if (!subdomainVerficationIconContainer.html()) {
+      subdomainVerficationIconContainer.html('<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>');
+    }
+    subdomainTextArea.parent().removeClass('text-danger text-success');
+    subdomainVerficationIconContainer.removeClass('fa-check-circle text-success fa-close text-danger');
+
+    // The following syntax of jquery is for giving a delay of some milliseconds after the key is pressed. 
+    // If the delay between 2 consecutive key presses increases from the amount of time we specifiy in "delayThreshold"
+    // variable then the ajax request is sent otherwise the timer is reset.
+    clearTimeout($.data(this, 'timer'));
+    var delayThreshold = setTimeout(function () { 
+      if (subdomain) prepareAndSendRequestForSubdomainAvailability(subdomain);
+      else subdomainVerficationIconContainer.html('');
+    }, 1000);
+    $(this).data('timer', delayThreshold);
+  }
+
+  function generateSubdomainFromCompanyName(companyName) {
+    companyName = companyName.replace(/\s+/g, "");
+    companyName  = companyName.replace(/[^a-zA-Z0-9]/g, "");
+    return companyName;
+  }
+
+  function performAjax(url, type, data, successCallback, failureCallback, beforeSendCallback = null, completeCallback = null ) {
+    $.ajax({
+      async: true,
+      url: url,
+      type: type,
+      data: data,
+      dataType: 'json',
+      error: failureCallback,
+      success: successCallback,
+      beforeSend: beforeSendCallback,
+      complete: completeCallback
+    });
+  }
+
+  function prepareAndSendRequestForSubdomainAvailability(subdomain) {
+    // URL
+    var url = '/users/sign_up/verify_subdomain_availability?subdomain=' + subdomain;
+
+    var successCallback = function(result, status, xhr) {
+      subdomainTextArea.parent().removeClass('text-dark');
+      if (result.data.is_found) {
+        subdomainTextArea.parent().addClass('text-danger');
+        subdomainVerficationIconContainer.addClass('fa-close text-danger');
+
+        isSubdomainValid = false;
+      } else {
+        subdomainTextArea.parent().addClass('text-success');
+        subdomainVerficationIconContainer.addClass('fa-check-circle text-success');
+
+        isSubdomainValid = true;
+      }
+    }
+
+    var failureCallback = function(xhr, txtStatus, errorThrown) {
+      alert("Subdomain verification failed due to an Error of '"+ txtStatus +"' with status code of '"+ xhr.status +"'");
+    }
+
+    var completeCallback = function (xhr, txtStatus) {
+      subdomainVerficationIconContainer.html('');
+    }
+
+    performAjax(url, 'GET', {}, successCallback, failureCallback, null, completeCallback);
   }
 });
