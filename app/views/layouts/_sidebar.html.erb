@@ -15,14 +15,16 @@
     <li>
       <a href="<%= issues_path %>"><i class="material-icons">collections_bookmark</i>Issues</a>
     </li>
-    <li>
-      <a href="<%= issue_types_path %>"><i class="material-icons">collections_bookmark</i>Issue Types</a>
-    </li>
-    <li>
-      <a href="<%= issue_states_path %>"><i class="material-icons">collections_bookmark</i>Issue States</a>
-    </li>
-    <li>
-      <a href="<%= issues_report_path %>"><i class="material-icons">view_module</i>&nbsp;Issues Report</a>
-    </li>
+    <% if can? :manage, :all %>
+      <li>
+        <a href="<%= issue_types_path %>"><i class="material-icons">collections_bookmark</i>Issue Types</a>
+      </li>
+      <li>
+        <a href="<%= issue_states_path %>"><i class="material-icons">collections_bookmark</i>Issue States</a>
+      </li>
+      <li>
+        <a href="<%= issues_report_path %>"><i class="material-icons">view_module</i>&nbsp;Issues Report</a>
+      </li>
+    <% end %>
   </ul>
 </div>
