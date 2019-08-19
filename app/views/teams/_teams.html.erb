@@ -1,0 +1,38 @@
+<% teams.each do |team| %>
+  <tr>
+    <td>
+      <%= link_to(team_path(team.sequence_num), class: 'text-primary mr-2 mb-1 mb-md-0 fixed-width') do %>
+        <%= team.name %>
+      <% end %>
+      <div class="btn-group dropright float-right mr-4">
+          <i class="fas fa-ellipsis-v text-secondary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+          <div class="dropdown-menu">
+            <% if can? :manage, Team %>
+              <%= link_to(team_path(team.sequence_num), class: 'dropdown-item text-primary mr-2 mb-1 mb-md-0 fixed-width') do %>
+                Manage <i class="fas fa-tasks"></i>
+              <% end %>
+            <% else %> 
+              <%= link_to(team_path(team.sequence_num), class: 'dropdown-item text-primary mr-2 mb-1 mb-md-0 fixed-width') do %>
+                View Team
+              <% end %>
+              <hr>
+              <% if requested?(team.sequence_num, current_user.id) %>
+                <%= link_to( '#', class: 'dropdown-item text-primary mr-2 mb-1 mb-md-0 fixed-width') do %>
+                  Requested to Join <i class="fas fa-check"></i>
+                <% end %>
+              <% elsif !already_joined_team?(team.sequence_num, current_user.id) %>
+                <%= form_tag add_membership_team_path(team.sequence_num), method: 'get', remote: true do %>
+                  <%= hidden_field_tag(:user_id, current_user.id) %>
+                  <%= hidden_field_tag(:team_sequence_num, team.sequence_num) %> 
+                  <%= hidden_field_tag(:is_approved, false) %> 
+                  <button type="submit" class="dropdown-item text-primary mr-2 mb-1 mb-md-0 fixed-width">Join Team</button>    
+                  <%= label_tag(:join_admin, "Admin", class: 'ml-4 text-primary form-check-label') %>
+                  <%= check_box 'join_admin', 'joining_decision', {}, 1, 0 %>
+                <% end %>
+              <% end %> 
+            <% end %>
+          </div>
+      </div>
+    </td>
+  </tr>
+<% end %>

@@ -1,44 +1,24 @@
-<h1 class="float-left">Teams</h1>
+<h1 class="float-left">Teams <i class="fas fa-users"></i> </h1>
 <% if can? :create, Team %> 
   <button type="button" class="btn btn-secondary float-right mr-2" data-toggle="modal"data-target="#create_team_modal">Create Team
   </button>
   <%= render partial: 'create_team_modal' %>
 <% end %>
+<table class="table table-hover" id="teams_table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+    </tr>
+  </thead>
+  <tbody id="teams_list">
+    <%= render partial: "teams", locals: { teams: @teams } %>
+  </tbody>
+</table>
+
+
+<!-- 
 <div class="container index_top_margin">
   <div class="row">
-    <% @teams.each do |team| %>
-      <div class="col-md-6">
-        <div class="card card_width card_bottom_margin">
-          <div class="card-body">
-            <h4 class="card-title"><%= team.name %></h4>
-            <p class="card-text">Welcome to <%= team.name%></p>
-            <% if can? :manage, Team %> 
-              <%= link_to 'Manage Team', team_path(team.sequence_num),class: 'btn btn-sm btn-block btn-outline-secondary' %>
-            <% else %> 
-              <%= link_to 'View Team', team_path(team.sequence_num),class: 'btn btn-sm btn-block btn-outline-secondary' %>
-              <hr>
-              <% if requested?(team.sequence_num, current_user.id) %>
-                <button class="btn btn-success btn-sm btn-block ">Requested to join</button>
-              <% elsif !already_joined_team?(team.sequence_num, current_user.id) %>
-                <%= form_tag add_membership_team_path(team.sequence_num), method: 'get', remote: true do %>
-                  <%= hidden_field_tag(:user_id, current_user.id) %>
-                  <%= hidden_field_tag(:team_sequence_num, team.sequence_num) %> 
-                  <%= hidden_field_tag(:is_approved, false) %> 
-                  <div class="row">
-                    <div class="col-9">
-                      <button type="submit" class="btn-sm btn-block btn btn-outline-success">Join Team</button>
-                    </div>
-                    <div class="col-3">
-                      <%= check_box 'join_admin', 'joining_decision', {}, 1, 0 %>
-                      <%= label_tag(:join_admin, "Admin", class: 'form-check-label') %>
-                    </div>  
-                  </div>
-                <% end %>
-              <% end %> 
-            <% end %>
-          </div>
-        </div>
-      </div>
-    <% end %>
+    
   </div>
-</div>
+</div> -->
