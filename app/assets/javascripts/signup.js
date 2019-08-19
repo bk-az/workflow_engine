@@ -12,6 +12,7 @@ $(function() {
 
   // ------------------- SCRIPT GLOBAL variables ------------------------------
   var isSubdomainValid = false;
+  var thresholdOfDelayBetweenKeys = 2000;
 
 
   // ------------------- EVENT Listeners -------------------------------------
@@ -87,7 +88,7 @@ $(function() {
     var delayThreshold = setTimeout(function () { 
       if (subdomain) prepareAndSendRequestForSubdomainAvailability(subdomain);
       else subdomainVerficationIconContainer.html('');
-    }, 1000);
+    }, thresholdOfDelayBetweenKeys);
     $(this).data('timer', delayThreshold);
   }
 
