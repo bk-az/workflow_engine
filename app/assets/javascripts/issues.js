@@ -23,4 +23,12 @@ $(function() {
     $('#remove_modal_search_results').html('');
     $('.watcher_search').val('');
   });
+
+  // datePicker
+  $('#issue_start_date').datepicker({
+     dateFormat: 'yy-mm-dd'
+  });
+  $('#issue_due_date').datepicker({
+     dateFormat: 'yy-mm-dd'
+  });
 });

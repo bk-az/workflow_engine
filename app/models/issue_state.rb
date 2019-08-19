@@ -1,4 +1,6 @@
 class IssueState < ActiveRecord::Base
+  DEFAULT_ISSUE_STATES = %w[Open In-progress Resolved Closed].freeze
+
   validates(:name, presence: true,
                    uniqueness: { scope: :company_id, case_sensitive: false },
                    length: { minimum: MIN_LENGTH, maximum: MAX_LENGTH_ISSUE_STATE })

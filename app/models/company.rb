@@ -2,7 +2,7 @@ class Company < ActiveRecord::Base
   not_multitenant
 
   before_save { subdomain.downcase! }
-  after_save :create_issue_states, :create_issue_types
+  after_create :create_issue_states, :create_issue_types
 
   validates :name, presence: true, length: { minimum: MIN_LENGTH, maximum: 50 }
   VALID_SUBDOMAIN_REGEX = /\A([a-z\d]+(-[a-z\d]+)*(_[a-z\d]+)*)\z/i.freeze
@@ -30,14 +30,12 @@ class Company < ActiveRecord::Base
   end
 
   def create_issue_states
-    IssueState.new(name: 'Resolved', company_id: id).save!
-    IssueState.new(name: 'Unresolved', company_id: id).save!
+    IssueState::DEFAULT_ISSUE_STATES.each { |name| issue_states.create!(name: name) }
     true
   end
 
   def create_issue_types
-    IssueType.new(name: 'Improvement', company_id: id).save!
-    IssueType.new(name: 'New Feature', company_id: id).save!
+    IssueType::DEFAULT_ISSUE_TYPES.each { |name| issue_types.create!(name: name) }
     true
   end
 end

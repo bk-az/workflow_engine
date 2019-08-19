@@ -6,3 +6,12 @@
   width: 70%;
 }
 
+.page-item.active .page-link {
+  background-color: #6c757d !important;
+  border-color: #6c757d !important;
+  color: #f5f2d0 !important;
+}
+
+.page-item .page-link {
+  color: #696969 !important;
+}

@@ -1,4 +1,6 @@
 class IssueType < ActiveRecord::Base
+  DEFAULT_ISSUE_TYPES = %w[Improvement New\ Feature].freeze
+
   validates(:name, presence: true,
                    uniqueness: { scope: [:project_id, :company_id], case_sensitive: false },
                    length: { minimum: MIN_LENGTH, maximum: 20 })
