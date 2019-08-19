@@ -13,9 +13,10 @@ class ProjectMembership < ActiveRecord::Base
   def self.user_projects(user, project_id)
     return [] if project_id.nil? || user.nil?
 
-    ProjectMembership.where('project_id = ? and ' \
+    ProjectMembership.where('company_id = ? and project_id = ? and ' \
       '(project_member_id = ? and project_member_type = "User") or ' \
       '(project_member_id in (?) and project_member_type = "Team")',
+                            Company.current_id,
                             project_id,
                             user.id,
                             user.teams.ids).ids
