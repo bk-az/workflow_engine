@@ -33,6 +33,7 @@ $(document).ready(function(){
   $('a[data-toggle="pill"]').on('shown.bs.tab', function (e) {
     assignedIssuesTable.columns.adjust();
     watchingIssuesTable.columns.adjust();
+    projectIssuesTable.columns.adjust();
   });
 
 });
