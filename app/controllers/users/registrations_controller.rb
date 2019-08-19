@@ -6,6 +6,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
     super
   end
 
+  # GET /resource/edit
+  def edit
+    add_breadcrumb 'My Workplace', :dashboard_path
+    add_breadcrumb 'Edit', :edit_user_registration_path
+    super
+  end
+
   # POST /resource/create
   def create
     begin

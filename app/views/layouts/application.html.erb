@@ -35,13 +35,12 @@
     <div id="page-content-wrapper">
       <div class="row">
         <div id="main_container_to_right_of_sidebar" class="<%= main_layout_class %>">
-          <%= render 'shared/flash' %>
-          <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-  
-          <ul id="breadcrumb">
-            <li><a href="#"><%= render_breadcrumbs tag: :li, separator: '' %></a></li>
-          </ul>
-          
+          <%= render 'shared/flash' %>  
+          <% if user_signed_in? %>
+            <ul id="breadcrumb">
+              <li><a href="#"><%= render_breadcrumbs tag: :li, separator: '' %></a></li>
+            </ul>
+          <% end %>
           <div id="flash_messages"></div>
           <div id="error_messages"></div>
           <%= yield %>                
