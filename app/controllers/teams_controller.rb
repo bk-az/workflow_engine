@@ -116,6 +116,11 @@ class TeamsController < ApplicationController
     @team.team_memberships.find_by(id: params[:membership_id]).update(is_approved: true)
   end
 
+  # def reject_request
+  #   binding.pry
+  #   @team.team_memberships.delete(id: params[:membership_id])
+  # end
+
   private
 
   def team_params

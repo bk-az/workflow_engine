@@ -1,4 +1,4 @@
-<h1 class="float-left">Teams <i class="fas fa-users"></i> </h1>
+<h1 class="float-left">Teams</h1>
 <% if can? :create, Team %> 
   <button type="button" class="btn btn-secondary float-right mr-2" data-toggle="modal"data-target="#create_team_modal">Create Team
   </button>
@@ -14,11 +14,3 @@
     <%= render partial: "teams", locals: { teams: @teams } %>
   </tbody>
 </table>
-
-
-<!-- 
-<div class="container index_top_margin">
-  <div class="row">
-    
-  </div>
-</div> -->
