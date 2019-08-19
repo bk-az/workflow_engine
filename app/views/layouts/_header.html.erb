@@ -2,7 +2,7 @@
 
   
   <% if user_signed_in? %>
-    <a href="#js_side_menu_toggle_button" class="btn btn-md btn-outline-secondary side_menu_toggle_button" id="js_side_menu_toggle_button"><i class="material-icons">menu</i></a>
+    <a href="#js_side_menu_toggle_button" class="btn btn-md btn-outline-secondary side_menu_toggle_button" id="js_side_menu_toggle_button"><span class="align-self-center"></span><i class="fas fa-bars"></i></a>
     <%= link_to 'Home', dashboard_path, class: 'navbar-brand' %>
   <% else %>
     <%= link_to 'Workflow Engine', root_url(subdomain: ''), class: 'navbar-brand' %>
