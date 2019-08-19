@@ -3,7 +3,7 @@ class IssueWatcher < ActiveRecord::Base
   belongs_to :company
   belongs_to :watcher, polymorphic: true
 
-  WATECHER_TYPES = [user: 'User', team: 'Team'].freeze
+  WATCHER_TYPES = {user: 'User', team: 'Team'}.freeze
 
   # Adds watcher to database
   def self.add_watcher(params)
