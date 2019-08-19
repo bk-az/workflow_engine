@@ -1,25 +1,29 @@
 $(document).ready(function(){
-  dashboardTable = $('#project_issues');
+  projectIssues = $('#project_issues');
   projectIssuesTable = $('#project_issues_table').DataTable({
     info: false,
     paging: false,
-    scrollY:  "260px",
+    scrollY:  "38vh",
     scrollCollapse: true,
     oLanguage: {
         sEmptyTable: "No issue found"
     }
   });
-  // dashboardTable.find('th:eq(0)').click();
+
   $('.list-group a:eq(0)').addClass('active');
   var assignedIssuesTable = $('#assigned_issues_table').DataTable({
-    scrollY:        '50vh',
+    info: false,
+    paging: false,
+    scrollY: '50vh',
     scrollCollapse: true,
     oLanguage: {
         sEmptyTable: "No issue found"
     }
   });
   var watchingIssuesTable = $('#watching_issues_table').DataTable({
-    scrollY:        '50vh',
+    info: false,
+    paging: false,
+    scrollY: '50vh',
     scrollCollapse: true,
     oLanguage: {
         sEmptyTable: "No issue found"
@@ -27,8 +31,8 @@ $(document).ready(function(){
   });
 
   $('a[data-toggle="pill"]').on('shown.bs.tab', function (e) {
-    alert('hlloe');
-    $('.dataTable').columns.adjust();
+    assignedIssuesTable.columns.adjust();
+    watchingIssuesTable.columns.adjust();
   });
 
 });

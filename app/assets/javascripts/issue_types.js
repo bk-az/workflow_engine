@@ -3,18 +3,22 @@ $(document).ready(function(){
     "info": false
   });
 
-  showIssueTypeModal = $('#show_issue_type_modal');
+  issueTypeIssuesModal = $('#issue_type_issues_modal');
   issueTypeModal = $('#issue_type_modal');
   issueTypesTableBody = $('#issue_types_datatable tbody');
   issueTypeFlash = $('#issue_type_flash');
   issueTypesErrors = $('#issue_type_errors');
-  
+
   var issueTypesCategoryFilter = $('#issue_types_category_filter');
   var issueTypesProjectId = $('#issue_types_project_id');
 
   issueTypeModal.on('hidden.bs.modal', function () {
     clearFlashMessages();
     $('#issue_type_form_area').html('');
+  });
+
+  issueTypeIssuesModal.on('shown.bs.modal', function(){
+    issueTypeIssuesTable.columns.adjust();
   });
 
   issueTypesCategoryFilter.change(function() {

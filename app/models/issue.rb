@@ -8,6 +8,8 @@ class Issue < ActiveRecord::Base
     High: 2
   }.freeze
 
+  scope :group_by_issue_state, -> { joins(:issue_state).group(:name) }
+
   after_save :send_email
 
   paginates_per 7

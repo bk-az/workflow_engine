@@ -5,18 +5,10 @@ class IssueTypesController < ApplicationController
   load_and_authorize_resource
 
   def index
+    @issues_count = current_tenant.issues.group(:issue_type_id).count
     @issue_types = @issue_types.project_issue_types(params[:project_id]) if params[:project_id].present?
-    # required for new_issue_type_modal
-    @issue_type = IssueType.new
     respond_to do |format|
       format.html
-    end
-  end
-
-  def show
-    @total_issues = @issue_type.issues.count
-    respond_to do |format|
-      format.js
     end
   end
 
@@ -62,6 +54,13 @@ class IssueTypesController < ApplicationController
       @issue_type.destroy
       flash.now[:success] = t('.deleted')
     end
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def issues
+    @issues = @issue_type.issues
     respond_to do |format|
       format.js
     end
