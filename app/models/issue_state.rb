@@ -1,5 +1,5 @@
 class IssueState < ActiveRecord::Base
-  DEFAULT_ISSUE_STATES = %w[Resolved Unresolved].freeze
+  DEFAULT_ISSUE_STATES = %w[Open In-progress Resolved Closed].freeze
 
   validates(:name, presence: true,
                    uniqueness: { scope: :company_id, case_sensitive: false },
