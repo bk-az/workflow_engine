@@ -1,7 +1,7 @@
 <td><%= issue_state.name %></td>
 <td>
   <span class="badge badge-pill badge-danger">
-    <%= link_to(issue_state_issues_count(@issues_count, issue_state), issues_issue_state_path(issue_state), class: 'text-white font-weight-bold', remote: true) %>
+    <%= link_to(issue_state_issues_count(@issues_count, issue_state), issues_path(issue_state_id: issue_state.id), class: 'text-white font-weight-bold', remote: true) %>
   </span>
   <div class="btn-group dropright float-right mr-4">
     <i class="fas fa-ellipsis-v text-secondary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
