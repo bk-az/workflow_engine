@@ -24,6 +24,7 @@ gem 'uglifier', '>= 1.3.0'
 
 # Custom Gems
 gem 'audited', '4.8.0'
+gem 'breadcrumbs_on_rails', '3.0.1'
 gem 'cancancan', '3.0.1'
 gem 'chartkick', '3.2.1'
 gem 'delayed_job_active_record', '4.1.3'

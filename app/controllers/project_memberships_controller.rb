@@ -4,6 +4,9 @@ class ProjectMembershipsController < ApplicationController
   load_and_authorize_resource through: :project, shallow: true
   # GET #index
   def index
+    add_breadcrumb 'Projects', :projects_path
+    add_breadcrumb @project.title, project_path(@project)
+    add_breadcrumb 'Members', :project_members_path
     @users = @project.users
     @teams = @project.teams
     # needed for new membership modal

@@ -17,7 +17,7 @@ $(document).ready(function(){
     scrollY: '50vh',
     scrollCollapse: true,
     oLanguage: {
-        sEmptyTable: "No issue found"
+        sEmptyTable: "No assigned issues found"
     }
   });
   var watchingIssuesTable = $('#watching_issues_table').DataTable({

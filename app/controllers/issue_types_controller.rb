@@ -7,8 +7,14 @@ class IssueTypesController < ApplicationController
   # GET /issue_types
   # GET /projects/:project_id/issue_types
   def index
+    if params[:project_id].present?
+      @issue_types = @issue_types.project_issue_types(params[:project_id])
+      add_breadcrumb 'Projects', projects_path
+      add_breadcrumb @project.title, project_path(@project)
+    end
+    add_breadcrumb 'Issue Types', :issue_types_path
+    @issue_type = IssueType.new # required for new_issue_type_modal
     @issues_count = current_tenant.issues.group(:issue_type_id).count
-    @issue_types = @issue_types.project_issue_types(params[:project_id]) if params[:project_id].present?
     respond_to do |format|
       format.html
     end
