@@ -7,7 +7,12 @@ module IssueTypesHelper
     issue_type.project_id.nil? ? 'global' : "project-#{issue_type.project_id}"
   end
 
-  def issue_type_project_number(issue_type)
-    issue_type.project_id.nil? ? 'NA' : issue_type.project_id.to_s
+  def issue_type_issues_count(issues_count, issue_type)
+    if issues_count.nil?
+      result = issue_type.issues.count
+    else
+      result = issues_count.key?(issue_type.id) ? issues_count[issue_type.id] : 0
+    end
+    result
   end
 end

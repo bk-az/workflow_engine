@@ -23,19 +23,21 @@ gem 'rails', '4.2.0'
 gem 'uglifier', '>= 1.3.0'
 
 # Custom Gems
-gem 'audited'
+gem 'audited', '4.8.0'
+gem 'breadcrumbs_on_rails', '3.0.1'
 gem 'cancancan', '3.0.1'
+gem 'chartkick', '3.2.1'
 gem 'delayed_job_active_record', '4.1.3'
 gem 'devise', '4.1.1'
 gem 'faker', '1.9.1'
-gem 'jquery-ui-rails'
+gem 'jquery-ui-rails', '6.0.1'
 gem 'kaminari', '1.1.1'
 gem 'popper_js', '1.14.5'
-gem 'rails4-autocomplete'
+gem 'rails4-autocomplete', '1.1.1'
 gem 'rspec-collection_matchers', '1.1.3'
-gem 'select2-rails'
+gem 'select2-rails', '4.0.3'
 gem 'sequenceid', '0.0.6'
-gem 'simplecov', require: false, group: :test
+gem 'simplecov', '0.17.0', require: false, group: :test
 
 group :development, :test do
   # Call 'byebug' in the code to stop execution and get a debugger console

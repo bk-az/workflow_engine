@@ -45,7 +45,7 @@
         <%= f.label :priority do %>
           Priority<span class="text-danger">*</span>
         <% end %>
-        <%= f.select :priority, show_priority.collect { |key, value| [key, value] }, { include_blank: false }, class: 'form-control' %>
+        <%= f.select :priority, show_priority.collect { |key, value| [key, value] }, {}, class: 'form-control' %>
       </div>
     </div>
 
@@ -54,14 +54,16 @@
         <%= f.label :issue_state_id do %>
           Issue State<span class="text-danger">*</span>
         <% end %>       
-        <%= f.select :issue_state_id, issue_states.collect { |issue_state| [issue_state.try(:name), issue_state.id] }, { include_blank: false }, class: 'form-control' %>
+        <%= f.select :issue_state_id, issue_states.collect { |issue_state| [issue_state.try(:name), issue_state.id] }, {}, class: 'form-control' %>
       </div>
     </div>
 
     <div class="col-md-3">
       <div class="form-group">
-        <%= f.label :issue_type_id %>
-           <%= f.select :issue_type_id, issue_types.collect { |issue_type| [issue_type.try(:name), issue_type.id] }, { include_blank: false }, class: 'form-control', required: true %>
+        <%= f.label :issue_type_id do %>
+          Issue Type<span class="text-danger">*</span>
+        <% end %>
+        <%= f.select :issue_type_id, issue_types.collect { |issue_type| [issue_type.try(:name), issue_type.id] }, {}, class: 'form-control' %>
       </div>
     </div> 
   </div>
@@ -79,5 +81,5 @@
   </div>
   <hr>
 
-  <%= f.submit({ class: 'btn btn-secondary float-left mr-2' }) %>
+  <%= f.submit({ class: 'btn btn-secondary float-right' }) %>
 <% end %>
