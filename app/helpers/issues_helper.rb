@@ -33,10 +33,10 @@ module IssuesHelper
 
   def issue_delete_data_confirm(issue)
     watchers_count = issue.issue_watchers.count
-    if watchers_count > 0
-      "Are you sure you want to delete this issue? It contains #{watchers_count} watcher".pluralize(watchers_count)
+    if watchers_count.zero?
+      t('issues.confirm_delete.default')
     else
-      'Are you sure you want to delete this issue?'
+      t('issues.confirm_delete.watchers_exist_warning', watchers_count: watchers_count).pluralize(watchers_count)
     end
   end
 end
