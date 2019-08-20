@@ -74,10 +74,7 @@ Rails.application.routes.draw do
 
   resources :issue_watchers do
     collection do
-      post 'create_watcher'
-      post 'destroy_watcher'
-      get  'search_watcher_to_add'
-      get  'search_watcher_to_destroy'
+      get 'search'
     end
   end
 end
