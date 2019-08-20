@@ -1,0 +1,16 @@
+if (typeof issuesTable !== 'undefined'){
+  issuesTable.destroy();
+}
+
+$('#custom_issues_table tbody').html('<%= j render partial: "shared/list_issues", collection: @issues, as: :issue %>');
+$('#issues_modal').modal('show');
+
+issuesTable = $('#custom_issues_table').DataTable({
+    info: false,
+    paging: false,
+    scrollY: "50vh",
+    scrollCollapse: true,
+    oLanguage: {
+      sEmptyTable: "No issues found"
+    }
+  });

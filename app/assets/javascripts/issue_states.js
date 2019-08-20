@@ -3,7 +3,6 @@ $(document).ready(function(){
     "info": false
   });
 
-  showIssueStateModal = $('#show_issue_state_modal');
   issueStateModal = $('#issue_state_modal');
   issueStatesTableBody = $('#issue_states_datatable tbody');
   issueStateFlash = $('#issue_state_flash');

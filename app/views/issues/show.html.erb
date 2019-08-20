@@ -1,28 +1,35 @@
 <div class="wrapper">
   <h2 class="float-left"><%= @issue.title %></h2>
+  <% if can?(:history, @issue) %>
+    <%= link_to 'History', history_issue_path(@issue), class: 'btn btn-secondary float-right' %>
+  <% end %>
+
   <% if can?([:destroy_watcher, :search_watcher_to_destroy], IssueWatcher) %>
-    <button type="button" class="btn btn-secondary float-right" data-toggle="modal" data-target="#remove_watchers_modal">Remove Watcher</button>
+    <button type="button" class="btn btn-secondary float-right mr-2" data-toggle="modal" data-target="#remove_watchers_modal">Remove Watcher</button>
     <%= render partial: 'issue_watchers/remove_watchers_form', locals: { issue: @issue } %>
   <% end %>  
   <% if can?([:create_watcher, :search_watcher_to_add], IssueWatcher) %>
     <button type="button" class="btn btn-secondary float-right mr-2" data-toggle="modal" data-target="#add_watchers_modal">Add Watcher</button>
     <%= render partial: 'issue_watchers/add_watchers_form', locals: { issue: @issue } %>
   <% end %>
+  
   <div id="watch_button_div" class="float-right mr-2">
     <%= render partial: 'issue_watchers/watch_button', locals: { issue: @issue } %>
   </div>
-  <% if can?(:update, @issue) %>
-    <%= link_to 'Edit', edit_project_issue_path(@issue.project.sequence_num, @issue.sequence_num), class: 'btn btn-secondary float-right mr-2' %>
+
+  <% if can?(:destroy, @issue) %>
+    <%= link_to "Delete", project_issue_path(@issue.project, @issue.sequence_num), method: :delete, data: { confirm: issue_delete_data_confirm(@issue) }, class: 'btn btn-secondary float-right mr-2', id: 'issue_delete_button' %>
   <% end %>
-  <% if can?(:history, @issue) %>
-    <%= link_to 'History', history_issue_path(@issue), class: 'btn btn-secondary float-right mr-2' %>
+
+  <% if can?(:update, @issue) %>
+    <%= link_to 'Edit', edit_project_issue_path(@issue.project, @issue.sequence_num), class: 'btn btn-secondary float-right mr-2' %>
   <% end %>
 </div>
 <br>
 <table class="table">
   <tbody>
     <tr>
-      <th scope="row">Title:</th>
+      <th scope="row" id="remove_border_top_from_th">Title:</th>
       <td><%= @issue.title %></td>
     </tr>
     <tr>
@@ -63,6 +70,6 @@
   <h3 class="float-left">Documents</h3>
   <button type="button" class="btn btn-secondary float-right" data-toggle="modal" data-target="#upload_document_modal">Upload Document</button>
   <%= render partial: 'documents/upload_document_modal' %>
-  <%= link_to 'View Documents', issue_documents_path(@issue),class: 'btn btn-secondary float-right mr-2' %>
 </div>
-
+<br><br><br>
+<%= render partial: "documents/show_documents", locals: { documents: @issue.documents } %>

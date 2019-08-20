@@ -1,19 +1,23 @@
-<div class="text-center my-4">
-  <h2>Issue Types</h2>
+<div class="wrapper mb-5">
+  <h1 class="float-left">Issue Types</h1>
+  <% if params[:project_id].present? %>
+    <%= link_to(new_project_issue_type_path(params[:project_id]), remote: true, class: 'btn btn-secondary float-right') do %>
+      <i class="fas fa-plus mr-2"></i>New Issue Type
+    <% end %>
+    <%= link_to(issue_types_path, class: "btn btn-secondary float-right mr-2") do %>
+      <i class="fas fa-cog mr-2"></i>Manage All Issue Types</a>
+    <% end %>
+  <% else %>
+    <%= link_to(new_issue_type_path, remote: true, class: 'btn btn-secondary float-right') do %>
+      <i class="fas fa-plus mr-2"></i>New Issue Type
+    <% end %>
+  <% end %>
 </div>
 
-<% if params[:project_id].present? %>
-  <%= link_to('New Issue Type', new_project_issue_type_path(params[:project_id]), remote: true, class: 'btn btn-secondary mb-4 mr-2') %>
-  <a class="btn btn-secondary mb-4" href="<%= issue_types_path %>">
-    <i class="fas fa-cog mr-2"></i>Manage All Issue Types</a>
-<% else %>
-  <%= link_to('New Issue Type', new_issue_type_path, remote: true, class: 'btn btn-secondary mb-4 mr-2') %>
-<% end %>
 
 <!-- Issue Type Modals -->
-
-<%= render 'issue_types/new_issue_type_modal' %>
-<%= render 'issue_types/show_issue_type_modal' %>
+<%= render 'new_issue_type_modal' %>
+<%= render 'shared/issues_modal' %>
 
 <div class="row">
   <% if params[:project_id].nil? %>
@@ -52,9 +56,9 @@
     <thead>
       <tr>
         <th>Name</th>
+        <th>Total Issues</th>
         <th>Global</th>
-        <th>Project #</th>
-        <th>Manage</th>
+        <th>Project</th>
       </tr>
     </thead>
     <tbody>

@@ -1,4 +1,6 @@
 class IssueType < ActiveRecord::Base
+  DEFAULT_ISSUE_TYPES = %w[Improvement New\ Feature].freeze
+
   validates(:name, presence: true,
                    uniqueness: { scope: [:project_id, :company_id], case_sensitive: false },
                    length: { minimum: MIN_LENGTH, maximum: 20 })
@@ -11,28 +13,11 @@ class IssueType < ActiveRecord::Base
   scope :project_issue_types, ->(project_id) { where(project_id: [project_id, nil]) }
   scope :for_projects, ->(project) { where(project_id: project.id) }
 
-  def can_change_scope?(project_id)
-    result = true
-    if project_id.present?
-      count = issues.where.not(project_id: project_id).count
-      if count > 0
-        result = false
-        errors[:base] << "#{count} issue".pluralize(count) +
-                         ' found, preventing to change scope' \
-                         ' of this issue type'
-      end
-    end
-    result
+  def orphan_issues_count(project_id)
+    issues.where.not(project_id: project_id).count
   end
 
   def dependent_issues_present?
-    result = false
-    count = issues.count
-    if count > 0
-      result = true
-      errors[:base] << "#{count} issue".pluralize(count) +
-                       ' using this type'
-    end
-    result
+    issues.count > 0
   end
 end

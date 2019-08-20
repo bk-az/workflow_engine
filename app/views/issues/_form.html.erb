@@ -1,15 +1,17 @@
  <%= form_for [@project, @issue] do |f| %>
   <div class="form-group">
-    <%= f.label :title %>
-    <%= f.text_field :title, class: 'form-control' ,maxlength: 100%>
+    <%= f.label :title do %>
+      Title<span class="text-danger">*</span>
+    <% end %>
+    <%= f.text_field :title, class: 'form-control', maxlength: 100, required: true, minlength: 3 %>
   </div>
-  <hr>
+  <br>
 
   <div class="row">
     <div class="col-md-6">
       <div class="form-group">
         <%= f.label :description %>
-        <%= f.text_area :description, class: 'form-control', cols: 2, rows: 6 %>   
+        <%= f.text_area :description, class: 'form-control', cols: 2, rows: 6, minlength: 3 %>
       </div>
     </div>
   </div>
@@ -19,43 +21,49 @@
     <div class="col-md-6">
       <div class="form-group">
         <%= f.label :start_date %>
-        <%= f.text_field :start_date, class: 'form-control', type: 'date' %>
+        <%= f.text_field :start_date, class: 'form-control', readonly: true %>
       </div>
     </div>
     <div class="col-md-6">
       <div class="form-group">
         <%= f.label :due_date %>
-       <%= f.text_field :due_date, class: 'form-control', type: 'date' %> 
+       <%= f.text_field :due_date, class: 'form-control', readonly: true %> 
       </div>
     </div>
   </div>
-  <hr>
+  <br>
 
   <div class="row">
     <div class="col-md-3">
       <div class="form-group">
         <%= f.label :assignee_id %>
-        <%= f.select(:assignee_id, assignees.collect { |assignee| [assignee.try(:name), assignee.id] }, { include_blank: 'Select an assignee' }) %>
+        <%= f.select :assignee_id, assignees.collect { |assignee| [assignee.try(:name), assignee.id] }, { include_blank: 'Select an assignee' }, class: 'form-control' %>
       </div>
     </div>
     <div class="col-md-3">
       <div class="form-group">
-        <%= f.label :priority %>
-        <%= f.select :priority, show_priority.collect { |key, value| [key, value] } %>
-      </div>
-    </div>
-
-    <div class="col-md-3">
-      <div class="form-group">
-        <%= f.label :issue_state_id %>       
-        <%= f.select(:issue_state_id, issue_states.collect { |issue_state| [issue_state.try(:name), issue_state.id] }, { include_blank: 'Select an issue state' }) %>
+        <%= f.label :priority do %>
+          Priority<span class="text-danger">*</span>
+        <% end %>
+        <%= f.select :priority, show_priority.collect { |key, value| [key, value] }, {}, class: 'form-control' %>
       </div>
     </div>
 
     <div class="col-md-3">
       <div class="form-group">
-        <%= f.label :issue_type_id %>
-           <%= f.select(:issue_type_id, issue_types.collect { |issue_type| [issue_type.try(:name), issue_type.id] }, { include_blank: 'Select an issue type' }) %>
+        <%= f.label :issue_state_id do %>
+          Issue State<span class="text-danger">*</span>
+        <% end %>       
+        <%= f.select :issue_state_id, issue_states.collect { |issue_state| [issue_state.try(:name), issue_state.id] }, {}, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="form-group">
+        <%= f.label :issue_type_id do %>
+          Issue Type<span class="text-danger">*</span>
+        <% end %>
+        <%= f.select :issue_type_id, issue_types.collect { |issue_type| [issue_type.try(:name), issue_type.id] }, {}, class: 'form-control' %>
       </div>
     </div> 
   </div>
@@ -64,12 +72,14 @@
   <div class="row">
     <div class="col-md-4">
       <div class="form-group">
-        <%= f.label :progress %>
-        <%= f.number_field :progress, class: 'form-control', min: 0, max: 100, step: 10 %>
+        <%= f.label :progress do %>
+          Progress<span class="text-danger">*</span>
+        <% end %>
+        <%= f.number_field :progress, class: 'form-control', min: 0, max: 100, step: 5, required: true %>
       </div>
     </div>
   </div>
   <hr>
 
-  <%= f.submit({ class: 'btn btn-secondary float-left mr-2' }) %>
+  <%= f.submit({ class: 'btn btn-secondary float-right' }) %>
 <% end %>

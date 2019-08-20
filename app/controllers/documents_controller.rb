@@ -3,7 +3,7 @@ class DocumentsController < ApplicationController
   load_resource :issue, find_by: 'sequence_num'
   load_resource :project, find_by: 'sequence_num'
   load_and_authorize_resource :document, through: [:issue, :project]
-
+  
   def index
     respond_to do |format|
       format.html

@@ -2,9 +2,8 @@
 <% if can?(:index, project) %>
 <div class="card">
   <div class="card-body">
-    <h5 class="card-title"><%= link_to project.title, project_path(project.sequence_num)%>
-      <span class="badge badge-secondary badge-pill float-right ml-2"><%= project.issues.size%></span>
-      <span class="badge badge-danger badge-pill float-right"><%= link_to 'Issues', '#', class: 'text-white'%></span>
+    <h5><%= link_to project.title, project, style: "color: #002f6c;"%>
+      <span class="badge badge-white badge-pill-sm border float-right ml-2"  style="border-color: #ebccd1 !important; background-color: #f2dede !important; text-color: #a94442; color: #a94442;"><%= link_to project.issues.size, project,class: "font-weight-bold", style: "color: #a94442;"%></span>
     </h5>
     <p class="card-text text-truncate"><%= project.description%></p>
   </div>

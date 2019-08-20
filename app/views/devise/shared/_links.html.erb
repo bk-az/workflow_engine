@@ -1,27 +1,24 @@
 <%- if controller_name != 'sessions' %>
-  <%= link_to "Log in", user_companies_find_url(subdomain: nil), class: "btn btn-sm btn-outline-secondary" %>
+  <em class="text-muted">Already Have an Account? </em>
+  <%= link_to "Log in", user_companies_find_url(subdomain: nil), class: "btn btn-sm btn-outline-secondary mt-2" %>
 <% end -%>
 
 <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
   <!-- TODO -->
   <!-- Must change subdomain in production environment -->
-  <%= link_to "Sign up", new_registration_url(resource_name, subdomain: nil), class: "btn btn-sm btn-outline-secondary"  %>
+  <%= link_to "Sign up", new_registration_url(resource_name, subdomain: nil), class: "btn btn-sm btn-outline-secondary mt-2"  %>
 <% end -%>
 
 <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
-  <%= link_to "Forgot your password?", new_password_path(resource_name), class: "btn btn-sm btn-outline-secondary" %>
-<% end -%>
-
-<%- if devise_mapping.confirmable? && controller_name != 'confirmations' && controller_name != 'registrations' %>
-  <%= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name), class: "btn btn-sm btn-outline-secondary" %>
+  <%= link_to "Forgot your password?", new_password_path(resource_name), class: "btn btn-sm btn-outline-secondary mt-2" %>
 <% end -%>
 
 <%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
-  <%= link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name), class: "btn btn-sm btn-outline-secondary" %>
+  <%= link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name), class: "btn btn-sm btn-outline-secondary mt-2" %>
 <% end -%>
 
 <%- if devise_mapping.omniauthable? %>
   <%- resource_class.omniauth_providers.each do |provider| %>
-    <%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), class: "btn btn-sm btn-outline-secondary" %>
+    <%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), class: "btn btn-sm btn-outline-secondary mt-2" %>
   <% end -%>
 <% end -%>

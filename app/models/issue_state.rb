@@ -1,4 +1,6 @@
 class IssueState < ActiveRecord::Base
+  DEFAULT_ISSUE_STATES = %w[Open In-progress Resolved Closed].freeze
+
   validates(:name, presence: true,
                    uniqueness: { scope: :company_id, case_sensitive: false },
                    length: { minimum: MIN_LENGTH, maximum: MAX_LENGTH_ISSUE_STATE })
@@ -11,13 +13,6 @@ class IssueState < ActiveRecord::Base
   scope :for_projects, ->(project) { project.issues.map(&:issue_state) }
 
   def dependent_issues_present?
-    result = false
-    count = issues.count
-    if count > 0
-      result = true
-      errors[:base] << "#{count} issue".pluralize(count) +
-                       ' using this state'
-    end
-    result
+    issues.count > 0
   end
 end
