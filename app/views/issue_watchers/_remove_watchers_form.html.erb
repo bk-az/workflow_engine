@@ -10,7 +10,7 @@
       </div>
       <div class="modal-body">
        <!-- Search member form -->
-        <%= form_tag search_watcher_to_destroy_issue_watchers_path, method: 'get', remote: true do %>
+        <%= form_tag search_issue_watchers_path, method: 'get', remote: true do %>
           <div class="form-group radio_button_div">
             <%= radio_button_tag(:watcher_type, "User", true) %>
             <%= label_tag(:add_watcher_user, "User") %>
@@ -20,6 +20,7 @@
           <div class="form-group">
             <label class="col-form-label">Search</label>
             <%= hidden_field_tag :issue_id, issue.id %>
+            <%= hidden_field_tag :watcher_action, "destroy" %>
             <%= text_field_tag "watcher_search", nil, placeholder:"Search", class: 'form-control watcher_search' %>
           </div>
           <div class="form-group">
@@ -29,7 +30,7 @@
         <!-- Search member form -->
 
         <!-- Add member as a watcher -->
-          <div id="remove_modal_search_results">  
+          <div id="remove_modal_search_results">
           </div>
         <!-- Add member as a watcher -->
 
