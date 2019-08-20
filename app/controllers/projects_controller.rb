@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
-  load_and_authorize_resource :find_by => :sequence_num
+  load_and_authorize_resource find_by: 'sequence_num'
 
   def index
     respond_to do |format|
