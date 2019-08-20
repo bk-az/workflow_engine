@@ -1,7 +1,7 @@
 <!-- Partial: Displays rows in a table -->
 <% issues.each do |issue| %>
   <tr>
-    <td><%= link_to issue.title, project_issue_path(issue.project.sequence_num, issue.sequence_num) %></td>
+    <td><%= link_to issue.title, project_issue_path(issue.project, issue) %></td>
     <% if request.path.include?('issues') %>
       <td><%= link_to issue.project.title, project_path(issue.project.sequence_num) %></td>
     <% end %>

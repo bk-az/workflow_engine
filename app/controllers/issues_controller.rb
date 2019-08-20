@@ -1,7 +1,8 @@
 # Issues Controller
 class IssuesController < ApplicationController
   before_action :authenticate_user!
-  load_and_authorize_resource :find_by => :sequence_num
+  load_and_authorize_resource find_by: 'sequence_num'
+  load_and_authorize_resource :project
 
   # GET /issues
   def index
@@ -25,7 +26,6 @@ class IssuesController < ApplicationController
 
   # GET projects/:id/issues/new
   def new
-    @project = current_tenant.projects.find_by(sequence_num: params[:project_id])
     @assignees = current_tenant.users.all
     @issue_types = current_tenant.issue_types.project_issue_types(@project.id)
     @issue_states = current_tenant.issue_states.all
@@ -37,6 +37,9 @@ class IssuesController < ApplicationController
   # GET projects/:id/issues/:id
   def show
     @document = Document.new
+    respond_to do |format|
+      format.html
+    end
   end
 
   # GET projects/:id/issues/:id/edit

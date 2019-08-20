@@ -23,13 +23,12 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    # @project = Project.find(params[:id])
-    @document = Document.new
+    @document = current_tenant.documents.new
     @issues = @project.issues
-    @issue_types = IssueType.issue_types_for_projects(@project)
-    @issue_states = IssueState.issue_states_for_projects(@project)
+    @issue_types = current_tenant.issue_types.for_projects(@project)
+    @issue_states = current_tenant.issue_states.for_projects(@project)
     @comments = @project.comments
-    @comment = Comment.new
+    @comment = current_tenant.comments.new
     respond_to do |format|
       format.html
     end

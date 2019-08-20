@@ -8,7 +8,7 @@ class IssueState < ActiveRecord::Base
   belongs_to :company
   belongs_to :issue
 
-  scope :issue_states_for_projects, ->(project) { project.issues.map(&:issue_state) }
+  scope :for_projects, ->(project) { project.issues.map(&:issue_state) }
 
   def dependent_issues_present?
     result = false
