@@ -1,24 +1,30 @@
-<div class="card">
+<div class="card shodowed-card">
   <h2 class="card-header">Login</h2>
   <div class="card-body">
-    <%= form_tag user_companies_find_path, method: :post, remote: true, authenticity_token: true do %>
-      <div class="field form-group">
-        <label>Email: </label>
-        <%= email_field_tag :email, nil, class: 'form-control form-control-sm', placeholder: 'john.doe@gmail.com' %>
+    <div class="row">
+      <div class="col-sm-6 d-none d-sm-block text-center">
+        <img src="/assets/signin.svg" class="img-fluid" style="height: 200px;" />
       </div>
 
-      <hr>
+      <div class="col-sm-6 user-forms-container">
+        <%= form_tag user_companies_find_path, method: :post, remote: true, authenticity_token: true do %>
+          <div class="field form-group">
+            <label>Email: </label>
+            <%= email_field_tag :email, nil, class: 'form-control', placeholder: 'john.doe@gmail.com' %>
+          </div>
 
-      <div class="actions text-right">
-        <button class="btn btn-secondary btn-block btn-sm" type="submit">Continue!</button>
+          <div class="actions text-right">
+            <button class="btn btn-secondary btn-sm" type="submit">Continue!</button>
+          </div>
+        <% end %>
+        <div class="text-center">
+          <hr>
+          <em class="text-muted">Don't Have an Account?&nbsp;</em>
+          <%= link_to "Sign up", new_user_registration_path, class: "btn btn-sm btn-outline-secondary"  %>
+        </div>
       </div>
-    <% end %>
-
-    <div class="text-center">
-      <hr>
-      <em class="text-muted">Don't Have an Account?&nbsp;</em>
-      <%= link_to "Sign up", new_user_registration_path, class: "btn btn-sm btn-outline-secondary"  %>
     </div>
+
   </div>
 </div>
 
