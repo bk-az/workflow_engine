@@ -258,9 +258,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  audited
-  breadcrumbs_on_rails (= 3.0.1)
   audited (= 4.8.0)
+  breadcrumbs_on_rails (= 3.0.1)
   byebug (= 10.0.2)
   cancancan (= 3.0.1)
   capybara (= 3.1.1)

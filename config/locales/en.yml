@@ -32,14 +32,17 @@ en:
       
   issue_states:
     create:
-      created: "Issue State created successfully"
-      not_created: "Issue State not created"
+      success: "Issue State created successfully"
+      failure: "Issue State not created"
     destroy:
-      deleted: "Issue State deleted successfully"
-      not_deleted: "Unable to delete this Issue State"
+      success: "Issue State deleted successfully"
+      failure: "Unable to delete this Issue State"
+      dependent_issues:
+        one: "1 issue using this issue state"
+        other: "%{count} issues using this issue state"
     update:
-      updated: "Issue State updated successfully"
-      not_updated: "Issue State not updated"
+      success: "Issue State updated successfully"
+      failure: "Issue State not updated"
 
   issue_types:
     create:

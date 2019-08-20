@@ -5,16 +5,17 @@ class IssuesController < ApplicationController
 
   # GET /issues
   def index
-    if params[:issue_type_id].nil?
+    if params[:issue_type_id].present?
+      @issues = current_tenant.issues.where(issue_type_id: params[:issue_type_id])
+    elsif params[:issue_state_id].present?
+      @issues = current_tenant.issues.where(issue_state_id: params[:issue_state_id])
+    else
       add_breadcrumb 'All Issues', :issues_path
       @projects = current_user.visible_projects
       @issues = @issues.order(:project_id).page(params[:page])
       @issue_types = current_tenant.issue_types.all
       @issue_states = current_tenant.issue_states.all
       @assignees = current_tenant.users.all
-    else
-      @issue_type = IssueType.includes(:issues).find(params[:issue_type_id])
-      @issues = @issue_type.issues
     end
     respond_to do |format|
       format.html

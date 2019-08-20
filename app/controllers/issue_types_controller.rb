@@ -34,7 +34,8 @@ class IssueTypesController < ApplicationController
     if @issue_type.save
       flash.now[:success] = t('.success')
     else
-      flash.now[:danger] = t('.failure')
+      flash.now[:error] = @issue_type.errors.full_messages
+      flash.now[:error] << t('.failure')
     end
     respond_to do |format|
       format.js
@@ -54,12 +55,12 @@ class IssueTypesController < ApplicationController
   def update
     orphan_issues_count = issue_type_params[:project_id].present? ? @issue_type.orphan_issues_count(issue_type_params[:project_id]) : 0
     if orphan_issues_count > 0
-      flash.now[:danger] = t('.cannot_update_scope', count: orphan_issues_count)
+      flash.now[:error] = t('.cannot_update_scope', count: orphan_issues_count)
     elsif @issue_type.update(issue_type_params)
       flash.now[:success] = t('.success')
     else
-      flash.now[:danger] = @issue_type.errors.full_messages
-      flash.now[:danger] << t('.failure')
+      flash.now[:error] = @issue_type.errors.full_messages
+      flash.now[:error] << t('.failure')
     end
     respond_to do |format|
       format.js
@@ -69,13 +70,13 @@ class IssueTypesController < ApplicationController
   # DELETE /issue_types/:id
   def destroy
     if @issue_type.dependent_issues_present?
-      flash.now[:danger] = t('.dependent_issues', count: @issue_type.issues.size)
+      flash.now[:error] = t('.dependent_issues', count: @issue_type.issues.size)
     else
       @issue_type.destroy
       if @issue_type.destroyed?
         flash.now[:success] = t('.success')
       else
-        flash.now[:danger] = t('.failure')
+        flash.now[:error] = t('.failure')
       end
     end
     respond_to do |format|

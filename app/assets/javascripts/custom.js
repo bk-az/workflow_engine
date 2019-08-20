@@ -5,7 +5,7 @@ $(function() {
       $("#wrapper").toggleClass("toggled");
   });
 
-  $('.upload_document_field > input').filestyle({
+  $('.upload-document-field > input').filestyle({
     'text' : 'Choose File',
     'btnClass' : 'btn-secondary',
     'placeholder': 'E.g. review.docs',
