@@ -13,13 +13,15 @@ class Company < ActiveRecord::Base
   belongs_to :owner, class_name: 'User' # Owner
   has_many   :users, dependent: :destroy
   has_many   :projects, dependent: :destroy
+  has_many   :project_memberships, dependent: :destroy
   has_many   :teams, dependent: :destroy
+  has_many   :team_memberships, dependent: :destroy
   has_many   :comments, dependent: :destroy
   has_many   :issues, dependent: :destroy
+  has_many   :issue_watchers, dependent: :destroy
   has_many   :documents, dependent: :destroy
   has_many   :issue_types, dependent: :destroy
   has_many   :issue_states, dependent: :destroy
-  has_many   :project_memberships, dependent: :destroy
 
   def self.current_id=(id)
     Thread.current[:tenant_id] = id

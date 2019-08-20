@@ -1,6 +1,4 @@
-$("#flash_messages").html('<%= j render partial: "layouts/notice" %>');
-$("#error_messages").html('<%= j render partial: "layouts/errors", locals: {model: @issue_state} %>');
-
+$("#flash_messages").html('<%= j render partial: "shared/flash" %>');
 <% if @issue_state.errors.blank? %>
   issueStatesTable.row("#<%= issue_state_table_row_id(@issue_state) %>").remove().draw();
 <% end %>
