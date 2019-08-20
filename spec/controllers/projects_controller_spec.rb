@@ -3,13 +3,19 @@ require 'spec_helper'
 
 RSpec.describe ProjectsController, type: :controller do
   before(:all) do
-    @admin = create(:admin)
-    @member = create(:member)
+    @company = create(:company)
+    @admin = create(:admin, company: @company)
+    @member = create(:member, company: @company)
   end
 
   let(:project_attr) { FactoryGirl.attributes_for(:project) }
   let(:invalid_project_attr) { FactoryGirl.attributes_for(:invalid_project) }
   let(:project) { FactoryGirl.create(:project) }
+
+  before(:each) do
+    @request.host = "#{@company.subdomain}.lvh.me:3000"
+    Company.current_id = @company.id
+  end
 
   describe 'GET #index' do
     # context 'Without signing in' do
@@ -22,9 +28,11 @@ RSpec.describe ProjectsController, type: :controller do
 
     context 'as a member' do
       before(:each) do
+        @member.confirm
         sign_in @member
       end
       it 'should success and render to :index view' do
+        # session[:user_id] = @member.id
         get :index
         expect(response).to have_http_status(200)
         expect(response).to render_template(:index)
@@ -36,6 +44,7 @@ RSpec.describe ProjectsController, type: :controller do
     end
     context 'as an administrator' do
       before(:each) do
+        @admin.confirm
         sign_in @admin
       end
       it 'should success and render to :index view' do
@@ -65,6 +74,7 @@ RSpec.describe ProjectsController, type: :controller do
     # end
     context 'as a member' do
       before(:each) do
+        @member.confirm
         sign_in @member
       end
       it 'should assign the requested project to @project' do
@@ -83,6 +93,7 @@ RSpec.describe ProjectsController, type: :controller do
     end
     context 'as a admin' do
       before(:each) do
+        @admin.confirm
         sign_in @admin
       end
       it 'should assign the requested project to @project' do
@@ -112,6 +123,7 @@ RSpec.describe ProjectsController, type: :controller do
 
     context 'as a member' do
       before(:each) do
+        @member.confirm
         sign_in @member
       end
       it 'should not be able to go to :new template' do
@@ -122,6 +134,7 @@ RSpec.describe ProjectsController, type: :controller do
     end
     context 'as an administrator' do
       before(:each) do
+        @admin.confirm
         sign_in @admin
       end
       it 'should render the :new template' do
@@ -147,23 +160,29 @@ RSpec.describe ProjectsController, type: :controller do
 
     context 'For a Member' do
       before(:each) do
+        @member.confirm
         sign_in @member
       end
       it 'should not be able to create a project' do
-        expect { post :create, project: project_attr }
-          .to raise_exception(CanCan::AccessDenied)
+        expect do
+          post :create, project: project_attr
+          Company.current_id = @company.id
+        end.to raise_exception(CanCan::AccessDenied)
       end
     end
 
     context 'For an Administrator' do
       before(:each) do
+        @admin.confirm
         sign_in @admin
       end
 
       context 'with valid attributes' do
         it 'should save the new project in the database' do
-          expect { post :create, project: project_attr }
-            .to change(Project, :count).by(1)
+          expect do
+            post :create, project: project_attr
+            Company.current_id = @company.id
+          end.to change(Project, :count).by(1)
           expect(flash[:notice]).to eq 'Successfully created a project.'
         end
         it "should redirect to that new project's page" do
@@ -176,10 +195,12 @@ RSpec.describe ProjectsController, type: :controller do
         it 'should not save the new project in the database' do
           expect do
             post :create, project: invalid_project_attr
+            Company.current_id = @company.id
           end.to_not change(Project, :count)
         end
         it 'should re-render the :new template' do
           post :create, project: invalid_project_attr
+          Company.current_id = @company.id
           expect(response).to render_template :new
         end
       end
@@ -203,13 +224,16 @@ RSpec.describe ProjectsController, type: :controller do
       end
 
       it 'should not be able to locate the project' do
-        expect { put :update, id: project, project: project_attr }
-          .to raise_exception(CanCan::AccessDenied)
+        expect do
+          put :update, id: project, project: project_attr
+          Company.current_id = @company.id
+        end.to raise_exception(CanCan::AccessDenied)
       end
     end
 
     context 'For an Administrator' do
       before(:each) do
+        @admin.confirm
         sign_in @admin
       end
 
@@ -224,6 +248,7 @@ RSpec.describe ProjectsController, type: :controller do
             :project, title: edit_title,
                       description: edit_description
           )
+          Company.current_id = @company.id
           project.reload
           expect(project.title).to eq(edit_title)
           expect(project.description).to eq(edit_description)
@@ -231,6 +256,7 @@ RSpec.describe ProjectsController, type: :controller do
 
         it 'should redirect to the updated project' do
           put :update, id: project, project: project_attr
+          Company.current_id = @company.id
           expect(response).to redirect_to @project
         end
       end
@@ -247,6 +273,7 @@ RSpec.describe ProjectsController, type: :controller do
                        project: FactoryGirl.attributes_for(
                          :project, title: edit_title, description: nil
                        )
+          Company.current_id = @company.id
           project.reload
           expect(project.title).to_not eq(edit_title)
         end
@@ -255,6 +282,7 @@ RSpec.describe ProjectsController, type: :controller do
           put :update, id: project, project: FactoryGirl.attributes_for(
             :invalid_project
           )
+          Company.current_id = @company.id
           expect(response).to render_template :edit
         end
       end
@@ -275,26 +303,32 @@ RSpec.describe ProjectsController, type: :controller do
 
     context 'For a Member' do
       before(:each) do
+        @member.confirm
         sign_in @member
       end
       it 'should not be able to delete a project' do
-        expect { delete :destroy, id: @project }
-          .to raise_exception(CanCan::AccessDenied)
+        expect do
+          delete :destroy, id: @project
+          Company.current_id = @company.id
+        end.to raise_exception(CanCan::AccessDenied)
       end
     end
 
     context 'For an Administrator' do
       before(:each) do
+        @admin.confirm
         sign_in @admin
       end
       it 'can delete a project' do
         if @project.destroy
+          Company.current_id = @company.id
           expect { @project.reload }.to raise_error ActiveRecord::RecordNotFound
         end
       end
 
       it 'should redirect to projects#index' do
         delete :destroy, id: @project
+        Company.current_id = @company.id
         expect(response).to redirect_to projects_url
       end
     end
