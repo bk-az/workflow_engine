@@ -1,6 +1,4 @@
 class TeamMembership < ActiveRecord::Base
-  not_multitenant
-
   validates :is_team_admin, inclusion: { in: [true, false] }
   validates :is_approved, inclusion: { in: [true, false] }
   validates :user_id, presence: true
@@ -8,4 +6,5 @@ class TeamMembership < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :team
+  belongs_to :company
 end

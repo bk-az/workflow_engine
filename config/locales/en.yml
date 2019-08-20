@@ -72,6 +72,9 @@ en:
       notice: 'Issue updated successfully'
       save_issue: 'Issue created and saved successfully'
       destroy_issue: 'Issue deleted successfully'
+    confirm_delete:
+      default: 'Are you sure you want to delete this issue?'
+      watchers_exist_warning: "Are you sure you want to delete this issue? It contains %{watchers_count} watcher"
 
   comments:
     create:

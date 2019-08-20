@@ -119,8 +119,7 @@ class IssuesController < ApplicationController
 
   # Permits columns of issue that are not blank for search
   def search_params
-    params.
-      permit(:project_id, :assignee_id, :issue_state_id, :issue_type_id).
-      delete_if { |_key, value| value.blank? }
+    params.permit(:project_id, :assignee_id, :issue_state_id, :issue_type_id)
+          .delete_if { |_key, value| value.blank? }
   end
 end

@@ -30,4 +30,13 @@ module IssuesHelper
   def badge_class_from_priority(priority)
     BADGES[priority]
   end
+
+  def issue_delete_data_confirm(issue)
+    watchers_count = issue.issue_watchers.count
+    if watchers_count.zero?
+      t('issues.confirm_delete.default')
+    else
+      t('issues.confirm_delete.watchers_exist_warning', watchers_count: watchers_count).pluralize(watchers_count)
+    end
+  end
 end
