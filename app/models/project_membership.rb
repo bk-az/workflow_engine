@@ -1,11 +1,12 @@
 class ProjectMembership < ActiveRecord::Base
+  not_multitenant
+
   validates :project_id, :project_member_id, :project_member_type, presence: true
 
   scope :user_memberships, -> { where(project_member_type: 'User') }
   scope :team_memberships, -> { where(project_member_type: 'Team') }
 
   belongs_to :project
-  belongs_to :company
   belongs_to :project_member, polymorphic: true
 
   # class methods

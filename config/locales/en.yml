@@ -43,20 +43,14 @@ en:
 
   issue_types:
     create:
-      success: "Issue Type created successfully"
-      failure: "Issue Type not created"
+      created: "Issue Type created successfully"
+      not_created: "Issue Type not created"
     destroy:
-      success: "Issue Type deleted successfully"
-      failure: "Unable to delete this Issue Type"
-      dependent_issues:
-        one: "1 issue using this issue type"
-        other: "%{count} issues using this issue type"
+      deleted: "Issue Type deleted successfully"
+      not_deleted: "Unable to delete this Issue Type"
     update:
-      success: "Issue Type updated successfully"
-      failure: "Issue Type not updated"
-      cannot_update_scope:
-        one: "1 issue found, preventing to change scope of this issue type"
-        other: "%{count} issues found, preventing to change scope of this issue type"
+      updated: "Issue Type updated successfully"
+      not_updated: "Issue Type not updated"
 
   project_memberships:
     create:

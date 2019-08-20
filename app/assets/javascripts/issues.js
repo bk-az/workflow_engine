@@ -2,7 +2,7 @@ $(function() {
   $('#issues_filter_form').on("change", function() {
     $(this).submit();
   });
-
+  
   $('#issues_table').DataTable({
     "paging": false,
     "info":   false
@@ -30,10 +30,5 @@ $(function() {
   });
   $('#issue_due_date').datepicker({
      dateFormat: 'yy-mm-dd'
-  });
-
-  issuesModal = $('#issues_modal');
-  issuesModal.on('shown.bs.modal', function(){
-    issuesTable.columns.adjust();
   });
 });

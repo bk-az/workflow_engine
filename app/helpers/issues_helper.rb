@@ -30,13 +30,4 @@ module IssuesHelper
   def badge_class_from_priority(priority)
     BADGES[priority]
   end
-
-  def issue_delete_data_confirm(issue)
-    watchers_count = issue.issue_watchers.count
-    if watchers_count > 0
-      "Are you sure you want to delete this issue? It contains #{watchers_count} watcher".pluralize(watchers_count)
-    else
-      'Are you sure you want to delete this issue?'
-    end
-  end
 end

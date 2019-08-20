@@ -45,7 +45,6 @@ Rails.application.routes.draw do
 
   resources :issue_types do
     get :autocomplete_project_title, on: :collection
-    get :issues, on: :member
   end
 
   get 'user_companies/find', to: 'user_companies#find'

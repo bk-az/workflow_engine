@@ -1,22 +1,24 @@
 class IssueWatcher < ActiveRecord::Base
+  not_multitenant
+
   belongs_to :issue
-  belongs_to :company
   belongs_to :watcher, polymorphic: true
 
-  WATECHER_TYPES = [user: 'User', team: 'Team'].freeze
+  WATCHER_TYPE_USER = 'User'.freeze
+  WATCHER_TYPE_TEAM = 'Team'.freeze
 
   # Adds watcher to database
   def self.add_watcher(params)
     issue = Issue.find_by(id: params[:issue_id])
     begin
       if issue.present?
-        if params[:watcher_type] == WATCHER_TYPES[:user]
+        if params[:watcher_type] == WATCHER_TYPE_USER
           user = User.find_by(id: params[:watcher_id])
           if user.present?
             user.watching_issues << issue
             return issue, user
           end
-        elsif params[:watcher_type] == WATCHER_TYPES[:team]
+        elsif params[:watcher_type] == WATCHER_TYPE_TEAM
           team = Team.find_by(id: params[:watcher_id])
           if team.present?
             team.watching_issues << issue
@@ -38,10 +40,10 @@ class IssueWatcher < ActiveRecord::Base
 
     if issue_watcher.present?
       issue_watcher.destroy
-      if params[:watcher_type] == WATCHER_TYPES[:user]
+      if params[:watcher_type] == WATCHER_TYPE_USER
         user = User.find_by(id: params[:watcher_id])
         return issue, user
-      elsif params[:watcher_type] == WATCHER_TYPES[:team]
+      elsif params[:watcher_type] == WATCHER_TYPE_TEAM
         team = Team.find_by(id: params[:watcher_id])
         return issue, team
       end
@@ -52,10 +54,10 @@ class IssueWatcher < ActiveRecord::Base
   def self.get_watchers_to_add(params)
     issue = Issue.find_by(id: params[:issue_id])
     if issue.present?
-      if params[:watcher_type] == WATCHER_TYPES[:user]
+      if params[:watcher_type] == WATCHER_TYPE_USER
         watchers = User.where('first_name LIKE ?', "%#{sanitize_sql_like(params[:watcher_search])}%")
                        .where.not(id: issue.watcher_users.ids)
-      elsif params[:watcher_type] == WATCHER_TYPES[:team]
+      elsif params[:watcher_type] == WATCHER_TYPE_TEAM
         watchers = Team.where('name LIKE ?', "%#{sanitize_sql_like(params[:watcher_search])}%")
                        .where.not(id: issue.watcher_teams.ids)
       end
@@ -67,10 +69,10 @@ class IssueWatcher < ActiveRecord::Base
   def self.get_watchers_to_remove(params)
     issue = Issue.find_by(id: params[:issue_id])
     if issue.present?
-      if params[:watcher_type] == WATCHER_TYPES[:user]
+      if params[:watcher_type] == WATCHER_TYPE_USER
         watchers = User.where('first_name LIKE ?', "%#{sanitize_sql_like(params[:watcher_search])}%")
                        .where(id: issue.watcher_users.ids)
-      elsif params[:watcher_type] == WATCHER_TYPES[:team]
+      elsif params[:watcher_type] == WATCHER_TYPE_TEAM
         watchers = Team.where('name LIKE ?', "%#{sanitize_sql_like(params[:watcher_search])}%")
                        .where(id: issue.watcher_teams.ids)
       end
