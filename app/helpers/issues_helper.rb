@@ -13,7 +13,7 @@ module IssuesHelper
     Issue::PRIORITY
   end
 
-  def get_readable_information(key, value)
+  def get_associated_information(key, value)
     if value.blank?
       result = 'NULL'
     elsif KEY_TO_CLASS_MAPPINGS.keys.include?(key.to_sym)

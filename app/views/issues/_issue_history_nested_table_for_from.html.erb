@@ -2,7 +2,7 @@
   <% audit.audited_changes.each do |key, value| %>
     <tr>
       <td>
-        <%= get_readable_information(key, value[0]) %>
+        <%= get_associated_information(key, value[0]) %>
       </td>
     </tr>
   <% end %>
