@@ -33,7 +33,7 @@
           <div id="js_ajax_request_notification"></div>
           <div class="form-group">
             <label for="js_role_select">Role:</label>
-            <select id="js_role_select" class="form-control form-control-sm">
+            <select id="js_role_select" class="form-control">
               <% @roles.each do |role| %>
                 <option value="<%= role.id %>" 
                   <% if role.id == @members[0].role_id %> selected <% end %>>

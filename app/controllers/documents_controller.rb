@@ -2,7 +2,7 @@ class DocumentsController < ApplicationController
   before_action :authenticate_user!
   load_resource :issue
   load_resource :project
-  load_and_authorize_resource
+  load_and_authorize_resource through: [:issue, :project]
 
   def index
     if params[:issue_id].present?

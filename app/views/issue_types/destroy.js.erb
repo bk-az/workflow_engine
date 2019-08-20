@@ -1,7 +1,6 @@
-$("#flash_messages").html('<%= j render partial: "layouts/notice" %>');
-$("#error_messages").html('<%= j render partial: "layouts/errors", locals: {model: @issue_type} %>');
+$("#flash_messages").html('<%= j render partial: "shared/flash" %>');
 
-<% if @issue_type.errors.blank? %>
+<% if @issue_type.destroyed? %>
   issueTypesTable.row("#<%= issue_type_table_row_id(@issue_type) %>").remove().draw();
 <% end %>
 $("#flash_messages").html("<%= j render partial: 'shared/flash' %>");

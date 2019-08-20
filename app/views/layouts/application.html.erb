@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
     <%= javascript_include_tag 'application' %>
     <!-- BOOTSTRAP 4 COMPONENTS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
@@ -24,7 +25,7 @@
 
     <%= csrf_meta_tags %>
   </head>
-  <body>
+  <body class="<%= main_body_class_provider %>">
     <%= render "layouts/header" %>
     
     <% if user_signed_in? %>
@@ -40,6 +41,11 @@
           </div>
           <div id="flash_messages"></div>
           <div id="error_messages"></div>
+          <% if user_signed_in? %>
+            <ul id="breadcrumb">
+              <li><a href="#"><%= render_breadcrumbs tag: :li, separator: '' %></a></li>
+            </ul>
+          <% end %>
           <%= yield %>                
         </div>
       </div>

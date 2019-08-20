@@ -2,7 +2,7 @@ $('#issue_type_form_area').html('<%= j render partial: "issue_type_form" %>');
 issueTypeModal.modal('show');
 
 <% if params[:project_id].nil? && @issue_type.project_id.present? %>
-  $('#issue_type_category').val('issue_specific');
+  $('#issue_type_category').val('project_specific');
   $('#project_search_area').attr("hidden", false);
 <% elsif params[:project_id].present? && @issue_type.project_id.blank? %>
   issueTypeCategoryToggleSetGlobal();

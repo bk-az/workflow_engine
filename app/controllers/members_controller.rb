@@ -2,9 +2,11 @@ class MembersController < ApplicationController
   before_action :authenticate_user!
   authorize_resource class: false
   before_action :changed_sys_generated_password?, only: [:show_change_password_form, :change_password]
+  add_breadcrumb 'Members', :members_path
 
   # GET /members/new
   def new
+    add_breadcrumb 'New Member', :new_member_path
     set_invitation_view_variables
     # Make a dummy new user.
     @new_user = User.new
@@ -26,7 +28,7 @@ class MembersController < ApplicationController
     @new_user.has_changed_sys_generated_password = false
 
     @new_user.password = generate_random_password
-    
+
     if @new_user.save
       @new_user.send_invitation_email(company, @new_user.role) unless @new_user.skip_invitation_email
       flash[:success] = t('members.create.success')
@@ -55,8 +57,8 @@ class MembersController < ApplicationController
     # Get all users that belong to company which is owned by current user.
     # Exlude the logged in user himself.
     @members = @company.users.where.not(id: current_user.id).active.includes(:role)
-
     @roles = Role.all
+    add_breadcrumb 'Privileges', :privileges_members_path
 
     respond_to do |format|
       format.html { render 'members/privileges' }
@@ -86,6 +88,7 @@ class MembersController < ApplicationController
   def show
     @company = current_tenant
     @member = @company.users.where.not(id: current_user.id).active.find(params[:id])
+    add_breadcrumb @member.name, :member_path
 
     respond_to do |format|
       format.html { render 'members/show' }
@@ -97,6 +100,9 @@ class MembersController < ApplicationController
     @company = current_tenant
     @member = @company.users.active.find(params[:id])
     @roles = Role.all
+
+    add_breadcrumb @member.name, :member_path
+    add_breadcrumb 'Edit', :edit_member_path
 
     respond_to do |format|
       format.html { render 'members/edit' }

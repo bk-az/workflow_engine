@@ -1,4 +1,3 @@
-
 <div class="wrapper">
   <h2 class="float-left"><%= @issue.title %></h2>
   <% if can?(:history, @issue) %>
@@ -20,7 +19,7 @@
   </div>
 
   <% if can?(:destroy, @issue) %>
-    <%= link_to "Delete", project_issue_path(@issue.project_id, @issue.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-secondary float-right mr-2' %>
+    <%= link_to "Delete", project_issue_path(@issue.project_id, @issue.id), method: :delete, data: { confirm: issue_delete_data_confirm(@issue) }, class: 'btn btn-secondary float-right mr-2', id: 'issue_delete_button' %>
   <% end %>
 
   <% if can?(:update, @issue) %>
