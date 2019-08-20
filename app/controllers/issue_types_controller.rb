@@ -30,7 +30,8 @@ class IssueTypesController < ApplicationController
     if @issue_type.save
       flash.now[:success] = t('.created')
     else
-      flash.now[:danger] = t('.not_created')
+      flash.now[:error] = @issue_type.errors.full_messages
+      flash.now[:error] << t('.not_created')
     end
     respond_to do |format|
       format.js
@@ -48,7 +49,8 @@ class IssueTypesController < ApplicationController
       @issue_type.update(issue_type_params)
       flash.now[:success] = t('.updated') if @issue_type.errors.blank?
     else
-      flash.now[:danger] = t('.not_updated')
+      flash.now[:error] = @issue_type.errors.full_messages
+      flash.now[:error] << t('.not_updated')
     end
     respond_to do |format|
       format.js
@@ -57,7 +59,8 @@ class IssueTypesController < ApplicationController
 
   def destroy
     if @issue_type.dependent_issues_present?
-      flash.now[:danger] = t('.not_deleted')
+      flash.now[:error] = @issue_type.errors.full_messages
+      flash.now[:error] << t('.not_deleted')
     else
       @issue_type.destroy
       flash.now[:success] = t('.deleted')

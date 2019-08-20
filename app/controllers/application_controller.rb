@@ -23,7 +23,8 @@ class ApplicationController < ActionController::Base
 
   SUBDOMAIN_INDEPENDENT_URLS = [
     ['POST', '/users'],
-    ['PUT', '/users']
+    ['PUT', '/users'],
+    ['GET', '/users/sign_up/verify_subdomain_availability']
   ]
 
   rescue_from ActiveRecord::RecordNotFound, CanCan::AccessDenied do |exception|

@@ -24,7 +24,7 @@
 
     <%= csrf_meta_tags %>
   </head>
-  <body>
+  <body class="<%= main_body_class_provider %>">
     <%= render "layouts/header" %>
     
     <% if user_signed_in? %>
@@ -35,9 +35,9 @@
     <div id="page-content-wrapper">
       <div class="row">
         <div id="main_container_to_right_of_sidebar" class="<%= main_layout_class %>">
-          <%= render 'shared/flash' %>
-          <div id="flash_messages"></div>
-          <div id="error_messages"></div>
+          <div id="flash_messages">
+            <%= render 'shared/flash' %>
+          </div>
           <%= yield %>                
         </div>
       </div>

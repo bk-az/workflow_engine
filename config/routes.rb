@@ -56,6 +56,9 @@ Rails.application.routes.draw do
     registrations: 'users/registrations',
     confirmations: 'users/confirmations'
   }
+  devise_scope :user do
+    get 'users/sign_up/verify_subdomain_availability', to: 'users/registrations#verify_subdomain_availability'
+  end
 
   get 'reports/issues', to: 'reports#issues', as: 'issues_report'
   get 'workplace', to: 'dashboard#index', as: 'dashboard'
@@ -74,10 +77,7 @@ Rails.application.routes.draw do
 
   resources :issue_watchers do
     collection do
-      post 'create_watcher'
-      post 'destroy_watcher'
-      get  'search_watcher_to_add'
-      get  'search_watcher_to_destroy'
+      get 'search'
     end
   end
 end
