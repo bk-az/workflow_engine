@@ -99,6 +99,7 @@ class IssuesController < ApplicationController
     end
   end
 
+  # GET /issues/:id/history
   def history
     @audits = @issue.audits
     respond_to do |format|
