@@ -1,6 +1,7 @@
 class TeamsController < ApplicationController
   before_action :authenticate_user!
   load_and_authorize_resource find_by: :sequence_num, through: :current_tenant
+  add_breadcrumb 'Teams', :teams_path
 
   # GET /index
   def index
@@ -18,6 +19,7 @@ class TeamsController < ApplicationController
 
   # GET /show
   def show
+    add_breadcrumb @team.name, :team_path
     @team_memberships, @all_members = @team.member_and_team_memberships
     respond_to do |format|
       format.html

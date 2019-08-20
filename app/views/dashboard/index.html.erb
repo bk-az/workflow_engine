@@ -1,6 +1,9 @@
-<ul class="nav nav-pills mb-4" role="tablist">
+<ul class="nav nav-pills mb-4 js-dashboard-tabs" role="tablist">
   <li class="nav-item">
-    <a class="btn btn-outline-secondary mr-2 active" id="pills_projects_tab" data-toggle="pill" href="#pills_projects" role="tab" aria-controls="pills_projects" aria-selected="true">My Projects</a>
+    <a class="btn btn-outline-secondary mr-2 active" id="pills_timeline_tab" data-toggle="pill" href="#pills_timeline" role="tab" aria-controls="pills_timeline" aria-selected="false">Timeline</a>
+  </li>
+  <li class="nav-item">
+    <a class="btn btn-outline-secondary mr-2" id="pills_projects_tab" data-toggle="pill" href="#pills_projects" role="tab" aria-controls="pills_projects" aria-selected="true">My Projects</a>
   </li>
   <li class="nav-item">
     <a class="btn btn-outline-secondary mr-2" id="pills_assigned_issues_tab" data-toggle="pill" href="#pills_assigned_issues" role="tab" aria-controls="pills_assigned_issues" aria-selected="false">Assigned Issues</a>
@@ -8,11 +11,22 @@
   <li class="nav-item">
     <a class="btn btn-outline-secondary mr-2" id="pills_watching_issues_tab" data-toggle="pill" href="#pills_watching_issues" role="tab" aria-controls="pills_watching_issues" aria-selected="false">Watching Issues</a>
   </li>
+  <li class="nav-item">
+    <a class="btn btn-outline-secondary mr-2" id="pills_charts_tab" data-toggle="pill" href="#pills_charts" role="tab" aria-controls="pills_charts" aria-selected="false">Statistics</a>
+  </li>
 </ul>
 
-
 <div class="tab-content">
-  <div class="tab-pane fade show active" id="pills_projects" role="tabpanel" aria-labelledby="pills_projects_tab">
+  <div class="tab-pane fade show active" id="pills_timeline" role="tabpanel" aria-labelledby="pills_timeline_tab">
+    <p class="h3 my-4">Issues Timeline</p>
+    <% if @timeline_data.blank? %>
+      <p class="my-4">You don't have any issues assigned right now</p>
+    <% else %>
+      <%= timeline @timeline_data, id: 'timeline_chart' ,height: "70vh" %>
+    <% end %>
+  </div>
+
+  <div class="tab-pane fade" id="pills_projects" role="tabpanel" aria-labelledby="pills_projects_tab">
     <div class="row">
       <div class="col-4">
         <p class="h3 my-4">Projects</p>
@@ -35,9 +49,9 @@
                 <th>Priority</th>
               </tr>
             </thead>
-              <tbody id="selected_project_issues">
+              <tbody>
                 <% if @issues.present? %>
-                  <%= render partial: "issue_list", collection: @issues, as: :issue %>
+                  <%= render partial: "shared/list_issues", collection: @issues, as: :issue %>
                 <% end %>
               </tbody>
           </table>
@@ -46,8 +60,8 @@
     </div>
   </div>
 
-
   <div class="tab-pane fade" id="pills_assigned_issues" role="tabpanel" aria-labelledby="pills_assigned_issues_tab">
+    <p class="h3 my-4">Assigned Issues</p>
     <table class="table table-hover" id="assigned_issues_table">
       <thead>
         <tr>
@@ -57,13 +71,13 @@
         </tr>
       </thead>
         <tbody>
-          <%= render partial: "issue_list", collection: @assigned_issues, as: :issue %>
+          <%= render partial: "shared/list_issues", collection: @assigned_issues, as: :issue %>
         </tbody>
     </table>
   </div>
 
-
   <div class="tab-pane fade" id="pills_watching_issues" role="tabpanel" aria-labelledby="pills_watching_issues_tab">
+    <p class="h3 my-4">Watching Issues</p>
     <table class="table table-hover" id="watching_issues_table">
       <thead>
         <tr>
@@ -72,9 +86,30 @@
           <th>Priority</th>
         </tr>
       </thead>
-        <tbody id="selected_project_issues">
-          <%= render partial: "issue_list", collection: @watching_issues, as: :issue %>
+        <tbody>
+          <%= render partial: "shared/list_issues", collection: @watching_issues, as: :issue %>
         </tbody>
     </table>
+  </div>
+
+  <div class="tab-pane fade" id="pills_charts" role="tabpanel" aria-labelledby="pills_charts_tab">
+    <div class="row">
+      <div class="col-6">
+        <p class="h3 my-4">Assigned Issues</p>
+        <% if @assigned_issues.any? %>
+          <%= pie_chart @assigned_issues_pie_chart_data %>
+        <% else %>
+          <p class="my-4">No issues assigned to you right now.</p>
+        <% end %>
+      </div>
+      <div class="col-6">
+        <p class="h3 my-4">Watching Issues</p>
+        <% if @watching_issues.any? %>
+          <%= pie_chart @watching_issues_pie_chart_data %>
+        <% else %>
+          <p class="my-4">You are not watching any issues.</p>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>
