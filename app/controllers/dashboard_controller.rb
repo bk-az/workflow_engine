@@ -10,6 +10,9 @@ class DashboardController < ApplicationController
       @project = @projects.first
       @issues = @project.issues
     end
+    @timeline_data = @assigned_issues.order(:start_date).pluck(:title, :start_date, :due_date)
+    @watching_issues_pie_chart_data = @watching_issues.group_by_issue_state.count
+    @assigned_issues_pie_chart_data = @assigned_issues.group_by_issue_state.count
     respond_to do |format|
       format.html
     end

@@ -1,4 +1,15 @@
-dashboardTable.hide();
-$('#selected_project_issues').html('<%= j render partial: "issue_list", collection: @issues, as: :issue %>');
-dashboardTable.fadeIn(700);
-dashboardTable.invalidate().draw();
+projectIssues.hide();
+projectIssuesTable.destroy();
+$('#project_issues_table tbody').html('<%= j render partial: "shared/list_issues", collection: @issues, as: :issue %>');
+
+projectIssuesTable = $('#project_issues_table').DataTable({
+    info: false,
+    paging: false,
+    scrollY:  "38vh",
+    scrollCollapse: true,
+    oLanguage: {
+        sEmptyTable: "No issue found"
+    }
+  });
+projectIssues.fadeIn(700);
+projectIssuesTable.columns.adjust();
