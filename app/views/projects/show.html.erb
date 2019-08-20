@@ -3,10 +3,11 @@
 <%= link_to 'Edit Project', edit_project_path(@project),class: 'btn btn-secondary float-right mr-2' %>
 <%= link_to 'Delete Project', project_path(@project),class: 'btn btn-secondary float-right mr-2', method: 'delete', data: { confirm: 'Are you sure?' } %>
 <a class="btn btn-secondary float-right mr-2" href= "<%= project_members_path(@project) %>">
-      <i class="fas fa-users mr-2"></i>
-      <strong>Members</strong>
+      <i class="fas fa-users mr-2"></i>Members
     </a>
 <br><br><br>
+
+<p class="h5 text-muted jumbotron"><%= @project.description %></p>
 
 <h2 class="float-left">Issues</h2>
 
@@ -30,37 +31,13 @@
   </tbody>
 </table>
 
+<br><br>
+<div class="page-header">
+  <h3 class="float-left">Documents</h3>
+  <button type="button" class="btn btn-secondary float-right" data-toggle="modal" data-target="#upload_document_modal">Upload Document</button>
+  <%= render partial: 'documents/upload_document_modal' %>
+</div>
+<br><br><br>
+<%= render partial: "documents/show_documents", locals: { documents: @project.documents } %>
+
 <%= render 'comments/comment' %>
-
-<%= link_to 'Show all Documents', project_documents_path(@project),class: 'btn btn-secondary' %>
-
-
-
-<div class="page-header"><h3>Upload Document</h3></div>
-
-<%= form_for [@project, @document], html: { multipart: true } do |f| %>
-  <% if @document.errors.any? %>
-    <div id="error_explanation">
-      <h2>
-        <%= "#{pluralize(@document.errors.count, "error")} prohibited this document from being saved:" %>
-      </h2>
-      <ul>
-        <% @document.errors.full_messages.each do |msg| %>
-          <li>
-            <%= msg %>
-          </li>
-          <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-
-  <div class="form-group upload_document_field">
-    <%= f.file_field :document %> 
-  </div>
-
-  <div class="form-group">
-        <%= f.submit 'Upload Document', class: 'btn btn-secondary' %>
-  </div>
-<% end %>
-

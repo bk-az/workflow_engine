@@ -5,13 +5,19 @@ class IssuesController < ApplicationController
 
   # GET /issues
   def index
-    @projects = current_user.visible_projects
-    @issues = @issues.order(:project_id).page(params[:page])
-    @issue_types = current_tenant.issue_types.all
-    @issue_states = current_tenant.issue_states.all
-    @assignees = current_tenant.users.all
+    if params[:issue_type_id].nil?
+      @projects = current_user.visible_projects
+      @issues = @issues.order(:project_id).page(params[:page])
+      @issue_types = current_tenant.issue_types.all
+      @issue_states = current_tenant.issue_states.all
+      @assignees = current_tenant.users.all
+    else
+      @issue_type = IssueType.includes(:issues).find(params[:issue_type_id])
+      @issues = @issue_type.issues
+    end
     respond_to do |format|
       format.html
+      format.js
     end
   end
 

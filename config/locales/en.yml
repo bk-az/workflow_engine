@@ -22,9 +22,9 @@
 en:
   team:
     create:
-      success: 'Team created Successfully'
+      success: 'Team created successfully'
     destroy:
-      success: 'Successfully deleted team!'
+      success: 'Team deleted successfully'
     update:
       success: 'Team updated successfully'
     remove_member:
@@ -32,46 +32,52 @@ en:
       
   issue_states:
     create:
-      created: "Issue State created Successfully"
-      not_created: "Issue State not Created"
+      created: "Issue State created successfully"
+      not_created: "Issue State not created"
     destroy:
-      deleted: "Issue State Deleted Successfully"
+      deleted: "Issue State deleted successfully"
       not_deleted: "Unable to delete this Issue State"
     update:
-      updated: "Issue State Updated Successfully"
-      not_updated: "Issue State not Updated"
+      updated: "Issue State updated successfully"
+      not_updated: "Issue State not updated"
 
   issue_types:
     create:
-      created: "Issue Type created Successfully"
-      not_created: "Issue Type not Created"
+      success: "Issue Type created successfully"
+      failure: "Issue Type not created"
     destroy:
-      deleted: "Issue Type Deleted Successfully"
-      not_deleted: "Unable to delete this Issue Type"
+      success: "Issue Type deleted successfully"
+      failure: "Unable to delete this Issue Type"
+      dependent_issues:
+        one: "1 issue using this issue type"
+        other: "%{count} issues using this issue type"
     update:
-      updated: "Issue Type Updated Successfully"
-      not_updated: "Issue Type not Updated"
+      success: "Issue Type updated successfully"
+      failure: "Issue Type not updated"
+      cannot_update_scope:
+        one: "1 issue found, preventing to change scope of this issue type"
+        other: "%{count} issues found, preventing to change scope of this issue type"
 
   project_memberships:
     create:
-      created: "Member Added Successfully"
-      not_created: "Member not Added"
+      created: "Member added successfully"
+      not_created: "Member not added"
 
   document:
     create:
-      success: 'Document saved successfully!'
+      success: 'Document uploaded successfully'
     destroy:
-      success: 'Successfully deleted document!'
+      success: 'Document deleted successfully'
 
   issues:
     create:
-      notice: 'Issue Created successfully!'
+      notice: 'Issue created successfully'
     destroy:
-      notice: 'Issue Deleted successfully'
+      notice: 'Issue deleted successfully'
     update:
-      notice: 'Issue Updated successfully!'
-      save_issue: 'Issue Created and Saved  successfully!'
-      destroy_issue: 'Issue Deleted successfully'
+      notice: 'Issue updated successfully'
+      save_issue: 'Issue created and saved successfully'
+      destroy_issue: 'Issue deleted successfully'
 
   comments:
     create:
@@ -80,41 +86,42 @@ en:
       not_created: 'Unable to add comment'
     update:
       btn: 'Update'
-      updated: 'Comment updated successfully!'
-      not_updated: 'Comment is invalid!'
+      updated: 'Comment updated successfully'
+      not_updated: 'Comment is invalid'
     destroy:
       destroyed: 'Comment deleted'
-      not_destroyed: 'Comment could not be destroyed.'
+      not_destroyed: 'Comment could not be destroyed'
 
   projects:
     create:
-      created: 'Successfully created a project.'
+      created: 'Project created successfully'
     update:
-      updated: 'Project updated successfully!'
+      updated: 'Project updated successfully'
     destroy:
-      destroyed: 'Project destroyed successfully!'
-      not_destroyed: 'Project could not be destroyed.'
+      dependent_issues: "Unable to delete project, contains %{count} active issues"
+      destroyed: 'Project deleted successfully'
+      not_destroyed: 'Project could not be deleted'
  
   users:
     sessions:
       new:
-        success: 'Your account has been created successfully. A confirmation email is sent to you. Confirm your email and login here.'
+        success: 'Your account has been created successfully. A confirmation email is sent to you. Confirm your email and login here'
 
   members:
     create:
-      success: 'Invitation Sent Successfully!'
+      success: 'Invitation sent successfully'
     update:
-      success: 'Details Updated Successfully!'
+      success: 'Details updated successfully'
     destroy:
-      success: 'Member Deactivated Successfully!'
+      success: 'Member deactivated successfully'
     change_password:
-      success: 'Your password has been changed successfully.'
+      success: 'Your password has been changed successfully'
     show_change_password_form: # For invited_user?
-      failure: 'You cannot access that page. Either you have already changed your password or you are not an inivited user.'
+      failure: 'You cannot access that page. Either you have already changed your password or you are not an inivited user'
 
   models:
     user:
       check_for_issues:
-        error_message: 'Cannot deactivate this Member as there are Issues assigned to him/her.'
+        error_message: 'Cannot deactivate this Member as there are Issues assigned to him/her'
       check_for_ownership_of_company:
-        error_message: 'Cannot deactivate this Member as he/she is owner of the current company.'
+        error_message: 'Cannot deactivate this Member as he/she is owner of the current company'

@@ -1,0 +1,5 @@
+cd ~/Downloads
+wget http://staruml.io/download/releases/StarUML-3.0.1-x86_64.AppImage
+chmod +x StarUML-3.0.1-x86_64.AppImage
+./StarUML-3.0.1-x86_64.AppImage
+

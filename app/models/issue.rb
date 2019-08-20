@@ -1,15 +1,16 @@
 # Model Class
 class Issue < ActiveRecord::Base
   audited associated_with: :project
-  
+
   PRIORITY = {
     Low: 0,
     Medium: 1,
     High: 2
   }.freeze
 
+  scope :group_by_issue_state, -> { joins(:issue_state).group(:name) }
+
   after_save :send_email
-  # Kaminari build-in attribute for pagination size per page
   paginates_per 7
 
   # Validations
@@ -17,6 +18,8 @@ class Issue < ActiveRecord::Base
   validates :description, length: { minimum: 3, maximum: 500 }
   validates :progress, presence: true, length: { minimum: 1, maximum: 5 }
   validates :priority, presence: true
+  validates :issue_state_id, presence: true
+  validates :issue_type_id, presence: true
 
   belongs_to :company
   belongs_to :project
@@ -36,12 +39,11 @@ class Issue < ActiveRecord::Base
 
   has_many   :documents
 
-  has_many   :comments, as: :commentable
-  has_many :documents, as: :documentable
+  has_many   :documents, as: :documentable, dependent: :destroy
   has_many   :comments, as: :commentable, dependent: :destroy
 
   # Polymorphic Watchers
-  has_many   :issue_watchers
+  has_many   :issue_watchers, dependent: :destroy
   # has_many   :watchers, through: :issue_watchers
   has_many   :watcher_users, through: :issue_watchers, source: :watcher,
                              source_type: 'User', class_name: 'User'
