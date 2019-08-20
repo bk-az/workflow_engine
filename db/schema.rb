@@ -137,8 +137,8 @@ ActiveRecord::Schema.define(version: 20190817103149) do
     t.integer  "assignee_id",     limit: 4
     t.integer  "parent_issue_id", limit: 4
     t.integer  "project_id",      limit: 4
-    t.integer  "issue_state_id",  limit: 4
-    t.integer  "issue_type_id",   limit: 4
+    t.integer  "issue_state_id",  limit: 4,                 null: false
+    t.integer  "issue_type_id",   limit: 4,                 null: false
     t.integer  "sequence_num",    limit: 4,                 null: false
   end
 
