@@ -35,7 +35,6 @@ Rails.application.routes.draw do
 
   resources :issue_states do
     get :autocomplete_issue_title, on: :collection
-    get :issues, on: :member
   end
 
   resources :project_memberships, only: :destroy do
@@ -46,7 +45,6 @@ Rails.application.routes.draw do
 
   resources :issue_types do
     get :autocomplete_project_title, on: :collection
-    get :issues, on: :member
   end
 
   get 'user_companies/find', to: 'user_companies#find'
@@ -58,6 +56,9 @@ Rails.application.routes.draw do
     registrations: 'users/registrations',
     confirmations: 'users/confirmations'
   }
+  devise_scope :user do
+    get 'users/sign_up/verify_subdomain_availability', to: 'users/registrations#verify_subdomain_availability'
+  end
 
   get 'reports/issues', to: 'reports#issues', as: 'issues_report'
   get 'workplace', to: 'dashboard#index', as: 'dashboard'

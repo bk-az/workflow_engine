@@ -37,6 +37,9 @@ en:
     destroy:
       success: "Issue State deleted successfully"
       failure: "Unable to delete this Issue State"
+      dependent_issues:
+        one: "1 issue using this issue state"
+        other: "%{count} issues using this issue state"
     update:
       success: "Issue State updated successfully"
       failure: "Issue State not updated"
