@@ -15,12 +15,7 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    if @project.save
-      flash[:notice] = t('projects.create.created')
-      redirect_to @project
-    else
-      render :new
-    end
+    create_and_save_project; return if performed?
   end
 
   def show
@@ -44,7 +39,7 @@ class ProjectsController < ApplicationController
 
   def update
     if @project.update(project_params)
-      flash[:notice] = t('projects.update.updated')
+      flash[:notice] = t('projects.update.success')
       redirect_to @project
     else
       render 'edit'
@@ -57,10 +52,9 @@ class ProjectsController < ApplicationController
     else
       @project.destroy
       if @project.destroyed?
-        flash[:notice] = t('projects.destroy.destroyed')
+        flash[:notice] = t('projects.destroy.success')
       else
         flash[:error] = @project.errors.full_messages
-        flash[:error] << t('projects.destroy.not_destroyed')
       end
     end
     respond_to do |format|
@@ -72,5 +66,14 @@ class ProjectsController < ApplicationController
 
   def project_params
     params.require(:project).permit(:title, :description)
+  end
+
+  def create_and_save_project
+    if @project.save
+      flash[:notice] = t('projects.create.success')
+      redirect_to @project
+    else
+      render :new
+    end
   end
 end

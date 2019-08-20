@@ -1,4 +1,4 @@
-<% if @comment_invalid %>
+<% if @is_updated %>
   $("#comment_edit_form_<%= @comment.id %> textarea").addClass('is-invalid');
   alert("Invalid Comment. Please, see errors.");  
 <% else %>

@@ -20,9 +20,9 @@ class CommentsController < ApplicationController
   def create
     @comment.user_id = current_user.id
     if @comment.save
-      flash.now[:notice] = t('comments.create.created')
+      flash.now[:notice] = t('comments.create.success')
     else
-      flash.now[:error] = t('comments.create.not_created')
+      flash.now[:error] = @comment.errors.full_messages
     end
     respond_to do |format|
       format.js
@@ -40,13 +40,12 @@ class CommentsController < ApplicationController
   # PUT /comments/:id(.:format)
   def update
     # @comment_invalid is made instance variable because it is used in update.js.erb file.
-    @comment_invalid = false
+    @is_updated = false
     if @comment.update(comment_params)
-      flash.now[:notice] = t('comments.update.updated')
+      flash.now[:notice] = t('comments.update.success')
     else
       flash.now[:error] = @comment.errors.full_messages
-      flash.now[:error] << t('comments.update.not_updated')
-      @comment_invalid = true
+      @is_updated = true
     end
     respond_to do |format|
       format.js
@@ -56,9 +55,9 @@ class CommentsController < ApplicationController
   # DELETE /comments/:id(.:format)
   def destroy
     if @comment.destroy
-      flash.now[:notice] = t('comments.destroy.destroyed')
+      flash.now[:notice] = t('comments.destroy.success')
     else
-      flash.now[:error] = t('comments.destroy.not_destroyed')
+      flash.now[:error] = @comment.errors.full_messages
     end
     respond_to do |format|
       format.js

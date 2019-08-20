@@ -76,25 +76,21 @@ en:
   comments:
     create:
       btn: 'Comment'
-      created: 'Thanks for your comment'
-      not_created: 'Unable to add comment'
+      success: 'Comment created successfully'
     update:
       btn: 'Update'
-      updated: 'Comment updated successfully'
-      not_updated: 'Comment is invalid'
+      success: 'Comment updated successfully'
     destroy:
-      destroyed: 'Comment deleted'
-      not_destroyed: 'Comment could not be destroyed'
+      success: 'Comment deleted successfully'
 
   projects:
     create:
-      created: 'Project created successfully'
+      success: 'Project created successfully'
     update:
-      updated: 'Project updated successfully'
+      success: 'Project updated successfully'
     destroy:
       dependent_issues: "Unable to delete project, contains %{count} active issues"
-      destroyed: 'Project deleted successfully'
-      not_destroyed: 'Project could not be deleted'
+      success: 'Project deleted successfully'
  
   users:
     sessions:
