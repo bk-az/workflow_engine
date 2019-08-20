@@ -28,6 +28,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  # GET /users/sign_up/verify_subdomain_availability?subdomain=xyz
+  def verify_subdomain_availability
+    respond_to do |format|
+      format.js do
+        render json: { data: { is_found: Company.where(subdomain: params[:subdomain]).exists? } }
+      end
+    end
+  end
+
   protected
 
   def after_update_path_for(resource)
