@@ -8,6 +8,6 @@ module ApplicationHelper
   end
 
   def main_body_class_provider
-    'textured-background' if !user_signed_in? && WITHOUT_TEXTURED_BACKGROUND_PAGES_PATHS.include?(request.path)
+    'textured-background' if !user_signed_in? && !WITHOUT_TEXTURED_BACKGROUND_PAGES_PATHS.include?(request.path)
   end
 end
