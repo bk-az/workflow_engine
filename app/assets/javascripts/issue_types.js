@@ -3,7 +3,6 @@ $(document).ready(function(){
     "info": false
   });
 
-  issueTypeIssuesModal = $('#issue_type_issues_modal');
   issueTypeModal = $('#issue_type_modal');
   issueTypesTableBody = $('#issue_types_datatable tbody');
   issueTypeFlash = $('#issue_type_flash');
@@ -15,10 +14,6 @@ $(document).ready(function(){
   issueTypeModal.on('hidden.bs.modal', function () {
     clearFlashMessages();
     $('#issue_type_form_area').html('');
-  });
-
-  issueTypeIssuesModal.on('shown.bs.modal', function(){
-    issueTypeIssuesTable.columns.adjust();
   });
 
   issueTypesCategoryFilter.change(function() {
