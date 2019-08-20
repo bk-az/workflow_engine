@@ -4,25 +4,41 @@
       <%= link_to 'My Workplace', dashboard_path %>
     </li>
     <li>
-      <a href="<%= members_path %>"><i class="material-icons">people</i>Members</a>
+      <%= link_to(members_path,  class: 'dropdown-item text-secondary mr-2 mb-1 mb-md-0 fixed-width') do %>
+        <i class="fas fa-user-friends"></i> Members
+      <% end %>
     </li>
     <li>
-      <a href="<%= projects_path %>"><i class="material-icons">event_note</i>Projects</a>
+      <%= link_to(projects_path,  class: 'dropdown-item text-secondary mr-2 mb-1 mb-md-0 fixed-width') do %>
+        <i class="fas fa-project-diagram"></i> Projects
+      <% end %>
     </li>
     <li>
-      <a href="<%= teams_path %>"><i class="material-icons">people</i>&nbsp;Teams</a>
+      <%= link_to(teams_path ,  class: 'dropdown-item text-secondary mr-2 mb-1 mb-md-0 fixed-width') do %>
+        <i class="fas fa-user-friends"></i> Teams
+      <% end %>
     </li>
     <li>
-      <a href="<%= issues_path %>"><i class="material-icons">collections_bookmark</i>Issues</a>
+      <%= link_to(issues_path ,  class: 'dropdown-item text-secondary mr-2 mb-1 mb-md-0 fixed-width') do %>
+        <i class="fas fa-bookmark"></i> Issues
+      <% end %>
     </li>
-    <li>
-      <a href="<%= issue_types_path %>"><i class="material-icons">collections_bookmark</i>Issue Types</a>
-    </li>
-    <li>
-      <a href="<%= issue_states_path %>"><i class="material-icons">collections_bookmark</i>Issue States</a>
-    </li>
-    <li>
-      <a href="<%= issues_report_path %>"><i class="material-icons">view_module</i>&nbsp;Issues Report</a>
-    </li>
+    <% if can? :manage, :all %>
+      <li>
+        <%= link_to(issue_types_path  ,  class: 'dropdown-item text-secondary mr-2 mb-1 mb-md-0 fixed-width') do %>
+          <i class="fas fa-bookmark"></i> Issue Types
+        <% end %>
+      </li>
+      <li>
+        <%= link_to(issue_states_path ,  class: 'dropdown-item text-secondary mr-2 mb-1 mb-md-0 fixed-width') do %>
+          <i class="fas fa-bookmark"></i> Issue States
+        <% end %>
+      </li>
+      <li>
+        <%= link_to(issues_report_path  ,  class: 'dropdown-item text-secondary mr-2 mb-1 mb-md-0 fixed-width') do %>
+          <i class="far fa-chart-bar"></i> Issues Reports
+        <% end %>
+      </li>
+    <% end %>
   </ul>
 </div>

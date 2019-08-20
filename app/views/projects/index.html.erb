@@ -1,5 +1,7 @@
 <h1 class="float-left">Projects</h1>
-<%= link_to 'New Project', new_project_path, class: 'btn btn-secondary float-right' %>
+<% if can? :create, :Project %>
+  <%= link_to 'New Project', new_project_path, class: 'btn btn-secondary float-right' %>
+<% end %>
 <br><br><br>
 <div class="card-columns">
   <%= render @projects %>
