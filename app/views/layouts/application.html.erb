@@ -33,14 +33,12 @@
     <% end %>
 
     <div id="page-content-wrapper">
-      <div class="">
-        <div class="row">
-          <div id="main_container_to_right_of_sidebar" class="<%= main_layout_class %>">
+      <div class="row">
+        <div id="main_container_to_right_of_sidebar" class="<%= main_layout_class %>">
+          <div id="flash_messages">
             <%= render 'shared/flash' %>
-            <div id="flash_messages"></div>
-            <div id="error_messages"></div>
-            <%= yield %>                
           </div>
+          <%= yield %>                
         </div>
       </div>
     </div>
