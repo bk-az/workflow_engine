@@ -1,7 +1,6 @@
 <div class="card">
   <h2 class="card-header clearfix">
     <%= member_full_name(@member) %> - Edit
-    <em class="text-muted float-right">@<%= @company.name %></em>
   </h2>
   <div class="card-body">
     <%= form_for(@member, url: member_path, method: :put) do |f| %> 

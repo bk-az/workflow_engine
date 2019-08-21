@@ -3,38 +3,38 @@
     <li class="sidebar-brand">
       <%= link_to 'My Workplace', dashboard_path %>
     </li>
-    <li>
+    <li class="sidebar-menu-custom-nav-items">
       <%= link_to(members_path,  class: 'dropdown-item text-secondary mr-2 mb-1 mb-md-0 fixed-width') do %>
         <i class="fas fa-user-friends"></i> Members
       <% end %>
     </li>
-    <li>
+    <li class="sidebar-menu-custom-nav-items">
       <%= link_to(projects_path,  class: 'dropdown-item text-secondary mr-2 mb-1 mb-md-0 fixed-width') do %>
         <i class="fas fa-project-diagram"></i> Projects
       <% end %>
     </li>
-    <li>
+    <li class="sidebar-menu-custom-nav-items">
       <%= link_to(teams_path ,  class: 'dropdown-item text-secondary mr-2 mb-1 mb-md-0 fixed-width') do %>
         <i class="fas fa-user-friends"></i> Teams
       <% end %>
     </li>
-    <li>
+    <li class="sidebar-menu-custom-nav-items">
       <%= link_to(issues_path ,  class: 'dropdown-item text-secondary mr-2 mb-1 mb-md-0 fixed-width') do %>
         <i class="fas fa-bookmark"></i> Issues
       <% end %>
     </li>
     <% if can? :manage, :all %>
-      <li>
+      <li class="sidebar-menu-custom-nav-items">
         <%= link_to(issue_types_path  ,  class: 'dropdown-item text-secondary mr-2 mb-1 mb-md-0 fixed-width') do %>
           <i class="fas fa-bookmark"></i> Issue Types
         <% end %>
       </li>
-      <li>
+      <li class="sidebar-menu-custom-nav-items">
         <%= link_to(issue_states_path ,  class: 'dropdown-item text-secondary mr-2 mb-1 mb-md-0 fixed-width') do %>
           <i class="fas fa-bookmark"></i> Issue States
         <% end %>
       </li>
-      <li>
+      <li class="sidebar-menu-custom-nav-items">
         <%= link_to(issues_report_path  ,  class: 'dropdown-item text-secondary mr-2 mb-1 mb-md-0 fixed-width') do %>
           <i class="far fa-chart-bar"></i> Issues Reports
         <% end %>
