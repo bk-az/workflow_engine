@@ -22,8 +22,5 @@
 //= require_tree .
 
 $(function() {
-  var breadcrumb_last_child = $('#breadcrumb li:last-child');
-  var breadcrumb_last_child_val = breadcrumb_last_child.text();
-  breadcrumb_last_child.html('');
-  breadcrumb_last_child.append("<a>" + breadcrumb_last_child_val + "</a>");
+  $('#breadcrumb li:last-child').wrapInner("<a href='#_'></a>");
 });
