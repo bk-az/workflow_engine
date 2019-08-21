@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
   ]
 
   rescue_from ActiveRecord::RecordNotFound, CanCan::AccessDenied do |exception|
-    render file: "#{Rails.root}/public/404", status: :not_found
+    render file: "#{Rails.root}/public/404", status: :not_found, layout: false
   end
 
   def current_tenant

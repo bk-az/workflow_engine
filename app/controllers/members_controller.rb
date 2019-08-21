@@ -67,7 +67,7 @@ class MembersController < ApplicationController
 
   # GET /members/privileges/:id
   def privileges_show
-    @user = current_tenant.users.where.not(id: current_user.id).active.find(params[:id])
+    @user = current_tenant.users.active.find(params[:id])
     respond_to do |format|
       format.js { render json: { data: { user: @user } } }
     end
@@ -87,7 +87,7 @@ class MembersController < ApplicationController
   # GET /members/:id
   def show
     @company = current_tenant
-    @member = @company.users.where.not(id: current_user.id).active.find(params[:id])
+    @member = @company.users.active.find(params[:id])
     add_breadcrumb @member.name, :member_path
 
     respond_to do |format|
@@ -98,7 +98,7 @@ class MembersController < ApplicationController
   # GET /members/:id/edit
   def edit
     @company = current_tenant
-    @member = @company.users.active.find(params[:id])
+    @member = @company.users.where.not(id: current_user.id).active.find(params[:id])
     @roles = Role.all
 
     add_breadcrumb @member.name, :member_path
@@ -112,7 +112,7 @@ class MembersController < ApplicationController
   # PUT /members/:id
   def update
     @company = current_tenant
-    @member = @company.users.active.find(update_params[:id])
+    @member = @company.users.where.not(id: current_user.id).active.find(update_params[:id])
     @roles = Role.all
     status = 200 # Hope for the best :P
 
@@ -141,7 +141,7 @@ class MembersController < ApplicationController
 
   # DELETE /members/:id
   def destroy
-    @member_to_be_deleted = current_tenant.users.active.find(params[:id])
+    @member_to_be_deleted = current_tenant.users.where.not(id: current_user.id).active.find(params[:id])
     if @member_to_be_deleted.update(is_active: false)
       flash[:success] = t('members.destroy.success')
     else

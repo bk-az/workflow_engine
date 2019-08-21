@@ -4,21 +4,29 @@ RSpec.describe MembersController, type: :controller do
   before(:all) do
     @company = create(:company)
     @role = create(:role_admin)
-  end
-  before :each do
-    Company.current_id = @company.id
+
     @member = build(:user)
     @member.company_id = @company.id
     @member.role_id = @role.id
     @member.save
+
+    @member_2 = build(:user)
+    @member_2.company_id = @company.id
+    @member_2.role_id = @role.id
+    @member_2.save
+  end
+
+  before :each do
+    Company.current_id = @company.id
+
     @request.host = "#{@company.subdomain}.lvh.me:3000"
     sign_in(@member)
   end
 
   let(:user) { create(:user) }
   let(:user_params) { { first_name: 'asdfasdf', last_name: 'asdfasdf', role_id: @role.id, email: Faker::Internet.email, skip_invitation_email: true } }
-  let(:update_params) { { id: @member.id, first_name: 'blabla', last_name: 'blabla', role_id: @role.id } }
-  let(:change_password_params) { { id: @member.id, password: 'blabla' } }
+  let(:update_params) { { id: @member_2.id, first_name: 'blabla', last_name: 'blabla', role_id: @role.id } }
+  let(:change_password_params) { { id: @member_2.id, password: 'blabla' } }
 
   describe 'GET #index' do
     it 'should success and render to :index view' do
@@ -29,15 +37,15 @@ RSpec.describe MembersController, type: :controller do
   end
   
   describe 'GET #show' do
-    it 'should assign the requested member to @member' do
-      get :show, id: @member
-      expect(assigns(:member)).to eq(@member)
+    it 'should assign the requested member to @member if the member is not the signed in user.' do
+      get :show, id: @member_2
+      expect(assigns(:member)).to eq(@member_2)
     end
   end
 
   describe 'GET #show' do
-    it 'should render the show page' do
-      get :show, id: @member
+    it 'should render the show page if the id in URL is not equal to the logged in user.' do
+      get :show, id: @member_2
       expect(response).to have_http_status(200)
       expect(response).to render_template(:show)
     end
@@ -53,21 +61,21 @@ RSpec.describe MembersController, type: :controller do
 
   describe 'GET #privileges_show' do
     it 'should set user variable as found user.' do
-      xhr :get, :privileges_show, id: @member
-      expect(assigns(:user)).to eq(@member)
+      xhr :get, :privileges_show, id: @member_2
+      expect(assigns(:user)).to eq(@member_2)
     end
   end
 
   describe 'GET #edit' do
-    it 'should find user correspoding to the given id.' do
-      get :edit, id: @member
-      expect(assigns(:member)).to eq(@member)
+    it 'should find user corresponding to the given id.' do
+      get :edit, id: @member_2
+      expect(assigns(:member)).to eq(@member_2)
     end
   end
 
   describe 'GET #edit' do
     it 'should render the edit page.' do
-      get :edit, id: @member
+      get :edit, id: @member_2
       expect(response).to have_http_status(200)
       expect(response).to render_template(:edit)
     end
@@ -76,8 +84,8 @@ RSpec.describe MembersController, type: :controller do
   describe 'PUT #update' do
     context 'with valid attributes' do
       it 'should find the user with given id' do
-        xhr :put, :update, id: @member, user: update_params
-        expect(assigns(:member)).to eq(@member)
+        xhr :put, :update, id: @member_2, user: update_params
+        expect(assigns(:member)).to eq(@member_2)
       end
     end
   end
@@ -85,8 +93,8 @@ RSpec.describe MembersController, type: :controller do
   describe 'PUT #update' do
     context 'with valid attributes' do
       it 'should find the user with given id' do
-        put :update, id: @member, user: update_params
-        expect(assigns(:member)).to eq(@member)
+        put :update, id: @member_2, user: update_params
+        expect(assigns(:member)).to eq(@member_2)
       end
     end
   end
@@ -94,8 +102,8 @@ RSpec.describe MembersController, type: :controller do
   describe 'DELETE #destroy' do
     context 'with valid attributes' do
       it 'should find the user with given id' do
-        delete :destroy, id: @member
-        expect(assigns(:member_to_be_deleted)).to eq(@member)
+        delete :destroy, id: @member_2
+        expect(assigns(:member_to_be_deleted)).to eq(@member_2)
       end
     end
   end
