@@ -1,15 +1,10 @@
 class DocumentsController < ApplicationController
   before_action :authenticate_user!
-  load_resource :issue
-  load_resource :project
-  load_and_authorize_resource through: [:issue, :project]
-
+  load_resource :issue, find_by: 'sequence_num'
+  load_resource :project, find_by: 'sequence_num'
+  load_and_authorize_resource :document, through: [:issue, :project]
+  
   def index
-    if params[:issue_id].present?
-      @documents = @issue.documents
-    elsif params[:project_id].present?
-      @documents = @project.documents
-    end
     respond_to do |format|
       format.html
     end
@@ -23,15 +18,6 @@ class DocumentsController < ApplicationController
 
   def create
     @document.path = @document.document.url
-    if params[:issue_id].present?
-      documentable_type = 'Issue'
-      documentable_id = params[:issue_id]
-    elsif params[:project_id].present?
-      documentable_type = 'Project'
-      documentable_id = params[:project_id]
-    end
-    @document.documentable_type = documentable_type
-    @document.documentable_id = documentable_id
     respond_to do |format|
       format.html do
         if @document.save
@@ -45,7 +31,6 @@ class DocumentsController < ApplicationController
   end
 
   def destroy
-    @document = Document.find(params[:id])
     respond_to do |format|
       format.html do
         if @document.destroy

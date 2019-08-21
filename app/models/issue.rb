@@ -1,7 +1,8 @@
 # Model Class
 class Issue < ActiveRecord::Base
+  sequenceid :company, :issues
   audited associated_with: :project
-
+  
   PRIORITY = {
     Low: 0,
     Medium: 1,
@@ -44,9 +45,9 @@ class Issue < ActiveRecord::Base
   has_many   :issue_watchers, dependent: :destroy
 
   has_many   :watcher_users, through: :issue_watchers, source: :watcher,
-                             source_type: 'User', class_name: 'User'
+  source_type: 'User', class_name: 'User'
   has_many   :watcher_teams, through: :issue_watchers, source: :watcher,
-                             source_type: 'Team', class_name: 'Team'
+  source_type: 'Team', class_name: 'Team'
 
   # Helper method for sending email
   def send_email

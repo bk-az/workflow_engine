@@ -1,4 +1,5 @@
 class Project < ActiveRecord::Base
+  sequenceid :company, :projects
   has_associated_audits
 
   validates :title, presence: true, length: { minimum: 3, maximum: 100 }
@@ -16,9 +17,9 @@ class Project < ActiveRecord::Base
   has_many :project_memberships
   # has_many :project_members, through: :project_memberships
   has_many :teams, through: :project_memberships, source: :project_member,
-                   source_type: 'Team'
+  source_type: 'Team'
   has_many :users, through: :project_memberships, source: :project_member,
-                   source_type: 'User'
+  source_type: 'User'
 
   def visible?(user)
     return true if user.admin?

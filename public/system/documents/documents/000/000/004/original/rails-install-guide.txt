@@ -1,0 +1,49 @@
+https://vitux.com/how-to-install-latest-ruby-on-rails-on-ubuntu/
+	-- Follow the link to install rails (take care of versions while installing)
+
+Use "rake" instead of "rails" keyword which is not supported now.
+
+The PGconn, PGresult, and PGError constants are deprecated on Heroku and Rails
+	-- If you get this error while "rake db:setup" or "rake db:migrate" add "gem 'pg', '~> 		   0.20.0'" to the gem file and comment out the previous pg gem.
+	-- Run bundle install and then run again.
+	-- Reference: https://stackoverflow.com/questions/49149608/the-pgconn-pgresult-and-pgerror-constants-are-deprecated-on-heroku-and-rails/49150265
+
+rake db:setupSpecified 'postgresql' for database adapter, but the gem is not loaded
+	-- Reference: https://stackoverflow.com/questions/24755673/gemloaderror-specified-postgresql-for-database-adapter-but-the-gem-is-not
+
+Gem::LoadError: Specified 'mysql2' for database adapter, but the gem is not loaded
+	-- If you get this error, then go to the Gemfile and comment out basic gem of mysql2 and install older version by entering "gem 'mysql2', '~> 0.3.18'" and doing bundle install.
+	
+
+
+	Maams link for installing ruby on rails with mysql and postgres
+https://gorails.com/setup/ubuntu/18.10
+
+
+	In order to configure MySQL credentials rut the following commands:
+sudo mysql
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '<your own password>';
+FLUSH PRIVILEGES;
+exit
+
+systemctl status mysql.service
+	-- Check status of MySQL Server. It should be running, or if its not running, run command
+sudo systemctl start mysql
+	
+sudo mysqladmin -p -u root version
+	-- Check if the mysql service is up.
+
+
+Reference: https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-18-04
+
+
+
+
+sudo mysql -u root -p
+	-- Enter into the mysql shell
+
+
+
+
+rails s -b localhost -p 8080
+	-- Run rails server on port 8080
