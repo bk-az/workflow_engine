@@ -1,12 +1,10 @@
 Rails.application.routes.draw do
   resources :teams do
-    collection do
-      get 'add_membership'
-      get 'approve_request'
-    end
-
     member do
+      get 'add_membership'
       delete 'remove_member'
+      get 'approve_request'
+      get 'reject_request'
     end
   end
 
@@ -50,6 +48,7 @@ Rails.application.routes.draw do
   get 'user_companies/find', to: 'user_companies#find'
   post 'user_companies/find', to: 'user_companies#find_user_by_email'
   get 'user_companies/show_companies', to: 'user_companies#show_companies', as: :show_companies
+  get 'sidebar_toggle/:is_collapsed', to: 'application#sidebar_toggle'
 
   devise_for :users, controllers: {
     sessions: 'users/sessions',
