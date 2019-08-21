@@ -67,7 +67,7 @@ class MembersController < ApplicationController
 
   # GET /members/privileges/:id
   def privileges_show
-    @user = current_tenant.users.where.not(id: current_user.id).active.find(params[:id])
+    @user = current_tenant.users.active.find(params[:id])
     respond_to do |format|
       format.js { render json: { data: { user: @user } } }
     end
@@ -87,7 +87,7 @@ class MembersController < ApplicationController
   # GET /members/:id
   def show
     @company = current_tenant
-    @member = @company.users.where.not(id: current_user.id).active.find(params[:id])
+    @member = @company.users.active.find(params[:id])
     add_breadcrumb @member.name, :member_path
 
     respond_to do |format|
