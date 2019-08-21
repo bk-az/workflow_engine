@@ -40,15 +40,11 @@ RSpec.describe IssueTypesController, type: :controller do
         expect(assigns(:issue_types)).to eq IssueType.where(project_id: [project.id, nil])
       end
     end
-    context 'GET #show' do
-      it 'should success and render to :show view' do
-        xhr :get, :show, id: issue_type
+    context 'GET #new' do
+      it 'should success and render to :new view' do
+        xhr :get, :new
         expect(response).to have_http_status(200)
-        expect(response).to render_template(:show)
-      end
-      it 'should assign issue_type to current issue_type' do
-        xhr :get, :show, id: issue_type
-        expect(assigns(:issue_type)).to eq issue_type
+        expect(response).to render_template(:new)
       end
     end
     context 'GET #edit' do
@@ -124,34 +120,6 @@ RSpec.describe IssueTypesController, type: :controller do
   end
 
   describe 'Authorization' do
-    context 'Without Signing in' do
-      it 'should not be able to index issue_types' do
-        expect do
-          get :index
-        end.to raise_exception(CanCan::AccessDenied)
-      end
-      it 'should not be able to show issue_type' do
-        expect do
-          xhr :get, :show, id: issue_type
-        end.to raise_exception(CanCan::AccessDenied)
-      end
-      it 'should not be able to create issue_type' do
-        expect do
-          xhr :post, :create, issue_type: issue_type_params
-        end.to raise_exception(CanCan::AccessDenied)
-      end
-      it 'should not be able to update issue_type' do
-        expect do
-          xhr :put, :update, id: issue_type, issue_type: issue_type_params
-        end.to raise_exception(CanCan::AccessDenied)
-      end
-      it 'should not be able to destroy issue_type' do
-        expect do
-          xhr :delete, :destroy, id: issue_type
-        end.to raise_exception(CanCan::AccessDenied)
-      end
-    end
-
     context 'When is an admin' do
       before(:each) do
         sign_in @admin
@@ -161,9 +129,9 @@ RSpec.describe IssueTypesController, type: :controller do
           get :index
         end.to_not raise_error
       end
-      it 'should be able to show issue_type' do
+      it 'should be able to new issue_type' do
         expect do
-          xhr :get, :show, id: issue_type
+          xhr :get, :new
         end.to_not raise_error
       end
       it 'should be able to create issue_type' do
@@ -188,29 +156,19 @@ RSpec.describe IssueTypesController, type: :controller do
         sign_in @member
       end
       it 'should not be able to index issue_types' do
-        expect do
-          get :index
-        end.to raise_exception(CanCan::AccessDenied)
+        expect(get(:index)).to have_http_status(404)
       end
-      it 'should not be able to show issue_type' do
-        expect do
-          xhr :get, :show, id: issue_type
-        end.to raise_exception(CanCan::AccessDenied)
+      it 'should not be able to new issue_type' do
+        expect(xhr(:get, :new)).to have_http_status(404)
       end
       it 'should not be able to create issue_type' do
-        expect do
-          xhr :post, :create, issue_type: issue_type_params
-        end.to raise_exception(CanCan::AccessDenied)
+        expect(xhr(:post, :create, issue_type: issue_type_params)).to have_http_status(404)
       end
       it 'should not be able to update issue_type' do
-        expect do
-          xhr :put, :update, id: issue_type, issue_type: issue_type_params
-        end.to raise_exception(CanCan::AccessDenied)
+        expect(xhr(:put, :update, id: issue_type, issue_type: issue_type_params)).to have_http_status(404)
       end
       it 'should not be able to destroy issue_type' do
-        expect do
-          xhr :delete, :destroy, id: issue_type
-        end.to raise_exception(CanCan::AccessDenied)
+        expect(xhr(:delete, :destroy, id: issue_type)).to have_http_status(404)
       end
     end
   end
