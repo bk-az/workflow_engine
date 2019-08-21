@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
-  load_and_authorize_resource
+  load_and_authorize_resource find_by: 'sequence_num'
+  add_breadcrumb 'Projects', :projects_path
 
   def index
     respond_to do |format|
@@ -9,33 +10,31 @@ class ProjectsController < ApplicationController
   end
 
   def new
+    add_breadcrumb 'New Project', :new_project_path
     respond_to do |format|
       format.html
     end
   end
 
   def create
-    if @project.save
-      redirect_to @project, notice: t('projects.create.created')
-    else
-      render :new
-    end
+    create_and_save_project; return if performed?
   end
 
   def show
-    @project = Project.find(params[:id])
-    @document = Document.new
+    @document = current_tenant.documents.new
     @issues = @project.issues
-    @issue_types = IssueType.issue_types_for_projects(@project)
-    @issue_states = IssueState.issue_states_for_projects(@project)
+    @issue_types = current_tenant.issue_types.for_projects(@project)
+    @issue_states = current_tenant.issue_states.for_projects(@project)
     @comments = @project.comments
-    @comment = Comment.new
+    @comment = current_tenant.comments.new
     respond_to do |format|
       format.html
     end
   end
 
   def edit
+    add_breadcrumb @project.title, :project_path
+    add_breadcrumb 'Edit', :edit_project_path
     respond_to do |format|
       format.html
     end
@@ -43,7 +42,7 @@ class ProjectsController < ApplicationController
 
   def update
     if @project.update(project_params)
-      flash[:notice] = t('projects.update.updated')
+      flash[:notice] = t('projects.update.success')
       redirect_to @project
     else
       render 'edit'
@@ -56,9 +55,9 @@ class ProjectsController < ApplicationController
     else
       @project.destroy
       if @project.destroyed?
-        flash[:notice] = t('projects.destroy.destroyed')
+        flash[:notice] = t('projects.destroy.success')
       else
-        flash[:error] = t('projects.destroy.not_destroyed')
+        flash[:error] = @project.errors.full_messages
       end
     end
     respond_to do |format|
@@ -70,5 +69,14 @@ class ProjectsController < ApplicationController
 
   def project_params
     params.require(:project).permit(:title, :description)
+  end
+
+  def create_and_save_project
+    if @project.save
+      flash[:notice] = t('projects.create.success')
+      redirect_to @project
+    else
+      render :new
+    end
   end
 end

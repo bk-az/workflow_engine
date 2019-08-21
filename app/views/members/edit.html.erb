@@ -1,23 +1,22 @@
 <div class="card">
   <h2 class="card-header clearfix">
     <%= member_full_name(@member) %> - Edit
-    <em class="text-muted float-right">@<%= @company.name %></em>
   </h2>
   <div class="card-body">
     <%= form_for(@member, url: member_path, method: :put) do |f| %> 
       <div class="field form-group">
         <%= f.label :first_name %><br />
-        <%= f.text_field :first_name, autofocus: true, class: "form-control form-control-sm", placeholder: "E.g. John" %>
+        <%= f.text_field :first_name, autofocus: true, class: "form-control", placeholder: "E.g. John" %>
       </div>
 
       <div class="field form-group">
         <%= f.label :last_name %><br />
-        <%= f.text_field :last_name, autofocus: true, class: "form-control form-control-sm", placeholder: "E.g. Doe" %>
+        <%= f.text_field :last_name, autofocus: true, class: "form-control", placeholder: "E.g. Doe" %>
       </div>
 
       <div class="form-group">
         <label for="role_select">Role:</label>
-        <%= f.select(:role_id, get_roles(@roles), { include_blank: 'None' }, class: 'form-control form-control-sm', id: 'role_select') %>
+        <%= f.select(:role_id, get_roles(@roles), { include_blank: 'None' }, class: 'form-control', id: 'role_select') %>
       </div>
 
       <!-- HIDDEN FIELDS -->

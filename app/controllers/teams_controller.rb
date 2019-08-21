@@ -1,6 +1,7 @@
 class TeamsController < ApplicationController
   before_action :authenticate_user!
   load_and_authorize_resource find_by: :sequence_num, through: :current_tenant
+  add_breadcrumb 'Teams', :teams_path
 
   # GET /index
   def index
@@ -19,6 +20,7 @@ class TeamsController < ApplicationController
 
   # GET /show
   def show
+    add_breadcrumb @team.name, :team_path
     @team_memberships, @all_members = @team.member_and_team_memberships
     @pendings = @team.pending_requests
     respond_to do |format|
@@ -38,7 +40,7 @@ class TeamsController < ApplicationController
       end
     else
       team_created = false
-      flash[:error] = @team.errors.full_messages
+      flash.now[:error] = @team.errors.full_messages
     end
 
     respond_to do |format|
@@ -46,7 +48,7 @@ class TeamsController < ApplicationController
         if team_created
           redirect_to teams_path
         else
-          flash[:notice] = @team.errors.full_messages
+          flash.now[:notice] = @team.errors.full_messages
           render 'new'
         end
       end
@@ -79,7 +81,7 @@ class TeamsController < ApplicationController
     if @team.destroy
       flash[:notice] = t('team.destroy.success')
     else
-      flash.now[:error] = @team.errors.full_messages
+      flash[:error] = @team.errors.full_messages
     end
     respond_to do |format|
       format.html { redirect_to teams_path }
@@ -105,7 +107,7 @@ class TeamsController < ApplicationController
     if @team_membership.present?
       respond_to do |format|
         if @team_membership.destroy
-          flash[:notice] = t('team.remove_member.success')
+          flash.now[:notice] = t('team.remove_member.success')
           format.js
         else
           flash.now[:error] = @team_membership.errors.full_messages

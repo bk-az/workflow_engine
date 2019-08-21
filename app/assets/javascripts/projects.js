@@ -11,5 +11,5 @@ $( document ).ready(function() {
       $("#wrapper").toggleClass("toggled");
   });
   
-  $('#projects_table').DataTable();
+  $('#projects_issues_table').DataTable();
 });

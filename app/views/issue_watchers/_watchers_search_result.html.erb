@@ -5,28 +5,22 @@
     <thead>
       <tr>
         <th scope="col">Name</th>
-        <th scope="col">Add as watcher</th>
       </tr>
     </thead>
     <tbody>
       <% watchers.each do |watcher| %>
       <tr id="<%= action %>_watcher_<%= watcher.id %>">
-        <td><%= watcher.name %></td>
         <td>
+          <%= watcher.name %>
           <% if action == "create" %>
-            <%= form_tag create_watcher_issue_watchers_path, method: 'post', remote: true do %>
+            <%= form_tag issue_watchers_path, method: 'post', remote: true, class: "d-inline" do %>
               <%= hidden_field_tag :issue_id, issue.id %>
               <%= hidden_field_tag :watcher_id, watcher.id %>
               <%= hidden_field_tag :watcher_type, watcher.class %>
-              <%= submit_tag :Add, class: "btn btn-secondary" %> 
+              <%= submit_tag :Add, class: "btn btn-secondary float-right" %>
             <% end %>
           <% else %>
-            <%= form_tag destroy_watcher_issue_watchers_path, method: 'post', remote: true do %>
-              <%= hidden_field_tag :issue_id, issue.id %>
-              <%= hidden_field_tag :watcher_id, watcher.id %>
-              <%= hidden_field_tag :watcher_type, watcher.class %>
-              <%= submit_tag :Remove, class: "btn btn-secondary" %> 
-            <% end %>
+            <%= link_to :Remove, issue_watcher_path(get_issue_watcher(@issue, watcher.id, watcher.class)), method: :delete, class: 'btn btn-secondary d-inline float-right', remote: true %>
           <% end %>
         </td>
       </tr>

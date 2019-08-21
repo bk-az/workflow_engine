@@ -1,9 +1,9 @@
 <!-- Partial: Displays rows in a table -->
 <% issues.each do |issue| %>
   <tr>
-    <td><%= link_to issue.title, project_issue_path(issue.project_id, issue.id) %></td>
+    <td><%= link_to issue.title, project_issue_path(issue.project, issue) %></td>
     <% if local_assigns[:render_project_title] %>
-      <td><%= link_to issue.project.title, project_path(issue.project_id) %></td>
+      <td><%= link_to issue.project.title, project_path(issue.project) %></td>
     <% end %>
     <td>
       <% if issue.assignee.present? %>

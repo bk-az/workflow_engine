@@ -1,5 +1,6 @@
 # Model Class
 class Issue < ActiveRecord::Base
+  sequenceid :company, :issues
   audited associated_with: :project
 
   PRIORITY = {
@@ -8,8 +9,9 @@ class Issue < ActiveRecord::Base
     High: 2
   }.freeze
 
-  after_save :send_email
+  scope :group_by_issue_state, -> { joins(:issue_state).group(:name) }
 
+  after_save :send_email
   paginates_per 7
 
   # Validations
@@ -36,19 +38,16 @@ class Issue < ActiveRecord::Base
   has_many   :sub_issues, foreign_key: 'parent_issue_id', class_name: 'Issue'
   belongs_to :parent_issue, class_name: 'Issue'
 
-  has_many   :documents
-
-  has_many   :comments, as: :commentable
-  has_many :documents, as: :documentable
+  has_many   :documents, as: :documentable, dependent: :destroy
   has_many   :comments, as: :commentable, dependent: :destroy
 
   # Polymorphic Watchers
-  has_many   :issue_watchers
-  # has_many   :watchers, through: :issue_watchers
+  has_many   :issue_watchers, dependent: :destroy
+
   has_many   :watcher_users, through: :issue_watchers, source: :watcher,
-                             source_type: 'User', class_name: 'User'
+  source_type: 'User', class_name: 'User'
   has_many   :watcher_teams, through: :issue_watchers, source: :watcher,
-                             source_type: 'Team', class_name: 'Team'
+  source_type: 'Team', class_name: 'Team'
 
   # Helper method for sending email
   def send_email

@@ -54,7 +54,7 @@ debug('Projects and Issues')
                   project_id: project.id,
                   issue_type_id: IssueType.find(1 + rand(IssueType.count)).id,
                   issue_state_id: IssueState.find(1 + rand(IssueState.count)).id,
-                  due_date: Date.today, start_date: Date.yesterday)
+                  due_date: Date.new(2019, 8, (15 + rand(15))), start_date: Date.new(2019, 8, (1 + rand(15))))
   end
 end
 

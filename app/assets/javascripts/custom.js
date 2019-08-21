@@ -1,5 +1,10 @@
 // Menu Toggle Script
 $(function() {
+  var last_child_of_breadcrum = $('#breadcrumb li:last-child');
+  if (last_child_of_breadcrum.has('a').length === 0) {
+    last_child_of_breadcrum.wrapInner("<a></a>");
+  }
+  $('#breadcrumb').parent().hide().removeClass('d-none').slideDown(500);
 
   function performAjax(url, type, data, successCallback = null, failureCallback = null, beforeSendCallback = null, completeCallback = null ) {
     $.ajax({
@@ -31,10 +36,11 @@ $(function() {
       toggleSidebar(!$("#wrapper").hasClass("toggled"));
   });
 
-  $('.upload_document_field > input').filestyle({
+  $('.upload-document-field > input').filestyle({
     'text' : 'Choose File',
     'btnClass' : 'btn-secondary',
     'placeholder': 'E.g. review.docs',
     'buttonBefore' : true
-  })
+  });
+
 });

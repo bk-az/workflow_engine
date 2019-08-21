@@ -10,16 +10,9 @@ class IssueState < ActiveRecord::Base
   belongs_to :company
   belongs_to :issue
 
-  scope :issue_states_for_projects, ->(project) { project.issues.map(&:issue_state) }
+  scope :for_projects, ->(project) { project.issues.map(&:issue_state) }
 
   def dependent_issues_present?
-    result = false
-    count = issues.count
-    if count > 0
-      result = true
-      errors[:base] << "#{count} issue".pluralize(count) +
-                       ' using this state'
-    end
-    result
+    issues.count > 0
   end
 end

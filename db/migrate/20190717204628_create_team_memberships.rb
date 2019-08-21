@@ -6,6 +6,7 @@ class CreateTeamMemberships < ActiveRecord::Migration
       t.timestamps null: false
 
       # Foreign Keys
+      t.integer :company_id, null: false, index: true
       t.references :team, index: true
       t.references :user, index: true
     end

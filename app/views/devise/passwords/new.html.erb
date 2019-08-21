@@ -1,22 +1,26 @@
-<div class="card">
-  <h2 class="card-header">Forgot your password?</h2>
-  <div class="card-body">
-    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-      <%= devise_error_messages! %>
+<div class="row">
+  <div class="offset-sm-3 col-sm-6">
+    <div class="card shodowed-card">
+      <h2 class="card-header">Forgot your password?</h2>
+      <div class="card-body">
+        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+          <%= devise_error_messages! %>
 
-      <div class="field form-group">
-        <%= f.label :email %><br />
-        <%= f.email_field :email, class: 'form-control form-control-sm',autofocus: true %>
+          <div class="field form-group">
+            <%= f.label :email %><br />
+            <%= f.email_field :email, class: 'form-control',autofocus: true %>
+          </div>
+
+          <div class="actions text-right">
+            <%= f.submit "Send email", class: 'btn btn-sm btn-outline-secondary' %>
+          </div>
+        <% end %>
+
+        <div class="text-center">
+          <hr>
+          <%= render "devise/shared/links" %>
+        </div>
       </div>
-
-      <div class="actions text-right">
-        <%= f.submit "Send me reset password instructions", class: 'btn btn-sm btn-outline-secondary' %>
-      </div>
-    <% end %>
-
-    <div class="text-center">
-      <hr>
-      <%= render "devise/shared/links" %>
     </div>
   </div>
 </div>

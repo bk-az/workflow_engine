@@ -9,6 +9,8 @@ class Ability
 
     if user.admin?
       can :manage, :all
+      can [:index, :show], IssueType
+      can [:edit, :delete, :create], Project
       can [:new, :create, :privileges, :privileges_show, :edit, :destroy, :update], :member
     else
       # Project
@@ -38,8 +40,8 @@ class Ability
       can :create, Issue, company_id: user.company_id
 
       # IssueWatcher
-      can :create_watcher, IssueWatcher, watcher_id: user.id, watcher_type: IssueWatcher::WATCHER_TYPE_USER
-      can :destroy_watcher, IssueWatcher, watcher_id: user.id, watcher_type: IssueWatcher::WATCHER_TYPE_USER
+      can :create, IssueWatcher, company_id: user.company_id, watcher_id: user.id, watcher_type: IssueWatcher::WATCHER_TYPES[:user]
+      can :destroy, IssueWatcher, company_id: user.company_id, watcher_id: user.id, watcher_type: IssueWatcher::WATCHER_TYPES[:user]
 
       # Document
       can [:create, :index, :destroy], Document, company_id: user.company_id

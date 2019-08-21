@@ -2,9 +2,11 @@ class MembersController < ApplicationController
   before_action :authenticate_user!
   authorize_resource class: false
   before_action :changed_sys_generated_password?, only: [:show_change_password_form, :change_password]
+  add_breadcrumb 'Members', :members_path
 
   # GET /members/new
   def new
+    add_breadcrumb 'New Member', :new_member_path
     set_invitation_view_variables
     # Make a dummy new user.
     @new_user = User.new
@@ -26,12 +28,12 @@ class MembersController < ApplicationController
     @new_user.has_changed_sys_generated_password = false
 
     @new_user.password = generate_random_password
-    
+
     if @new_user.save
       @new_user.send_invitation_email(company, @new_user.role) unless @new_user.skip_invitation_email
       flash[:success] = t('members.create.success')
     else
-      flash[:error] = @new_user.errors.full_messages
+      flash.now[:error] = @new_user.errors.full_messages
       validation_error = true
     end
 
@@ -55,8 +57,8 @@ class MembersController < ApplicationController
     # Get all users that belong to company which is owned by current user.
     # Exlude the logged in user himself.
     @members = @company.users.where.not(id: current_user.id).active.includes(:role)
-
     @roles = Role.all
+    add_breadcrumb 'Privileges', :privileges_members_path
 
     respond_to do |format|
       format.html { render 'members/privileges' }
@@ -75,7 +77,7 @@ class MembersController < ApplicationController
   def index
     @company = current_tenant
     # Get members other the logged in user.
-    @members = @company.users.active.includes(:role)
+    @members = @company.users.where.not(id: current_user.id).active.includes(:role)
 
     respond_to do |format|
       format.html { render 'members/index' }
@@ -86,6 +88,7 @@ class MembersController < ApplicationController
   def show
     @company = current_tenant
     @member = @company.users.where.not(id: current_user.id).active.find(params[:id])
+    add_breadcrumb @member.name, :member_path
 
     respond_to do |format|
       format.html { render 'members/show' }
@@ -97,6 +100,9 @@ class MembersController < ApplicationController
     @company = current_tenant
     @member = @company.users.active.find(params[:id])
     @roles = Role.all
+
+    add_breadcrumb @member.name, :member_path
+    add_breadcrumb 'Edit', :edit_member_path
 
     respond_to do |format|
       format.html { render 'members/edit' }
@@ -126,7 +132,7 @@ class MembersController < ApplicationController
           flash[:success] = t('members.update.success')
           redirect_to edit_member_path(@member)
         else
-          flash[:error] = @member.errors.full_messages
+          flash.now[:error] = @member.errors.full_messages
           render 'members/edit'
         end
       end
@@ -150,7 +156,6 @@ class MembersController < ApplicationController
   # GET /member/:id/change_password_form/
   # executes :changed_sys_generated_password? as before_action
   def show_change_password_form
-    # TODO
     # Make sure that params[:id] == current_user.id through CANCANCAN
     @current_user = current_tenant.users.active.find(params[:id])
 
@@ -163,7 +168,7 @@ class MembersController < ApplicationController
   # executes :changed_sys_generated_password? as before_action
   def change_password
     validation_error = false
-    # TODO
+
     # Make sure that params[:id] == current_user.id through CANCANCAN
     @current_user = current_tenant.users.active.find(change_password_params[:id])
     @current_user.password = change_password_params[:password]
@@ -174,7 +179,7 @@ class MembersController < ApplicationController
       sign_in(@current_user, bypass: true)
       flash[:success] = t('members.change_password.success')
     else
-      flash[:error] = @current_user.errors.full_messages
+      flash.now[:error] = @current_user.errors.full_messages
       validation_error = true
     end
 
@@ -199,8 +204,6 @@ class MembersController < ApplicationController
   end
 
   def set_invitation_view_variables
-    # TODO
-    # remove these lines as they will be handled through can can can
     # Get logged in User
     @user      = current_user
 
