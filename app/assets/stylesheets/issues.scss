@@ -1,3 +1,8 @@
 #remove_border_top_from_th {
   border-top: none;
 }
+
+.modal-with-vertical-scroll-content {
+  height: 200px;
+  overflow-y: auto;
+}

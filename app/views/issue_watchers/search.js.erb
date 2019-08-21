@@ -1,8 +1,23 @@
+var addModalSearchResults = $('#add_modal_search_results');
+var removeModalSearchResults = $('#remove_modal_search_results');
+var maxHeightForNoScrolling = 200;
+
 <% if params[:watcher_action] == IssueWatcher::WATCHER_ACTION[:create] %>
-  $('#add_modal_search_results').html('')
+  addModalSearchResults.html('')
     .html("<%= j render partial: 'watchers_search_result', locals: { watchers: @watchers, issue: @issue, action: 'create' } %>")
+  if (addModalSearchResults.height() > maxHeightForNoScrolling) {
+    addModalSearchResults.addClass('modal-with-vertical-scroll-content');
+  } else {
+    addModalSearchResults.removeClass('modal-with-vertical-scroll-content');
+  }
 <% elsif params[:watcher_action] == IssueWatcher::WATCHER_ACTION[:destroy] %>
-  $('#remove_modal_search_results').html('')
+  removeModalSearchResults.html('')
     .html("<%= j render partial: 'watchers_search_result', locals: { watchers: @watchers, issue: @issue, action: 'destroy' } %>")
+  if (removeModalSearchResults.height() > maxHeightForNoScrolling) {
+    removeModalSearchResults.addClass('modal-with-vertical-scroll-content');
+  } else {
+    removeModalSearchResults.removeClass('modal-with-vertical-scroll-content');
+  }
 <% end %>
+
 
