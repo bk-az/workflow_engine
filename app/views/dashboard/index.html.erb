@@ -22,7 +22,7 @@
     <% if @timeline_data.blank? %>
       <p class="my-4">You don't have any issues assigned right now</p>
     <% else %>
-      <%= timeline @timeline_data, id: 'timeline_chart' ,height: "70vh" %>
+      <%= timeline @timeline_data, id: 'timeline_chart' ,height: "60vh" %>
     <% end %>
   </div>
 
@@ -75,7 +75,7 @@
         </tbody>
     </table>
   </div>
-
+  
   <div class="tab-pane fade" id="pills_watching_issues" role="tabpanel" aria-labelledby="pills_watching_issues_tab">
     <p class="h3 my-4">Watching Issues</p>
     <table class="table table-hover" id="watching_issues_table">

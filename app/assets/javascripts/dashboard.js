@@ -14,7 +14,7 @@ $(document).ready(function(){
   var assignedIssuesTable = $('#assigned_issues_table').DataTable({
     info: false,
     paging: false,
-    scrollY: '50vh',
+    scrollY: '40vh',
     scrollCollapse: true,
     oLanguage: {
         sEmptyTable: "No assigned issues found"
@@ -23,7 +23,7 @@ $(document).ready(function(){
   var watchingIssuesTable = $('#watching_issues_table').DataTable({
     info: false,
     paging: false,
-    scrollY: '50vh',
+    scrollY: '40vh',
     scrollCollapse: true,
     oLanguage: {
         sEmptyTable: "No issue found"

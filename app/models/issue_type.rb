@@ -11,7 +11,7 @@ class IssueType < ActiveRecord::Base
   belongs_to :project
 
   scope :project_issue_types, ->(project_id) { where(project_id: [project_id, nil]) }
-  scope :issue_types_for_projects, ->(project) { where(project_id: project.id) }
+  scope :for_projects, ->(project) { where(project_id: project.id) }
 
   def orphan_issues_count(project_id)
     issues.where.not(project_id: project_id).count
