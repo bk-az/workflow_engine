@@ -1,10 +1,6 @@
-<% if can?(:index, project) %>
-  <% @projects.each do |project| %>
-    <tr>
-      <td><%= link_to project.title, project%></td>
-      <td><%= project.description%></td>
-      <td><span><%= link_to project.issues.size, project, class: 'btn btn-sm font-weight-bold', id: 'projects_issues_count_td' %></span></td>
-      <td><%= time_ago_in_words(project.updated_at) %> ago</td>
-    </tr>
-  <% end %>
-<% end %>
+<tr>
+  <td><%= link_to project.title, project%></td>
+  <td><%= project.description%></td>
+  <td><span><%= link_to project.issues.size, project, class: 'btn btn-sm font-weight-bold', id: 'projects_issues_count_td' %></span></td>
+  <td><%= time_ago_in_words(project.updated_at) %> ago</td>
+</tr>
