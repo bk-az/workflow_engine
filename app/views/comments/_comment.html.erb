@@ -6,14 +6,14 @@
       
       <div class="sign-in-wrapper">
         <p id="createform" class="caption disclaimer">
-          <%= render 'comments/form' %>
+          <%= render partial: 'comments/form', locals: { commentable_object: commentable_object, comment: @comment } %>
         </p>
         <p class="error-message"></p>
       </div>
     </div>
     
     <div id="single-comment">
-      <%= render 'comments/all_comments'%>
+      <%= render partial: 'comments/all_comments', locals: { comments: comments } %>
     </div>
   </div>
 </div>

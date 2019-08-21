@@ -23,7 +23,7 @@ class DocumentsController < ApplicationController
         if @document.save
           flash[:notice] = t('document.create.success')
         else
-          flash.now[:error] = @document.errors.full_messages
+          flash[:error] = @document.errors.full_messages
         end
         redirect_to :back
       end
