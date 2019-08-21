@@ -5,6 +5,7 @@ issueTypeFlash.html('<%= j render partial: "shared/flash" %>');
   tr.html('<%= j render partial: 'issue_type_table_row_body', locals: {issue_type: @issue_type} %>');
   issueTypesTable.row(tr).invalidate().draw();
 <% end %>
+$("#flash_messages").html("<%= j render partial: 'shared/flash' %>");
 
 function updateClassAndId(row) {
   row.attr('id', "<%= issue_type_table_row_id(@issue_type) %>");

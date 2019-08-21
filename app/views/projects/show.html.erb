@@ -42,7 +42,9 @@
   <button type="button" class="btn btn-secondary float-right" data-toggle="modal" data-target="#upload_document_modal">Upload Document</button>
   <%= render partial: 'documents/upload_document_modal' %>
 </div>
+
 <br><br><br>
+
 <%= render partial: "documents/show_documents", locals: { documents: @project.documents } %>
 
-<%= render 'comments/comment' %>
+<%= render partial: 'comments/comment', locals: { commentable_object: @project, comment: @comment, comments: @comments } %>
