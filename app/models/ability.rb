@@ -14,10 +14,7 @@ class Ability
       can [:new, :create, :privileges, :privileges_show, :edit, :destroy, :update], :member
     else
       # Project
-      can :show, Project do |project|
-        project.visible?(user)
-      end
-      can :index, Project, id: user.visible_projects.pluck(:id)
+      can :read, Project, id: user.visible_projects.pluck(:id)
 
       # Team
       can :read, Team
