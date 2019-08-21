@@ -2,23 +2,28 @@
   <div class="wrapper">
     <h2 class="float-left"><%= @team.name %></h2>
     <% if can? :manage, Team %>
-    <%= link_to "Remove Team", team_path(@team.id), method: :delete, data:{ confirm: 'Are you sure?' }, class: 'btn btn-secondary float-right' %>
-    <button type="button" class="btn btn-secondary float-right mr-2" data-toggle="modal" data-target="#edit_team_modal">Edit Team</button>
-    <%= render partial: 'edit_team_modal'%>
-  <% end %>  
+      <%= link_to "Remove Team", team_path(@team.sequence_num), method: :delete, data:{ confirm: 'Are you sure?' }, class: 'btn btn-secondary float-right mr-2' %>
+      <button type="button" class="btn btn-secondary float-right mr-2" data-toggle="modal" data-target="#edit_team_modal">Edit Team</button>
+      <%= render partial: 'edit_team_modal'%>
+      <button type="button" class="btn btn-secondary float-right mr-2" data-toggle="modal" data-target="#add_member_modal">Add Member</button>
+      <%= render partial: 'add_member_modal'%>
+      <% if can? :manage, Team %>
+        <a href="#pending_requests" class="btn btn-secondary float-right mr-2" data-toggle="collapse"> Pending requests</a>
+      <% end %>
+    <% end %>  
   </div>
   <br>
-
   <div>
     <h3>Members </h3>    
     <table class="table table-hover" id="team_members_table">
       <thead>
         <th scope="row">Name</th>
         <th scope="row">Admin</th>
-        <th scope="row">Action</th>
+        <% if can? :manage, Team %>
+         <th scope="row">Action</th>
+        <% end %>
       </thead>
       <tbody>
-
         <% @team_memberships.each do |membership| %>
           <% if membership.team_id == @team.id && membership.is_approved %>
             <tr id="membership_<%= membership.id %>"> <span class="glyphicon glyphicon-user"></span> 
@@ -28,37 +33,61 @@
               <% else %>
                 <td>No</td>
               <% end %>
-              <td><%= link_to 'Remove', remove_member_team_path(@team.id, membership_id: membership.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger btn-sm', remote: true %></td>
+              <td>
+                <% if can? :manage, Team %>
+                  <div class="btn-group dropright float-right mr-4">
+                    <i class="fas fa-ellipsis-v text-secondary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                    <div class="dropdown-menu">
+                      <%= link_to(remove_member_team_path(@team.sequence_num, membership_id: membership.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'dropdown-item text-danger mr-2 mb-1 mb-md-0 fixed-width' , remote: true) do %>
+                        Delete <i class="far fa-trash-alt"></i>
+                      <% end %>
+                    </div>
+                  </div>
+                <% end %>
+              </td>
             </tr>
           <% end %>
         <% end %>
       </tbody>
     </table>
   </div>
-  <br><br>
-  <% if can? :manage, Team %>
-     <h2>Add member </h2>
-      <%= form_tag add_membership_teams_path, method: 'get', remote: true do %>
-        <div class="row">
-          <div class="col-3">
-            <%= select_tag "user_id", options_from_collection_for_select(@all_members, :id, :first_name), id: 'js_members_select', class: 'form-control' %>
-            <%= hidden_field_tag(:team_id, @team.id) %>
-            <%= hidden_field_tag(:is_approved, true) %>
-          </div>
-          <div class="col-2">
-            <div class="form-group form-check">
-              <div class="form-check-label">
-                <%= check_box 'join_admin', 'joining_decision', {}, 1, 0 %>
-                <%= label_tag(:join_admin, "Admin", class: 'form-check-label') %>
-              </div>
-            </div>
-          </div>   
-          <div class="col-2">
-            <div class="form-group">
-              <button type="submit" class="btn btn-secondary">Add member</button>
-            </div>
-          </div>
-        </div>
+
+  <div class="pending_top_margin">
+    <div id="pending_requests" class="collapse pending_requests_div">
+      <h2>Pending Requests</h3>    
+      <% if @pendings.count == 0 %>
+        <div class="container"><span>No pending requests</span></div>
+      <% else %>
+        <table class="table table-hover" id="pending_members_table">
+          <thead>
+            <th scope="row">Name</th>
+            <th scope="row">Admin</th>
+          </thead>
+          <tbody>
+            <% @pendings.each do |pending_membership| %>
+                <tr id="pending_membership_<%= pending_membership.id %>"> <span class="glyphicon glyphicon-user"></span> 
+                  <td><%= pending_membership.user.name%></td>
+                  <td> 
+                    <%= is_team_admin(pending_membership.is_team_admin) %>
+                    <div class="btn-group dropright float-right mr-4">
+                      <i class="fas fa-ellipsis-v text-secondary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                      <div class="dropdown-menu">
+                        <%= link_to(approve_request_team_path(@team.sequence_num, membership_id: pending_membership.id), class: 'dropdown-item text-success mr-2 mb-1 mb-md-0 fixed-width' , remote: true) do %>
+                          Accept <i class="fas fa-user-check"></i>
+                        <% end %>
+                        <%= link_to(reject_request_team_path(@team.sequence_num, membership_id: pending_membership.id), class: 'dropdown-item text-danger mr-2 mb-1 mb-md-0 fixed-width' , remote: true) do %>
+                          Reject <i class="far fa-trash-alt"></i>
+                        <% end %>
+                    
+                      </div>
+                    </div>
+
+                  </td>
+                </tr>
+            <% end %>
+          </tbody>
+        </table>
       <% end %>
-  <% end %>
+    </div>
+  </div>
 </div>

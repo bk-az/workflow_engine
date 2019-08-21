@@ -1,8 +1,9 @@
 # Issues Controller
 class IssuesController < ApplicationController
   before_action :authenticate_user!
-  load_and_authorize_resource find_by: 'sequence_num'
   load_and_authorize_resource :project
+  load_and_authorize_resource through: :project, find_by: 'sequence_num', except: %i[index history filter]
+  load_and_authorize_resource find_by: 'sequence_num', only: %i[index history filter]
 
   # GET /issues
   def index
@@ -51,6 +52,8 @@ class IssuesController < ApplicationController
     add_breadcrumb @issue.project.title, project_path(@issue.project)
     add_breadcrumb @issue.title, :project_issue_path
     @document = Document.new
+    @comment = Comment.new
+    @comments = @issue.comments
     respond_to do |format|
       format.html
     end

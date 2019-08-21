@@ -4,6 +4,10 @@
 
 @import url('https://fonts.googleapis.com/css?family=Noto+Serif:400,700');
 
+.bordered-comments {
+  border: 0.5px solid rgba(0,0,0,0.2);
+}
+
 body {
   background-color: #fafafa;
 }
@@ -277,10 +281,6 @@ a:hover {
   margin-bottom: 7px;
 }
 
-.displayName {
-  margin-left: 24px;
-}
-
 .name {
   margin: 1em 0 .6em 0;
   padding: 0 0 0 20px;
@@ -360,25 +360,3 @@ button {
   }
 }
 
-// Comments
-.comments_btn {
-  border: 12px solid black;
-  border-radius: 5px;
-  background-color: white;
-  color: black;
-  padding: 14px 28px;
-  font-size: 16px;
-  cursor: pointer;
-  text-transform: none;
-}
-
-/* Blue */
-.info {
-  border-color: #2196F3;
-  color: dodgerblue
-}
-
-.info:hover {
-  background: lightblue;
-  color: white;
-}

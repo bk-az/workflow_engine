@@ -1,69 +1,70 @@
 # Controller for comments model. Comments are to be shown on projects and issues
 class CommentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :load_project, except: [:edit, :update, :destroy]
-  before_action :current_comment, only: [:edit, :update, :destroy]
+  load_and_authorize_resource :project, only: %i[new create]
+  load_and_authorize_resource :issue, only: %i[new create]
+  load_and_authorize_resource through: %i[project issue], only: %i[new create]
+  load_and_authorize_resource except: %i[new create]
 
+  # GET /issues/:issue_id/comments/new
+  # GET /projects/:project_id/comments/new
   def new
-    @comment = Comment.new
     respond_to do |format|
       format.html
       format.js
     end
   end
 
+  # POST /projects/:project_id/comments
+  # POST /issues/:issue_id/comments
   def create
-    @comment = @project.comments.build(comment_params)
     @comment.user_id = current_user.id
     if @comment.save
-      flash[:notice] = t('comments.create.created')
+      flash.now[:notice] = t('comments.create.success')
     else
-      flash[:alert] = t('comments.create.not_created')
+      flash.now[:error] = @comment.errors.full_messages
     end
     respond_to do |format|
       format.js
     end
   end
 
+  # GET /comments/:id/edit
   def edit
     respond_to do |format|
       format.js
     end
   end
 
+  # PATCH /comments/:id(.:format)
+  # PUT /comments/:id(.:format)
   def update
+    # @comment_invalid is made instance variable because it is used in update.js.erb file.
+    @is_updated = false
     if @comment.update(comment_params)
-      respond_to do |format|
-        format.js
-      end
-      flash[:notice] = t('comments.update.updated')
+      flash.now[:notice] = t('comments.update.success')
     else
-      # how to show the errors
-      render 'edit'
-      flash[:notice] = t('comments.update.not_updated')
+      flash.now[:error] = @comment.errors.full_messages
+      @is_updated = true
+    end
+    respond_to do |format|
+      format.js
     end
   end
 
+  # DELETE /comments/:id(.:format)
   def destroy
     if @comment.destroy
-      flash[:notice] = t('comments.destroy.destroyed')
-      respond_to do |format|
-        format.js
-      end
+      flash.now[:notice] = t('comments.destroy.success')
     else
-      flash[:notice] = t('comments.destroy.not_destroyed')
+      flash.now[:error] = @comment.errors.full_messages
+    end
+    respond_to do |format|
+      format.js
     end
   end
 
   private
-
-  def load_project
-    @project = Project.find(params[:project_id])
-  end
-
-  def current_comment
-    @comment = Comment.find(params[:id])
-  end
 
   def comment_params
     params.require(:comment).permit(:content)

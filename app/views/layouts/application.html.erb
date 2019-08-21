@@ -1,9 +1,8 @@
-
-
 <!DOCTYPE html>
 <html>
   <head>
     <title>WorkflowEngine</title>
+
     <meta charset="utf-8">
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -21,20 +20,30 @@
     <%= javascript_include_tag 'application' %>
     <!-- BOOTSTRAP 4 COMPONENTS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    
+
+     <!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> -->
+
+    
     <!-- END - BOOTSTRAP 4 COMPONENTS -->
 
     <%= csrf_meta_tags %>
   </head>
   <body class="<%= main_body_class_provider %>">
     <%= render "layouts/header" %>
-
     <% if user_signed_in? %>
-      <div id="wrapper">
+      <div id="wrapper" class="<%= sidebar_toggle_class %>">
         <%= render "layouts/sidebar" %>
     <% end %>
 
-    <div id="page-content-wrapper">
-      <div class="row">
+    <% if current_page?(root_url) %>
+      <%= yield %>
+      <%= render "layouts/footer" %>
+    <% else %>
+
+      <div id="page-content-wrapper">
         <div id="main_container_to_right_of_sidebar" class="<%= main_layout_class %>">
           <div id="flash_messages">
             <%= render 'shared/flash' %>
@@ -49,12 +58,12 @@
           <%= yield %>
         </div>
       </div>
-    </div>
 
-    <% if user_signed_in? %>
-      </div>
+      <% if user_signed_in? %>
+        </div>
+      <% end %>
     <% end %>
-
+    
     <%= javascript_include_tag "https://code.jquery.com/ui/1.12.1/jquery-ui.js" %>
     <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' %>
     <%= javascript_include_tag 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' %>

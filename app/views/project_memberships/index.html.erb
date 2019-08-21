@@ -1,13 +1,14 @@
-<h1 class="mb-4"><%= @project.title %></h1>
-
-<% if can? :create, ProjectMembership %>
-  <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#project_membership_modal">
-    <i class="fas fa-user-plus mr-2"></i>
-    <strong>Add Member</strong>
-  </button>
-  <!-- Add Member Modal -->
-  <%= render 'new_membership_modal' %>
-<% end %>
+<div class="wrapper">
+  <h1 class="float-left"><%= @project.title %></h1>
+  <% if can? :create, ProjectMembership %>
+    <button type="button" class="btn btn-secondary float-right" data-toggle="modal" data-target="#project_membership_modal">
+      <i class="fas fa-user-plus mr-2"></i>
+      <strong>Add Member</strong>
+    </button>
+    <!-- Add Member Modal -->
+    <%= render 'new_membership_modal' %>
+  <% end %>
+</div>
 
 <h2 class="my-4">Teams</h2>
 <div class="masonry" id="team_memberships">

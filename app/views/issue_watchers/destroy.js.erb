@@ -4,5 +4,6 @@
 
 $("#watch_button").remove();
 $("#watch_button_div").append('<%= j render partial: "watch_button", locals: { issue: @issue } %>');
+$("#flash_messages").html("<%= j render partial: 'shared/flash' %>");
 
 $("#issue_delete_button").data('confirm','<%= issue_delete_data_confirm(@issue) %>');

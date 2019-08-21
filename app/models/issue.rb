@@ -2,7 +2,7 @@
 class Issue < ActiveRecord::Base
   sequenceid :company, :issues
   audited associated_with: :project
-  
+
   PRIORITY = {
     Low: 0,
     Medium: 1,

@@ -1,14 +1,14 @@
 
-<div id="this_comment_<%= comment.id %>" class="card v-card v-sheet theme--light elevation-2">
-  <div  class="header">
-    <span  class="displayName title"><%= member_full_name(comment.user) %></span>
-    
-    <span  class="displayName caption"><%= time_ago_in_words(comment.created_at) %> ago</span>
+<div id="this_comment_<%= comment.id %>" class="pt-3 pl-4 pr-4 mb-2 ml-4 rounded bordered-comments bg-light">
+  <div class="">
+    <div  class="clearfix">
+      <span  class="title"><%= member_full_name(comment.user) %></span>
+      <span  class="caption ml-3"> <%= link_to "Edit", edit_comment_path(comment), remote: true %> </span>
+      <span  class="caption ml-3"> <%= link_to 'Delete', comment_path(comment), method: :delete, data: { confirm: 'Are you sure?' }, remote: true %> </span>
 
-    <span  class="displayName caption"> <%= link_to "Edit", edit_comment_path(comment), remote: true %> </span>
-      <span  class="displayName caption"> <%= link_to 'Delete', comment_path(comment), method: :delete, data: { confirm: 'Are you sure?' }, remote: true %> </span>
+      <span  class="caption ml-4 text-muted"><%= time_ago_in_words(comment.created_at) %> ago</span>
 
-      <%= form_for comment, url: comment_path(comment), hidden: true, remote: true, html: {id: "comment_edit_form_"+comment.id.to_s, class: "comment_edit_form"} do |f| %>
+      <%= form_for comment, url: comment_path(comment), hidden: true, remote: true, html: {id: "comment_edit_form_" + comment.id.to_s, class: "comment_edit_form"} do |f| %>
         <% if @comment.errors.any? %>
           <div id="error_explanation">
             <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this project from being saved:</h2>
@@ -20,17 +20,18 @@
             </ul>
           </div>
         <% end %>
-        <%= f.text_area :content, id: "comment_update" %>
-        <%= f.submit t('comments.update.btn'), id: "comment_update_btn", class: "btn comments_btn info" %>
+        <%= f.text_area :content, id: "comment_update", class: 'form-control mt-2'%>
+        <button type="button" class="btn btn-secondary float-right my-3" data-comment-id="<%= comment.id %>" id="cancel_comment_edit">Cancel</button>
+        <%= f.submit t('comments.update.btn'), class: "btn btn-secondary float-right my-3 mr-2" %>
       <% end %>
+    </div>
+    <div  class="">
+      <p id="this_comment_content_<%= comment.id %>"><%= comment.content %></p>
+    </div>
+    <div  class="actions">
+    </div>
+    <div  class="v-dialog__container" style="display: block;"></div>
   </div>
-  <!---->
-  <div  class="wrapper comment comment-content-wrapper">
-    <p id="this_comment_content_<%= comment.id %>"><%= comment.content %></p>
-  </div>
-  <div  class="actions">
-  </div>
-  <div  class="v-dialog__container" style="display: block;"></div>
 </div>
 
 

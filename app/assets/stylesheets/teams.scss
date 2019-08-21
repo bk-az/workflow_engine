@@ -1,3 +1,19 @@
 // Place all the styles related to the teams controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.card_width{
+  width:400px;
+}
+.pending_requests_div{
+  margin-top: 20px;
+}
+.select_tag_width{
+  width: 300px;
+}
+.index_top_margin, .pending_top_margin{
+  margin-top: 50px
+}
+.card_bottom_margin{
+  margin-bottom: 30px
+}

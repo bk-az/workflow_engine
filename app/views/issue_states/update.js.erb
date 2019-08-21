@@ -4,4 +4,5 @@ issueStateFlash.html('<%= j render partial: "shared/flash" %>');
   tr.html('<%= j render partial: 'issue_state_table_row_body', locals: {issue_state: @issue_state} %>');
   issueStatesTable.row(tr).invalidate().draw();
 <% end %>
+$("#flash_messages").html("<%= j render partial: 'shared/flash' %>");
 

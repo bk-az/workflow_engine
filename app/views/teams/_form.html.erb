@@ -4,7 +4,7 @@
     <div class="col-md-6">
       <div class="form-group">
         <%= f.label :name %>
-        <%= f.text_field :name, class: 'form-control' %>
+        <%= f.text_field :name, class: 'form-control',  required: true,  minlength: "3", maxlength:"100" %>
       </div>
     </div>
   </div>

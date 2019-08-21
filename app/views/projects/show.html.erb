@@ -57,7 +57,6 @@
   </div>
 
   <div class="tab-pane fade" id="pills_comment" role="tabpanel" aria-labelledby="pills_timeline_tab">
-    <%= render 'comments/comment' %>
+    <%= render partial: 'comments/comment', locals: { commentable_object: @project, comment: @comment, comments: @comments } %>
   </div>
 </div>
-

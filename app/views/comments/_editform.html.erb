@@ -14,10 +14,10 @@
   <div class="form-group">
     <label for="message-text" class="col-form-label">Message:</label>
 
-    <%= f.text_area :content, id: "editcommenttext", class: 'form-control' %>
+    <%= f.text_area :content, id: "editcommenttext", class: 'form-control ml-2 mr-2' %>
 
   </div>
-  <div class="actions">
-    <%= f.submit t('comments.update.btn'), id: "comment_update_btn", class: "btn comments_btn info" %>
+  <div class="actions float-right mt-2 mr-2">
+    <%= f.submit t('comments.update.btn'), class: "btn btn-secondary" %>
   </div>
 <% end %>

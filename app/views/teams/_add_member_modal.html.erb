@@ -1,0 +1,37 @@
+<div class="modal fade" id="add_member_modal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Member</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <%= form_tag add_membership_team_path(@team.sequence_num), method: 'get', remote: true do %>
+        <div class="modal-body" id="add_member_modal" >
+          <div class="row">
+            <div class="col-8">
+              <%= select_tag "user_id", options_from_collection_for_select(@all_members, :id, :first_name),class: 'select_tag_width'%>
+              <%= hidden_field_tag(:team_sequence_num, @team.sequence_num) %>
+              <%= hidden_field_tag(:is_approved, true) %>
+            </div>
+            <div class="col-4">
+              <div class="form-group form-check">
+                <div class="form-check-label">
+                  <%= check_box 'join_admin', 'joining_decision', {}, 1, 0 %>
+                  <%= label_tag(:join_admin, "Admin", class: 'form-check-label') %>
+                </div>
+              </div>
+            </div>   
+          </div>
+          <button type="submit" class="btn btn-secondary" >Add Member</button>
+        </div>
+      <% end %>  
+        <div class="modal-footer">
+          <div class="form-group">
+           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>

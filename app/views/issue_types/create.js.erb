@@ -6,3 +6,4 @@ issueTypeFlash.html('<%= j render partial: "shared/flash" %>');
   issueTypesTable.row.add(tr).draw();
 <% end %>
 resetIssueTypeCategoryToggle();
+$("#flash_messages").html("<%= j render partial: 'shared/flash' %>");
