@@ -36,15 +36,27 @@
     <%= render partial: "issues/issues", locals: { issues: @issues } %>
   </tbody>
 </table>
-<br><br>
-<div class="page-header">
-  <h3 class="float-left">Documents</h3>
-  <button type="button" class="btn btn-secondary float-right" data-toggle="modal" data-target="#upload_document_modal">Upload Document</button>
-  <%= render partial: 'documents/upload_document_modal' %>
+<br>
+<ul class="nav nav-tabs mb-4" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" data-toggle="pill" href="#pills_document" role="tab" aria-controls="pills_document" aria-selected="false">Documents</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="pill" href="#pills_comment" role="tab" aria-controls="pills_comment" aria-selected="false">Comments</a>
+  </li>
+</ul>
+
+<div class="tab-content mb-5">
+  <div class="tab-pane fade show active" id="pills_document" role="tabpanel" aria-labelledby="pills_timeline_tab">
+    <div class="page-header">
+      <button type="button" class="btn btn-secondary float-right" data-toggle="modal" data-target="#upload_document_modal">Upload Document</button>
+      <%= render partial: 'documents/upload_document_modal' %>
+    </div>
+    <br><br><br>
+    <%= render partial: "documents/show_documents", locals: { documents: @project.documents } %>
+  </div>
+
+  <div class="tab-pane fade" id="pills_comment" role="tabpanel" aria-labelledby="pills_timeline_tab">
+    <%= render partial: 'comments/comment', locals: { commentable_object: @project, comment: @comment, comments: @comments } %>
+  </div>
 </div>
-
-<br><br><br>
-
-<%= render partial: "documents/show_documents", locals: { documents: @project.documents } %>
-
-<%= render partial: 'comments/comment', locals: { commentable_object: @project, comment: @comment, comments: @comments } %>

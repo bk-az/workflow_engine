@@ -1,8 +1,9 @@
 # Issues Controller
 class IssuesController < ApplicationController
   before_action :authenticate_user!
-  load_and_authorize_resource find_by: 'sequence_num'
   load_and_authorize_resource :project
+  load_and_authorize_resource through: :project, find_by: 'sequence_num', except: %i[index history filter]
+  load_and_authorize_resource find_by: 'sequence_num', only: %i[index history filter]
 
   # GET /issues
   def index

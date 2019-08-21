@@ -9,12 +9,12 @@ $(function() {
   });
 
   $('#add_watchers_modal').on('hidden.bs.modal', function (e) {
-    $('#add_modal_search_results').html('');
+    $('#add_modal_search_results').html('').removeClass('modal-with-vertical-scroll-content');
     $('.watcher_search').val('');
   })
 
   $('#remove_watchers_modal').on('hidden.bs.modal', function (e) {
-    $('#remove_modal_search_results').html('');
+    $('#remove_modal_search_results').html('').removeClass('modal-with-vertical-scroll-content');
     $('.watcher_search').val('');
   })
 
