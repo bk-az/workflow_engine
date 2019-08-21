@@ -3,6 +3,17 @@
   <%= link_to 'New Project', new_project_path, class: 'btn btn-secondary float-right' %>
 <% end %>
 <br><br><br>
-<div class="card-columns">
-  <%= render @projects %>
-</div>
+<div class="spinner-border text-secondary"></div>
+<table class="table table-hover" id="projects_table">
+  <thead>
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col">Issues</th>
+      <th scope="col">Last Updated</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render @projects %>
+  </tbody>
+</table>
