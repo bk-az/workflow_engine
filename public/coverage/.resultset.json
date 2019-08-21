@@ -1,80 +1,28 @@
 {
   "RSpec": {
     "coverage": {
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/spec/controllers/issues_controller_spec.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/spec/controllers/members_controller_spec.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         null,
         1,
         1,
         1,
         1,
-<<<<<<< HEAD
-        1,
-        1,
-        1,
-        null,
-        1,
-        28,
-        28,
-        28,
-        null,
         null,
         1,
         1,
         1,
         1,
         null,
-        null,
-        null,
         1,
         1,
         1,
         1,
         null,
-        null,
-        null,
-        1,
-        1,
-        1,
-        1,
-        null,
-        null,
-        null,
-        1,
-        1,
-        1,
-        null,
-        null,
-        1,
-        0,
-        0,
-        null,
-        1,
-        0,
-        0,
-        0,
-        null,
-        null,
-        null,
-        1,
-        1,
-        4,
-        4,
-        4,
-        null,
-        3,
-=======
         null,
         1,
         13,
-        13,
-        13,
-        13,
-        13,
+        null,
         13,
         13,
         null,
@@ -83,7 +31,6 @@
         2,
         3,
         2,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         1,
         1,
@@ -104,185 +51,52 @@
         1,
         1,
         1,
-<<<<<<< HEAD
         1,
         null,
         null,
-        1,
-        1,
-        1,
-        null,
-        null,
-        null,
-        null,
-        1,
-        1,
-        1,
-        9,
-        9,
-        9,
-        9,
-        9,
-        9,
-        9,
-        9,
-        9,
-        null,
-        null,
-        1,
-        1,
-        1,
-        1,
-        1,
-        null,
-        null,
-        1,
-        1,
-        null,
-        null,
-        null,
-        1,
-        1,
-        1,
-        0,
-        null,
-        null,
-        1,
-        1,
-        1,
-        1,
-        null,
-=======
-        0,
-        null,
-        null,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
-        null,
-        1,
-        1,
-        1,
-        1,
-<<<<<<< HEAD
-        null,
-        null,
-        1,
-=======
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
-        1,
-        null,
-        null,
-        null,
-        1,
-        1,
-        1,
-<<<<<<< HEAD
-        0,
-        null,
-        null,
-        1,
-        1,
-        1,
-=======
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
-        1,
-        null,
-        null,
-        null,
-        1,
-        1,
-        1,
-<<<<<<< HEAD
         null,
         1,
         1,
-        null,
-        null,
         1,
         1,
-=======
         1,
-        null,
         null,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
-        null,
-        1,
-        1,
-        1,
-<<<<<<< HEAD
         null,
         null,
         1,
         1,
-        null,
-        null,
-=======
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         1,
-        null,
         null,
         null,
-<<<<<<< HEAD
         null,
         1,
         1,
-        6,
-        6,
-        6,
-        null,
         1,
         1,
         null,
-        1,
-        1,
-        1,
-        1,
         null,
         null,
-=======
         1,
         1,
         1,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         1,
-        null,
-        null,
         null,
-<<<<<<< HEAD
-        1,
-        1,
-        1,
         null,
-=======
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
-        1,
         1,
         1,
-<<<<<<< HEAD
-        null,
-        null,
-        null,
         1,
         1,
         1,
         null,
-        1,
         null,
         null,
-        1,
-        1,
         null,
-        1,
         1,
-        null,
-        null,
         1,
         1,
-        null,
-        null,
-=======
         1,
         1,
         null,
@@ -293,75 +107,38 @@
         1,
         1,
         1,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
-        null,
         null,
         null,
         null,
-<<<<<<< HEAD
         null,
-        1,
-        1,
-=======
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         1,
         1,
         1,
         1,
-<<<<<<< HEAD
-        1,
-        null,
-        null,
-        1,
-        1,
-        1,
-=======
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         null,
         null,
-        1,
         1,
         1,
-<<<<<<< HEAD
-        null,
-        null,
-=======
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
-        1,
         1,
-        null,
-        null,
-<<<<<<< HEAD
         1,
         1,
-=======
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         null,
-        1,
-        1,
-<<<<<<< HEAD
         null,
         null,
         1,
         1,
-=======
         1,
         2,
         null,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         null,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/spec/rails_helper.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/spec/rails_helper.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         1,
         1,
@@ -455,22 +232,14 @@
         1,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/config/environment.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/config/environment.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         1,
         null,
         null,
         1
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/config/application.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/config/application.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         null,
         1,
@@ -500,20 +269,12 @@
         null,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/config/boot.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/config/boot.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         null,
         1
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/config/environments/test.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/config/environments/test.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         null,
         null,
@@ -560,11 +321,7 @@
         1,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/config/initializers/assets.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/config/initializers/assets.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         null,
         null,
@@ -577,11 +334,7 @@
         null,
         1
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/config/initializers/backtrace_silencers.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/config/initializers/backtrace_silencers.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         null,
         null,
@@ -590,29 +343,17 @@
         null,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/config/initializers/constants.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/config/initializers/constants.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         1,
         1
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/config/initializers/cookies_serializer.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/config/initializers/cookies_serializer.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         null,
         1
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/config/initializers/devise.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/config/initializers/devise.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         null,
         1,
@@ -883,21 +624,13 @@
         null,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/config/initializers/filter_parameter_logging.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/config/initializers/filter_parameter_logging.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         null,
         null,
         1
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/config/initializers/inflections.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/config/initializers/inflections.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         null,
         null,
@@ -915,42 +648,19 @@
         null,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/config/initializers/mime_types.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/config/initializers/mime_types.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         null,
         null,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/config/initializers/multitenant.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/config/initializers/multitenant.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         1,
         null,
         1,
         null,
         1,
-<<<<<<< HEAD
-        13,
-        13,
-        null,
-        null,
-        12,
-        null,
-        12,
-        null,
-        12,
-        12,
-        null,
-        null,
-        12,
-=======
         8,
         8,
         null,
@@ -964,26 +674,16 @@
         null,
         null,
         7,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         2,
         null,
         null,
         null,
-<<<<<<< HEAD
-        12,
-        60,
-        12,
-        12,
-        10,
-        421,
-=======
         7,
         55,
         7,
         7,
         5,
-        256,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
+        91,
         null,
         null,
         null,
@@ -992,20 +692,12 @@
         null,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/config/initializers/session_store.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/config/initializers/session_store.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         null,
         1
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/config/initializers/wrap_parameters.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/config/initializers/wrap_parameters.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         null,
         null,
@@ -1021,11 +713,7 @@
         null,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/spec/factories/comment.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/spec/factories/comment.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         null,
         1,
@@ -1039,31 +727,18 @@
         null,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/spec/factories/company.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/spec/factories/company.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         null,
         1,
         1,
-<<<<<<< HEAD
-        2,
-        2,
-=======
-        15,
-        15,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
+        4,
+        4,
         1,
         null,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/spec/factories/document.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/spec/factories/document.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         1,
         1,
@@ -1092,11 +767,7 @@
         null,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/spec/factories/issue.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/spec/factories/issue.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         null,
         1,
@@ -1119,11 +790,7 @@
         null,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/spec/factories/issue_state.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/spec/factories/issue_state.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         null,
         1,
@@ -1133,11 +800,7 @@
         null,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/spec/factories/issue_type.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/spec/factories/issue_type.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         null,
         1,
@@ -1147,11 +810,7 @@
         null,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/spec/factories/issue_watcher.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/spec/factories/issue_watcher.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         null,
         1,
@@ -1162,23 +821,14 @@
         null,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/spec/factories/project.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/spec/factories/project.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         null,
         1,
         1,
         1,
-<<<<<<< HEAD
-        2,
-        2,
-=======
         1,
         1,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         null,
         1,
@@ -1186,11 +836,7 @@
         null,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/spec/factories/project_membership.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/spec/factories/project_membership.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         null,
         1,
@@ -1200,11 +846,7 @@
         null,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/spec/factories/role.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/spec/factories/role.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         null,
         1,
@@ -1221,11 +863,7 @@
         null,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/app/models/role.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/app/models/role.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         1,
         null,
@@ -1245,11 +883,7 @@
         null,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/spec/factories/team.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/spec/factories/team.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         null,
         null,
@@ -1271,11 +905,7 @@
         null,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/spec/factories/team_membership.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/spec/factories/team_membership.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         1,
         1,
@@ -1285,32 +915,23 @@
         null,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/spec/factories/user.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/spec/factories/user.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         null,
         1,
         1,
-<<<<<<< HEAD
+        3,
+        3,
+        3,
+        3,
+        3,
         1,
-        1,
-=======
-        14,
-        14,
-        14,
-        14,
-        14,
-        1,
-        14,
+        3,
         1,
         1,
         1,
         null,
         null,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         1,
         1,
@@ -1322,48 +943,22 @@
         null,
         null,
         1,
-<<<<<<< HEAD
-        2,
-        2,
-        2,
-        2,
-        2,
-        1,
-        1,
-        null,
-        null,
-        1,
-        2,
-        2,
-        2,
-        2,
-        2,
-=======
         1,
         1,
         1,
         1,
         1,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         1,
         null,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/app/models/user.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/app/models/user.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         1,
         null,
         null,
-<<<<<<< HEAD
-        1,
-=======
         13,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         null,
         null,
@@ -1403,91 +998,55 @@
         null,
         null,
         1,
-<<<<<<< HEAD
-        2,
+        7,
+        null,
+        null,
+        1,
+        20,
+        null,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null,
+        1,
+        null,
+        1,
+        null,
+        null,
+        1,
+        1,
+        0,
+        0,
+        null,
+        1,
+        null,
+        null,
+        1,
+        null,
+        1,
+        0,
+        0,
+        null,
+        1,
+        null,
+        null,
+        1,
+        0,
         null,
         null,
         1,
         4,
-=======
-        19,
-        null,
-        null,
-        1,
-        46,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
-        null,
-        null,
-        null,
-        1,
-        0,
-        null,
-        null,
-        null,
-        1,
-        0,
-        null,
-        null,
-        1,
-        null,
-<<<<<<< HEAD
-        0,
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        null,
-        0,
-=======
-        1,
-        null,
-        null,
-        1,
-        1,
-        0,
-        0,
-        null,
-        1,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
-        null,
-        null,
-        1,
-        null,
-<<<<<<< HEAD
-        0,
-        0,
-        0,
-        null,
-        0,
-=======
-        1,
-        0,
-        0,
-        null,
-        1,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
-        null,
-        null,
-        1,
-        0,
-        null,
-        null,
-        1,
-<<<<<<< HEAD
-        0,
-        null,
-        null,
-        1,
-        73,
-=======
-        2,
         null,
         null,
         1,
         13,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         null,
         1,
@@ -1495,41 +1054,23 @@
         null,
         null,
         1,
-<<<<<<< HEAD
-        18,
-        0,
-        null,
-        18,
-=======
         0,
         0,
         null,
         0,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         null,
         null,
         1,
-<<<<<<< HEAD
-        17,
-        0,
-        null,
-        17,
-=======
         0,
         0,
         null,
         0,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         null,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/config/routes.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/config/routes.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         1,
         1,
@@ -1613,11 +1154,7 @@
         null,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/app/helpers/application_helper.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/app/helpers/application_helper.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         1,
         null,
@@ -1642,17 +1179,6 @@
         null,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/app/helpers/comments_helper.rb": [
-        1,
-        null
-      ],
-      "/home/basil/workspace/workflow_engine/app/helpers/dashboard_helper.rb": [
-        1,
-        null
-      ],
-      "/home/basil/workspace/workflow_engine/app/helpers/documents_helper.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/app/helpers/comments_helper.rb": [
         1,
         null
@@ -1662,7 +1188,6 @@
         null
       ],
       "/home/abdullah/Desktop/7vals/workflow_engine/app/helpers/documents_helper.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         1,
         0,
@@ -1682,11 +1207,7 @@
         null,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/app/helpers/error_messages_helper.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/app/helpers/error_messages_helper.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         null,
         1,
@@ -1711,11 +1232,7 @@
         null,
         1
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/app/helpers/forms_helper.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/app/helpers/forms_helper.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         1,
         1,
@@ -1723,19 +1240,11 @@
         null,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/app/helpers/home_helper.rb": [
-        1,
-        null
-      ],
-      "/home/basil/workspace/workflow_engine/app/helpers/issue_states_helper.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/app/helpers/home_helper.rb": [
         1,
         null
       ],
       "/home/abdullah/Desktop/7vals/workflow_engine/app/helpers/issue_states_helper.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         1,
         0,
@@ -1755,11 +1264,7 @@
         null,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/app/helpers/issue_types_helper.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/app/helpers/issue_types_helper.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         1,
         0,
@@ -1779,22 +1284,14 @@
         null,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/app/helpers/issue_watchers_helper.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/app/helpers/issue_watchers_helper.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         1,
         0,
         null,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/app/helpers/issues_helper.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/app/helpers/issues_helper.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         1,
         1,
@@ -1839,11 +1336,7 @@
         null,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/app/models/issue_state.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/app/models/issue_state.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         1,
         null,
@@ -1863,11 +1356,7 @@
         null,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/app/models/issue_type.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/app/models/issue_type.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         1,
         null,
@@ -1892,11 +1381,7 @@
         null,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/app/helpers/layout_helper.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/app/helpers/layout_helper.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         null,
         null,
@@ -1920,22 +1405,14 @@
         null,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/app/helpers/members_helper.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/app/helpers/members_helper.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         1,
         0,
         null,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/app/helpers/project_memberships_helper.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/app/helpers/project_memberships_helper.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         1,
         0,
@@ -1967,22 +1444,14 @@
         null,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/app/helpers/reports_helper.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/app/helpers/reports_helper.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         1,
         0,
         null,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/app/helpers/teams_helper.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/app/helpers/teams_helper.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         1,
         0,
@@ -1996,30 +1465,17 @@
         null,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/app/helpers/user_companies_helper.rb": [
-        1,
-        null
-      ],
-      "/home/basil/workspace/workflow_engine/spec/support/factory_girl.rb": [
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/app/helpers/user_companies_helper.rb": [
         1,
         null
       ],
       "/home/abdullah/Desktop/7vals/workflow_engine/spec/support/factory_girl.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         1,
         null,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/app/controllers/issues_controller.rb": [
-        null,
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/app/controllers/members_controller.rb": [
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         1,
         1,
@@ -2028,22 +1484,11 @@
         null,
         null,
         1,
-<<<<<<< HEAD
-        1,
-=======
         0,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         0,
         null,
         0,
         null,
-<<<<<<< HEAD
-        1,
-        1,
-        1,
-        1,
-        1,
-=======
         0,
         0,
         null,
@@ -2060,158 +1505,76 @@
         1,
         1,
         null,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         null,
         1,
         1,
         1,
         null,
-<<<<<<< HEAD
-        null,
-=======
         0,
         0,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         null,
         1,
         1,
         1,
-<<<<<<< HEAD
-=======
         0,
         0,
         null,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         null,
         null,
         null,
         null,
-<<<<<<< HEAD
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        null,
-=======
         null,
         null,
         1,
         null,
         1,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         null,
         null,
         1,
-<<<<<<< HEAD
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-=======
         1,
         1,
         null,
         1,
         2,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         null,
         null,
         null,
         1,
-<<<<<<< HEAD
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-=======
         1,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
-        0,
-        0,
+        1,
+        2,
         null,
         null,
         null,
         null,
         1,
-<<<<<<< HEAD
-        6,
-        3,
-        3,
-        6,
-        null,
-        null,
-        3,
-        3,
-        3,
-        3,
-        3,
-        3,
-=======
         1,
         null,
         1,
         null,
         1,
         2,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         null,
         null,
         null,
         1,
-<<<<<<< HEAD
-        0,
-        0,
-        0,
-        0,
-        0,
-        null,
-        null,
-        0,
-        0,
-        0,
-        0,
-=======
         2,
         2,
-        0,
+        2,
         null,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
-        0,
-        0,
+        2,
+        4,
         null,
         null,
         null,
         null,
         1,
-<<<<<<< HEAD
-        0,
-        0,
-        0,
-        0,
-        null,
-        null,
-        0,
-        0,
-=======
         2,
         2,
         2,
@@ -2221,30 +1584,11 @@
         null,
         2,
         4,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         null,
         null,
         null,
         1,
-<<<<<<< HEAD
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        null,
-        null,
-        null,
-        1,
-        null,
-        null,
-        1,
-        null,
-        6,
-=======
         2,
         2,
         2,
@@ -2268,7 +1612,6 @@
         null,
         0,
         0,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         null,
         null,
@@ -2276,27 +1619,6 @@
         null,
         null,
         1,
-<<<<<<< HEAD
-        null,
-        1,
-        null,
-        null
-      ],
-      "/home/basil/workspace/workflow_engine/app/controllers/application_controller.rb": [
-        null,
-        1,
-        null,
-        null,
-        null,
-        null,
-        1,
-        1,
-        null,
-        null,
-        1,
-        23,
-        23,
-=======
         1,
         1,
         1,
@@ -2308,50 +1630,25 @@
         2,
         null,
         null,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         null,
         null,
         1,
         null,
-<<<<<<< HEAD
-        null,
-        null,
-        null,
-        null,
-        null,
-        1,
-=======
         1,
         null,
         1,
         2,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         null,
         null,
         null,
         null,
         1,
-<<<<<<< HEAD
-        15,
-        null,
-        null,
-        1,
-        35,
-=======
         1,
         null,
         null,
         1,
-        1,
-        1,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
-        null,
-        1,
-        null,
-        1,
-<<<<<<< HEAD
         0,
         0,
         null,
@@ -2359,68 +1656,25 @@
         null,
         0,
         0,
-=======
-        1,
         null,
         0,
         0,
         null,
         null,
-        1,
-        1,
-        1,
         0,
-        null,
-        1,
-        null,
-        null,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
-        null,
-        null,
-        null,
-        1,
-        null,
-        1,
-<<<<<<< HEAD
-        null,
-        null,
-        null,
-        23,
         0,
-        null,
         0,
         0,
         null,
-        23,
-        null,
-        23,
-        null,
-        23,
-        null,
-        null,
-        null,
-        1,
-        35,
-        0,
-        35,
         0,
         null,
-        35,
         null,
         null,
-        null
-      ],
-      "/home/basil/workspace/workflow_engine/app/models/company.rb": [
-        1,
-        1,
         null,
-        2,
+        null,
         1,
         null,
         1,
-        1,
-        1,
-=======
         2,
         0,
         0,
@@ -2447,7 +1701,7 @@
         null,
         null,
         1,
-        2,
+        1,
         null,
         null,
         1,
@@ -2460,36 +1714,11 @@
         null,
         1,
         null,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         null,
         null,
         1,
         1,
-<<<<<<< HEAD
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        null,
-        1,
-        106,
-        null,
-        null,
-        1,
-        434,
-        null,
-        null,
-        1,
-        5,
-        1,
-=======
         null,
         null,
         1,
@@ -2509,35 +1738,10 @@
         null,
         null,
         null,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         null,
         1,
-        3,
-<<<<<<< HEAD
         1,
-        null,
-        null
-      ],
-      "/home/basil/workspace/workflow_engine/app/models/project.rb": [
-        1,
-        1,
-        1,
-        null,
-        1,
-        1,
-        null,
-        1,
-        1,
-        1,
-        null,
-        1,
-        1,
-        1,
-        null,
-        null,
-        1,
-=======
         null,
         null,
         1,
@@ -2555,37 +1759,12 @@
         0,
         null,
         null,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         1,
         null,
         1,
         null,
         null,
-<<<<<<< HEAD
-        1,
-        15,
-        15,
-        null,
-        null,
-        1,
-        0,
-        null,
-        null
-      ],
-      "/home/basil/workspace/workflow_engine/app/models/issue.rb": [
-        null,
-        1,
-        1,
-        1,
-        null,
-        1,
-        null,
-        null,
-        null,
-        null,
-        null,
-=======
         null,
         13,
         0,
@@ -2616,75 +1795,26 @@
         1,
         1,
         null,
-        15,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
+        4,
         1,
         null,
         1,
         1,
-<<<<<<< HEAD
-=======
-        1,
-        null,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
-        null,
-        null,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-<<<<<<< HEAD
-        null,
-=======
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
-        1,
-        1,
-        1,
-        1,
-        1,
-<<<<<<< HEAD
-        null,
-        null,
-        1,
-        null,
-        null,
-        1,
-        null,
-        null,
-        1,
-        1,
-        null,
-        1,
-        1,
-        null,
-        null,
-        1,
-        null,
-        1,
-        null,
         1,
         null,
         null,
         null,
         1,
-        24,
-        null,
-        0,
-        0,
-        0,
-        0,
-        0,
-        null,
-        0,
-        0,
-        0,
-        null,
-        null,
-        null,
-        0,
-=======
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
         1,
         null,
         1,
@@ -2692,17 +1822,17 @@
         null,
         null,
         1,
-        264,
+        99,
         null,
         null,
         1,
-        70,
-        14,
+        15,
+        3,
         null,
         null,
         1,
-        42,
-        14,
+        9,
+        3,
         null,
         null
       ],
@@ -2731,7 +1861,6 @@
         null,
         0,
         0,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         null,
         0,
@@ -2739,132 +1868,40 @@
         null,
         0,
         0,
-<<<<<<< HEAD
+        null,
+        0,
+        0,
+        0,
+        null,
+        0,
+        0,
+        null,
+        0,
+        null,
+        null,
+        0,
+        0,
+        null,
+        null,
+        0,
+        null,
+        null,
         0,
         null,
         null,
         null
       ],
-      "/home/basil/workspace/workflow_engine/app/models/ability.rb": [
-        null,
-        1,
-        1,
-        1,
-        23,
-        null,
-        23,
-        23,
-        null,
-        23,
-        6,
-        6,
-        6,
-        6,
-        null,
-        null,
-        17,
-        15,
-        null,
-        17,
-        null,
-        null,
-        17,
-        17,
-        null,
-        null,
-        17,
-        null,
-        null,
-        17,
-        0,
-        null,
-        17,
-        0,
-        0,
-        null,
-        17,
-        0,
-        null,
-        17,
-        null,
-        null,
-        17,
-        17,
-        null,
-        null,
-        17,
-        null,
-        null,
-        17,
-=======
-        null,
-        0,
-        0,
-        0,
-        null,
-        0,
-        0,
-        null,
-        0,
-        null,
-        null,
-        0,
-        0,
-        null,
-        null,
-        0,
-        null,
-        null,
-        0,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
-        null,
-        null,
-        null
-      ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/app/models/team_membership.rb": [
-        1,
-        1,
-        1,
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/app/models/project.rb": [
         1,
         1,
         1,
         null,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         1,
         null,
         1,
         1,
         1,
-<<<<<<< HEAD
-        null
-      ],
-      "/home/basil/workspace/workflow_engine/app/models/team.rb": [
-        null,
-        1,
-        1,
-        null,
-        1,
-        1,
-        null,
-        1,
-        1,
-        null,
-        1,
-        1,
-        null,
-        1,
-        1,
-        null,
-        1,
-        0,
-        0,
-        0,
-        0,
-=======
         null,
         1,
         1,
@@ -2882,29 +1919,12 @@
         0,
         0,
         null,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         1,
         0,
         null,
         null
       ],
-<<<<<<< HEAD
-      "/home/basil/workspace/workflow_engine/app/models/project_membership.rb": [
-        1,
-        1,
-        null,
-        1,
-        1,
-        null,
-        1,
-        1,
-        1,
-        null,
-        null,
-        1,
-        17,
-=======
       "/home/abdullah/Desktop/7vals/workflow_engine/app/models/issue.rb": [
         null,
         1,
@@ -2912,29 +1932,11 @@
         1,
         null,
         1,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         null,
         null,
         null,
         null,
-<<<<<<< HEAD
-        null,
-        0,
-        null,
-        null,
-        1,
-        0,
-        0,
-        null,
-        0,
-        null,
-        0,
-        null,
-        null
-      ],
-      "/home/basil/workspace/workflow_engine/app/models/issue_watcher.rb": [
-=======
         1,
         null,
         1,
@@ -2943,7 +1945,6 @@
         null,
         1,
         1,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         1,
         1,
         1,
@@ -2951,45 +1952,6 @@
         null,
         1,
         1,
-<<<<<<< HEAD
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        null,
-        0,
-        0,
-        0,
-        0,
-        0,
-        null,
-        null,
-        null,
-        0,
-        0,
-        null,
-        null,
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        null,
-        null,
-=======
         1,
         1,
         1,
@@ -3013,65 +1975,26 @@
         1,
         null,
         1,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         null,
         null,
         1,
         0,
-<<<<<<< HEAD
-=======
         null,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
-        0,
         0,
         0,
         0,
         0,
-        null,
-        0,
-<<<<<<< HEAD
-        null,
-        null,
         0,
         null,
         0,
         0,
-        null,
         0,
         null,
-=======
-        0,
-        0,
-        null,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         null,
         0,
         null,
-<<<<<<< HEAD
-        null
-      ],
-      "/home/basil/workspace/workflow_engine/app/models/document.rb": [
-        1,
-        1,
-        null,
-        null,
-        1,
-        null,
-        1,
-        null,
-        1,
-        1,
-        null,
-        null,
-        1,
-        0,
-        null,
-        null,
-        1,
-        0,
-=======
         null,
         0,
         null,
@@ -3080,15 +2003,10 @@
         0,
         0,
         null,
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
         null,
         null
       ]
     },
-<<<<<<< HEAD
-    "timestamp": 1566383528
-=======
-    "timestamp": 1566383487
->>>>>>> 4c78b13b3879d09d07ca35d12cc5210e7b1088d1
+    "timestamp": 1566390894
   }
 }
