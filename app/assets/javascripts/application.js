@@ -20,7 +20,3 @@
 //= require chartkick
 //= require Chart.bundle
 //= require_tree .
-
-$(function() {
-  $('#breadcrumb li:last-child').wrapInner("<a href='#_'></a>");
-});
