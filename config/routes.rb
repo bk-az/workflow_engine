@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     end
   end
 
-  root 'user_companies#find'
+  root 'home#index'
 
   resources :issues, only: :index do
     get 'filter', on: :collection
