@@ -1,19 +1,11 @@
-<div class="comment-container theme--light">
-  <div class="comments">
+<span class="headline ml-4">Leave a comment</span>
+<div class="sign-in-wrapper ml-4">
+  <p id="createform" class="caption disclaimer">
+    <%= render partial: 'comments/form', locals: { commentable_object: commentable_object, comment: @comment } %>
+  </p>
+  <p class="error-message"></p>
+</div>
 
-    <div class="card leavecommentcard v-card v-sheet theme--light elevation-2">
-      <span class="headline">Leave a comment</span>
-      
-      <div class="sign-in-wrapper">
-        <p id="createform" class="caption disclaimer">
-          <%= render 'comments/form' %>
-        </p>
-        <p class="error-message"></p>
-      </div>
-    </div>
-    
-    <div id="single-comment">
-      <%= render 'comments/all_comments'%>
-    </div>
-  </div>
+<div id="single-comment">
+  <%= render partial: 'comments/all_comments', locals: { comments: comments } %>
 </div>

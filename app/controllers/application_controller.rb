@@ -36,6 +36,17 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_tenant
 
+  def sidebar_toggle
+    if params[:is_collapsed].to_i.zero?
+      session.delete(:is_sidebar_collapsed) if session.has_key?(:is_sidebar_collapsed)
+    elsif params[:is_collapsed].to_i == 1
+      session[:is_sidebar_collapsed] = true
+    end
+    respond_to do |format|
+      format.js { render json: {}, status: 200 }
+    end
+  end
+
   private
 
   def scope_current_tenant

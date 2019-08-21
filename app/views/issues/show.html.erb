@@ -1,4 +1,3 @@
-
 <div class="wrapper">
   <h2 class="float-left"><%= @issue.title %></h2>
   <% if can?(:history, @issue) %>
@@ -20,11 +19,11 @@
   </div>
 
   <% if can?(:destroy, @issue) %>
-    <%= link_to "Delete", project_issue_path(@issue.project_id, @issue.id), method: :delete, data: { confirm: issue_delete_data_confirm(@issue) }, class: 'btn btn-secondary float-right mr-2', id: 'issue_delete_button' %>
+    <%= link_to "Delete", project_issue_path(@issue.project, @issue.sequence_num), method: :delete, data: { confirm: issue_delete_data_confirm(@issue) }, class: 'btn btn-secondary float-right mr-2', id: 'issue_delete_button' %>
   <% end %>
 
   <% if can?(:update, @issue) %>
-    <%= link_to 'Edit', edit_project_issue_path(@issue.project_id, @issue.id), class: 'btn btn-secondary float-right mr-2' %>
+    <%= link_to 'Edit', edit_project_issue_path(@issue.project, @issue.sequence_num), class: 'btn btn-secondary float-right mr-2' %>
   <% end %>
 </div>
 <br>
@@ -68,12 +67,28 @@
     </tr>
   </tbody>
 </table>
+<br>
 
+<ul class="nav nav-tabs mb-4" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" data-toggle="pill" href="#pills_document" role="tab" aria-controls="pills_document" aria-selected="false">Documents</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="pill" href="#pills_comment" role="tab" aria-controls="pills_comment" aria-selected="false">Comments</a>
+  </li>
+</ul>
 
-<div class="page-header">
-  <h3 class="float-left">Documents</h3>
-  <button type="button" class="btn btn-secondary float-right" data-toggle="modal" data-target="#upload_document_modal">Upload Document</button>
-  <%= render partial: 'documents/upload_document_modal' %>
+<div class="tab-content mb-5">
+  <div class="tab-pane fade show active" id="pills_document" role="tabpanel" aria-labelledby="pills_timeline_tab">
+    <div class="page-header">
+      <button type="button" class="btn btn-secondary float-right" data-toggle="modal" data-target="#upload_document_modal">Upload Document</button>
+      <br><br><br>
+      <%= render partial: 'documents/upload_document_modal' %>
+      <%= render partial: "documents/show_documents", locals: { documents: @issue.documents } %>
+    </div>
+  </div>
+
+  <div class="tab-pane fade" id="pills_comment" role="tabpanel" aria-labelledby="pills_timeline_tab">
+    <%= render partial: 'comments/comment', locals: { commentable_object: @issue, comment: @comment, comments: @comments } %>
+  </div>
 </div>
-<br><br><br>
-<%= render partial: "documents/show_documents", locals: { documents: @issue.documents } %>

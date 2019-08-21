@@ -7,3 +7,4 @@ issueTypeModal.modal('show');
 <% elsif params[:project_id].present? && @issue_type.project_id.blank? %>
   issueTypeCategoryToggleSetGlobal();
 <% end %>
+$("#flash_messages").html("<%= j render partial: 'shared/flash' %>");

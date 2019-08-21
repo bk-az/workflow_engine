@@ -63,20 +63,21 @@
 }
 
 .sidebar-nav li a:hover {
-  text-decoration: none;
-  color: #fff;
-  background: rgba(255,255,255,0.2);
+  background: #f5f2d0 !important;
+  color: #606060 !important;
 }
 
-.sidebar-nav li a:active,
+.sidebar-nav li a.active,
 .sidebar-nav li a:focus {
-  text-decoration: none;
+  background: #f5f2d0 !important;
+  color: #606060 !important;
 }
 
 .sidebar-nav > .sidebar-brand {
   height: 65px;
   font-size: 18px;
   line-height: 60px;
+  padding-left: 40px;
 }
 
 .sidebar-nav > .sidebar-brand a {
@@ -87,6 +88,12 @@
   color: #fff;
   background: none;
 }
+
+.sidebar-nav > .sidebar-brand a.active {
+  background: #f5f2d0 !important;
+  color: #606060 !important;
+}
+
 
 @media(min-width:768px) {
   #wrapper {
@@ -114,4 +121,6 @@
     position: relative;
     margin-right: 0;
   }
+
 }
+

@@ -6,6 +6,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
     super
   end
 
+  # GET /resource/edit
+  def edit
+    add_breadcrumb 'My Workplace', :dashboard_path
+    add_breadcrumb 'Edit', :edit_user_registration_path
+    super
+  end
+
   # POST /resource/create
   def create
     begin
@@ -17,11 +24,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
         @new_user.company.update!(owner_id: @new_user.id)
       end
     rescue ActiveRecord::RecordInvalid
-      flash[:error] = @new_user.errors.full_messages
+      flash.now[:error] = @new_user.errors.full_messages
       render 'devise/registrations/new'
     rescue ActiveRecord::ActiveRecordError => e
-      flash[:error] = @new_user.errors.full_messages
-      flash[:error] << e.message
+      flash.now[:error] = @new_user.errors.full_messages
+      flash.now[:error] << e.message
       render 'devise/registrations/new'
     else
       redirect_to new_user_session_url(subdomain: @new_user.company.subdomain, user_email: @new_user.email, newly_signed_up: true)

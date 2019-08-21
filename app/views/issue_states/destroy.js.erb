@@ -1,4 +1,5 @@
 $("#flash_messages").html('<%= j render partial: "shared/flash" %>');
-<% if @issue_state.errors.blank? %>
+<% if @issue_state.destroyed? %>
   issueStatesTable.row("#<%= issue_state_table_row_id(@issue_state) %>").remove().draw();
 <% end %>
+$("#flash_messages").html("<%= j render partial: 'shared/flash' %>");
