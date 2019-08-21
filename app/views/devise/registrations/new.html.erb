@@ -24,8 +24,10 @@
 
           <div class="form-group">
             <%= f.label :password, 'Password: ' %>
-            <%= f.password_field :password, autocomplete: "off", class: "form-control d-inline", placeholder: "Password for John Doe.", id: 'password_text_field', required: true %>
-            <span class="fa fa-fw fa-eye-slash" id="show_password_eye"></span>
+            <%= f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "Password for John Doe.", id: 'password_text_field', required: true %>
+            <div>
+              <span class="fa fa-fw fa-eye-slash float-right" id="show_password_eye"></span>
+            </div>
           </div>
 
           <div class="form-group d-none">
@@ -37,8 +39,10 @@
           <%= f.fields_for :company do |company| %>
             <div>
               <%= company.label :name, 'Company Name: ' %>
-              <%= company.text_field :name, autocomplete: "off", class: "form-control d-inline", placeholder: "E.g. 7vals Co.", id: "company_name_text_field", required: true %>
-              <span class="fa lds-dual-ring" id="subdomain_verification_icon"></span>
+              <%= company.text_field :name, autocomplete: "off", class: "form-control", placeholder: "E.g. 7vals Co.", id: "company_name_text_field", required: true %>
+              <div>
+                <span class="fa lds-dual-ring float-right" id="subdomain_verification_icon"></span>
+              </div>
             </div>
             <div id="company_subdomain_display_area" class="col-sm-12 text-muted text-right pt-2">
               <p>Your Portal Will be Live On: <strong class="text-dark"><span id="subdomain_text_area"><%= @new_user.company.subdomain %></span>.<%= request.domain %></strong></p>

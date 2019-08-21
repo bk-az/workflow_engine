@@ -2,7 +2,7 @@
   <% audit.audited_changes.keys.each do |key| %>
     <tr>
       <td>
-        <%= attribute_title_from_key(key) %>
+        <%= key.titleize %>
       </td>
     </tr>
   <% end %>

@@ -119,7 +119,7 @@ class IssuesController < ApplicationController
     end
   end
 
-  # GET issues/:id/history
+  # GET /issues/:id/history
   def history
     add_breadcrumb 'Projects', :projects_path
     add_breadcrumb @issue.project.title, project_path(@issue.project_id)

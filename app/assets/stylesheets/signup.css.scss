@@ -3,17 +3,17 @@
 }
 
 #show_password_eye {
-  z-index: 999;
-  position: absolute;
-  margin-top: 10px;
-  margin-left: -25px;
+  z-index: 999; 
+  position: relative;
+  top: -25px;
+  left: -8px;
 }
 
 #subdomain_verification_icon {
-  z-index: 999;
-  position: absolute;
-  margin-top: 10px;
-  margin-left: -25px;
+  z-index: 999; 
+  position: relative;
+  top: -23px;
+  left: -15px;
 }
 
 .lds-ellipsis {

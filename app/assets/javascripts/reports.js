@@ -14,4 +14,7 @@ $(document).ready(function(){
     datatable_buttons.eq(i).removeClass('dt-button');
     datatable_buttons.eq(i).addClass('btn btn-' + datatable_button_classes[i]);
   }
+
+  $(".dt-buttons").appendTo("#datatable_buttons");
+  $(".dataTables_length").addClass("float-left");
 });
