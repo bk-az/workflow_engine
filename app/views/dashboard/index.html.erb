@@ -1,18 +1,18 @@
-<ul class="nav nav-pills mb-4 js-dashboard-tabs" role="tablist">
+<ul class="nav nav-tabs mb-4 js-dashboard-tabs" role="tablist">
   <li class="nav-item">
-    <a class="btn btn-outline-secondary mr-2 active" id="pills_timeline_tab" data-toggle="pill" href="#pills_timeline" role="tab" aria-controls="pills_timeline" aria-selected="false">Timeline</a>
+    <a class="nav-item nav-link active" id="pills_timeline_tab" data-toggle="pill" href="#pills_timeline" role="tab" aria-controls="pills_timeline" aria-selected="false">Timeline</a>
   </li>
   <li class="nav-item">
-    <a class="btn btn-outline-secondary mr-2" id="pills_projects_tab" data-toggle="pill" href="#pills_projects" role="tab" aria-controls="pills_projects" aria-selected="true">My Projects</a>
+    <a class="nav-item nav-link" id="pills_projects_tab" data-toggle="pill" href="#pills_projects" role="tab" aria-controls="pills_projects" aria-selected="true">My Projects</a>
   </li>
   <li class="nav-item">
-    <a class="btn btn-outline-secondary mr-2" id="pills_assigned_issues_tab" data-toggle="pill" href="#pills_assigned_issues" role="tab" aria-controls="pills_assigned_issues" aria-selected="false">Assigned Issues</a>
+    <a class="nav-item nav-link" id="pills_assigned_issues_tab" data-toggle="pill" href="#pills_assigned_issues" role="tab" aria-controls="pills_assigned_issues" aria-selected="false">Assigned Issues</a>
   </li>
   <li class="nav-item">
-    <a class="btn btn-outline-secondary mr-2" id="pills_watching_issues_tab" data-toggle="pill" href="#pills_watching_issues" role="tab" aria-controls="pills_watching_issues" aria-selected="false">Watching Issues</a>
+    <a class="nav-item nav-link" id="pills_watching_issues_tab" data-toggle="pill" href="#pills_watching_issues" role="tab" aria-controls="pills_watching_issues" aria-selected="false">Watching Issues</a>
   </li>
   <li class="nav-item">
-    <a class="btn btn-outline-secondary mr-2" id="pills_charts_tab" data-toggle="pill" href="#pills_charts" role="tab" aria-controls="pills_charts" aria-selected="false">Statistics</a>
+    <a class="nav-item nav-link" id="pills_charts_tab" data-toggle="pill" href="#pills_charts" role="tab" aria-controls="pills_charts" aria-selected="false">Statistics</a>
   </li>
 </ul>
 
@@ -22,7 +22,7 @@
     <% if @timeline_data.blank? %>
       <p class="my-4">You don't have any issues assigned right now</p>
     <% else %>
-      <%= timeline @timeline_data, id: 'timeline_chart' ,height: "60vh" %>
+      <%= timeline @timeline_data, id: 'timeline_chart' ,height: "55vh" %>
     <% end %>
   </div>
 
