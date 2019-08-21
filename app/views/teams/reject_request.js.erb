@@ -1,3 +1,2 @@
-alert("request accepted")
 $("#flash_messages").html('<%= j render partial: "shared/flash" %>');
-location.reload()
+$('#pending_membership_<%= params[:membership_id] %>').fadeOut();

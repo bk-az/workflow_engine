@@ -74,6 +74,7 @@ class TeamsController < ApplicationController
     end
   end
 
+  # DELETE
   def destroy
     if @team.destroy
       flash[:notice] = t('team.destroy.success')
@@ -85,9 +86,10 @@ class TeamsController < ApplicationController
     end
   end
 
+  # GET /add_membership
   def add_membership
     @is_admin = params[:join_admin][:joining_decision] != '0'
-    @team_membership = @team.team_memberships.build(is_team_admin: @is_admin, is_approved: params[:is_approved], team_id: params[:team_sequence_num], user_id: params[:user_id])
+    @team_membership = @team.team_memberships.build(is_team_admin: @is_admin, is_approved: params[:is_approved], team_id: params[:team_sequence_num], user_id: params[:user_id], company_id: current_tenant.id)
     respond_to do |format|
       if @team_membership.save
         format.js
@@ -97,6 +99,7 @@ class TeamsController < ApplicationController
     end
   end
 
+  # DELETE /remove_member_team
   def remove_member
     @team_membership = @team.team_memberships.find_by(id: params[:membership_id])
     if @team_membership.present?
@@ -112,14 +115,22 @@ class TeamsController < ApplicationController
     end
   end
 
+  # GET /approve_member_team
   def approve_request
     @team.team_memberships.find_by(id: params[:membership_id]).update(is_approved: true)
+    respond_to do |format|
+      format.js
+    end
   end
 
-  # def reject_request
-  #   binding.pry
-  #   @team.team_memberships.delete(id: params[:membership_id])
-  # end
+  # GET /reject_member_team
+  def reject_request
+    @team_membership_id = params[:membership_id]
+    @team.team_memberships.delete(@team_membership_id)
+    respond_to do |format|
+      format.js
+    end
+  end
 
   private
 

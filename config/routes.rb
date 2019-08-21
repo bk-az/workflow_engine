@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       get 'add_membership'
       delete 'remove_member'
       get 'approve_request'
+      get 'reject_request'
     end
   end
 

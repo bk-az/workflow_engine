@@ -75,6 +75,9 @@
                         <%= link_to(approve_request_team_path(@team.sequence_num, membership_id: pending_membership.id), class: 'dropdown-item text-success mr-2 mb-1 mb-md-0 fixed-width' , remote: true) do %>
                           Accept <i class="fas fa-user-check"></i>
                         <% end %>
+                        <%= link_to(reject_request_team_path(@team.sequence_num, membership_id: pending_membership.id), class: 'dropdown-item text-danger mr-2 mb-1 mb-md-0 fixed-width' , remote: true) do %>
+                          Reject <i class="far fa-trash-alt"></i>
+                        <% end %>
                     
                       </div>
                     </div>
