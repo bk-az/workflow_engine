@@ -88,7 +88,6 @@ RSpec.describe TeamsController, type: :controller do
     before(:all) do
       Company.current_id = @company.id
       FactoryGirl.create(:user)
-      @team = create(:team, company: @company)
     end
     context 'as admin allowed to create' do
       before(:each) do
@@ -96,13 +95,13 @@ RSpec.describe TeamsController, type: :controller do
         sign_in @admin
       end
       context 'with valid/invalid attributes' do
-        it 'create the valid team in the database' do
+        it 'create the valid team in the database by admin' do
           expect do
             post :create, team: attributes_for(:team)
             Company.current_id = @company.id
           end.to change(Team, :count).by(1)
         end
-        it 'doesnt create the invalid team in the database' do
+        it 'doesnt create the invalid team in the database by admin' do
           expect do
             post :create, team: attributes_for(:team, name: 'a')
             Company.current_id = @company.id
@@ -116,12 +115,11 @@ RSpec.describe TeamsController, type: :controller do
         sign_in @member
       end
       context 'with valid/invalid attributes' do
-        it 'doesnt create the valid team in the database' do
-          assert ability.cannot?(:create, @team)
+        it 'doesnt allow to create the valid team in the database by member' do
+          assert ability.cannot?(:create, team: attributes_for(:team))
         end
-        it 'doesnt create the invalid team in the database' do
-          @team.company_id = nil
-          assert ability.cannot?(:destroy, attributes_for(:team))
+        it 'doesnt allow to create the invalid team in the database by member' do
+          assert ability.cannot?(:create, team: attributes_for(:team, name: 'a'))
         end
       end
     end
