@@ -32,15 +32,11 @@ RSpec.describe IssueStatesController, type: :controller do
         expect(assigns(:issue_states)).to eq IssueState.all
       end
     end
-    context 'GET #show' do
-      it 'should success and render to :show view' do
-        xhr :get, :show, id: issue_state
+    context 'GET #new' do
+      it 'should success and render to :new view' do
+        xhr :get, :new
         expect(response).to have_http_status(200)
-        expect(response).to render_template(:show)
-      end
-      it 'should assign issue_state to current issue_state' do
-        xhr :get, :show, id: issue_state
-        expect(assigns(:issue_state)).to eq issue_state
+        expect(response).to render_template(:new)
       end
     end
     context 'GET #edit' do
@@ -67,7 +63,7 @@ RSpec.describe IssueStatesController, type: :controller do
     end
     context 'PATCH #update' do
       before(:each) do
-        @issue_state = create(:issue_state, issue: create(:issue))
+        @issue_state = create(:issue_state)
         Company.current_id = @company.id
       end
       it 'should update issue_state in database' do
@@ -97,34 +93,6 @@ RSpec.describe IssueStatesController, type: :controller do
   end
 
   describe 'Authorization' do
-    context 'Without Signing in' do
-      it 'should not be able to index issue_states' do
-        expect do
-          get :index
-        end.to raise_exception(CanCan::AccessDenied)
-      end
-      it 'should not be able to show issue_state' do
-        expect do
-          xhr :get, :show, id: issue_state
-        end.to raise_exception(CanCan::AccessDenied)
-      end
-      it 'should not be able to create issue_state' do
-        expect do
-          xhr :post, :create, issue_state: issue_state_params
-        end.to raise_exception(CanCan::AccessDenied)
-      end
-      it 'should not be able to update issue_state' do
-        expect do
-          xhr :put, :update, id: issue_state, issue_state: issue_state_params
-        end.to raise_exception(CanCan::AccessDenied)
-      end
-      it 'should not be able to destroy issue_state' do
-        expect do
-          xhr :delete, :destroy, id: issue_state
-        end.to raise_exception(CanCan::AccessDenied)
-      end
-    end
-
     context 'When is an admin' do
       before(:each) do
         sign_in @admin
@@ -134,9 +102,9 @@ RSpec.describe IssueStatesController, type: :controller do
           get :index
         end.to_not raise_error
       end
-      it 'should be able to show issue_state' do
+      it 'should be able to new issue_state' do
         expect do
-          xhr :get, :show, id: issue_state
+          xhr :get, :new
         end.to_not raise_error
       end
       it 'should be able to create issue_state' do
@@ -161,29 +129,19 @@ RSpec.describe IssueStatesController, type: :controller do
         sign_in @member
       end
       it 'should not be able to index issue_states' do
-        expect do
-          get :index
-        end.to raise_exception(CanCan::AccessDenied)
+        expect(get(:index)).to have_http_status(404)
       end
-      it 'should not be able to show issue_state' do
-        expect do
-          xhr :get, :show, id: issue_state
-        end.to raise_exception(CanCan::AccessDenied)
+      it 'should not be able to new issue_state' do
+        expect(xhr(:get, :new)).to have_http_status(404)
       end
       it 'should not be able to create issue_state' do
-        expect do
-          xhr :post, :create, issue_state: issue_state_params
-        end.to raise_exception(CanCan::AccessDenied)
+        expect(xhr(:post, :create, issue_state: issue_state_params)).to have_http_status(404)
       end
       it 'should not be able to update issue_state' do
-        expect do
-          xhr :put, :update, id: issue_state, issue_state: issue_state_params
-        end.to raise_exception(CanCan::AccessDenied)
+        expect(xhr(:put, :update, id: issue_state, issue_state: issue_state_params)).to have_http_status(404)
       end
       it 'should not be able to destroy issue_state' do
-        expect do
-          xhr :delete, :destroy, id: issue_state
-        end.to raise_exception(CanCan::AccessDenied)
+        expect(xhr(:delete, :destroy, id: issue_state)).to have_http_status(404)
       end
     end
   end

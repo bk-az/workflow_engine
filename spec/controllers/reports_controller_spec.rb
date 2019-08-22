@@ -40,9 +40,7 @@ RSpec.describe ReportsController, type: :controller do
         sign_in @member
       end
       it 'should not be able to access issues report' do
-        expect do
-          get :issues
-        end.to raise_exception(CanCan::AccessDenied)
+        expect(get(:issues)).to have_http_status(404)
       end
     end
   end

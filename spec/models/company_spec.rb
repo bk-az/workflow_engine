@@ -60,10 +60,11 @@ RSpec.describe Company, type: :model do
   end
 
   it 'associated models should be destroyed' do
-    company.save
-    company.projects.create!(title: 'Lorem ipsum', description: 'Lorem ipsum')
-    Company.current_id = company.id
-    expect { company.destroy }.to change { Project.count }.by(-1)
+    my_company = create(:company)
+    Company.current_id = my_company.id
+    my_company.projects.create!(title: 'Lorem ipsum', description: 'Lorem ipsum')
+    expect { my_company.destroy }.to change { Project.count }.by(-1)
+    Company.current_id = nil
   end
 
   it 'name should not be too long' do

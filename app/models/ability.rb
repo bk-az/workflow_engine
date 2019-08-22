@@ -9,15 +9,10 @@ class Ability
 
     if user.admin?
       can :manage, :all
-      can [:index, :show], IssueType
-      can [:edit, :delete, :create], Project
       can [:new, :create, :privileges, :privileges_show, :edit, :destroy, :update], :member
     else
       # Project
-      can :show, Project do |project|
-        project.visible?(user)
-      end
-      can :index, Project, id: user.visible_projects.pluck(:id)
+      can :read, Project, id: user.visible_projects.pluck(:id)
 
       # Team
       can :read, Team
@@ -44,7 +39,7 @@ class Ability
       can :destroy, IssueWatcher, company_id: user.company_id, watcher_id: user.id, watcher_type: IssueWatcher::WATCHER_TYPES[:user]
 
       # Document
-      can [:create, :index, :destroy], Document, company_id: user.company_id
+      can [:create, :read, :destroy], Document, company_id: user.company_id
 
       # Dashboard
       can :manage, :dashboard
