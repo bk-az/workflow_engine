@@ -2,6 +2,7 @@ require 'cancan/matchers'
 require 'rails_helper'
 
 describe 'IssueState' do
+  before(:all) { @company = create(:company) }
   describe 'abilities' do
     subject(:ability) { Ability.new(user) }
     let(:user) { nil }
@@ -11,6 +12,7 @@ describe 'IssueState' do
     end
     context 'when is a member' do
       let(:user) { create(:member) }
+      before(:each) { Company.current_id = @company.id }
       it { should_not be_able_to(:manage, IssueState) }
       it { should_not be_able_to(:index, IssueState) }
       it { should_not be_able_to(:show, IssueState) }
