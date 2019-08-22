@@ -54,7 +54,13 @@ RSpec.describe Project, type: :model do
   end
 
   describe 'Project Model' do
-    before(:all) { @project = FactoryGirl.create(:project) }
+    before(:all) do
+      @company = create(:company)
+      Company.current_id = @company.id
+      @project = create(:project, company: @company)
+      @admin = create(:admin, company: @company)
+      @member = create(:member, company: @company)
+    end
     it 'should have a valid factory' do
       expect(@project).to be_valid
     end
