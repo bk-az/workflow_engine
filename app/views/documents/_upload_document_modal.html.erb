@@ -9,7 +9,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <%= form_for [@issue, @document], html: { multipart: true } do |f| %>
+        <%= form_for [get_parent_of_document(@project, @issue), @document], html: { multipart: true } do |f| %>
           <% if @document.errors.any? %>
             <div id="error_explanation">
               <h2>

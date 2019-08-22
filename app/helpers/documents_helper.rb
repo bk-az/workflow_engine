@@ -15,4 +15,13 @@ module DocumentsHelper
   def remove_extension_from_filename(filename)
     File.basename(filename, File.extname(filename))
   end
+
+  def get_parent_of_document(project, issue)
+    if issue.nil?
+      @project
+    else
+      @issue
+    end 
+  end
+          
 end

@@ -31,6 +31,7 @@ class DocumentsController < ApplicationController
   end
 
   def destroy
+    binding.pry
     respond_to do |format|
       format.html do
         if @document.destroy

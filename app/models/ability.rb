@@ -44,7 +44,7 @@ class Ability
       can :destroy, IssueWatcher, company_id: user.company_id, watcher_id: user.id, watcher_type: IssueWatcher::WATCHER_TYPES[:user]
 
       # Document
-      can [:create, :index, :destroy], Document, company_id: user.company_id
+      can [:create, :read, :destroy], Document, company_id: user.company_id
 
       # Dashboard
       can :manage, :dashboard
