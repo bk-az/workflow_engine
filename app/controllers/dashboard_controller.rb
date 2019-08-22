@@ -4,11 +4,11 @@ class DashboardController < ApplicationController
 
   def index
     @projects = current_tenant.projects.accessible_by(current_ability)
-    @assigned_issues = current_user.assigned_issues
-    @watching_issues = current_user.watching_issues
+    @assigned_issues = current_user.assigned_issues.includes(:project, :issue_state)
+    @watching_issues = current_user.watching_issues.includes(:project, :issue_state)
     if @projects.count > 0
       @project = @projects.first
-      @issues = @project.issues
+      @issues = @project.issues.includes(:issue_state)
     end
     @timeline_data = @assigned_issues.order(:start_date).pluck(:title, :start_date, :due_date)
     @watching_issues_pie_chart_data = @watching_issues.group_by_issue_state.count
