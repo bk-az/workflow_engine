@@ -14,7 +14,7 @@ class IssueWatcher < ActiveRecord::Base
   scope :issues_watched_by_user_through_teams, -> (user_id) do
     select("issues.sequence_num AS issue_id,
       issues.title as issue_title,
-      issue_watchers.watcher_id as watcher_id,
+      teams.sequence_num as watcher_id,
       teams.name as through")
       .joins('INNER JOIN issues ON issue_watchers.issue_id = issues.id')
       .joins('INNER JOIN teams ON issue_watchers.watcher_id = teams.id')
