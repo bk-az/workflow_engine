@@ -82,12 +82,27 @@
       <thead>
         <tr>
           <th>Title</th>
-          <th>State</th>
-          <th>Priority</th>
+          <th>Watching Through</th>
         </tr>
       </thead>
         <tbody>
-          <%= render partial: "shared/list_issues", collection: @watching_issues, as: :issue %>
+          <!-- EVERY KEY IS AN ISSUE ID -->
+          <% watching_issues_keys = @watching_issues_with_through.keys %>
+          <% watching_issues_keys.each do |key| %>
+            <tr>
+              <td>
+                <%= @watching_issues_with_through[key].first.issue_title %>    
+              </td>
+              <td>
+                <% @watching_issues_with_through[key].each do |watching_medium_entry| %>
+                  <a href="<%= path_for_watching_medium_button(watching_medium_entry) %>" class="btn btn-outline-secondary">
+                    <i class="fa <%= class_for_watching_medium_button_icon(watching_medium_entry.through) %>"></i>
+                    <%= watching_medium_entry.through %>
+                  </a>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
         </tbody>
     </table>
   </div>

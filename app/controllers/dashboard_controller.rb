@@ -6,6 +6,15 @@ class DashboardController < ApplicationController
     @projects = current_tenant.projects.accessible_by(current_ability)
     @assigned_issues = current_user.assigned_issues
     @watching_issues = current_user.watching_issues
+    watching_issues_with_through = IssueWatcher.issues_watched_by_user_with_through(current_user.id)
+
+    # Transform the array into a hash with the key of issue_title
+    # and value of array of acive record objects that show other important info.
+    @watching_issues_with_through = Hash.new { |hash, key| hash[key] = [] }
+    watching_issues_with_through.each do |row|
+      @watching_issues_with_through[row.issue_id] << row
+    end
+
     if @projects.count > 0
       @project = @projects.first
       @issues = @project.issues
