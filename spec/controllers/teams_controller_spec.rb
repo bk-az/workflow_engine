@@ -6,9 +6,9 @@ RSpec.describe TeamsController, type: :controller do
 
   before(:all) do
     @company = create(:company)
+    Company.current_id = @company.id
     @admin = create(:admin, company: @company)
     @member = create(:member, company: @company)
-
   end
   before(:each) do
     @request.host = "#{@company.subdomain}.lvh.me:3000"
@@ -56,12 +56,12 @@ RSpec.describe TeamsController, type: :controller do
         sign_in @admin
       end
       it 'returns a success response' do
-        get :show, id: @team
+        get :show, id: @team.sequence_num
         expect(assigns(:team)).to eq(@team)
       end
 
       it 'should success and render to the :show template' do
-        get :show, id: @team
+        get :show, id: @team.sequence_num
         expect(response).to have_http_status(200)
         expect(response).to render_template :show
       end
@@ -72,12 +72,12 @@ RSpec.describe TeamsController, type: :controller do
         sign_in @member
       end
       it 'returns a success response' do
-        get :show, id: @team
+        get :show, id: @team.sequence_num
         expect(assigns(:team)).to eq(@team)
       end
 
       it 'should success and render to the :show template' do
-        get :show, id: @team
+        get :show, id: @team.sequence_num
         expect(response).to have_http_status(200)
         expect(response).to render_template :show
       end
@@ -85,25 +85,26 @@ RSpec.describe TeamsController, type: :controller do
   end
 
   describe 'POST #create' do
-    before(:all) {
+    before(:all) do
+      Company.current_id = @company.id
       FactoryGirl.create(:user)
       @team = create(:team, company: @company)
-    }
+    end
     context 'as admin allowed to create' do
       before(:each) do
+        Company.current_id = @company.id
         sign_in @admin
       end
-      context 'with valid attributes' do
-        it 'saves the new team in the database' do
+      context 'with valid/invalid attributes' do
+        it 'create the valid team in the database' do
           expect do
-            post :create, team: @team
+            post :create, team: attributes_for(:team)
             Company.current_id = @company.id
-          end
-            .to change(Team, :count).by(1)
+          end.to change(Team, :count).by(1)
         end
-        it 'doesnt saves the invalid team in the database' do
+        it 'doesnt create the invalid team in the database' do
           expect do
-            post :create, team: FactoryGirl.attributes_for(:invalid_team)
+            post :create, team: attributes_for(:team, name: 'a')
             Company.current_id = @company.id
           end.to_not change(Team, :count)
         end
@@ -111,14 +112,16 @@ RSpec.describe TeamsController, type: :controller do
     end
     context 'as member not allowed to create' do
       before(:each) do
+        Company.current_id = @company.id
         sign_in @member
       end
-      context 'with valid attributes' do
-        it 'saves the new team in the database' do
+      context 'with valid/invalid attributes' do
+        it 'doesnt create the valid team in the database' do
           assert ability.cannot?(:create, @team)
         end
-        it 'doesnt saves the invalid team in the database' do
-          assert ability.cannot?(:destroy, FactoryGirl.attributes_for(:invalid_team))
+        it 'doesnt create the invalid team in the database' do
+          @team.company_id = nil
+          assert ability.cannot?(:destroy, attributes_for(:team))
         end
       end
     end
@@ -136,8 +139,7 @@ RSpec.describe TeamsController, type: :controller do
         expect do
          delete :destroy, id: @team
          Company.current_id = @company.id
-        end
-          .to change { Team.count }.by(-1)
+        end.to change { Team.count }.by(-1)
       end
     end
     context 'as member not allowed to destroy' do
@@ -145,53 +147,50 @@ RSpec.describe TeamsController, type: :controller do
         sign_in @member
       end
       it 'cannot removes team from table' do
-        # expect { delete :destroy, id: @team }.to_not change { Team.count }
         assert ability.cannot?(:destroy, @team)
       end
     end
   end
 
-  describe 'PUT update' do
-    before :all do
-      @team = FactoryGirl.create(:team)
+describe 'PUT update' do
+  before :all do
+    Company.current_id = @company.id
+    @team = FactoryGirl.create(:team)
+  end
+
+  context 'as admin allowed to update' do
+    before(:each) do
+      Company.current_id = @company.id
+      sign_in @admin
     end
-
-    context 'as admin allowed to update' do
-      before(:each) do
-        sign_in @admin
+    context 'valid/invalid attributes' do
+      it 'locates the requested @team' do
+        put :update, id: @team.sequence_num, team: FactoryGirl.attributes_for(:team)
+        expect(assigns(:team)).to eq(@team)
       end
-      context 'valid attributes' do
-        it 'locates the requested @team' do
-          put :update, id: @team, team: FactoryGirl.attributes_for(:team)
-          expect(assigns(:team)).to eq(@team)
-        end
 
-        it 'update attributes for valid team' do
-          put :update, id: @team, team: FactoryGirl.attributes_for(
-            :team,
-            name: 'This is edited team'
-          )
-          @team.reload
-          expect(@team.name).to eq('This is edited team')
-        end
-
-        it 'update attributes for invalid team' do
-          put :update, id: @team, team: FactoryGirl.attributes_for(:invalid_team)
-          @team.reload
-          expect(@team.name).to_not eq(nil)
-        end
+      it 'update attributes for valid team' do
+        put :update, id: @team.sequence_num, team: attributes_for(:team, name: 'new')
+        expect(assigns(:team).name).to eq('new')
       end
-    end
 
-    context 'as member not allowed to update' do
-      before(:each) do
-        sign_in @member
-      end
-      it 'not allow member to update team' do
-        assert ability.cannot?(:update, @team)
+      it 'doesnt update attributes for invalid team' do
+        put :update, id: @team.sequence_num, team: FactoryGirl.attributes_for(:team, name: '')
+        expect(assigns(:team).errors).to_not be_empty
       end
     end
   end
+
+  context 'as member not allowed to update' do
+    before(:each) do
+      Company.current_id = @company.id
+      sign_in @member
+    end
+    it 'not allow member to update team' do
+      assert ability.cannot?(:update, @team)
+    end
+  end
+end
 
   context 'Routes testing' do
     it 'routes to #index' do
