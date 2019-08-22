@@ -9,8 +9,6 @@ class Ability
 
     if user.admin?
       can :manage, :all
-      can [:index, :show], IssueType
-      can [:edit, :delete, :create], Project
       can [:new, :create, :privileges, :privileges_show, :edit, :destroy, :update], :member
     else
       # Project

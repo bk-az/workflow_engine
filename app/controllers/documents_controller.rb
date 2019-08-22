@@ -1,8 +1,9 @@
 class DocumentsController < ApplicationController
   before_action :authenticate_user!
-  load_resource :issue, find_by: 'sequence_num'
-  load_resource :project, find_by: 'sequence_num'
-  load_and_authorize_resource :document, through: [:issue, :project]
+  load_resource :issue, find_by: 'sequence_num', except: :destroy
+  load_resource :project, find_by: 'sequence_num', except: :destroy
+  load_and_authorize_resource through: [:issue, :project], except: :destroy
+  load_and_authorize_resource only: :destroy
   
   def index
     respond_to do |format|
@@ -31,7 +32,6 @@ class DocumentsController < ApplicationController
   end
 
   def destroy
-    binding.pry
     respond_to do |format|
       format.html do
         if @document.destroy
