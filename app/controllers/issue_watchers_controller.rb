@@ -4,7 +4,9 @@ class IssueWatchersController < ApplicationController
   load_and_authorize_resource
   # POST /issue_watchers
   def create
-    @issue, @watcher = @issue_watcher.add(watcher_params)
+    if @issue_watcher.save
+      @issue, @watcher = @issue_watcher.issue, @issue_watcher.watcher
+    end
     respond_to do |format|
       format.js
     end
@@ -12,7 +14,9 @@ class IssueWatchersController < ApplicationController
 
   # DELETE /issue_watchers/:id
   def destroy
-    @issue, @watcher = @issue_watcher.remove(@issue_watcher)
+    if @issue_watcher.destroy
+      @issue, @watcher = @issue_watcher.issue, @issue_watcher.watcher
+    end
     respond_to do |format|
       format.js
     end
@@ -30,7 +34,7 @@ class IssueWatchersController < ApplicationController
   private
 
   # Permits params for CRUD
-  def watcher_params
+  def issue_watcher_params
     params.permit(:issue_id, :watcher_id, :watcher_type)
   end
 

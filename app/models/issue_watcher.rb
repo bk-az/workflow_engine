@@ -3,46 +3,12 @@ class IssueWatcher < ActiveRecord::Base
   belongs_to :company
   belongs_to :watcher, polymorphic: true
 
+  validates :issue_id, presence: true
+  validates :watcher_id, presence: true
+  validates :watcher_type, presence: true
+
   WATCHER_TYPES = { user: 'User', team: 'Team' }.freeze
   WATCHER_ACTION = { create: 'create', destroy: 'destroy' }.freeze
-
-  # Adds watcher to database
-  def add(params)
-    issue = company.issues.find_by(id: params[:issue_id])
-    begin
-      if issue.present?
-        if params[:watcher_type] == WATCHER_TYPES[:user]
-          user = company.users.find_by(id: params[:watcher_id])
-          if user.present?
-            user.watching_issues << issue
-            return issue, user
-          end
-        elsif params[:watcher_type] == WATCHER_TYPES[:team]
-          team = company.teams.find_by(id: params[:watcher_id])
-          if team.present?
-            team.watching_issues << issue
-            return issue, team
-          end
-        end
-      end
-    rescue ActiveRecord::RecordNotUnique
-      return issue
-    end
-  end
-
-  # Removes watcher from database
-  def remove(issue_watcher)
-    if issue_watcher.present?
-      issue_watcher.destroy
-      if issue_watcher.watcher_type == WATCHER_TYPES[:user]
-        user = company.users.find_by(id: issue_watcher.watcher_id)
-        return issue, user
-      elsif issue_watcher.watcher_type == WATCHER_TYPES[:team]
-        team = company.teams.find_by(id: issue_watcher.watcher_id)
-        return issue, team
-      end
-    end
-  end
 
   # Returns watchers
   def self.find_watchers(params, current_tenant)
