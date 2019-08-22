@@ -1,9 +1,9 @@
 # Issues Controller
 class IssuesController < ApplicationController
   before_action :authenticate_user!
-  load_and_authorize_resource :project
-  load_and_authorize_resource through: :project, find_by: 'sequence_num', except: %i[index history filter]
-  load_and_authorize_resource find_by: 'sequence_num', only: %i[index history filter]
+  load_and_authorize_resource :project, find_by: :sequence_num
+  load_and_authorize_resource through: :project, find_by: :sequence_num, except: %i[index history filter]
+  load_and_authorize_resource find_by: :sequence_num, only: %i[index history filter]
 
   # GET /issues
   def index
@@ -33,7 +33,7 @@ class IssuesController < ApplicationController
     end
   end
 
-  # GET projects/:id/issues/new
+  # GET projects/:project_id/issues/new
   def new
     @assignees = current_tenant.users.all
     @issue_types = current_tenant.issue_types.project_issue_types(@project.id)
@@ -46,7 +46,7 @@ class IssuesController < ApplicationController
     end
   end
 
-  # GET projects/:id/issues/:id
+  # GET projects/:project_id/issues/:id
   def show
     add_breadcrumb 'Projects', :projects_path
     add_breadcrumb @issue.project.title, project_path(@issue.project)
@@ -59,7 +59,7 @@ class IssuesController < ApplicationController
     end
   end
 
-  # GET projects/:id/issues/:id/edit
+  # GET projects/:project_id/issues/:id/edit
   def edit
     add_breadcrumb 'Projects', :projects_path
     add_breadcrumb @issue.project.title, project_path(@issue.project)
@@ -74,7 +74,7 @@ class IssuesController < ApplicationController
     end
   end
 
-  # PUT projects/:id/issues/:id
+  # PUT projects/:project_id/issues/:id
   def update
     if @issue.update(issue_params)
       flash[:notice] = t('issues.update.notice')
@@ -91,7 +91,7 @@ class IssuesController < ApplicationController
     end
   end
 
-  # POST projects/:id/issues
+  # POST projects/:project_id/issues
   def create
     @issue.creator_id = current_user.id
     if @issue.save
@@ -109,7 +109,7 @@ class IssuesController < ApplicationController
     end
   end
 
-  # DELETE projects/:id/issues/:id
+  # DELETE projects/:project_id/issues/:id
   def destroy
     if @issue.destroy
       flash[:notice] = t('issues.destroy.notice')
