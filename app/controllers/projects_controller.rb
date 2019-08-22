@@ -17,7 +17,13 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    create_and_save_project; return if performed?
+    if @project.save
+      flash[:notice] = t('projects.create.success')
+      redirect_to @project
+    else
+      flash.now[:error] = @project.errors.full_messages
+      render :new
+    end
   end
 
   def show
@@ -69,14 +75,5 @@ class ProjectsController < ApplicationController
 
   def project_params
     params.require(:project).permit(:title, :description)
-  end
-
-  def create_and_save_project
-    if @project.save
-      flash[:notice] = t('projects.create.success')
-      redirect_to @project
-    else
-      render :new
-    end
   end
 end
