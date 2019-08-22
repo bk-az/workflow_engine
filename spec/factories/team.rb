@@ -17,4 +17,5 @@ FactoryGirl.define do
     f.company_id 1
     f.name { Faker::Team.name }
   end
+  
 end

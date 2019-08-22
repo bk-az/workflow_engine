@@ -21,6 +21,7 @@ class ProjectsController < ApplicationController
       flash[:notice] = t('projects.create.success')
       redirect_to @project
     else
+      flash.now[:error] = @project.errors.full_messages
       render :new
     end
   end

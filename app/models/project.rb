@@ -21,11 +21,6 @@ class Project < ActiveRecord::Base
   has_many :users, through: :project_memberships, source: :project_member,
   source_type: 'User'
 
-  def visible?(user)
-    return true if user.admin?
-    user.projects.find_by(id: id)
-  end
-
   def dependent_issues?
     issues.count > 0
   end

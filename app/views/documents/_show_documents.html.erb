@@ -16,7 +16,10 @@
               <i class="fas fa-ellipsis-v" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
               <div class="dropdown-menu">
                 <%= link_to 'View', document.document.url(:original, false), target: :_blank, class: 'dropdown-item mb-1 mb-md-0 fixed-width' %>
-                <%= link_to 'Delete', document, method: 'delete', data: { confirm: 'Are you sure to remove this document?'}, class: 'dropdown-item mb-1 mb-md-0 fixed-width' %>
+                <% if can?(:destroy, document) %>
+                  <%= link_to 'Delete', document_path(document), method: :delete, data: { confirm: 'Are you sure to remove this document?'}, class: 'dropdown-item mb-1 mb-md-0 fixed-width' %>
+                <% end %>
+
               </div>
             </div>
           </td>

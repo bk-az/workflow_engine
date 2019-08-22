@@ -3,15 +3,17 @@ require 'rails_helper'
 RSpec.describe IssuesController, type: :controller do
   before(:all) do
     @company = FactoryGirl.create(:company)
+    Company.current_id = @company.id
     @admin = FactoryGirl.create(:admin, company: @company)
-    @member = FactoryGirl.create(:member, company: @company)
     @project = FactoryGirl.create(:project, company: @company)
     @issue = FactoryGirl.create(:issue, company: @company)
+    @member = FactoryGirl.create(:member, company: @company)
+    @member.projects << @project
   end
   before(:each) do
     @request.host = "#{@company.subdomain}.lvh.me:3000"
     Company.current_id = @company.id
-    sign_in @member
+    sign_in @admin
   end
 
   context 'GET #index' do
@@ -30,22 +32,25 @@ RSpec.describe IssuesController, type: :controller do
 
   context 'Get #new' do
     it 'it render new template' do
-      get :new, id: @issue, project_id: @project.id
+      get :new, project_id: @project.sequence_num
       expect(response).to be_success
     end
   end
 
   context 'Get #show' do
     before :all do
-      @issue = FactoryGirl.create(:issue, company: @company)
+      Company.current_id = @company.id
+      @issue = FactoryGirl.create(:issue, company: @company, project: @project)
     end
 
     it 'returns a success response' do
-      get :show, id: @issue, project_id: @project.id
+      get :show, id: @issue.sequence_num, project_id: @issue.project.sequence_num
+      Company.current_id = @company.id
       expect(assigns(:issue)).to eq(@issue)
     end
     it 'should success and render to the :show template' do
-      get :show, id: @issue, project_id: @project.id
+      get :show, id: @issue.sequence_num, project_id: @project.sequence_num
+      Company.current_id = @company.id
       expect(response).to have_http_status(200)
       expect(response).to render_template :show
     end
