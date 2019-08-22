@@ -2,7 +2,7 @@
   <% if issue.present? %>
     <% if issue.issue_watchers.find_by(watcher_id: current_user).blank? %>
       <% if can?(:create, IssueWatcher) %>
-        <%= link_to 'Watch', issue_watchers_path(issue_id: issue, watcher_id: current_user, watcher_type: 'User'), method: :post, class: 'btn btn-secondary', remote: true %>
+        <%= link_to 'Watch', issue_watchers_path(issue_id: @issue.id, watcher_id: current_user, watcher_type: 'User'), method: :post, class: 'btn btn-secondary', remote: true %>
         <% end %>
     <% else %>
       <% if can?(:destroy, IssueWatcher) %>
