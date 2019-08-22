@@ -5,13 +5,14 @@ RSpec.describe IssueTypesController, type: :controller do
     @company = create(:company)
     @admin = create(:admin, company: @company)
     @member = create(:member, company: @company)
+    @project = create(:project, company: @company)
   end
 
   let(:project)             { create(:project, company: @company) }
   let(:issue_type)          { create(:issue_type, company: @company) }
   let(:project_issue_type)  { create(:issue_type, project: project, company: @company) }
 
-  let(:issue_type_params) { attributes_for(:issue_type, project_id: project.id) }
+  let(:issue_type_params) { attributes_for(:issue_type, project_id: @project.id) }
   let(:global_issue_type_params) { attributes_for(:issue_type) }
 
   before(:each) do
@@ -70,15 +71,15 @@ RSpec.describe IssueTypesController, type: :controller do
       end
       it 'should create new issue_type associated with current project in database' do
         expect do
-          xhr :post, :create, project_id: project.id, issue_type: issue_type_params
+          xhr :post, :create, project_id: @project.id, issue_type: issue_type_params
           Company.current_id = @company.id
-        end.to change(project.issue_types, :count).by(1)
+        end.to change(@project.issue_types, :count).by(1)
       end
     end
     context 'PATCH #update' do
       before(:each) do
-        @issue_type = create(:issue_type, project: create(:project))
         Company.current_id = @company.id
+        @issue_type = create(:issue_type, project: create(:project))
       end
       it 'should update issue_type in database' do
         xhr :patch, :update, id: @issue_type, issue_type: issue_type_params
@@ -90,12 +91,6 @@ RSpec.describe IssueTypesController, type: :controller do
         xhr :patch, :update, id: @issue_type, issue_type: issue_type_params
         Company.current_id = @company.id
         expect(assigns(:issue_type).project_id).to_not eq issue_type_params[:project_id]
-      end
-      it 'should generate errors when update is unsuccessful' do
-        @issue_type.issues << create(:issue, project: create(:project))
-        xhr :patch, :update, id: @issue_type, issue_type: issue_type_params
-        Company.current_id = @company.id
-        expect(assigns(:issue_type).errors).to_not be_empty
       end
     end
     context 'DELETE #destroy' do
