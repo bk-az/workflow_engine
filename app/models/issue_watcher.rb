@@ -57,7 +57,6 @@ class IssueWatcher < ActiveRecord::Base
         end
       elsif params[:watcher_type] == WATCHER_TYPES[:team]
         watchers = current_tenant.teams.where('name LIKE ?', "%#{sanitize_sql_like(params[:watcher_search])}%")
-                                 .where.not(id: issue.watcher_teams.ids)
         if params[:watcher_action] == WATCHER_ACTION[:create]
           watchers = watchers.where.not(id: issue.watcher_teams.ids)
         elsif params[:watcher_action] == WATCHER_ACTION[:destroy]

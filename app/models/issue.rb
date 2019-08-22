@@ -73,7 +73,7 @@ class Issue < ActiveRecord::Base
     # Removing duplicates and nil values
     emails = emails.compact.uniq
     emails.each do |email|
-      IssueMailer.delay.notify(email, id, company_id)
+      IssueMailer.delay.notify(email, sequence_num, company_id)
     end
   end
 end
