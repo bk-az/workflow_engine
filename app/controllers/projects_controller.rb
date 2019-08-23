@@ -27,6 +27,7 @@ class ProjectsController < ApplicationController
   end
 
   def show
+    add_breadcrumb @project.title, :project_path
     @document = current_tenant.documents.new
     @issues = @project.issues
     @issue_types = current_tenant.issue_types.for_projects(@project)
