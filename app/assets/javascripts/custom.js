@@ -1,9 +1,8 @@
 // Menu Toggle Script
 $(function() {
   var last_child_of_breadcrum = $('#breadcrumb li:last-child');
-  if (last_child_of_breadcrum.has('a').length === 0) {
-    last_child_of_breadcrum.wrapInner("<a></a>");
-  }
+  last_child_of_breadcrum.html("<a>" + last_child_of_breadcrum.text() + "</a>");
+
   $('#breadcrumb').parent().hide().removeClass('d-none').slideDown(500);
 
   function performAjax(url, type, data, successCallback = null, failureCallback = null, beforeSendCallback = null, completeCallback = null ) {
