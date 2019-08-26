@@ -82,6 +82,10 @@ class IssuesController < ApplicationController
         format.html { redirect_to project_issue_path(@issue.project, @issue) }
       end
     else
+      add_breadcrumb 'Projects', :projects_path
+      add_breadcrumb @issue.project.title, project_path(@issue.project)
+      add_breadcrumb @issue.title, :project_issue_path
+      add_breadcrumb 'Edit', :edit_project_issue_path
       @assignees = current_tenant.users.all
       @issue_types = current_tenant.issue_types.all
       @issue_states = current_tenant.issue_states.all
@@ -100,6 +104,9 @@ class IssuesController < ApplicationController
         format.html { redirect_to project_issue_path(@issue.project, @issue) }
       end
     else
+      add_breadcrumb 'Projects', :projects_path
+      add_breadcrumb @project.title, project_path(@project)
+      add_breadcrumb 'New Issue', :new_project_issue_path
       @assignees = current_tenant.users.all
       @issue_types = current_tenant.issue_types.all
       @issue_states = current_tenant.issue_states.all
