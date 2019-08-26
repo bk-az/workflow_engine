@@ -11,12 +11,12 @@
         <div class="modal-body" id="add_member_modal" >
           <div class="row">
             <div class="col-8">
-              <%= select_tag "user_id", options_from_collection_for_select(@all_members, :id, :first_name),class: 'select_tag_width'%>
+              <%= select_tag "user_id", options_from_collection_for_select(@all_members, :id, :first_name),class: 'select_tag_width form-control'%>
               <%= hidden_field_tag(:team_sequence_num, @team.sequence_num) %>
               <%= hidden_field_tag(:is_approved, true) %>
             </div>
             <div class="col-4">
-              <div class="form-group form-check">
+              <div class="form-group form-check mt-2">
                 <div class="form-check-label">
                   <%= check_box 'join_admin', 'joining_decision', {}, 1, 0 %>
                   <%= label_tag(:join_admin, "Admin", class: 'form-check-label') %>
@@ -24,7 +24,7 @@
               </div>
             </div>   
           </div>
-          <button type="submit" class="btn btn-secondary" >Add Member</button>
+          <button type="submit" class="btn btn-secondary mt-4" >Add Member</button>
         </div>
       <% end %>  
         <div class="modal-footer">
