@@ -16,11 +16,12 @@ class Issue < ActiveRecord::Base
 
   # Validations
   validates :title, presence: true, length: { minimum: 3, maximum: 100 }
-  validates :description, length: { minimum: 3, maximum: 500 }
   validates :progress, presence: true, length: { minimum: 1, maximum: 5 }
   validates :priority, presence: true
   validates :issue_state_id, presence: true
   validates :issue_type_id, presence: true
+
+  validate :due_date_after_start_date
 
   belongs_to :company
   belongs_to :project
@@ -48,6 +49,14 @@ class Issue < ActiveRecord::Base
   source_type: 'User', class_name: 'User'
   has_many   :watcher_teams, through: :issue_watchers, source: :watcher,
   source_type: 'Team', class_name: 'Team'
+
+  def due_date_after_start_date
+    return if due_date.blank? || start_date.blank?
+
+    if due_date < start_date
+      errors.add(:due_date, 'must be after the start date')
+    end
+  end
 
   # Helper method for sending email
   def send_email
