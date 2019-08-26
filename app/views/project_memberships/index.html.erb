@@ -12,10 +12,14 @@
 
 <h2 class="my-4">Teams</h2>
 <div class="masonry" id="team_memberships">
-  <%= render partial: "project_member", collection: @teams, as: :project_member %>
+  <% if @teams.size > 0 %>
+    <%= render partial: "project_member", collection: @teams, as: :project_member %>
+  <% end %>
 </div>
 
 <h2 class="my-4">Members</h2>
 <div class="masonry" id="user_memberships">
-  <%= render partial: "project_member", collection: @users, as: :project_member %>
+  <% if @users.size > 0 %>
+    <%= render partial: "project_member", collection: @users, as: :project_member %>
+  <% end %>
 </div>

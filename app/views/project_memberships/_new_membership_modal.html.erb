@@ -22,7 +22,7 @@
         <div class="form-group">
           <input type="text" id="project_membership_search_text" class="form-control" placeholder="Search" autofocus>
         </div>
-        <input type="number" id="project_membership_project_id" value="<%= @project.id %>" hidden>
+        <input type="number" id="project_membership_project_id" value="<%= @project.sequence_num %>" hidden>
         <div id="project_membership_search_results"></div>
 
         <%= form_for(@project_membership, url: project_members_path(@project), remote: true, html: {id: :new_project_membership_form}) do |f| %>
