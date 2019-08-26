@@ -68,7 +68,7 @@ $(function() {
   }
 
   // ------------------- HELPER Functions -------------------------------------
-  function changeSubdomainValue(companyName, isRunningOnPageLoad = false) {
+  function changeSubdomainValue(companyName) {
     var subdomain = generateSubdomainFromCompanyName(companyName);
     subdomainTextArea.html(subdomain);
     companySubdomainTextField.val(subdomain);
@@ -77,7 +77,7 @@ $(function() {
     subdomainTextArea.parent().addClass('text-dark');
 
     // Add spinner html only when it already not present.
-    if (!isRunningOnPageLoad && !subdomainVerficationIconContainer.html()) {
+    if (subdomain && !subdomainVerficationIconContainer.html()) {
       subdomainVerficationIconContainer.html('<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>');
     }
 
