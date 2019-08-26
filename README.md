@@ -8,5 +8,5 @@ A project management and issue tracking tool
 ## Load Seed data
 `rake db:seed`
 ## Login as Admin
-`email: admin@7vals.com`
-`password: 123456789`
+email: `admin@7vals.com`
+password: `123456789`
