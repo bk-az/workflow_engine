@@ -1,6 +1,6 @@
 class ProjectMembershipsController < ApplicationController
   before_action :authenticate_user!
-  load_resource :project, find_by: 'sequence_num'
+  load_resource :project, find_by: :sequence_num
   load_and_authorize_resource through: :project, shallow: true
   # GET #index
   def index

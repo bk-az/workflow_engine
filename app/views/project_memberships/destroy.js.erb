@@ -1,1 +1,3 @@
-$("<%= @deleted_view_id %>").fadeOut(1000);
+$("<%= @deleted_view_id %>").fadeOut(1000, function () {
+  $("<%= @deleted_view_id %>").remove();
+});

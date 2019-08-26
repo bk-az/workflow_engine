@@ -1,8 +1,8 @@
 # Controller for comments model. Comments are to be shown on projects and issues
 class CommentsController < ApplicationController
   before_action :authenticate_user!
-  load_and_authorize_resource :project, only: %i[new create]
-  load_and_authorize_resource :issue, only: %i[new create]
+  load_and_authorize_resource :project, only: %i[new create], find_by: :sequence_num
+  load_and_authorize_resource :issue, only: %i[new create], find_by: :sequence_num
   load_and_authorize_resource through: %i[project issue], only: %i[new create]
   load_and_authorize_resource except: %i[new create]
 
