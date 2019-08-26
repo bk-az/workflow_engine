@@ -2,7 +2,7 @@
   <td><%= link_to(issue.title, project_issue_path(issue.project, issue.sequence_num)) %></td>
   <td><%= link_to(issue.project.title, project_path(issue.project)) %></td>
   <% if issue.assignee.present? %>
-    <td><%= link_to(issue.assignee, member_path(issue.assignee)) %></td>
+    <td><%= link_to(issue.assignee.full_name, member_path(issue.assignee)) %></td>
   <% else %>
     <td>--</td>
   <% end %>
