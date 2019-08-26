@@ -10,6 +10,7 @@ class Issue < ActiveRecord::Base
   }.freeze
 
   scope :group_by_issue_state, -> { joins(:issue_state).group(:name) }
+  scope :search, ->(filter_params, search_keyword) { where(filter_params).where('title LIKE ?', "%#{sanitize_sql_like(search_keyword)}%") }
 
   after_save :send_email
   paginates_per 7
@@ -50,6 +51,7 @@ class Issue < ActiveRecord::Base
   has_many   :watcher_teams, through: :issue_watchers, source: :watcher,
   source_type: 'Team', class_name: 'Team'
 
+  # Validates date
   def due_date_after_start_date
     return if due_date.blank? || start_date.blank?
 

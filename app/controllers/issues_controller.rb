@@ -27,7 +27,7 @@ class IssuesController < ApplicationController
 
   # GET /issues/filter
   def filter
-    @issues = @issues.where(search_params).page(params[:page])
+    @issues = Issue.search(search_params, params[:search_issue]).page(params[:page])
     respond_to do |format|
       format.js
     end

@@ -5,7 +5,8 @@ $(function() {
 
   $('#issues_table').DataTable({
     "paging": false,
-    "info":   false
+    "info":   false,
+    "searching": false
   });
 
   $('#add_watchers_modal').on('hidden.bs.modal', function (e) {
