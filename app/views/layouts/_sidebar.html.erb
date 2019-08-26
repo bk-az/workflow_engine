@@ -1,41 +1,41 @@
 <div id="sidebar-wrapper">
   <ul class="sidebar-nav">
     <li class="pl-0 sidebar-brand">
-      <%= link_to 'My Workplace', dashboard_path %>
+      <%= link_to 'My Workplace', dashboard_path, class: sidebar_active_class_provider('workplace') %>
     </li>
     <li class="sidebar-menu-custom-nav-items">
-      <%= link_to(members_path,  class: 'dropdown-item text-secondary mr-2 mb-1 mb-md-0 fixed-width') do %>
+      <%= link_to(members_path,  class: "dropdown-item text-secondary mr-2 mb-1 mb-md-0 fixed-width #{sidebar_active_class_provider('members')}") do %>
       <i class="fas fa-user-friends"></i> Members
       <% end %>
     </li>
     <li class="sidebar-menu-custom-nav-items">
-      <%= link_to(projects_path,  class: 'dropdown-item text-secondary mr-2 mb-1 mb-md-0 fixed-width') do %>
+      <%= link_to(projects_path, class: "dropdown-item text-secondary mr-2 mb-1 mb-md-0 fixed-width #{sidebar_active_class_provider('projects')}") do %>
       <i class="fas fa-project-diagram"></i> Projects
       <% end %>
     </li>
     <li class="sidebar-menu-custom-nav-items">
-      <%= link_to(teams_path ,  class: 'dropdown-item text-secondary mr-2 mb-1 mb-md-0 fixed-width') do %>
+      <%= link_to(teams_path, class: "dropdown-item text-secondary mr-2 mb-1 mb-md-0 fixed-width #{sidebar_active_class_provider('teams')}") do %>
       <i class="fas fa-user-friends"></i> Teams
       <% end %>
     </li>
     <li class="sidebar-menu-custom-nav-items">
-      <%= link_to(issues_path ,  class: 'dropdown-item text-secondary mr-2 mb-1 mb-md-0 fixed-width') do %>
+      <%= link_to(issues_path ,  class: "dropdown-item text-secondary mr-2 mb-1 mb-md-0 fixed-width #{sidebar_active_class_provider('issues')}") do %>
       <i class="fas fa-bookmark"></i> Issues
       <% end %>
     </li>
     <% if can? :manage, :all %>
     <li class="sidebar-menu-custom-nav-items">
-      <%= link_to(issue_types_path  ,  class: 'dropdown-item text-secondary mr-2 mb-1 mb-md-0 fixed-width') do %>
+      <%= link_to(issue_types_path  ,  class: "dropdown-item text-secondary mr-2 mb-1 mb-md-0 fixed-width #{sidebar_active_class_provider('issue_types')}") do %>
       <i class="fas fa-bookmark"></i> Issue Types
       <% end %>
     </li>
     <li class="sidebar-menu-custom-nav-items">
-      <%= link_to(issue_states_path ,  class: 'dropdown-item text-secondary mr-2 mb-1 mb-md-0 fixed-width') do %>
+      <%= link_to(issue_states_path ,  class: "dropdown-item text-secondary mr-2 mb-1 mb-md-0 fixed-width #{sidebar_active_class_provider('issue_states')}") do %>
       <i class="fas fa-bookmark"></i> Issue States
       <% end %>
     </li>
     <li class="sidebar-menu-custom-nav-items">
-      <%= link_to(issues_report_path  ,  class: 'dropdown-item text-secondary mr-2 mb-1 mb-md-0 fixed-width') do %>
+      <%= link_to(issues_report_path  ,  class: "dropdown-item text-secondary mr-2 mb-1 mb-md-0 fixed-width #{sidebar_active_class_provider('reports')}") do %>
       <i class="far fa-chart-bar"></i> Issues Reports
       <% end %>
     </li>
