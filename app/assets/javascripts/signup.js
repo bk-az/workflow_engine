@@ -27,7 +27,7 @@ $(function() {
   // ------------------- ONLOAD scripts --------------------------------------
   companySubdomainDisplayArea.hide();
   passwordConfirmationTextField.val(passwordTextField.val());
-  companyNameTextField.keyup(); // Force company name to be validated on page reload.
+  changeSubdomainValue(companyNameTextField.val(), true); // Force company name to be validated on page reload.
 
 
   // ------------------- EVENT Handlers --------------------------------------
@@ -68,7 +68,7 @@ $(function() {
   }
 
   // ------------------- HELPER Functions -------------------------------------
-  function changeSubdomainValue(companyName) {
+  function changeSubdomainValue(companyName, isRunningOnPageLoad = false) {
     var subdomain = generateSubdomainFromCompanyName(companyName);
     subdomainTextArea.html(subdomain);
     companySubdomainTextField.val(subdomain);
@@ -77,7 +77,7 @@ $(function() {
     subdomainTextArea.parent().addClass('text-dark');
 
     // Add spinner html only when it already not present.
-    if (!subdomainVerficationIconContainer.html()) {
+    if (!isRunningOnPageLoad && !subdomainVerficationIconContainer.html()) {
       subdomainVerficationIconContainer.html('<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>');
     }
 
