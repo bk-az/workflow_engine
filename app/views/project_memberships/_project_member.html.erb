@@ -4,7 +4,7 @@
     <div class="card-body">
       <h6>
         <% if team?(project_member) %>
-          <%= link_to project_member.name, team_path(project_member.id) %>
+          <%= link_to project_member.name, team_path(project_member) %>
         <% else %>
           <%= link_to project_member.name, member_path(project_member) %>
         <% end %>
