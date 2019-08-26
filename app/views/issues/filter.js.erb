@@ -4,5 +4,6 @@ $("#issues_table tbody").append('<%= j render partial: "issues", locals: { issue
 $('#issues_paginator').html('<%= j paginate(@issues, remote: true).to_s %>');
 $('#issues_table').DataTable({
     "paging": false,
-    "info":   false
+    "info":   false,
+    "searching": false
 });

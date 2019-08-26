@@ -1,30 +1,39 @@
 <h1>Issues</h1>
   <%= form_tag(filter_issues_path, method: 'get', remote: true, id: "issues_filter_form" ) do %>
     <div class="row">
-      <div class="col-md-3">
+      <div class="col-sm-3">
         <label>Projects</label>
-        <%= select_tag "project_id", options_from_collection_for_select(@projects, :id, :title), class: 'form-control dropdown-toggle', include_blank: "All" %> 
+        <%= select_tag "project_id", options_from_collection_for_select(@projects, :id, :title), class: 'form-control dropdown-toggle', include_blank: "All" %>
       </div>
 
-      <div class="col-md-3">
+      <div class="col-sm-3">
         <label>Assignee</label>
         <%= select_tag "assignee_id", options_from_collection_for_select(@assignees, :id, :first_name), class: 'form-control', include_blank: "All" %>
       </div>
 
-      <div class="col-md-3">
+      <div class="col-sm-3">
         <label>Issue State</label>
         <%= select_tag "issue_state_id", options_from_collection_for_select(@issue_states, :id, :name), class: 'form-control', include_blank: "All"%>
       </div>
 
-      <div class="col-md-3">
+      <div class="col-sm-3">
         <label>Issue Type</label>
         <%= select_tag "issue_type_id", options_from_collection_for_select(@issue_types, :id, :name), class: 'form-control', include_blank: "All"%>
       </div>
     </div>
-    </br>
+
+    <div class="row mt-3 align-items-center">
+      <div class="offset-sm-9 col-12 col-sm-3">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-search"></i></span>
+          </div>
+          <%= text_field_tag "search_issue", nil, class: 'form-control', placeholder: 'Search for title'%>
+        </div>
+      </div>
+    </div>
   <% end %>
-</br>
-<br> 
+<br>
 
 <table class="table table-hover" id="issues_table">
   <thead>
