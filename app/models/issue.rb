@@ -25,7 +25,7 @@ class Issue < ActiveRecord::Base
   validate :due_date_after_start_date
 
   belongs_to :company
-  belongs_to :project
+  belongs_to :project, counter_cache: true
   belongs_to :issue_state
   has_many   :issue_states
   belongs_to :issue_type
