@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190817103149) do
+ActiveRecord::Schema.define(version: 20190827063137) do
 
   create_table "audits", force: :cascade do |t|
     t.integer  "auditable_id",    limit: 4
@@ -172,6 +172,7 @@ ActiveRecord::Schema.define(version: 20190817103149) do
     t.datetime "updated_at",                 null: false
     t.integer  "company_id",   limit: 4,     null: false
     t.integer  "sequence_num", limit: 4,     null: false
+    t.integer  "issues_count", limit: 4
   end
 
   add_index "projects", ["company_id"], name: "index_projects_on_company_id", using: :btree
