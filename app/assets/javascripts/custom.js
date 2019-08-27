@@ -1,10 +1,5 @@
 // Menu Toggle Script
 $(function() {
-  var last_child_of_breadcrum = $('#breadcrumb li:last-child');
-  last_child_of_breadcrum.html("<a>" + last_child_of_breadcrum.text() + "</a>");
-
-  $('#breadcrumb').parent().hide().removeClass('d-none').slideDown(500);
-
   function performAjax(url, type, data, successCallback = null, failureCallback = null, beforeSendCallback = null, completeCallback = null ) {
     $.ajax({
       async: true,
