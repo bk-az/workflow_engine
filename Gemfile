@@ -47,6 +47,7 @@ group :development, :test do
   gem 'factory_girl_rails', '4.9.0'
   # rspec
   gem 'rspec-rails', '3.8.2'
+  gem 'rspec_junit_formatter'
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '2.3.0'
   # Spring speeds up development by keeping your application running in the
